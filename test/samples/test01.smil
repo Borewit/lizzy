@@ -1,0 +1,9 @@
+<smil>
+<body>
+<seq>
+
+<audio src="http://example.com/foo.mp3"/>
+<audio src="http://example.com/bar.mp3"/>
+</seq>
+</body>
+</smil>

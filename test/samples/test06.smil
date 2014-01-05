@@ -1,0 +1,10 @@
+<smil>
+        <head>
+            <layout>
+                <root-layout width="240" height="180" />
+            </layout>
+        </head>
+        <body>
+            <video src="myvideo.flv" />
+        </body>
+</smil>

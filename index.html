@@ -1,0 +1,438 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html">
+        <title>Lizzy</title>
+        <meta name="author" content="Christophe Delory">
+    </head>
+
+    <body>
+        <h1>Lizzy v1.1.1</h1>
+        Lizzy is an open source Java library allowing to parse, create, edit, convert and save almost any type of <u><a href="http://en.wikipedia.org/wiki/Playlist">multimedia playlist</a></u>.
+        <br>
+        The currently supported formats are the following: M3U/M3U8/M4U/RAM, ASX/WMX/WVX/WAX, WPL, XSPF, SMIL, RMP, PLS, B4S/BPL, RSS/MediaRSS, Atom, PLIST, MPCPL, Hypetape, KPL, PLA and PLP (see details <a href="docs/formats.html">here</a>).
+        <br>
+        Two versatile command-line tools are also available (see the <a href="#Getting started">Getting started</a> guide).
+
+        <h2>Table of contents</h2>
+        <ol>
+            <li><a href="#Features">Features</a></li>
+            <li><a href="#License">License</a></li>
+            <li><a href="#Download">Download</a></li>
+            <li><a href="#Documentation">Documentation</a></li>
+            <li><a href="#Getting started">Getting started</a></li>
+            <li><a href="#Details">Details</a></li>
+            <li><a href="#Build">Build</a></li>
+            <li><a href="#Playlist information">Playlist information</a></li>
+            <li><a href="#Other solutions">Other solutions</a></li>
+            <li><a href="#Third-party libraries">Third-party libraries</a></li>
+        </ol>
+
+        <h2><a name="Features"></a>Features</h2>
+        There are so many types of media playlists, in different formats: plain text, XML, Windows .INI or binary.
+        I have the need to share, and thus often convert playlist files for different media players.
+        Why not you?
+        That's why I launched this project, mid-2008.
+        <br>
+        Here follows a list of the major features of Lizzy:
+        <ul>
+            <li>Wide and extensible playlist support (see the detailed list of <a href="docs/formats.html">currently supported playlist formats</a>)</li>
+            <li>Automatic detection of the type of input playlist</li>
+            <li>Information on playlist format support by some media players (input and output)</li>
+            <li>Physical access to the individual contents of a playlist is not required (performed on demand)</li>
+            <li>Information on playlist items (media contents): MIME type, length, duration, width/height</li>
+            <li>Powerful yet simple generic playlist representation</li>
+            <li>Direct handling of a given specific playlist type (eg. ASX, WPL) is possible</li>
+            <li>Playlist normalization (empty items removal, simplification, reduction)</li>
+        </ul>
+
+        <h2><a name="License">License</a></h2>
+        Lizzy is licensed through a BSD-like licensing model: see the text <a href="LICENSE">here</a>.
+
+        <h2><a name="Download">Download</a></h2>
+        Through the dedicated <a href="http://sourceforge.net/project/showfiles.php?group_id=237180">SourceForge</a> page.
+
+        <h2><a name="Documentation">Documentation</a></h2>
+        <ul>
+            <li>The detailed list of currently supported playlist formats is presented <a href="docs/formats.html">here</a></li>
+            <li>The Lizzy library <a href="docs/javadoc/index.html">Java reference documentation</a> (javadoc)</li>
+            <li>The project version history is <a href="CHANGES">here</a></li>
+            <li>Some <a href="docs/dtd/">DTDs</a> and <a href="docs/schema/">XML Schemas</a> that you may find useful</li>
+            <li>The <a href="docs/licenses/">licences</a> (and binaries) of the third-party libraries used at run-time</li>
+        </ul>
+
+        <h2><a name="Getting started">Getting started</a></h2>
+        First you have to download and install the Sun Java Runtime Environment (JRE) 6 (<a href="http://java.sun.com/javase/downloads">http://java.sun.com/javase/downloads</a>), or any compatible JRE.
+        <br>
+        Then, two choices, depending on whether you just want to <b>use</b> the Lizzy tools, or you want to <b>develop</b> a bigger project using in particular the Lizzy API:
+        <ul>
+            <li><u>User</u>: open a command prompt (Windows) or a shell terminal (Unix-like). Change the directory to the Lizzy binary distribution root.
+                <br>The usage of the Lizzy tools can be obtained through the following commands:
+                <ul>
+                    <li>"<code>Transcode</code>" (Windows) or "<code>sh Transcode.sh</code>" (Unix). This tool converts an input playlist to a (possibly new) format. A copy of the last recent usage is located <a href="docs/Transcode.txt">here</a>.
+                    <br>
+                    Example: "<code>Transcode -o new-playlist.xspf old-playlist.m3u</code>".
+                    </li>
+                    <li>"<code>AddToPlaylist</code>" (Windows) or "<code>sh AddToPlaylist.sh</code>" (Unix). This tool adds URLs, files and/or directories to a (possibly new) single playlist. A copy of the last recent usage is located <a href="docs/AddToPlaylist.txt">here</a>.
+                    <br>
+                    Example: "<code>AddToPlaylist -o new-playlist.asx music-directory this-file.mp3 anotherfile.wav</code>".
+                    </li>
+                </ul>
+                <u><b>CAUTION</b></u>: in order to use FFMPEG as content metadata provider, you have to put the needed dynamic libraries in the "<code>lib</code>" folder:
+                <ul>
+                    <li>On a Windows platform, they are "<code>avcodec-51.dll</code>", "<code>avformat-51.dll</code>" and "<code>avutil-49.dll</code>" (you can find them <a href="http://arrozcru.no-ip.org/">here</a>);</li>
+                    <li>On a Linux platform, they are "<code>libavcodec.so</code>", "<code>libavformat.so</code>" and "<code>libavutil.so</code>".</li>
+                </ul>
+            </li>
+            <li><u>Developer</u>: a sample introducing the main API methods is described <a href="docs/javadoc/christophedelory/playlist/package-summary.html#package_description">here</a>.
+            <br>
+            For a more complete usage, the best is to to refer to the source code of the <a href="docs/javadoc/christophedelory/lizzy/Transcode.html">Transcode</a> or <a href="docs/javadoc/christophedelory/lizzy/AddToPlaylist.html">AddToPlaylist</a> class, i.e. the command-line tools.
+            </li>
+        </ul>
+
+        <h2><a name="Details">Details</a></h2>
+        The library is built on the notion of service provider interface (<a href="http://en.wikipedia.org/wiki/Service_Provider_Interface">SPI</a>):
+        each "specific" playlist format (eg. ASX or SMIL) is associated with its own playlist provider implementation, through a generic interface.
+        Thus one can easily add, remove or modify a given playlist support.
+        <br>
+        At the center of the API lays a format-agnostic description of the playlist.
+        This "generic" playlist representation allows exchanges between different playlist providers, while retaining as much as possible their specificities.
+        <br>
+        Some design elements can be found <a href="docs/javadoc/christophedelory/playlist/package-summary.html#package_description">there</a>.
+        The Java design involves some well-known design patterns, such as the visitor, the factory, the facade, etc.
+        <br>
+        <br>
+        The main technologies involved in this project are the following:
+        <ul>
+            <li>Java 2 SE (including the <a href="http://java.sun.com/developer/technicalArticles/javase/extensible/index.html">Service Provider Interface</a>, <a href="http://java.sun.com/xml/jaxb/">JAXB</a>, <a href="http://java.sun.com/products/java-media/sound/">JavaSound</a> and <a href="http://java.sun.com/javase/6/docs/technotes/guides/imageio/index.html">ImageIO</a> facilities)</li>
+            <li>Castor, a Java &harr; XML binding framework</li>
+            <li>Apache Ant</li>
+            <li>Xdoclet 2</li>
+            <li>XML, RSS, Atom</li>
+            <li>FFMPEG</li>
+        </ul>
+        Please refer to &ldquo;<a href="#Third-party libraries">Third-party libraries</a>&rdquo; for more details and credits.
+        <br>
+        <br>
+        XML playlists are marshalled (created) and unmarshalled (parsed) through 3 different means:
+        <ol>
+            <li>Through <a href="http://java.sun.com/xml/jaxb/">JAXB</a>: see the RMP format.</li>
+            <li>By using directly any available XML parser: see the KPL format.</li>
+            <li>Through the <a href="http://www.castor.org/">Castor</a> framework: see all other XML-based formats.</li>
+        </ol>
+
+        <h2><a name="Build">Build</a></h2>
+        In order to build Lizzy from the sources, you first have to download and install the following tools:
+        <ol>
+            <li>
+                The Sun Java SE Development Kit (JDK) 6: <a href="http://java.sun.com/javase/downloads">http://java.sun.com/javase/downloads</a>.
+                <br>
+                Install the JDK for example in directory '<tt>C:\Program Files\Java\jdk1.6.0_xx</tt>' (on Windows) or '<tt>/usr/java/jdk1.6.0_xx</tt>' (on *nix), where '<tt>xx</tt>' must be replaced by the appropriate update number (<tt>21</tt> in my case).
+                <br>
+                Set the following system environment variables:
+                <br>
+                on Windows,
+                <br>
+                <tt>JAVA_HOME=C:\Program Files\Java\jdk1.6.0_xx</tt>
+                <br>
+                <tt>PATH=%PATH%;%JAVA_HOME%\bin</tt>
+                <br>
+                on *nix,
+                <br>
+                <tt>export JAVA_HOME='/usr/java/jdk1.6.0_xx'</tt>
+                <br>
+                <tt>export PATH=$PATH:$JAVA_HOME/bin</tt>
+            </li>
+            <li>
+                Apache Ant 1.8.1: <a href="http://ant.apache.org/bindownload.cgi">http://ant.apache.org/bindownload.cgi</a>
+                <br>
+                Install Ant for example in directory '<tt>C:\apache-ant-1.8.1</tt>' (on Windows) or '<tt>/usr/java/apache-ant-1.8.1</tt>' (on *nix).
+                <br>
+                Set the following system environment variables:
+                <br>
+                on Windows,
+                <br>
+                <tt>ANT_HOME=C:\apache-ant-1.8.1</tt>
+                <br>
+                <tt>PATH=%PATH%;%ANT_HOME%\bin</tt>
+                <br>
+                on *nix,
+                <br>
+                <tt>export ANT_HOME='/usr/java/apache-ant-1.8.1'</tt>
+                <br>
+                <tt>export PATH=$PATH:$ANT_HOME/bin</tt>
+            </li>
+        </ol>
+        Open a command prompt or a shell terminal and change to the root directory of the Lizzy source distribution.
+        <br>
+        Execute the following command in order to build the distribution:
+        <pre>
+        ant
+        </pre>
+        For a more complete list of build targets, type '<tt>ant -projecthelp</tt>': this Ant target will display the build system help.
+
+        <h2><a name="Playlist information">Playlist information</a></h2>
+        You will find here different Web links to playlist-related information, that have been of particular interest during my work:
+        <ul>
+            <li>General information:</li>
+            <ul>
+                <li><a href="http://gonze.com/playlists/playlist-format-survey.html">A survey of playlist formats</a></li>
+                <li><a href="http://en.wikipedia.org/wiki/Playlist">Playlist on Wikipedia</a></li>
+                <li><a href="http://wiki.videolan.org/Playlist">Playlist on VideoLAN Wiki</a></li>
+                <li><a href="http://www.streamalot.com/playlists.shtml">Streamalot Playlists</a></li>
+                <li><a href="http://schworak.com/programming/music/">Schworak: Music And Sound</a></li>
+                <li><a href="http://docs.wasabidev.org/wasabi_developer_manual/winamp_playlists_and_playlist_directory.php#playlists_formats">Wasabi Developer Manual: Winamp And Wasabi: Playlists and the Playlist Directory Service</a></li>
+            </ul>
+            <li>ASX:</li>
+            <ul>
+                <li><a href="http://msdn.microsoft.com/en-us/library/bb249663(VS.85).aspx">Windows Media Metafile Elements Reference</a></li>
+                <li><a href="http://msdn.microsoft.com/en-us/library/ms910265.aspx">ASX Elements Reference</a></li>
+            </ul>
+            <li>Atom:</li>
+            <ul>
+                <li><a href="http://atompub.org/rfc4287.html">The Atom Syndication Format</a>
+            </ul>
+            <li>Hypetape:</li>
+            <ul>
+                <li><a href="http://lists.musicbrainz.org/pipermail/playlist/2008-December/002105.html">Hypetape's playlist format</a>
+            </ul>
+            <li>M3U:</li>
+            <ul>
+                <li><a href="http://forums.winamp.com/showthread.php?threadid=65772">WINAMP.COM M3U and PLS Specification</a></li>
+                <li><a href="http://hanna.pyxidis.org/tech/m3u.html">The M3U (.m3u) Playlist File Format</a></li>
+            </ul>
+            <li>PLA:</li>
+            <ul>
+                <li><a href="http://personal.inet.fi/koti/phintsan/iriver-t50.html">Playlist format specification for iriver T50</a></li>
+            </ul>
+            <li>PLIST:</li>
+            <ul>
+                <li><a href="http://www.xml.com/pub/a/2004/11/03/itunes.html">XML.com: Hacking iTunes</a></li>
+                <li><a href="http://developer.apple.com/documentation/CoreFoundation/Conceptual/CFPropertyLists/CFPropertyLists.html">Introduction to Property List Programming Topics for Core Foundation</a></li>
+            </ul>
+            <li>RSS / Media RSS:</li>
+            <ul>
+                <li><a href="http://cyber.law.harvard.edu/rss/index.html">RSS 2.0 at Harvard Law</a></li>
+                <li><a href="http://www.rssboard.org/rss-specification">RSS 2.0 Specification (RSS Advisory Board)</a></li>
+                <li><a href="http://search.yahoo.com/mrss">Media RSS Module - RSS 2.0 Module (Yahoo!)</a></li>
+                <li><a href="http://www.feedforall.com/mediarss.htm">Media RSS Namespace Extension</a></li>
+            </ul>
+            <li>SMIL:</li>
+            <ul>
+                <li><a href="http://www.w3.org/AudioVideo/">W3C Synchronized Multimedia</a></li>
+            </ul>
+            <li>WPL:</li>
+            <ul>
+                <li><a href="http://msdn.microsoft.com/en-us/library/bb249685.aspx">Windows Media Playlist Elements Reference</a></li>
+            </ul>
+            <li>XSPF:</li>
+            <ul>
+                <li><a href="http://xspf.org/">XSPF: XML Shareable Playlist Format</a></li>
+            </ul>
+        </ul>
+
+        <h2><a name="Other solutions">Other solutions</a></h2>
+        I haven't found yet any similar API, both open source and extensible, supporting such a wide range of disparate formats (from the simple M3U format to the rich SMIL format), and still easy to use.
+        If you think you have one, or know one, please contact me: I would be very pleased to list you there.
+
+        <h2><a name="Third-party libraries">Third-party libraries</a></h2>
+        <p>The next table describes all 3d-party libraries necessary to use the Lizzy library.
+        All the associated license files may be found in the directory <code><a href="docs/licenses/">docs/licenses</a></code> of the binary project distribution.</p>
+        <table border="1" cellpadding="4" cellspacing="0">
+            <thead>
+                <tr valign="top">
+                    <th>Component</th>
+                    <th>Version</th>
+                    <th>Web</th>
+                    <th>Specific notices</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr valign="top">
+                    <td>Castor</td>
+                    <td>1.3.1</td>
+                    <td><a href="http://www.castor.org/">www.castor.org</a></td>
+                    <td>Copyright 2004-2005 Werner Guttmann</td>
+                </tr>
+                <tr valign="top">
+                    <td>Apache Commons Logging</td>
+                    <td>1.1.1</td>
+                    <td><a href="http://commons.apache.org/logging/">commons.apache.org/logging</a></td>
+                    <td>This product includes software developed by The Apache Software Foundation (<a href="http://www.apache.org/">http://www.apache.org/</a>)</td>
+                </tr>
+                <tr valign="top">
+                    <td>FFMPEG-Java</td>
+                    <td>20070916-0351</td>
+                    <td><a href="http://fmj-sf.net/ffmpeg-java/getting_started.php">fmj-sf.net/ffmpeg-java/getting_started.php</a></td>
+                    <td>-</td>
+                </tr>
+                <tr valign="top">
+                    <td>JNA (Java Native Access)</td>
+                    <td>3.0</td>
+                    <td><a href="https://jna.dev.java.net/">jna.dev.java.net</a></td>
+                    <td>-</td>
+                </tr>
+                <tr valign="top"><th colspan="4">Used only by the Lizzy command-line tools:</th></tr>
+                <tr valign="top">
+                    <td>args4j</td>
+                    <td>2.0.12</td>
+                    <td><a href="https://args4j.dev.java.net/">args4j.dev.java.net</a></td>
+                    <td>Copyright (c) 2003, Kohsuke Kawaguchi. All rights reserved.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>The table below describes the additional 3d-party tools and libraries used during the development process (in particular to build the distribution).
+        In each mentioned directory, you will find the associated license.</p>
+        <table border="1" cellpadding="4" cellspacing="0">
+            <thead>
+                <tr valign="top">
+                    <th>Component</th>
+                    <th>Version</th>
+                    <th>Web</th>
+                    <th>Directory</th>
+                    <th>Comment</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr valign="top"><th colspan="5">Ant-related:</th></tr>
+                <tr valign="top">
+                    <td>Apache Ant</td>
+                    <td>1.8.1</td>
+                    <td><a href="http://ant.apache.org/">ant.apache.org</a></td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr valign="top">
+                    <td>XDoclet 2</td>
+                    <td>2.0.6</td>
+                    <td><a href="http://xdoclet.codehaus.org/">xdoclet.codehaus.org</a></td>
+                    <td><code>ext/xdoclet2</code></td>
+                    <td>-</td>
+                </tr>
+                <tr valign="top">
+                    <td>Apache Commons Beanutils</td>
+                    <td>1.7.0</td>
+                    <td><a href="http://commons.apache.org/beanutils/">commons.apache.org/beanutils</a></td>
+                    <td><code>ext/xdoclet2</code></td>
+                    <td>Used by XDoclet 2</td>
+                </tr>
+                <tr valign="top">
+                    <td>Apache Commons Collections</td>
+                    <td>3.2</td>
+                    <td><a href="http://commons.apache.org/collections/">commons.apache.org/collections</a></td>
+                    <td><code>ext/xdoclet2</code></td>
+                    <td>Used by XDoclet 2</td>
+                </tr>
+                <tr valign="top">
+                    <td>Apache Commons Jelly</td>
+                    <td>1.0</td>
+                    <td><a href="http://commons.apache.org/jelly/">commons.apache.org/jelly</a></td>
+                    <td><code>ext/xdoclet2</code></td>
+                    <td>Used by XDoclet 2</td>
+                </tr>
+                <tr valign="top">
+                    <td>Apache Commons JEXL</td>
+                    <td>1.0</td>
+                    <td><a href="http://commons.apache.org/jexl/">commons.apache.org/jexl</a></td>
+                    <td><code>ext/xdoclet2</code></td>
+                    <td>Used by XDoclet 2</td>
+                </tr>
+                <tr valign="top">
+                    <td>dom4j</td>
+                    <td>1.6</td>
+                    <td><a href="http://www.dom4j.org/">www.dom4j.org</a></td>
+                    <td><code>ext/xdoclet2</code></td>
+                    <td>Used by XDoclet 2</td>
+                </tr>
+                <tr valign="top">
+                    <td>Generama</td>
+                    <td>1.2.3</td>
+                    <td><a href="http://generama.codehaus.org/">generama.codehaus.org</a></td>
+                    <td><code>ext/xdoclet2</code></td>
+                    <td>Used by XDoclet 2</td>
+                </tr>
+                <tr valign="top">
+                    <td>Jaxen</td>
+                    <td>1.1.3</td>
+                    <td><a href="http://jaxen.codehaus.org/">jaxen.codehaus.org</a></td>
+                    <td><code>ext/jaxen</code></td>
+                    <td>Used by XDoclet 2 and PMD</td>
+                </tr>
+                <tr valign="top">
+                    <td>NanoContainer</td>
+                    <td>1.0 beta 3</td>
+                    <td><a href="http://nanocontainer.codehaus.org/">nanocontainer.codehaus.org</a></td>
+                    <td><code>ext/xdoclet2</code></td>
+                    <td>Used by XDoclet 2</td>
+                </tr>
+                <tr valign="top">
+                    <td>ObjectWeb ASM</td>
+                    <td>3.2</td>
+                    <td><a href="http://asm.ow2.org/">asm.ow2.org</a></td>
+                    <td><code>ext/pmd</code></td>
+                    <td>Used by PMD</td>
+                </tr>
+                <tr valign="top">
+                    <td>PicoContainer</td>
+                    <td>1.0</td>
+                    <td><a href="http://www.picocontainer.org/">www.picocontainer.org</a></td>
+                    <td><code>ext/xdoclet2</code></td>
+                    <td>Used by XDoclet 2</td>
+                </tr>
+                <tr valign="top">
+                    <td>PMD</td>
+                    <td>4.2.5</td>
+                    <td><a href="http://pmd.sourceforge.net/">pmd.sourceforge.net</a></td>
+                    <td><code>ext/pmd</code></td>
+                    <td>-</td>
+                </tr>
+                <tr valign="top">
+                    <td>QDox</td>
+                    <td>1.6-SNAPSHOT</td>
+                    <td><a href="http://qdox.codehaus.org/">qdox.codehaus.org</a></td>
+                    <td><code>ext/xdoclet2</code></td>
+                    <td>Used by XDoclet 2</td>
+                </tr>
+                <tr valign="top">
+                    <td>Velocity</td>
+                    <td>1.4</td>
+                    <td><a href="http://velocity.apache.org/">velocity.apache.org</a></td>
+                    <td><code>ext/xdoclet2</code></td>
+                    <td>Used by XDoclet 2</td>
+                </tr>
+            </tbody>
+            <tbody>
+                <tr valign="top"><th colspan="5">Separate tools:</th></tr>
+                <tr valign="top">
+                    <td>Vim</td>
+                    <td>7.1</td>
+                    <td><a href="http://www.vim.org/">www.vim.org</a></td>
+                    <td>-</td>
+                    <td>A special and big &ldquo;thank you&rdquo; to Bram Moolenaar and his wonderful tool, which I'm using since so many years!</td>
+                </tr>
+                <tr valign="top">
+                    <td>Sun JDK</td>
+                    <td>6</td>
+                    <td><a href="http://java.sun.com/javase/">java.sun.com/javase</a></td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr valign="top">
+                    <td>Jude Community</td>
+                    <td>5.2.1</td>
+                    <td><a href="http://jude.change-vision.com/">jude.change-vision.com</a></td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p align="center">
+            <a href="http://sourceforge.net/projects/lizzy"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=237180&amp;type=13" width="120" height="30" alt="Get Lizzy at SourceForge.net. Fast, secure and Free Open Source software downloads"/></a>
+            &nbsp;
+            <a href="http://www.vim.org/"><img src="http://www.vim.org/images/vim_small.gif" width="32" height="32" border="0" alt="Vim logo"></a>
+        </p>
+        Copyright &copy; 2008-2009 Christophe Delory
+    </body>
+</html>

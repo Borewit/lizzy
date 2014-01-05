@@ -1,0 +1,5 @@
+christophedelory.content.SoundMetadataProvider
+christophedelory.content.ImageMetadataProvider
+christophedelory.content.FFMPEGMetadataProvider
+# Commented: unable to make it work at the moment...
+#christophedelory.content.VLCMetadataProvider

@@ -1,0 +1,67 @@
+<PACKAGE>
+    <TITLE>Title</TITLE>
+    <ACTION>download</ACTION>
+    <TARGET>My_Playlist</TARGET>
+    <EXP_DATE>08/28/2000 15:00</EXP_DATE>
+    <PROVIDER>
+        <AUTHOR>This is typically the artist name</AUTHOR>
+        <NAME>This is typically the record company name</NAME>
+        <!-- The URL that users will access in order to get this music -->
+        <URL>http://www.real.com/</URL>
+        <COPYRIGHT>Typically a record company copyright</COPYRIGHT>
+        <!-- An email for the user to contact if they are having trouble with the download -->
+        <CONTACT>RealJukebox@real.com</CONTACT>
+    </PROVIDER>
+    <SERVER>
+        <NAME>Optional. Rename with the name of the server such as Jazz Center</NAME>
+        <DESC>Optional. Describe the server such as Your Center for Jazz</DESC>
+        <!-- Basically, the main portion of the URL for where the tracks will exist, minus the http:// that you would normally place in a browser URL -->
+        <NETNAME>docs.real.com</NETNAME><!--local-->
+        <!-- The remainder of the path to the music tracks on the server.
+        In example, include for tracks that exist on http://docs.real.com/docs/rmpdemo/.
+        The %f tells RealJukebox to look in the tracklist for the exact filename that exists on the server.
+        %f=filename, %fid=Track id, %lid=TrackList ID, %pid=package id
+        -->
+        <LOCATION>/docs/rmpdemo/%f</LOCATION>
+        <KEY>Not used</KEY>
+    </SERVER>
+    <TRACKLIST>
+        <LISTID>16</LISTID>
+        <TRACK>
+            <TRACKID>SomeId</TRACKID>
+            <!-- If you intend to use the MIP features, insert the URL line in between the track id and the title -->
+            <URL>http://docs.real.com/docs/rmpdemo/mhart.zip</URL>
+            <TITLE>Some title</TITLE>
+            <ALBUM></ALBUM>
+            <ARTIST></ARTIST>
+            <GENRE></GENRE>
+            <!-- This is the place that the %f refers to from the location tag up above.
+            This filename is both the filename on the server, as well as the destination filename for the user’s hard drive.
+            This example shows the innovative filename convention of 'track1.mp3' which is not such a big problem.
+            RealJukebox will always create track1(2).mp3 on the user’s hard drive if necessary.
+            However, other users may be used to a Artist Name - Album Name - Title.mp3 convention.
+            Your choice. -->
+            <FILENAME>track1.mp3</FILENAME>
+            <SIZE>3581374</SIZE>
+            <!-- May be empty -->
+            <FORMAT>.rmj</FORMAT>
+            <!-- May be empty -->
+            <QUALITY>96695</QUALITY>
+            <!-- May be empty -->
+            <CHANNELS>2</CHANNELS>
+            <!-- May be empty -->
+            <DURATION>294</DURATION>
+            <!-- Set this to a URL to be stored in the track’s metadata as "Playback Specifications:Context Info URL". -->
+            <CONTEXTINFO_URL>http://www.yahoo.com/</CONTEXTINFO_URL>
+            <!-- Set this to the desired width of the context window. -->
+            <CONTEXTINFO_WIDTH>300</CONTEXTINFO_WIDTH>
+            <!-- Set this to the desired height of the context window. -->
+            <CONTEXTINFO_HEIGHT>200</CONTEXTINFO_HEIGHT>
+            <!-- Set this to 1 to indicate that this is a streaming URL that should simply be imported and not downloaded.
+            Note: The ACTION tag must also be set to import-copy and the URL tag must contain the URL associated with the streaming content.
+            The FILENAME tag is considered irrelevant in this situation. -->
+            <IS_STREAMING>0</IS_STREAMING>
+        </TRACK>
+    </TRACKLIST>
+    <SIG>3a6-4ilm2-3xv</SIG>
+</PACKAGE>

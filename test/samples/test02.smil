@@ -1,0 +1,8 @@
+<smil>
+<body>
+  <seq repeatCount="indefinite">
+    <img src="image1.jpg" dur="3s" />
+    <img src="image2.jpg" dur="3s" />
+  </seq>
+</body>
+</smil>

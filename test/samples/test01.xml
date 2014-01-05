@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Major Version</key><integer>1</integer>
+	<key>Minor Version</key><integer>1</integer>
+	<key>Application Version</key><string>7.7.1</string>
+	<key>Features</key><integer>5</integer>
+	<key>Show Content Ratings</key><true/>
+	<key>Music Folder</key><string>file://localhost/C:/Music/iTunes/iTunes%20Music/</string>
+	<key>Library Persistent ID</key><string>FAE4A33C96DAB314</string>
+	<key>Tracks</key>
+	<dict>
+		<key>212</key>
+		<dict>
+			<key>Track ID</key><integer>212</integer>
+			<key>Name</key><string>somesong.mp3</string>
+			<key>Kind</key><string>MPEG audio stream</string>
+			<key>Date Added</key><date>2008-08-22T15:40:35Z</date>
+			<key>Persistent ID</key><string>FAE4A33C96DAB32D</string>
+			<key>Track Type</key><string>URL</string>
+			<key>Location</key><string>http://foofighters.com/somesong.mp3</string>
+		</dict>
+	</dict>
+	<key>Playlists</key>
+	<array>
+		<dict>
+			<key>Name</key><string>test01</string>
+			<key>Playlist ID</key><integer>209</integer>
+			<key>Playlist Persistent ID</key><string>FAE4A33C96DAB32C</string>
+			<key>All Items</key><true/>
+			<key>Playlist Items</key>
+			<array>
+				<dict>
+					<key>Track ID</key><integer>212</integer>
+				</dict>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>

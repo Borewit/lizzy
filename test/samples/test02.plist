@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" 
+"http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Major Version</key><integer>1</integer>
+	<key>Minor Version</key><integer>1</integer>
+	<key>Application Version</key><string>4.0</string>
+	<key>Tracks</key>
+	<dict>
+		<key>50000</key>
+		<dict>
+			<key>Track ID</key><integer>5000</integer>
+			<key>Name</key><string>wtf</string>
+			<key>Artist</key><string>Madonna</string>
+			<key>Kind</key><string>MPEG audio stream</string>
+			<key>Total Time</key><integer>10031</integer>
+			<key>Date Added</key><date>2003-06-22T20:36:34Z</date>
+			<key>Bit Rate</key><integer>128</integer>
+			<key>Sample Rate</key><integer>44100</integer>
+			<key>Play Count</key><integer>5</integer>
+			<key>Play Date</key><integer>-1145441292</integer>
+			<key>Play Date UTC</key><date>2003-10-21T00:20:04Z</date>
+			<key>Location</key><string>http://gonze.com/blog/music/Madonna-WTF.mp3</string>
+		</dict>
+		<key>50001</key>
+		<dict>
+			<key>Track ID</key><integer>50001</integer>
+			<key>Kind</key><string>MPEG audio stream</string>
+			<key>Location</key><string>http://www.epitonic.com/files/reg/songs/mp3/Bad_Brains-Pay_To_Cum.mp3</string>
+		</dict>
+	</dict>
+	<key>Playlists</key>
+	<array>
+		<dict>
+			<key>Name</key><string>very hacked playlist</string>
+			<key>All Items</key><true/>
+			<key>Playlist Items</key>
+			<array>
+				<dict>
+					<key>Track ID</key><integer>50000</integer>
+				</dict>
+				<dict>
+					<key>Track ID</key><integer>50001</integer>
+				</dict>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>

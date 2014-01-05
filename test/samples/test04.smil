@@ -1,0 +1,1 @@
+<smil><head><meta base="rtmp://myserver/myapp" /></head><body><switch><video src="mystream_128kbps" system-bitrate="128000" /><video src="mystream_56kbps" system-bitrate="56000" /><video src="mystream_40kbps" /></switch></body></smil>

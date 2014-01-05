@@ -1,0 +1,357 @@
+<!--
+Copyright (c) 2008, Christophe Delory
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+  * Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  * Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in the
+    documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY CHRISTOPHE DELORY ``AS IS'' AND ANY
+EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL CHRISTOPHE DELORY BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<project name="Lizzy" default="all">
+
+    <!--
+        The global properties
+    -->
+
+    <loadfile property="implementation.version" srcFile="VERSION">
+        <filterchain>
+            <striplinebreaks/>
+        </filterchain>
+    </loadfile>
+
+    <defaultexcludes add="**/Thumbs.db"/>
+    <defaultexcludes add="**/*.swp"/>
+    <defaultexcludes add="**/desktop.ini"/>
+
+    <!--
+        Internal definitions
+    -->
+
+    <path id="class.path">
+        <pathelement location="ext/castor/castor-xml.jar"/>
+        <pathelement location="ext/castor/castor-core.jar"/>
+        <pathelement location="ext/commons-logging/commons-logging.jar"/>
+        <pathelement location="ext/args4j/args4j.jar"/>
+        <pathelement location="ext/jvlc/jvlc-core.jar"/>
+        <pathelement location="ext/ffmpeg/ffmpeg-java.jar"/>
+        <pathelement location="ext/ffmpeg/jna.jar"/>
+    </path>
+
+    <taskdef name="xdoclet2" classname="org.xdoclet.ant.XDocletTask">
+        <classpath>
+            <fileset dir="ext/xdoclet2">
+                <include name="*.jar"/>
+            </fileset>
+            <fileset dir="ext/jaxen">
+                <include name="*.jar"/>
+            </fileset>
+            <fileset dir="ext/commons-logging">
+                <include name="*.jar"/>
+            </fileset>
+        </classpath>
+    </taskdef>
+
+    <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask">
+        <classpath>
+            <fileset dir="ext/pmd">
+                <include name="*.jar"/>
+            </fileset>
+            <fileset dir="ext/jaxen">
+                <include name="*.jar"/>
+            </fileset>
+        </classpath>
+    </taskdef>
+
+    <!--
+        The targets
+    -->
+
+    <target name="javac" description="Compile all Java classes">
+        <mkdir dir="dist/classes"/>
+        <javac srcdir="src/java"
+            destdir="dist/classes"
+            classpathref="class.path"
+            debug="on"
+            deprecation="on"
+            optimize="on"
+            includeAntRuntime="no">
+            <compilerarg value="-Xlint" compiler="modern"/>
+        </javac>
+        <copy todir="dist/classes/christophedelory/lizzy" file="VERSION"/>
+        <copy todir="dist/classes">
+            <fileset dir="src/java">
+                <include name="META-INF/**"/>
+                <include name="**/*.xml"/>
+                <include name="**/jaxb.index"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="castor" description="Generate all Castor mapping XML files">
+        <mkdir dir="dist/classes/christophedelory/playlist/asx"/>
+        <xdoclet2 verbose="false">
+            <fileset dir="src/java/christophedelory/playlist/asx" includes="*.java"/>
+            <component classname="org.xdoclet.plugin.castor.CastorMappingXMLPlugin"
+                destdir="${basedir}/dist/classes/christophedelory/playlist/asx"
+                filename="mapping.xml"/>
+        </xdoclet2>
+        <mkdir dir="dist/classes/christophedelory/playlist/smil"/>
+        <xdoclet2 verbose="false">
+            <fileset dir="src/java/christophedelory/playlist/smil" includes="*.java"/>
+            <component classname="org.xdoclet.plugin.castor.CastorMappingXMLPlugin"
+                destdir="${basedir}/dist/classes/christophedelory/playlist/smil"
+                filename="mapping.xml"/>
+        </xdoclet2>
+        <mkdir dir="dist/classes/christophedelory/playlist/wpl"/>
+        <xdoclet2 verbose="false">
+            <fileset dir="src/java/christophedelory/playlist/wpl" includes="*.java"/>
+            <component classname="org.xdoclet.plugin.castor.CastorMappingXMLPlugin"
+                destdir="${basedir}/dist/classes/christophedelory/playlist/wpl"
+                filename="mapping.xml"/>
+        </xdoclet2>
+        <mkdir dir="dist/classes/christophedelory/playlist/xspf"/>
+        <xdoclet2 verbose="false">
+            <fileset dir="src/java/christophedelory/playlist/xspf" includes="*.java"/>
+            <component classname="org.xdoclet.plugin.castor.CastorMappingXMLPlugin"
+                destdir="${basedir}/dist/classes/christophedelory/playlist/xspf"
+                filename="mapping.xml"/>
+        </xdoclet2>
+        <mkdir dir="dist/classes/christophedelory/playlist/hypetape"/>
+        <xdoclet2 verbose="false">
+            <fileset dir="src/java/christophedelory/playlist/hypetape" includes="*.java"/>
+            <component classname="org.xdoclet.plugin.castor.CastorMappingXMLPlugin"
+                destdir="${basedir}/dist/classes/christophedelory/playlist/hypetape"
+                filename="mapping.xml"/>
+        </xdoclet2>
+        <mkdir dir="dist/classes/christophedelory/playlist/b4s"/>
+        <xdoclet2 verbose="false">
+            <fileset dir="src/java/christophedelory/playlist/b4s" includes="*.java"/>
+            <component classname="org.xdoclet.plugin.castor.CastorMappingXMLPlugin"
+                destdir="${basedir}/dist/classes/christophedelory/playlist/b4s"
+                filename="mapping.xml"/>
+        </xdoclet2>
+        <mkdir dir="dist/classes/christophedelory/rss"/>
+        <xdoclet2 verbose="false">
+            <fileset dir="src/java/christophedelory/rss" includes="*.java"/>
+            <fileset dir="src/java/christophedelory/rss/media" includes="*.java"/>
+            <component classname="org.xdoclet.plugin.castor.CastorMappingXMLPlugin"
+                destdir="${basedir}/dist/classes/christophedelory/rss"
+                filename="mapping.xml"/>
+        </xdoclet2>
+        <replace file="dist/classes/christophedelory/rss/mapping.xml"
+            token="&lt;mapping"
+            value='&lt;mapping xmlns:media="http://search.yahoo.com/mrss/"'/>
+        <mkdir dir="dist/classes/christophedelory/content/type/webapp"/>
+        <xdoclet2 verbose="false">
+            <fileset dir="src/java/christophedelory/content/type/webapp" includes="*.java"/>
+            <component classname="org.xdoclet.plugin.castor.CastorMappingXMLPlugin"
+                destdir="${basedir}/dist/classes/christophedelory/content/type/webapp"
+                filename="mapping.xml"/>
+        </xdoclet2>
+        <mkdir dir="dist/classes/christophedelory/plist"/>
+        <xdoclet2 verbose="false">
+            <fileset dir="src/java/christophedelory/plist" includes="*.java"/>
+            <component classname="org.xdoclet.plugin.castor.CastorMappingXMLPlugin"
+                destdir="${basedir}/dist/classes/christophedelory/plist"
+                filename="mapping.xml"/>
+        </xdoclet2>
+        <mkdir dir="dist/classes/christophedelory/atom"/>
+        <xdoclet2 verbose="false">
+            <fileset dir="src/java/christophedelory/atom" includes="*.java"/>
+            <component classname="org.xdoclet.plugin.castor.CastorMappingXMLPlugin"
+                destdir="${basedir}/dist/classes/christophedelory/atom"
+                filename="mapping.xml"/>
+        </xdoclet2>
+    </target>
+
+    <target name="all" depends="javac,pmd,castor,doc" description="Generate the reference distribution">
+        <jar basedir="dist/classes"
+            destfile="dist/lizzy.jar">
+            <exclude name="christophedelory/lizzy/**"/>
+            <manifest>
+                <attribute name="Built-By" value="Christophe Delory"/>
+                <attribute name="Specification-Title" value="${ant.project.name}" />
+                <attribute name="Specification-Version" value="${implementation.version}"/>
+                <attribute name="Specification-Vendor" value="Christophe Delory"/>
+                <attribute name="Implementation-Title" value="${ant.project.name}"/>
+                <attribute name="Implementation-Version" value="${implementation.version}"/>
+                <attribute name="Implementation-Vendor" value="Christophe Delory"/>
+                <attribute name="Class-Path" value="lib/castor-xml.jar lib/castor-core.jar lib/commons-logging.jar lib/jna.jar lib/ffmpeg-java.jar"/><!--lib/jvlc-core.jar-->
+            </manifest>
+        </jar>
+        <delete includeemptydirs="true">
+            <fileset dir="dist/classes">
+                <exclude name="christophedelory/lizzy/**"/>
+            </fileset>
+        </delete>
+        <copy todir="dist/lib">
+            <fileset dir="ext/castor">
+                <include name="*.jar"/>
+            </fileset>
+            <fileset dir="ext/commons-logging">
+                <include name="*.jar"/>
+            </fileset>
+            <!--
+            <fileset dir="ext/jvlc">
+                <include name="*.jar"/>
+                <include name="*.dll"/>
+            </fileset>
+            -->
+            <fileset dir="ext/ffmpeg">
+                <include name="*.jar"/>
+                <!--
+                <include name="*.dll"/>
+                -->
+            </fileset>
+            <fileset dir="ext/args4j">
+                <include name="*.jar"/>
+            </fileset>
+        </copy>
+        <!-- Customize the run-time environment AFTER cleaning the classes directory -->
+        <copy todir="dist">
+            <fileset dir="test"/>
+        </copy>
+        <fixcrlf srcdir="dist" includes="*.sh" eol="lf" eof="remove"/>
+    </target>
+
+    <target name="doc" depends="javadoc" description="Generate the project documentation">
+        <copy todir="dist">
+            <fileset dir=".">
+                <include name="CHANGES"/>
+                <include name="LICENSE"/>
+                <include name="index.html"/>
+            </fileset>
+        </copy>
+        <copy todir="dist/docs">
+            <fileset dir="docs"/>
+        </copy>
+        <copy todir="dist/docs/dtd" flatten="true">
+            <fileset dir="src/java" includes="**/*.dtd **/*.mod"/>
+        </copy>
+        <copy todir="dist/docs/schema" flatten="true">
+            <fileset dir="src/java" includes="**/*.xsd"/>
+        </copy>
+        <copy todir="dist/docs/licenses">
+            <fileset dir="ext/castor">
+                <exclude name="*.jar"/>
+                <exclude name="package-list"/>
+            </fileset>
+            <fileset dir="ext/commons-logging">
+                <exclude name="*.jar"/>
+                <exclude name="package-list"/>
+            </fileset>
+            <!--
+            <fileset dir="ext/jvlc">
+                <exclude name="*.jar"/>
+                <exclude name="*.dll"/>
+            </fileset>
+            -->
+            <fileset dir="ext/ffmpeg">
+                <exclude name="*.jar"/>
+                <exclude name="*.dll"/>
+            </fileset>
+            <fileset dir="ext/args4j">
+                <exclude name="*.jar"/>
+                <exclude name="package-list"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="clean" description="Clean up the reference distribution">
+        <delete dir="dist" failonerror="false"/>
+    </target>
+
+    <target name="realclean" depends="clean">
+        <delete>
+            <fileset dir=".">
+                <include name="*.zip"/>
+            </fileset>
+        </delete>
+    </target>
+
+	<target name="zip" description="Archive the project distribution">
+		<zip destfile="${ant.project.name}-${implementation.version}.zip" encoding="US-ASCII" whenempty="fail">
+			<zipfileset dir="dist" prefix="${ant.project.name}-${implementation.version}"/>
+		</zip>
+	</target>
+
+    <target name="javadoc" description="Create the Java reference documentation">
+        <mkdir dir="dist/docs/javadoc"/>
+        <javadoc sourcepath="src/java"
+            packagenames="christophedelory.*"
+            destdir="dist/docs/javadoc"
+            use="true"
+            access="package"
+            author="true"
+            version="true"
+            overview="src/java/christophedelory/overview.html"
+            footer="&#169; 2008-2009 Christophe Delory"
+            windowtitle="${ant.project.name} v${implementation.version} Reference API"
+            doctitle="${ant.project.name} v${implementation.version} Reference API"
+            header="${ant.project.name} v${implementation.version}"
+            bottom="Copyright &#169; 2008-2009 Christophe Delory. All Rights Reserved.">
+            <classpath refid="class.path"/>
+            <link href="http://java.sun.com/javase/6/docs/api/" offline="true" packagelistLoc="ext/j2se"/>
+            <link href="http://www.castor.org/javadoc/" offline="true" packagelistLoc="ext/castor"/>
+            <link href="http://commons.apache.org/logging/apidocs/" offline="true" packagelistLoc="ext/commons-logging"/>
+            <link href="https://args4j.dev.java.net/nonav/maven/apidocs/" offline="true" packagelistLoc="ext/args4j"/>
+            <tag name="castor.class" description="Castor class" enabled="false"/>
+            <tag name="castor.field" description="Castor field" enabled="false"/>
+            <tag name="castor.field-xml" description="Castor field XML" enabled="false"/>
+            <tag name="TODO" description="Todo" enabled="false"/>
+            <tag name="FIXME" description="Fix me" enabled="false"/>
+        </javadoc>
+        <copy todir="dist/docs/javadoc">
+            <fileset dir="src/java">
+                <include name="**/*.png"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="pmd" description="Audit the Java sources">
+        <mkdir dir="dist/docs"/>
+        <pmd shortFilenames="true">
+            <ruleset>rulesets/basic.xml</ruleset>
+            <ruleset>rulesets/braces.xml</ruleset>
+            <ruleset>rulesets/clone.xml</ruleset>
+            <ruleset>rulesets/coupling.xml</ruleset>
+            <ruleset>rulesets/design.xml</ruleset>
+            <ruleset>rulesets/finalizers.xml</ruleset>
+            <ruleset>rulesets/imports.xml</ruleset>
+            <ruleset>rulesets/logging-java.xml</ruleset>
+            <ruleset>rulesets/optimizations.xml</ruleset>
+            <ruleset>rulesets/strings.xml</ruleset>
+            <ruleset>rulesets/sunsecure.xml</ruleset>
+            <ruleset>rulesets/unusedcode.xml</ruleset>
+            <!--
+            <ruleset>rulesets/codesize.xml</ruleset>
+            <ruleset>rulesets/controversial.xml</ruleset>
+            <ruleset>rulesets/naming.xml</ruleset>
+            <ruleset>rulesets/strictexception.xml</ruleset>
+            <ruleset>rulesets/typeresolution.xml</ruleset>
+            <formatter type="html" toFile="dist/docs/pmd.html" showSuppressed="false"/>
+            -->
+            <formatter type="text" toConsole="true" showSuppressed="false"/>
+
+            <fileset dir="src/java/christophedelory">
+                <include name="**/*.java"/>
+            </fileset>
+        </pmd>
+    </target>
+
+</project>
