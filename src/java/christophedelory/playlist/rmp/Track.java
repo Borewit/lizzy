@@ -273,7 +273,7 @@ public class Track
     /**
      * Returns the track file name.
      * This is the place that the "%f" refers to from the PACKAGE/SERVER/LOCATION tag.
-     * This filename is both the filename on the server, as well as the destination filename for the user’s hard drive.
+     * This filename is both the filename on the server, as well as the destination filename for the user's hard drive.
      * @return a file name. May be <code>null</code>.
      * @see #setFileName
      */
@@ -496,7 +496,7 @@ public class Track
 
     /**
      * Returns the context info URL.
-     * A URL to be stored in the track’s metadata as "Playback Specifications:Context Info URL".
+     * A URL to be stored in the track's metadata as "Playback Specifications:Context Info URL".
      * @return an URL. May be <code>null</code>.
      * @see #setContextInfoUrlString
      */
