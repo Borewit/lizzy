@@ -1,3 +1,5 @@
+[![CI](https://github.com/Borewit/lizzy/actions/workflows/ci.yml/badge.svg)](https://github.com/Borewit/lizzy/actions/workflows/ci.yml)
+
 # Lizzy
 
 Lizzy is an open source Java library allowing to parse, create, edit, 
@@ -107,46 +109,14 @@ XML playlists are marshalled (created) and unmarshalled (parsed) through 3 diffe
 ## Build
 In order to build Lizzy from the sources, you first have to download and install the following tools:
 
-1. The Sun Java SE Development Kit (JDK) 6: <a href="https://java.sun.com/javase/downloads">https://java.sun.com/javase/downloads</a>.
-   
-   Install the JDK for example in directory '<tt>C:\Program Files\Java\jdk1.6.0_xx</tt>' (on Windows) or '<tt>/usr/java/jdk1.6.0_xx</tt>' (on *nix), where '<tt>xx</tt>' must be replaced by the appropriate update number (<tt>21</tt> in my case).
-   
-   Set the following system environment variables:
-
-   on Windows,
-   ```cmd
-   JAVA_HOME=C:\Program Files\Java\jdk1.6.0_xx`
-   PATH=%PATH%;%JAVA_HOME%\bin
-   ```
-   on *nix,
-   ```shell
-   export JAVA_HOME='/usr/java/jdk1.6.0_xx'
-   export PATH=$PATH:$JAVA_HOME/bin
-   ```
-1. Apache Ant 1.8.1: <a href="https://ant.apache.org/bindownload.cgi">https://ant.apache.org/bindownload.cgi</a>
-
-   Install Ant for example in directory '<tt>C:\apache-ant-1.8.1</tt>' (on Windows) or '<tt>/usr/java/apache-ant-1.8.1</tt>' (on *nix).
-
-   Set the following system environment variables:
-
-   on Windows,
-   ```cmd
-   ANT_HOME=C:\apache-ant-1.8.1
-   PATH=%PATH%;%ANT_HOME%\bin
-   ```
-   on *nix,
-   ```shell
-   export ANT_HOME='/usr/java/apache-ant-1.8.1'</tt>
-   export PATH=$PATH:$ANT_HOME/bin</tt>
-   ```
- 
- Open a command prompt or a shell terminal and change to the root directory of the Lizzy source distribution.
+1. Install Java SDK 15 (may work with other versions as well)
+1. Install [Maven](https://maven.apache.org/download.cgi)
+1. You may have to set `JAVA_HOME` and directory `bin` folder of the Maven installation to your [PATH System variable](https://en.wikipedia.org/wiki/PATH_(variable)).
 
 Execute the following command in order to build the distribution:
 ```shell
-ant
+mvn clean install
 ```
-For a more complete list of build targets, type '<tt>ant -projecthelp</tt>': this Ant target will display the build system help.
 
 ## Playlist information
 You will find here different Web links to playlist-related information, that have been of particular interest during my work:
