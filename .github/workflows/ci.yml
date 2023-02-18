@@ -12,6 +12,8 @@ jobs:
         with:
           java-version: 15
           distribution: 'adopt'
-          cache: 'maven'
-      - name: Build with Maven
-        run: mvn --batch-mode clean install
+          cache: 'gradle'
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+      - name: Run build with Gradle Wrapper
+        run: ./gradlew build
