@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE mapping PUBLIC "-//EXOLAB/Castor Mapping DTD Version 1.0//EN" "http://castor.codehaus.org/mapping.dtd">
+
+<!--Generated file. Do not edit.-->
+<mapping>
+  <class name="christophedelory.content.type.webapp.WebApp">
+    <map-to ns-uri="http://java.sun.com/xml/ns/j2ee" xml="web-app"/>
+    <field name="mimeMappings" collection="arraylist" set-method="addMimeMapping" get-method="getMimeMappings" type="christophedelory.content.type.webapp.MimeMapping">
+      <bind-xml name="mime-mapping" node="element"/>
+    </field>
+  </class>
+  <class name="christophedelory.content.type.webapp.MimeMapping">
+    <map-to ns-uri="http://java.sun.com/xml/ns/j2ee" xml="mime-mapping"/>
+    <field name="extension" set-method="setExtension" get-method="getExtension" required="true" type="string">
+      <bind-xml name="extension" node="element"/>
+    </field>
+    <field name="mimeType" set-method="setMimeType" get-method="getMimeType" required="true" type="string">
+      <bind-xml name="mime-type" node="element"/>
+    </field>
+  </class>
+  <!--start merging from source: <undefined merge dir>/class-mappings.xml-->
+  <!--to specify aditional class mappings put file "class-mappings.xml" into
+                merge directory.
+                Define root element as <j:jelly  xmlns:j="jelly:core">-->
+  <!--end merging from source: <undefined merge dir>/class-mappings.xml-->
+</mapping>

@@ -61,9 +61,6 @@ public final class Transcode
      * Initializes the {@link Version#CURRENT current} project version.
      * @param resourceName the name of the version resource; "package1/VERSION" for example. Shall not be <code>null</code>.
      * @throws SecurityException if a security manager exists and its <code>checkPermission</code> method denies access to the class loader of this class.
-     * @throws NullPointerException if <code>resourceName</code> is <code>null</code>.
-     * @throws NullPointerException if the VERSION file could not be found or the invoker doesn't have adequate privileges to get the resource.
-     * @throws NullPointerException if the VERSION file is empty.
      * @throws java.io.IOException if an I/O exception occurs.
      * @throws IllegalArgumentException if the version string is malformed.
      * @throws IndexOutOfBoundsException if one of the numbers is strictly negative.
@@ -75,11 +72,14 @@ public final class Transcode
     {
         final URL url = Version.class.getClassLoader().getResource(resourceName); // May throw SecurityException. Throws NullPointerException if resourceName is null.
 
-        final BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream())); // May throw IOException. Throws NullPointerException if url is null.
+        if (url != null) {
+            final BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream())); // May throw IOException. Throws NullPointerException if url is null.
 
-        final String version = reader.readLine(); // May throw IOException.
-
-        Version.CURRENT = Version.valueOf(version); // Throws NullPointerException if version is null. Should not throw IllegalArgumentException, IndexOutOfBoundsException, NumberFormatException.
+            final String version = reader.readLine(); // May throw IOException.
+            Version.CURRENT = Version.valueOf(version); // Throws NullPointerException if version is null. Should not throw IllegalArgumentException, IndexOutOfBoundsException, NumberFormatException.
+        } else {
+            Version.CURRENT = Version.valueOf("0.0.0");
+        }
     }
 
     /**
