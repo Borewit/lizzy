@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE mapping PUBLIC "-//EXOLAB/Castor Mapping DTD Version 1.0//EN" "http://castor.codehaus.org/mapping.dtd">
+
+<!--Generated file. Do not edit.-->
+<mapping>
+  <class name="christophedelory.atom.URIContainer">
+    <map-to ns-uri="http://www.w3.org/2005/Atom" xml="uricontainer"/>
+    <field name="URIString" set-method="setURIString" get-method="getURIString" required="true" type="string">
+      <bind-xml node="text"/>
+    </field>
+    <field name="baseString" set-method="setBaseString" get-method="getBaseString" type="string">
+      <bind-xml name="xml:base" node="attribute"/>
+    </field>
+    <field name="lang" set-method="setLang" get-method="getLang" type="string">
+      <bind-xml name="xml:lang" node="attribute"/>
+    </field>
+  </class>
+  <class name="christophedelory.atom.TextContainer">
+    <map-to ns-uri="http://www.w3.org/2005/Atom" xml="textcontainer"/>
+    <field name="text" set-method="setText" get-method="getText" required="true" type="string">
+      <bind-xml node="text"/>
+    </field>
+    <field name="type" set-method="setType" get-method="getType" type="string">
+      <bind-xml name="type" node="attribute"/>
+    </field>
+    <field name="baseString" set-method="setBaseString" get-method="getBaseString" type="string">
+      <bind-xml name="xml:base" node="attribute"/>
+    </field>
+    <field name="lang" set-method="setLang" get-method="getLang" type="string">
+      <bind-xml name="xml:lang" node="attribute"/>
+    </field>
+  </class>
+  <class name="christophedelory.atom.Source">
+    <map-to ns-uri="http://www.w3.org/2005/Atom" xml="source"/>
+    <field name="authors" collection="arraylist" set-method="addAuthor" get-method="getAuthors" type="christophedelory.atom.Person">
+      <bind-xml name="author" node="element"/>
+    </field>
+    <field name="categories" collection="arraylist" set-method="addCategory" get-method="getCategories" type="christophedelory.atom.Category">
+      <bind-xml name="category" node="element"/>
+    </field>
+    <field name="contributors" collection="arraylist" set-method="addContributor" get-method="getContributors" type="christophedelory.atom.Person">
+      <bind-xml name="contributor" node="element"/>
+    </field>
+    <field name="generator" set-method="setGenerator" get-method="getGenerator" type="christophedelory.atom.Generator">
+      <bind-xml name="generator" node="element"/>
+    </field>
+    <field name="icon" set-method="setIcon" get-method="getIcon" type="christophedelory.atom.URIContainer">
+      <bind-xml name="icon" node="element"/>
+    </field>
+    <field name="id" set-method="setId" get-method="getId" type="christophedelory.atom.URIContainer">
+      <bind-xml name="id" node="element"/>
+    </field>
+    <field name="links" collection="arraylist" set-method="addLink" get-method="getLinks" type="christophedelory.atom.Link">
+      <bind-xml name="link" node="element"/>
+    </field>
+    <field name="logo" set-method="setLogo" get-method="getLogo" type="christophedelory.atom.URIContainer">
+      <bind-xml name="logo" node="element"/>
+    </field>
+    <field name="rights" set-method="setRights" get-method="getRights" type="christophedelory.atom.TextContainer">
+      <bind-xml name="rights" node="element"/>
+    </field>
+    <field name="subtitle" set-method="setSubtitle" get-method="getSubtitle" type="christophedelory.atom.TextContainer">
+      <bind-xml name="subtitle" node="element"/>
+    </field>
+    <field name="title" set-method="setTitle" get-method="getTitle" type="christophedelory.atom.TextContainer">
+      <bind-xml name="title" node="element"/>
+    </field>
+    <field name="updated" set-method="setUpdated" get-method="getUpdated" type="date">
+      <bind-xml name="updated" node="element"/>
+    </field>
+    <field name="baseString" set-method="setBaseString" get-method="getBaseString" type="string">
+      <bind-xml name="xml:base" node="attribute"/>
+    </field>
+    <field name="lang" set-method="setLang" get-method="getLang" type="string">
+      <bind-xml name="xml:lang" node="attribute"/>
+    </field>
+  </class>
+  <class name="christophedelory.atom.Person">
+    <map-to ns-uri="http://www.w3.org/2005/Atom" xml="person"/>
+    <field name="name" set-method="setName" get-method="getName" required="true" type="string">
+      <bind-xml name="name" node="element"/>
+    </field>
+    <field name="URIString" set-method="setURIString" get-method="getURIString" type="string">
+      <bind-xml name="uri" node="element"/>
+    </field>
+    <field name="email" set-method="setEmail" get-method="getEmail" type="string">
+      <bind-xml name="email" node="element"/>
+    </field>
+    <field name="baseString" set-method="setBaseString" get-method="getBaseString" type="string">
+      <bind-xml name="xml:base" node="attribute"/>
+    </field>
+    <field name="lang" set-method="setLang" get-method="getLang" type="string">
+      <bind-xml name="xml:lang" node="attribute"/>
+    </field>
+  </class>
+  <class name="christophedelory.atom.Link">
+    <map-to ns-uri="http://www.w3.org/2005/Atom" xml="link"/>
+    <field name="href" set-method="setHref" get-method="getHref" required="true" type="string">
+      <bind-xml name="href" node="attribute"/>
+    </field>
+    <field name="rel" set-method="setRel" get-method="getRel" type="string">
+      <bind-xml name="rel" node="attribute"/>
+    </field>
+    <field name="hrefLang" set-method="setHrefLang" get-method="getHrefLang" type="string">
+      <bind-xml name="hreflang" node="attribute"/>
+    </field>
+    <field name="title" set-method="setTitle" get-method="getTitle" type="string">
+      <bind-xml name="title" node="attribute"/>
+    </field>
+    <field name="length" set-method="setLength" get-method="getLength" type="java.lang.Long">
+      <bind-xml name="length" node="attribute"/>
+    </field>
+    <field name="type" set-method="setType" get-method="getType" type="string">
+      <bind-xml name="type" node="attribute"/>
+    </field>
+    <field name="baseString" set-method="setBaseString" get-method="getBaseString" type="string">
+      <bind-xml name="xml:base" node="attribute"/>
+    </field>
+    <field name="lang" set-method="setLang" get-method="getLang" type="string">
+      <bind-xml name="xml:lang" node="attribute"/>
+    </field>
+  </class>
+  <class name="christophedelory.atom.Generator">
+    <map-to ns-uri="http://www.w3.org/2005/Atom" xml="generator"/>
+    <field name="value" set-method="setValue" get-method="getValue" required="true" type="string">
+      <bind-xml node="text"/>
+    </field>
+    <field name="URIString" set-method="setURIString" get-method="getURIString" type="string">
+      <bind-xml name="uri" node="attribute"/>
+    </field>
+    <field name="version" set-method="setVersion" get-method="getVersion" type="string">
+      <bind-xml name="version" node="attribute"/>
+    </field>
+    <field name="baseString" set-method="setBaseString" get-method="getBaseString" type="string">
+      <bind-xml name="xml:base" node="attribute"/>
+    </field>
+    <field name="lang" set-method="setLang" get-method="getLang" type="string">
+      <bind-xml name="xml:lang" node="attribute"/>
+    </field>
+  </class>
+  <class name="christophedelory.atom.Feed" extends="christophedelory.atom.Source">
+    <map-to ns-uri="http://www.w3.org/2005/Atom" xml="feed"/>
+    <field name="entries" collection="arraylist" set-method="addEntry" get-method="getEntries" type="christophedelory.atom.Entry">
+      <bind-xml name="entry" node="element"/>
+    </field>
+  </class>
+  <class name="christophedelory.atom.Entry">
+    <map-to ns-uri="http://www.w3.org/2005/Atom" xml="entry"/>
+    <field name="authors" collection="arraylist" set-method="addAuthor" get-method="getAuthors" type="christophedelory.atom.Person">
+      <bind-xml name="author" node="element"/>
+    </field>
+    <field name="categories" collection="arraylist" set-method="addCategory" get-method="getCategories" type="christophedelory.atom.Category">
+      <bind-xml name="category" node="element"/>
+    </field>
+    <field name="contents" collection="arraylist" set-method="addContent" get-method="getContents" type="christophedelory.atom.Content">
+      <bind-xml name="content" node="element"/>
+    </field>
+    <field name="contributors" collection="arraylist" set-method="addContributor" get-method="getContributors" type="christophedelory.atom.Person">
+      <bind-xml name="contributor" node="element"/>
+    </field>
+    <field name="id" set-method="setId" get-method="getId" type="christophedelory.atom.URIContainer">
+      <bind-xml name="id" node="element"/>
+    </field>
+    <field name="links" collection="arraylist" set-method="addLink" get-method="getLinks" type="christophedelory.atom.Link">
+      <bind-xml name="link" node="element"/>
+    </field>
+    <field name="published" set-method="setPublished" get-method="getPublished" type="date">
+      <bind-xml name="published" node="element"/>
+    </field>
+    <field name="rights" set-method="setRights" get-method="getRights" type="christophedelory.atom.TextContainer">
+      <bind-xml name="rights" node="element"/>
+    </field>
+    <field name="source" set-method="setSource" get-method="getSource" type="christophedelory.atom.Source">
+      <bind-xml name="source" node="element"/>
+    </field>
+    <field name="summary" set-method="setSummary" get-method="getSummary" type="christophedelory.atom.TextContainer">
+      <bind-xml name="summary" node="element"/>
+    </field>
+    <field name="title" set-method="setTitle" get-method="getTitle" required="true" type="christophedelory.atom.TextContainer">
+      <bind-xml name="title" node="element"/>
+    </field>
+    <field name="updated" set-method="setUpdated" get-method="getUpdated" required="true" type="date">
+      <bind-xml name="updated" node="element"/>
+    </field>
+    <field name="baseString" set-method="setBaseString" get-method="getBaseString" type="string">
+      <bind-xml name="xml:base" node="attribute"/>
+    </field>
+    <field name="lang" set-method="setLang" get-method="getLang" type="string">
+      <bind-xml name="xml:lang" node="attribute"/>
+    </field>
+  </class>
+  <class name="christophedelory.atom.Content">
+    <map-to ns-uri="http://www.w3.org/2005/Atom" xml="content"/>
+    <field name="text" set-method="setText" get-method="getText" type="string">
+      <bind-xml node="text"/>
+    </field>
+    <field name="src" set-method="setSrc" get-method="getSrc" type="string">
+      <bind-xml name="src" node="attribute"/>
+    </field>
+    <field name="type" set-method="setType" get-method="getType" type="string">
+      <bind-xml name="type" node="attribute"/>
+    </field>
+    <field name="baseString" set-method="setBaseString" get-method="getBaseString" type="string">
+      <bind-xml name="xml:base" node="attribute"/>
+    </field>
+    <field name="lang" set-method="setLang" get-method="getLang" type="string">
+      <bind-xml name="xml:lang" node="attribute"/>
+    </field>
+  </class>
+  <class name="christophedelory.atom.Category">
+    <map-to ns-uri="http://www.w3.org/2005/Atom" xml="category"/>
+    <field name="term" set-method="setTerm" get-method="getTerm" required="true" type="string">
+      <bind-xml name="term" node="attribute"/>
+    </field>
+    <field name="scheme" set-method="setScheme" get-method="getScheme" type="string">
+      <bind-xml name="scheme" node="attribute"/>
+    </field>
+    <field name="label" set-method="setLabel" get-method="getLabel" type="string">
+      <bind-xml name="label" node="attribute"/>
+    </field>
+    <field name="baseString" set-method="setBaseString" get-method="getBaseString" type="string">
+      <bind-xml name="xml:base" node="attribute"/>
+    </field>
+    <field name="lang" set-method="setLang" get-method="getLang" type="string">
+      <bind-xml name="xml:lang" node="attribute"/>
+    </field>
+  </class>
+  <!--start merging from source: <undefined merge dir>/class-mappings.xml-->
+  <!--to specify aditional class mappings put file "class-mappings.xml" into
+                merge directory.
+                Define root element as <j:jelly  xmlns:j="jelly:core">-->
+  <!--end merging from source: <undefined merge dir>/class-mappings.xml-->
+</mapping>
