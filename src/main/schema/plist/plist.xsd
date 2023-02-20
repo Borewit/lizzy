@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:plist="http://apple.com/plist/xsd" elementFormDefault="qualified" targetNamespace="http://apple.com/plist/xsd">
+    <!-- plist typedefs -->
+    <xs:element name="array">
+        <xs:annotation>
+            <xs:documentation>
+                An 'array' element can contain any number of child elements of any valid plist type.
+                The 'array' element is interpreted as a NSArray (Cocoa) or CFArray (Core Foundation) object.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                <xs:group ref="plist:types"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="dict">
+        <xs:annotation>
+            <xs:documentation>
+                A 'dict' (short for dictionary) element contains pairs of child elements.
+                The first element of a pair must be a 'key' element. The second element can be any valid plist type.
+                The 'dict' element is interpreted as a NSDictionary (Cocoa) or CFDictionary (Core Foundation) object.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:group ref="plist:keyValuePairs" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="string" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                A 'string' element must contain a UTF-8 encoded string.
+                The contents of a 'string' element is interpreted as a NSString (Cocoa) or CFString (Core Foundation) object.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="data" type="xs:base64Binary">
+        <xs:annotation>
+            <xs:documentation>
+                A 'data' element contains base64 encoded data.
+                The 'data' element is interpreted as a NSData (Cocoa) or CFData (Core Foundation) object.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="date" type="xs:dateTime">
+        <xs:annotation>
+            <xs:documentation>
+                A 'date' element must contain an ISO 8601 formatted string.
+                http://www.iso.org/iso/catalogue_detail?csnumber=40874
+                Despite the name, 'date', this element can contain a time part in addition to the date.
+                The 'date' element is interpreted as a NSDate (Cocoa) or CFDate (Core Foundation) object.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="integer" type="xs:integer">
+        <xs:annotation>
+            <xs:documentation>
+                An 'integer' element must contain a whole number decimal string.
+                The 'integer' element is interpreted as a NSNumber (Cocoa) or CFNumber (Core Foundation) object.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="real" type="xs:decimal">
+        <xs:annotation>
+            <xs:documentation>
+                A 'real' element must contain a decimal string. This can be a fractional number, e.g. 14.872.
+                The 'real' element is interpreted as a NSNumber (Cocoa) or CFNumber (Core Foundation) object.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="true">
+        <xs:annotation>
+            <xs:documentation>
+                A 'true' element must be empty.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType/>
+    </xs:element>
+    <xs:element name="false">
+        <xs:annotation>
+            <xs:documentation>
+                A 'false' element must be empty.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType/>
+    </xs:element>
+    <!-- dict key -->
+    <xs:element name="key" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                A 'key' element denotes the key for a dictionary entry.
+                A 'key' element must be followed by an element from the plistTypes group.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <!-- group of plist elements -->
+    <xs:group name="types">
+        <xs:choice>
+            <xs:element name="array"/>
+            <xs:element name="dict"/>
+            <xs:element name="string"/>
+            <xs:element name="data"/>
+            <xs:element name="date"/>
+            <xs:element name="integer"/>
+            <xs:element name="real"/>
+            <xs:element name="true"/>
+            <xs:element name="false"/>
+        </xs:choice>
+    </xs:group>
+    <xs:group name="keyValuePairs">
+        <xs:sequence>
+            <xs:element name="key" minOccurs="1" maxOccurs="1"/>
+            <xs:group ref="plist:types" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:group>
+</xs:schema>
