@@ -21,15 +21,10 @@ dependencies {
     implementation 'org.codehaus.castor:castor-xml:1.3.1'
     implementation 'commons-logging:commons-logging:1.1.1'
     implementation 'asm:asm:3.2'
-    implementation 'commons-beanutils:commons-beanutils:1.7.0'
-    implementation 'commons-collections:commons-collections:3.2'
+    implementation 'commons-beanutils:commons-beanutils-core:1.8.3'
+    implementation 'commons-collections:commons-collections:3.2.1'
     implementation 'commons-jexl:commons-jexl:1.0'
-    implementation 'dom4j:dom4j:1.6'
-    implementation 'nanocontainer:nanocontainer:1.0-beta-3'
-    implementation 'nanocontainer:nanocontainer-ant:1.0-beta-3'
-    implementation 'picocontainer:picocontainer:1.0'
-    implementation 'qdox:qdox:1.5'
-    implementation 'velocity:velocity:1.4'
+    implementation 'org.dom4j:dom4j:2.1.4'
     // https://mvnrepository.com/artifact/xml-apis/xml-apis
     implementation 'xml-apis:xml-apis:1.4.01'
     // https://mvnrepository.com/artifact/com.sun.activation/javax.activation
