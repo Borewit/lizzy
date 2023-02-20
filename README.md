@@ -113,9 +113,9 @@ In order to build Lizzy from the sources, you first have to download and install
 1. Install [Maven](https://maven.apache.org/download.cgi)
 1. You may have to set `JAVA_HOME` and directory `bin` folder of the Maven installation to your [PATH System variable](https://en.wikipedia.org/wiki/PATH_(variable)).
 
-Execute the following command in order to build the distribution:
+Execute the following command in order to build the distribution and store it in your local Maven cache:
 ```shell
-mvn clean install
+mvn clean publishToMavenLocal
 ```
 
 ## Playlist information
