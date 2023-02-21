@@ -2,10 +2,15 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'application'
+    id 'signing'
 }
+
+apply plugin: 'maven-publish'
 
 repositories {
     mavenLocal()
+    // Access the Central Repository with Gradle via HTTPS
+    // Ref: https://central.sonatype.org/consume/consume-gradle/
     maven {
         url = uri('https://repo.maven.apache.org/maven2/')
     }
@@ -45,19 +50,87 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-reporting'
 }
 
-group = 'com.github.Borewit'
+task javadocJar(type: Jar) {
+    from javadoc
+    archiveClassifier.set('javadoc')
+}
+
+task sourcesJar(type: Jar) {
+    archiveClassifier.set('sources')
+    from sourceSets.main.allSource
+    duplicatesStrategy = 'include'
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+group = 'io.github.borewit'
 version = '1.1.2-SNAPSHOT'
 description = 'Lizzy'
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 publishing {
     publications {
-        maven(MavenPublication) {
+
+        mavenJava(MavenPublication) {
             from(components.java)
+            pom {
+                name = 'Lizzy'
+                description = 'Multimedia playlist parser, supporting a wide range of playlist file formats.'
+                url = 'https://github.com/Borewit/lizzy'
+                licenses {
+                    license {
+                        name = 'BSD license'
+                        url = 'https://github.com/Borewit/lizzy/blob/main/LICENSE.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'Borewit'
+                        name = 'Borewit'
+                        timezone = 'Europe/Amsterdam'
+                        url = 'https://github.com/Borewit'
+                    }
+                }
+                contributors {
+                    contributor {
+                        name = 'Christophe Delory'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:https://github.com/Borewit/lizzy.git'
+                    url = 'https://github.com/Borewit/lizzy'
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            name = "OSSRH"
+            def releasesRepoUrl = 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
+            def snapshotsRepoUrl = 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+
+            url = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+            credentials {
+                username = ossrhUsername
+                password = ossrhPassword
+            }
         }
     }
 }
 
+signing {
+    useGpgCmd()
+    sign publishing.publications.mavenJava
+}
+
 tasks.withType(Test).configureEach {
     useJUnitPlatform()
+}
+
+javadoc {
+    options.addBooleanOption("Xdoclint:none", true)
+    options.addStringOption("Xmaxwarns", "1")
 }

@@ -9,6 +9,10 @@ The currently supported formats are the following: M3U/M3U8/M4U/RAM, ASX/WMX/WVX
 
 Two versatile command-line tools are also available (see the [Getting started](#Getting started) guide).
 
+## Origin
+
+Lizzy has been forked from [sourceforge.net/projects/lizzy](https://sourceforge.net/projects/lizzy/)
+
 ## Table of contents
 
 1. [Features](#features)
@@ -182,6 +186,9 @@ You will find here different Web links to playlist-related information, that hav
 I haven't found yet any similar API, both open source and extensible, supporting such a wide range of disparate formats (from the simple M3U format to the rich SMIL format), and still easy to use.
 If you think you have one, or know one, please contact me: I would be very pleased to list you there.
 
-## Remarks
+## Publish to Maven Central
 
-Fork of [sourceforge.net/projects/lizzy](https://sourceforge.net/projects/lizzy/)
+```shell
+./gradlew :sign
+./gradlwe : publish
+```
