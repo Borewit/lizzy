@@ -61,9 +61,11 @@ task sourcesJar(type: Jar) {
     duplicatesStrategy = 'include'
 }
 
-artifacts {
-    archives javadocJar, sourcesJar
+java {
+    withSourcesJar()
+    withJavadocJar()
 }
+
 
 group = 'io.github.borewit'
 version = '1.1.2'
