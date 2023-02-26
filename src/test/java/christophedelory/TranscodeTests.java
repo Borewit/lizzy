@@ -45,8 +45,6 @@ public class TranscodeTests
     }
   }
 
-
-
   private void transcode(Path samplePath) throws Exception
   {
     final String[] targetPlaylistFormats = {"pla", "asx", "b4s", "wpl", "smil", "rss", "atom", "hypetape", "xspf", "rmp", "plist", "kpl", "pls", "mpcpl", "plp", "m3u"};
