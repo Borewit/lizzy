@@ -44,4 +44,4 @@ template: |
   $CHANGES
 
   ## Maven Central Release
-  Maven release: [$REPOSITORY@$RESOLVED_VERSION](https://mvnrepository.com/artifact/io.github.borewit/lizzy/$RESOLVED_VERSION)
+  Release: [io.github.borewit:$REPOSITORY:$RESOLVED_VERSION](https://central.sonatype.com/artifact/io.github.borewit/$REPOSITORY/$RESOLVED_VERSION)
