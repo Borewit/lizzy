@@ -31,7 +31,7 @@ dependencies {
     implementation 'commons-jexl:commons-jexl:1.0'
     implementation 'org.dom4j:dom4j:2.1.4'
     // https://mvnrepository.com/artifact/xml-apis/xml-apis
-    implementation 'xml-apis:xml-apis:2.0.2'
+    implementation 'xml-apis:xml-apis:1.4.01'
     // https://mvnrepository.com/artifact/com.sun.activation/javax.activation
     implementation 'com.sun.activation:javax.activation:1.2.0'
 
