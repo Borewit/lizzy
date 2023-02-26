@@ -4,3 +4,7 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
+    ignore:
+      # xml-apis:xml-apis v2, these are older than v1!
+      - dependency-name: "xml-apis:xml-apis"
+        versions: ["2.0.0", "2.0.2"]
