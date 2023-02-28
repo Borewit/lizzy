@@ -8,7 +8,6 @@ plugins {
 apply plugin: 'maven-publish'
 
 repositories {
-    mavenLocal()
     // Access the Central Repository with Gradle via HTTPS
     // Ref: https://central.sonatype.org/consume/consume-gradle/
     maven {
@@ -68,7 +67,7 @@ java {
 
 
 group = 'io.github.borewit'
-version = '1.1.2'
+version = '1.1.3'
 description = 'Lizzy'
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
