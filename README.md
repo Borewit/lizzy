@@ -118,8 +118,20 @@ In order to build Lizzy from the sources, you first have to download and install
 1. You may have to set `JAVA_HOME` and directory `bin` folder of the Maven installation to your [PATH System variable](https://en.wikipedia.org/wiki/PATH_(variable)).
 
 Execute the following command in order to build the distribution and store it in your local Maven cache:
+
+## Build
+
+### Publish local
+Publish to local Maven repository:
 ```shell
-mvn clean publishToMavenLocal
+./gradlew :clean :publishToMavenLocal
+```
+
+### Publish to Maven Central
+Publish to local Sonatype Maven Central - Sonatype:
+```shell
+./gradlew :sign
+./gradlew :publish
 ```
 
 ## Playlist information
@@ -186,9 +198,3 @@ You will find here different Web links to playlist-related information, that hav
 I haven't found yet any similar API, both open source and extensible, supporting such a wide range of disparate formats (from the simple M3U format to the rich SMIL format), and still easy to use.
 If you think you have one, or know one, please contact me: I would be very pleased to list you there.
 
-## Publish to Maven Central
-
-```shell
-./gradlew :sign
-./gradlwe : publish
-```
