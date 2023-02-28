@@ -38,7 +38,7 @@ dependencies {
     // JAXB API only
     implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.3'
     //JAXB RI, Jakarta XML Binding
-    runtimeOnly 'com.sun.xml.bind:jaxb-impl:2.3.3'
+    runtimeOnly 'com.sun.xml.bind:jaxb-impl:2.3.8'
 
     implementation files('ext/ffmpeg/ffmpeg-java.jar')
     implementation files('ext/ffmpeg/jna.jar')
