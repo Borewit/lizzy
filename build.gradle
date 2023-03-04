@@ -39,9 +39,6 @@ dependencies {
     //JAXB RI, Jakarta XML Binding
     runtimeOnly 'com.sun.xml.bind:jaxb-impl:2.3.8'
 
-    implementation files('ext/ffmpeg/ffmpeg-java.jar')
-    implementation files('ext/ffmpeg/jna.jar')
-
     // JUnit Jupiter using Gradle's native JUnit Platform
     testImplementation platform('org.junit:junit-bom:5.9.2')
     testImplementation 'org.junit.jupiter:junit-jupiter'
