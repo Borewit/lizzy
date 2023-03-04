@@ -27,19 +27,14 @@ package christophedelory.playlist.asx;
 import java.io.InputStream;
 import java.io.StringReader;
 
+import christophedelory.playlist.*;
 import org.apache.commons.logging.Log;
 
 import christophedelory.content.type.ContentType;
 import christophedelory.io.IOUtils;
 import christophedelory.player.PlayerSupport;
-import christophedelory.playlist.AbstractPlaylistComponent;
-import christophedelory.playlist.Media;
-import christophedelory.playlist.Parallel;
-import christophedelory.playlist.Playlist;
-import christophedelory.playlist.Sequence;
-import christophedelory.playlist.SpecificPlaylist;
-import christophedelory.playlist.SpecificPlaylistProvider;
 import christophedelory.xml.XmlSerializer;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * The Windows Media ASX playlist XML format.
@@ -47,7 +42,7 @@ import christophedelory.xml.XmlSerializer;
  * @version $Revision: 90 $
  * @author Christophe Delory
  */
-public class AsxProvider implements SpecificPlaylistProvider
+public class AsxProvider extends AbstractPlaylistProvider
 {
     /**
      * A list of compatible content types.
@@ -91,6 +86,11 @@ public class AsxProvider implements SpecificPlaylistProvider
                         },
                         "Windows Media Audio Redirector (WAX)"),
     };
+
+    public AsxProvider()
+    {
+        super(AsxProvider.class);
+    }
 
     @Override
     public String getId()

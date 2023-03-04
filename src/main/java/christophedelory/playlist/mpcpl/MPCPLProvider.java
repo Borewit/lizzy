@@ -29,17 +29,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
+import christophedelory.playlist.*;
+import christophedelory.playlist.m3u.M3UProvider;
 import org.apache.commons.logging.Log;
 
 import christophedelory.content.type.ContentType;
 import christophedelory.player.PlayerSupport;
-import christophedelory.playlist.AbstractPlaylistComponent;
-import christophedelory.playlist.Media;
-import christophedelory.playlist.Parallel;
-import christophedelory.playlist.Playlist;
-import christophedelory.playlist.Sequence;
-import christophedelory.playlist.SpecificPlaylist;
-import christophedelory.playlist.SpecificPlaylistProvider;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * The Media Player Classic Playlist (MPCPL) provider.
@@ -47,7 +43,7 @@ import christophedelory.playlist.SpecificPlaylistProvider;
  * @author Christophe Delory
  * @since 0.3.0
  */
-public class MPCPLProvider implements SpecificPlaylistProvider
+public class MPCPLProvider extends AbstractPlaylistProvider
 {
     /**
      * A list of compatible content types.
@@ -62,6 +58,11 @@ public class MPCPLProvider implements SpecificPlaylistProvider
                         },
                         "Media Player Classic Playlist"),
     };
+
+    public MPCPLProvider()
+    {
+        super(MPCPLProvider.class);
+    }
 
     @Override
     public String getId()

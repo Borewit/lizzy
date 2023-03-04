@@ -28,31 +28,27 @@ import java.io.InputStream;
 import java.io.StringReader;
 import java.util.Date;
 
+import christophedelory.playlist.*;
+import christophedelory.playlist.pla.PLAProvider;
 import org.apache.commons.logging.Log;
 
 import christophedelory.content.type.ContentType;
 import christophedelory.io.IOUtils;
 import christophedelory.player.PlayerSupport;
-import christophedelory.playlist.AbstractPlaylistComponent;
-import christophedelory.playlist.Media;
-import christophedelory.playlist.Parallel;
-import christophedelory.playlist.Playlist;
-import christophedelory.playlist.Sequence;
-import christophedelory.playlist.SpecificPlaylist;
-import christophedelory.playlist.SpecificPlaylistProvider;
 import christophedelory.plist.Array;
 import christophedelory.plist.Dict;
 import christophedelory.plist.Plist;
 import christophedelory.plist.True;
 import christophedelory.xml.Version;
 import christophedelory.xml.XmlSerializer;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * The iTunes library format.
  * @version $Revision: 90 $
  * @author Christophe Delory
  */
-public class PlistProvider implements SpecificPlaylistProvider
+public class PlistProvider extends AbstractPlaylistProvider
 {
     /**
      * A list of compatible content types.
@@ -67,6 +63,11 @@ public class PlistProvider implements SpecificPlaylistProvider
                         },
                         "iTunes Library File"),
     };
+
+    public PlistProvider()
+    {
+        super(PlistProvider.class);
+    }
 
     @Override
     public String getId()

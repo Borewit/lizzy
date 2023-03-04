@@ -27,17 +27,12 @@ package christophedelory.playlist.xspf;
 import java.io.InputStream;
 import java.io.StringReader;
 
+import christophedelory.playlist.*;
 import org.apache.commons.logging.Log;
 
 import christophedelory.content.type.ContentType;
 import christophedelory.io.IOUtils;
 import christophedelory.player.PlayerSupport;
-import christophedelory.playlist.AbstractPlaylistComponent;
-import christophedelory.playlist.Media;
-import christophedelory.playlist.Parallel;
-import christophedelory.playlist.Sequence;
-import christophedelory.playlist.SpecificPlaylist;
-import christophedelory.playlist.SpecificPlaylistProvider;
 import christophedelory.xml.XmlSerializer;
 
 /**
@@ -48,7 +43,7 @@ import christophedelory.xml.XmlSerializer;
  * @version $Revision: 91 $
  * @author Christophe Delory
  */
-public class XspfProvider implements SpecificPlaylistProvider
+public class XspfProvider extends AbstractPlaylistProvider
 {
     /**
      * A list of compatible content types.
@@ -63,6 +58,11 @@ public class XspfProvider implements SpecificPlaylistProvider
                         },
                         "XML Shareable Playlist Format (XSPF)"),
     };
+
+    public XspfProvider()
+    {
+        super(XspfProvider.class);
+    }
 
     @Override
     public String getId()

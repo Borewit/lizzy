@@ -51,6 +51,21 @@ public interface SpecificPlaylistProvider
      */
     ContentType[] getContentTypes();
 
+
+    /**
+     * Reads a playlist from the specified input stream.
+     * When done, the stream remains open.
+     * @param in an input stream. Shall not be <code>null</code>.
+     * @param encoding the content encoding of the input resource, or <code>null</code> if not known.
+     * @return a new playlist instance, or <code>null</code> if the format has been recognized, but the playlist is malformed.
+     * @throws NullPointerException if <code>in</code> is <code>null</code>.
+     * @throws NullPointerException if <code>logger</code> is <code>null</code>.
+     * @throws Exception if any error occurs during the unmarshalling process.
+     * @see SpecificPlaylist#writeTo
+     * @see SpecificPlaylistFactory#readFrom
+     */
+    SpecificPlaylist readFrom(final InputStream in, final String encoding) throws Exception;
+
     /**
      * Reads a playlist from the specified input stream.
      * When done, the stream remains open.
@@ -61,8 +76,9 @@ public interface SpecificPlaylistProvider
      * @throws NullPointerException if <code>in</code> is <code>null</code>.
      * @throws NullPointerException if <code>logger</code> is <code>null</code>.
      * @throws Exception if any error occurs during the unmarshalling process.
-     * @see SpecificPlaylist#writeTo
+     * @see #readFrom(final InputStream in, final String encoding)
      * @see SpecificPlaylistFactory#readFrom
+     * @see SpecificPlaylist#writeTo
      */
     SpecificPlaylist readFrom(final InputStream in, final String encoding, final Log logger) throws Exception;
 

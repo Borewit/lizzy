@@ -27,18 +27,13 @@ package christophedelory.playlist.smil;
 import java.io.InputStream;
 import java.io.StringReader;
 
+import christophedelory.playlist.*;
+import christophedelory.playlist.rss.RSSProvider;
 import org.apache.commons.logging.Log;
 
 import christophedelory.content.type.ContentType;
 import christophedelory.io.IOUtils;
 import christophedelory.player.PlayerSupport;
-import christophedelory.playlist.AbstractPlaylistComponent;
-import christophedelory.playlist.Media;
-import christophedelory.playlist.Parallel;
-import christophedelory.playlist.Playlist;
-import christophedelory.playlist.Sequence;
-import christophedelory.playlist.SpecificPlaylist;
-import christophedelory.playlist.SpecificPlaylistProvider;
 import christophedelory.xml.XmlSerializer;
 
 /**
@@ -47,7 +42,7 @@ import christophedelory.xml.XmlSerializer;
  * @version $Revision: 90 $
  * @author Christophe Delory
  */
-public class SmilProvider implements SpecificPlaylistProvider
+public class SmilProvider extends AbstractPlaylistProvider
 {
     /**
      * A list of compatible content types.
@@ -64,6 +59,11 @@ public class SmilProvider implements SpecificPlaylistProvider
                         },
                         "Synchronized Multimedia Integration Language (SMIL)"),
     };
+
+    public SmilProvider()
+    {
+        super(SmilProvider.class);
+    }
 
     @Override
     public String getId()

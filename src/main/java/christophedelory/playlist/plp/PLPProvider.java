@@ -29,17 +29,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
+import christophedelory.playlist.*;
+import christophedelory.playlist.plist.PlistProvider;
 import org.apache.commons.logging.Log;
 
 import christophedelory.content.type.ContentType;
 import christophedelory.player.PlayerSupport;
-import christophedelory.playlist.AbstractPlaylistComponent;
-import christophedelory.playlist.Media;
-import christophedelory.playlist.Parallel;
-import christophedelory.playlist.Playlist;
-import christophedelory.playlist.Sequence;
-import christophedelory.playlist.SpecificPlaylist;
-import christophedelory.playlist.SpecificPlaylistProvider;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * The PLP playlist format, which lists locations of files in a standard text format.
@@ -47,8 +43,9 @@ import christophedelory.playlist.SpecificPlaylistProvider;
  * @author Christophe Delory
  * @since 0.2.0
  */
-public class PLPProvider implements SpecificPlaylistProvider
+public class PLPProvider extends AbstractPlaylistProvider
 {
+
     /**
      * A list of compatible content types.
      */
@@ -61,6 +58,10 @@ public class PLPProvider implements SpecificPlaylistProvider
                         },
                         "Sansa Playlist File"),
     };
+
+    public PLPProvider() {
+        super(PLPProvider.class);
+    }
 
     @Override
     public String getId()

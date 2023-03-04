@@ -27,25 +27,22 @@ package christophedelory.playlist.hypetape;
 import java.io.InputStream;
 import java.io.StringReader;
 
+import christophedelory.playlist.*;
+import christophedelory.playlist.b4s.B4sProvider;
 import org.apache.commons.logging.Log;
 
 import christophedelory.content.type.ContentType;
 import christophedelory.io.IOUtils;
 import christophedelory.player.PlayerSupport;
-import christophedelory.playlist.AbstractPlaylistComponent;
-import christophedelory.playlist.Media;
-import christophedelory.playlist.Parallel;
-import christophedelory.playlist.Sequence;
-import christophedelory.playlist.SpecificPlaylist;
-import christophedelory.playlist.SpecificPlaylistProvider;
 import christophedelory.xml.XmlSerializer;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * The Hypetape XML playlist format.
  * @version $Revision: 91 $
  * @author Christophe Delory
  */
-public class HypetapeProvider implements SpecificPlaylistProvider
+public class HypetapeProvider extends AbstractPlaylistProvider
 {
     /**
      * A list of compatible content types.
@@ -59,6 +56,11 @@ public class HypetapeProvider implements SpecificPlaylistProvider
                         },
                         "Hypetape XML Playlist Format"),
     };
+
+    public HypetapeProvider()
+    {
+        super(HypetapeProvider.class);
+    }
 
     @Override
     public String getId()

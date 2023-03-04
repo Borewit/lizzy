@@ -30,24 +30,20 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Locale;
 
+import christophedelory.playlist.*;
+import christophedelory.playlist.kpl.KplProvider;
 import org.apache.commons.logging.Log;
 
 import christophedelory.content.type.ContentType;
 import christophedelory.player.PlayerSupport;
-import christophedelory.playlist.AbstractPlaylistComponent;
-import christophedelory.playlist.Media;
-import christophedelory.playlist.Parallel;
-import christophedelory.playlist.Playlist;
-import christophedelory.playlist.Sequence;
-import christophedelory.playlist.SpecificPlaylist;
-import christophedelory.playlist.SpecificPlaylistProvider;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * A simple text-based list of the locations of the items, with each item on a new line.
  * @version $Revision: 91 $
  * @author Christophe Delory
  */
-public class M3UProvider implements SpecificPlaylistProvider
+public class M3UProvider extends AbstractPlaylistProvider
 {
     /**
      * A list of compatible content types.
@@ -92,6 +88,11 @@ public class M3UProvider implements SpecificPlaylistProvider
                         },
                         "Real Audio Metadata (RAM)"),
     };
+
+    public M3UProvider()
+    {
+        super(M3UProvider.class);
+    }
 
     @Override
     public String getId()

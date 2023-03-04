@@ -30,6 +30,9 @@ import java.io.StringReader;
 import java.net.URI;
 import java.util.Date;
 
+import christophedelory.playlist.*;
+import christophedelory.playlist.asx.AsxProvider;
+import christophedelory.playlist.b4s.B4sProvider;
 import org.apache.commons.logging.Log;
 
 import christophedelory.atom.Entry;
@@ -42,22 +45,15 @@ import christophedelory.atom.URIContainer;
 import christophedelory.content.type.ContentType;
 import christophedelory.io.IOUtils;
 import christophedelory.player.PlayerSupport;
-import christophedelory.playlist.AbstractPlaylistComponent;
-import christophedelory.playlist.Media;
-import christophedelory.playlist.Parallel;
-import christophedelory.playlist.Playlist;
-import christophedelory.playlist.Sequence;
-import christophedelory.playlist.SpecificPlaylist;
-import christophedelory.playlist.SpecificPlaylistProvider;
 import christophedelory.xml.Version;
 import christophedelory.xml.XmlSerializer;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * The Atom playlist provider.
- * @version $Revision: 91 $
  * @author Christophe Delory
  */
-public class AtomProvider implements SpecificPlaylistProvider
+public class AtomProvider extends AbstractPlaylistProvider
 {
     /**
      * A list of compatible content types.
@@ -71,6 +67,11 @@ public class AtomProvider implements SpecificPlaylistProvider
                         },
                         "Atom Document"),
     };
+
+    public AtomProvider()
+    {
+        super(AtomProvider.class);
+    }
 
     @Override
     public String getId()

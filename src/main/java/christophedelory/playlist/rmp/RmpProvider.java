@@ -30,18 +30,12 @@ import java.io.StringReader;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 
+import christophedelory.playlist.*;
 import org.apache.commons.logging.Log;
 
 import christophedelory.content.type.ContentType;
 import christophedelory.io.IOUtils;
 import christophedelory.player.PlayerSupport;
-import christophedelory.playlist.AbstractPlaylistComponent;
-import christophedelory.playlist.Media;
-import christophedelory.playlist.Parallel;
-import christophedelory.playlist.Playlist;
-import christophedelory.playlist.Sequence;
-import christophedelory.playlist.SpecificPlaylist;
-import christophedelory.playlist.SpecificPlaylistProvider;
 import christophedelory.xml.Version;
 
 /**
@@ -50,7 +44,7 @@ import christophedelory.xml.Version;
  * @author Christophe Delory
  * @since 0.3.0
  */
-public class RmpProvider implements SpecificPlaylistProvider
+public class RmpProvider extends AbstractPlaylistProvider
 {
     /**
      * A list of compatible content types.
@@ -65,6 +59,11 @@ public class RmpProvider implements SpecificPlaylistProvider
                         },
                         "Real Metadata Package (RMP)"),
     };
+
+    public RmpProvider()
+    {
+        super(RmpProvider.class);
+    }
 
     @Override
     public String getId()

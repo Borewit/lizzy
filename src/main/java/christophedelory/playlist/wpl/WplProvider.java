@@ -27,17 +27,13 @@ package christophedelory.playlist.wpl;
 import java.io.InputStream;
 import java.io.StringReader;
 
+import christophedelory.playlist.*;
+import christophedelory.playlist.smil.SmilProvider;
 import org.apache.commons.logging.Log;
 
 import christophedelory.content.type.ContentType;
 import christophedelory.io.IOUtils;
 import christophedelory.player.PlayerSupport;
-import christophedelory.playlist.AbstractPlaylistComponent;
-import christophedelory.playlist.Parallel;
-import christophedelory.playlist.Playlist;
-import christophedelory.playlist.Sequence;
-import christophedelory.playlist.SpecificPlaylist;
-import christophedelory.playlist.SpecificPlaylistProvider;
 import christophedelory.xml.XmlSerializer;
 
 /**
@@ -45,7 +41,7 @@ import christophedelory.xml.XmlSerializer;
  * @version $Revision: 91 $
  * @author Christophe Delory
  */
-public class WplProvider implements SpecificPlaylistProvider
+public class WplProvider extends AbstractPlaylistProvider
 {
     /**
      * A list of compatible content types.
@@ -61,6 +57,11 @@ public class WplProvider implements SpecificPlaylistProvider
                         },
                         "Windows Media Player Playlist (WPL)"),
     };
+
+    public WplProvider()
+    {
+        super(WplProvider.class);
+    }
 
     @Override
     public String getId()

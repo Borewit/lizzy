@@ -27,18 +27,15 @@ package christophedelory.playlist.b4s;
 import java.io.InputStream;
 import java.io.StringReader;
 
+import christophedelory.playlist.*;
+import christophedelory.playlist.asx.AsxProvider;
 import org.apache.commons.logging.Log;
 
 import christophedelory.content.type.ContentType;
 import christophedelory.io.IOUtils;
 import christophedelory.player.PlayerSupport;
-import christophedelory.playlist.AbstractPlaylistComponent;
-import christophedelory.playlist.Media;
-import christophedelory.playlist.Parallel;
-import christophedelory.playlist.Sequence;
-import christophedelory.playlist.SpecificPlaylist;
-import christophedelory.playlist.SpecificPlaylistProvider;
 import christophedelory.xml.XmlSerializer;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * A proprietary XML-based format introduced in Winamp version 3.
@@ -46,7 +43,7 @@ import christophedelory.xml.XmlSerializer;
  * @version $Revision: 91 $
  * @author Christophe Delory
  */
-public class B4sProvider implements SpecificPlaylistProvider
+public class B4sProvider extends AbstractPlaylistProvider
 {
     /**
      * A list of compatible content types.
@@ -62,6 +59,11 @@ public class B4sProvider implements SpecificPlaylistProvider
                         },
                         "Winamp 3+ Playlist"),
     };
+
+    public B4sProvider()
+    {
+        super(B4sProvider.class);
+    }
 
     @Override
     public String getId()
