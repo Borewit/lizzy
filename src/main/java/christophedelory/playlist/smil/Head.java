@@ -25,6 +25,7 @@
 package christophedelory.playlist.smil;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -115,7 +116,7 @@ public class Head extends Core
     public boolean removeMetaByName(final String name)
     {
         boolean ret = false;
-        final java.util.Iterator<Meta> iter = _metas.iterator();
+        final Iterator<Meta> iter = _metas.iterator();
 
         while (iter.hasNext())
         {

@@ -129,11 +129,8 @@ public class WplProvider extends AbstractPlaylistProvider
      * Adds the specified generic playlist component, and all its childs if any, to the input sequence.
      * @param wplSeq the parent sequence. Shall not be <code>null</code>.
      * @param component the generic playlist component to handle. Shall not be <code>null</code>.
-     * @throws NullPointerException if <code>wplSeq</code> is <code>null</code>.
-     * @throws NullPointerException if <code>component</code> is <code>null</code>.
-     * @throws Exception if this service provider is unable to represent the input playlist.
      */
-    private void addToPlaylist(final Seq wplSeq, final AbstractPlaylistComponent component) throws Exception
+    private void addToPlaylist(final Seq wplSeq, final AbstractPlaylistComponent component)
     {
         if (component instanceof Sequence)
         {

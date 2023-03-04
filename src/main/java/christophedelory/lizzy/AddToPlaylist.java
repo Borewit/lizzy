@@ -109,49 +109,49 @@ public final class AddToPlaylist
      * The playlist type, if specified.
      */
     @Option(name="-t",usage="The output playlist type\nAllowed values: see below",metaVar="type")
-    private volatile String _type = null;
+    private String _type = null;
 
     /**
      * Specifies if the content metadata shall be fetched, if possible.
      */
     @Option(name="-m",usage="Fetch if possible the media content metadata")
-    private volatile boolean _fetchContentMetadata = false;
+    private boolean _fetchContentMetadata = false;
 
     /**
      * The sub-directories shall be recursively scanned.
      */
     @Option(name="-r",usage="Recursively add sub-directories contents")
-    private volatile boolean _recursive = false;
+    private boolean _recursive = false;
 
     /**
      * The output file or URL.
      */
     @Option(name="-o",usage="The output file or URL\nIf missing, a file save dialog is prompted\nIf the output playlist type is not specified (-t), it will be inferred from the output file name extension",metaVar="file/URL")
-    private volatile String _output = null;
+    private String _output = null;
 
     /**
      * Specifies that the marshalled M3U playlist must use the Extension M3U format.
      */
     @Option(name="-m3u:ext",usage="The output M3U playlist must use the Extension M3U format")
-    private volatile boolean _extM3U = false;
+    private boolean _extM3U = false;
 
     /**
      * Specifies that the output RSS shall make use of the RSS Media extension.
      */
     @Option(name="-rss:media",usage="The output RSS playlist must use the RSS Media format")
-    private volatile boolean _useRSSMedia = false;
+    private boolean _useRSSMedia = false;
 
     /**
      * Specifies the disk identifier of the output PLP playlist.
      */
     @Option(name="-plp:disk",usage="The disk identifier of the output PLP playlist\nExamples: HARP, HDD",metaVar="disk")
-    private volatile String _diskSpecifier = null;
+    private String _diskSpecifier = null;
 
     /**
      * The list of input files or directories.
      */
     @Argument(usage="One or more files or directories to add to the output playlist",metaVar="input-files(s)",required=true)
-    private volatile ArrayList<String> _arguments = new ArrayList<String>(); // NOPMD Avoid using implementation types; use the interface instead
+    private ArrayList<String> _arguments = new ArrayList<>(); // NOPMD Avoid using implementation types; use the interface instead
 
     /**
      * The default no-arg constructor shall not be publicly available.
@@ -493,7 +493,7 @@ public final class AddToPlaylist
                             sb.insert(0, '/'); // Shall not throw StringIndexOutOfBoundsException.
                             final String previousFileName = previousFile.getName();
 
-                            if (!"/".equals(previousFileName) && !"\\".equals(previousFileName))
+                            if (!previousFileName.equals("/") && !previousFileName.equals("\\"))
                             {
                                 sb.insert(0, previousFileName); // Shall not throw StringIndexOutOfBoundsException.
                             }

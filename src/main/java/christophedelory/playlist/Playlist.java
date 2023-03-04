@@ -104,13 +104,13 @@ public class Playlist
         }
 
         @Override
-        public void endVisitParallel(final Parallel target) throws Exception
+        public void endVisitParallel(final Parallel target)
         {
             endVisitTimeContainer(target);
         }
 
         @Override
-        public void endVisitSequence(final Sequence target) throws Exception
+        public void endVisitSequence(final Sequence target)
         {
             endVisitTimeContainer(target);
 

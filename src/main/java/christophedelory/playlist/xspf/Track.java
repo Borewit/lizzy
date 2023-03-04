@@ -390,7 +390,7 @@ public class Track extends Attribution
             throw new IllegalArgumentException("No application attribute");
         }
 
-        if (!"application".equals(attr.getLocalName()))
+        if (!attr.getLocalName().equals("application"))
         {
             throw new IllegalArgumentException("Unknown attribute");
         }

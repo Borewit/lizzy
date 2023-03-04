@@ -150,13 +150,9 @@ public class PlistProvider extends AbstractPlaylistProvider
      * @param tracks the list of tracks. Shall not be <code>null</code>.
      * @param playlist the playlist. Shall not be <code>null</code>.
      * @param component the generic playlist component to handle. Shall not be <code>null</code>.
-     * @throws NullPointerException if <code>tracks</code> is <code>null</code>.
-     * @throws NullPointerException if <code>playlist</code> is <code>null</code>.
-     * @throws NullPointerException if <code>component</code> is <code>null</code>.
-     * @throws Exception if this service provider is unable to represent the input playlist.
      */
     @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
-    private void addToPlaylist(final Dict tracks, final Array playlist, final AbstractPlaylistComponent component) throws Exception
+    private void addToPlaylist(final Dict tracks, final Array playlist, final AbstractPlaylistComponent component)
     {
         if (component instanceof Sequence)
         {

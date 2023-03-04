@@ -288,7 +288,7 @@ public class Region extends Position
      */
     public boolean isSkipContent()
     {
-        return (_skipContent == null) ? false : _skipContent.booleanValue();
+        return _skipContent != null && _skipContent.booleanValue();
     }
 
     /**

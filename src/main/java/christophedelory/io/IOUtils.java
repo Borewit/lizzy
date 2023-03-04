@@ -24,9 +24,11 @@
  */
 package christophedelory.io;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.IOException;
 import java.io.StringWriter;
 
 /**
@@ -51,7 +53,7 @@ public final class IOUtils
 
         if (encoding == null)
         {
-            reader = new InputStreamReader(in); // Throws NullPointerException if in is null.
+            reader = new InputStreamReader(in, UTF_8); // Throws NullPointerException if in is null.
         }
         else
         {
@@ -62,7 +64,7 @@ public final class IOUtils
         final char[] buffer = new char[512];
         int nb = 0;
 
-        while (-1 != (nb = reader.read(buffer))) // May throw IOException.
+        while ((nb = reader.read(buffer)) != -1) // May throw IOException.
         {
             writer.write(buffer, 0, nb);
         }

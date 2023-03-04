@@ -76,7 +76,7 @@ public interface SpecificPlaylistProvider
      * @throws NullPointerException if <code>in</code> is <code>null</code>.
      * @throws NullPointerException if <code>logger</code> is <code>null</code>.
      * @throws Exception if any error occurs during the unmarshalling process.
-     * @see #readFrom(final InputStream in, final String encoding)
+     * @see #readFrom(InputStream, String) 
      * @see SpecificPlaylistFactory#readFrom
      * @see SpecificPlaylist#writeTo
      */

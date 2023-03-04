@@ -122,7 +122,7 @@ public class Entry extends AsxOrEntryElement
     {
         final String skip = StringUtils.normalize(clientSkip);
 
-        _clientSkip = !("NO".equalsIgnoreCase(skip));
+        _clientSkip = ! "NO".equalsIgnoreCase(skip);
     }
 
     /**

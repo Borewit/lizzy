@@ -127,10 +127,11 @@ public class Copyright
     }
 
     /**
-     * 
+     *See {@link #getValue}.
+ 
      * @param value the copyright information. Shall not be <code>null</code>.
      * @throws NullPointerException if <code>value</code> is <code>null</code>.
-     * @see #getValue
+     * 
      */
     public void setValue(final String value)
     {

@@ -32,49 +32,49 @@ package christophedelory.playlist;
 public class BasePlaylistVisitor implements PlaylistVisitor
 {
     @Override
-    public void beginVisitPlaylist(final Playlist target) throws Exception
+    public void beginVisitPlaylist(final Playlist target)
     {
         // No-op.
     }
 
     @Override
-    public void endVisitPlaylist(final Playlist target) throws Exception
+    public void endVisitPlaylist(final Playlist target)
     {
         // No-op.
     }
 
     @Override
-    public void beginVisitParallel(final Parallel target) throws Exception
+    public void beginVisitParallel(final Parallel target)
     {
         // No-op.
     }
 
     @Override
-    public void endVisitParallel(final Parallel target) throws Exception
+    public void endVisitParallel(final Parallel target)
     {
         // No-op.
     }
 
     @Override
-    public void beginVisitSequence(final Sequence target) throws Exception
+    public void beginVisitSequence(final Sequence target)
     {
         // No-op.
     }
 
     @Override
-    public void endVisitSequence(final Sequence target) throws Exception
+    public void endVisitSequence(final Sequence target)
     {
         // No-op.
     }
 
     @Override
-    public void beginVisitMedia(final Media target) throws Exception
+    public void beginVisitMedia(final Media target)
     {
         // No-op.
     }
 
     @Override
-    public void endVisitMedia(final Media target) throws Exception
+    public void endVisitMedia(final Media target)
     {
         // No-op.
     }

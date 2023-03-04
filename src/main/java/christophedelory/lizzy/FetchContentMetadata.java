@@ -61,7 +61,7 @@ public class FetchContentMetadata extends BasePlaylistVisitor
     }
 
     @Override
-    public void beginVisitMedia(final Media target) throws Exception
+    public void beginVisitMedia(final Media target)
     {
         if (target.getSource() != null)
         {

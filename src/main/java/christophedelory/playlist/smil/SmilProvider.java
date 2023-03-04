@@ -107,7 +107,7 @@ public class SmilProvider extends AbstractPlaylistProvider
     }
 
     @Override
-    public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws Exception
+    public SpecificPlaylist toSpecificPlaylist(final Playlist playlist)
     {
         final Smil ret = new Smil();
         ret.setProvider(this);

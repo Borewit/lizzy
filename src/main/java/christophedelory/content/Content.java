@@ -353,7 +353,9 @@ public class Content
      */
     public boolean isValid()
     {
-        return (_connected == null) ? false : _connected.booleanValue();
+        synchronized (this) {
+            return _connected != null && _connected.booleanValue();
+        }
     }
 
     /**
@@ -362,7 +364,6 @@ public class Content
      * @throws IllegalArgumentException if the URL is not absolute.
      * @throws MalformedURLException if a protocol handler for the URL could not be found, or if some other error occurred while constructing the URL.
      * @throws IOException if any I/O error occurs.
-     * @throws SocketTimeoutException if the timeout expires before the connection can be established.
      * @see #getURL
      */
     public void connect() throws IOException
@@ -404,7 +405,7 @@ public class Content
             //InputStream in = conn.getInputStream(); // May throw IOException, UnknownServiceException.
             //conn.getHeaderField();
             final String encoding = conn.getContentEncoding(); // May be null.
-            final long length = (long) conn.getContentLength(); // May be negative.
+            final long length = conn.getContentLength(); // May be negative.
             final String type = conn.getContentType(); // May be null.
             final long lastModified = conn.getLastModified(); // 0L or more.
 
@@ -429,7 +430,10 @@ public class Content
                 _lastModified = lastModified;
             }
 
-            _connected = Boolean.TRUE;
+            synchronized(this)
+            {
+                _connected = Boolean.TRUE;
+            }
         }
     }
 
@@ -444,7 +448,7 @@ public class Content
     @Override
     public boolean equals(final Object obj)
     {
-        return (obj == null) ? false : _urlString.equals(obj.toString());
+        return obj != null && _urlString.equals(obj.toString());
     }
 
     /**

@@ -224,7 +224,7 @@ public class BaseMedia
      */
     public boolean isMediaAdult()
     {
-        return (_mediaAdult == null) ? false : _mediaAdult.booleanValue();
+        return _mediaAdult != null && _mediaAdult.booleanValue();
     }
 
     /**

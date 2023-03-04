@@ -24,23 +24,26 @@
  */
 package christophedelory.xml;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Reader;
 import java.io.Writer;
 import java.net.URL;
-import java.util.Hashtable;
-
-import org.xml.sax.InputSource;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.exolab.castor.mapping.Mapping;
 import org.exolab.castor.mapping.MappingException;
 import org.exolab.castor.xml.Marshaller;
 import org.exolab.castor.xml.Unmarshaller;
+import org.xml.sax.InputSource;
 
 /**
  * A collection of utilities when manipulating the Castor framework.
@@ -53,7 +56,7 @@ public final class XmlSerializer
     /**
      * The list of mappings already built.
      */
-    private static Hashtable<String,XmlSerializer> _mappings = new Hashtable<String,XmlSerializer>();
+    private static final Map<String,XmlSerializer> _mappings = new LinkedHashMap<>();
 
     /**
      * Retrieves the XML serializer instance associated to the specified package name.
@@ -213,7 +216,7 @@ public final class XmlSerializer
      */
     public void marshal(final Object o, final String fileName, final boolean asDocument) throws Exception
     {
-        final FileWriter out = new FileWriter(fileName, false); // May throw IOException.
+        final Writer out = Files.newBufferedWriter(Paths.get(fileName), UTF_8); // May throw IOException.
         marshal(o, out, asDocument); // May throw MappingException, MarshalException, ValidationException.
         out.flush(); // May throw IOException.
         out.close(); // May throw IOException.
@@ -236,7 +239,7 @@ public final class XmlSerializer
      */
     public void marshal(final Object o, final File file, final boolean asDocument) throws Exception
     {
-        final FileWriter out = new FileWriter(file, false); // May throw IOException.
+        final Writer out = Files.newBufferedWriter(file.toPath(), UTF_8); // May throw IOException.
         marshal(o, out, asDocument); // May throw MappingException, MarshalException, ValidationException.
         out.flush(); // May throw IOException.
         out.close(); // May throw IOException.

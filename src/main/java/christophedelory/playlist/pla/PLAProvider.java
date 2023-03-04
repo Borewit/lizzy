@@ -25,6 +25,7 @@
 package christophedelory.playlist.pla;
 
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import christophedelory.playlist.*;
@@ -90,7 +91,7 @@ public class PLAProvider extends AbstractPlaylistProvider
 
         // First frame is a header starting with a 32-bit big-endian unsigned integer specifying the number of songs in the playlist.
         // Immediately after this there is an ASCII string "iriver UMS PLA", and that's all for the header frame.
-        final String magic = new String(array, 4, 14, "US-ASCII"); // Shall not throw UnsupportedEncodingException, IndexOutOfBoundsException.
+        final String magic = new String(array, 4, 14, StandardCharsets.US_ASCII); // Shall not throw UnsupportedEncodingException, IndexOutOfBoundsException.
 
         if (!"iriver UMS PLA".equals(magic))
         {
@@ -100,7 +101,7 @@ public class PLAProvider extends AbstractPlaylistProvider
         // In addition, player's own Quick Lists have an apparently superfluous extra string "Quick List" starting from 0x20
         //magic = new String(array, 32, 10); // May equal "Quick List".
 
-        final int nbSongs =   (((int) array[3] & 0x0ff) << 0) |
+        final int nbSongs =   (((int) array[3] & 0x0ff)) |
                         (((int) array[2] & 0x0ff) << 8) |
                         (((int) array[1] & 0x0ff) << 16) |
                         (((int) array[0] & 0x0ff) << 24);
@@ -125,7 +126,7 @@ public class PLAProvider extends AbstractPlaylistProvider
             // As the filesystem type is VFAT, it is encoded as big-endian UTF-16 without a byte order mark.
             // I have not tried whether the player recognizes wider than two-byte characters.
             // Also, I have used only absolute paths, I don't know if relative paths would work.
-            final String songFilename = new String(array, 2, 510, "UTF-16BE"); // Shall not throw UnsupportedEncodingException, IndexOutOfBoundsException. NOPMD Avoid instantiating new objects inside loops
+            final String songFilename = new String(array, 2, 510, StandardCharsets.UTF_16BE); // Shall not throw UnsupportedEncodingException, IndexOutOfBoundsException. NOPMD Avoid instantiating new objects inside loops
 
             // The index and filename are everything there is in a single song frame.
             // Note that the filename must fit into one 512-byte frame.
@@ -151,11 +152,8 @@ public class PLAProvider extends AbstractPlaylistProvider
      * Adds the song file names referenced in the specified generic playlist component to the input list.
      * @param filenames the resulting list of file names. Shall not be <code>null</code>.
      * @param component the generic playlist component to handle. Shall not be <code>null</code>.
-     * @throws NullPointerException if <code>filenames</code> is <code>null</code>.
-     * @throws NullPointerException if <code>component</code> is <code>null</code>.
-     * @throws Exception if this service provider is unable to represent the input playlist.
      */
-    private void addToPlaylist(final List<String> filenames, final AbstractPlaylistComponent component) throws Exception
+    private void addToPlaylist(final List<String> filenames, final AbstractPlaylistComponent component)
     {
         if (component instanceof Sequence)
         {
