@@ -30,18 +30,13 @@ import java.io.StringReader;
 import java.net.URI;
 import java.util.Date;
 
+import christophedelory.playlist.*;
+import christophedelory.playlist.pls.PLSProvider;
 import org.apache.commons.logging.Log;
 
 import christophedelory.content.type.ContentType;
 import christophedelory.io.IOUtils;
 import christophedelory.player.PlayerSupport;
-import christophedelory.playlist.AbstractPlaylistComponent;
-import christophedelory.playlist.Media;
-import christophedelory.playlist.Parallel;
-import christophedelory.playlist.Playlist;
-import christophedelory.playlist.Sequence;
-import christophedelory.playlist.SpecificPlaylist;
-import christophedelory.playlist.SpecificPlaylistProvider;
 import christophedelory.rss.Channel;
 import christophedelory.rss.Enclosure;
 import christophedelory.rss.Item;
@@ -55,7 +50,7 @@ import christophedelory.xml.XmlSerializer;
  * @version $Revision: 92 $
  * @author Christophe Delory
  */
-public class RSSProvider implements SpecificPlaylistProvider
+public class RSSProvider extends AbstractPlaylistProvider
 {
     /**
      * A list of compatible content types.
@@ -74,6 +69,11 @@ public class RSSProvider implements SpecificPlaylistProvider
      * Specifies that the output RSS shall make use of the RSS Media extension (and not of the default enclosure capability).
      */
     private boolean _useRSSMedia = false;
+
+    public RSSProvider()
+    {
+        super(RSSProvider.class);
+    }
 
     @Override
     public String getId()

@@ -32,6 +32,9 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import christophedelory.playlist.*;
+import christophedelory.playlist.hypetape.HypetapeProvider;
+import org.apache.commons.logging.LogFactory;
 import org.xml.sax.InputSource;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -44,13 +47,6 @@ import org.apache.commons.logging.Log;
 import christophedelory.content.type.ContentType;
 import christophedelory.io.IOUtils;
 import christophedelory.player.PlayerSupport;
-import christophedelory.playlist.AbstractPlaylistComponent;
-import christophedelory.playlist.Media;
-import christophedelory.playlist.Parallel;
-import christophedelory.playlist.Playlist;
-import christophedelory.playlist.Sequence;
-import christophedelory.playlist.SpecificPlaylist;
-import christophedelory.playlist.SpecificPlaylistProvider;
 import christophedelory.xml.Version;
 
 /**
@@ -60,7 +56,7 @@ import christophedelory.xml.Version;
  * @version $Revision: 91 $
  * @author Christophe Delory
  */
-public class KplProvider implements SpecificPlaylistProvider
+public class KplProvider extends AbstractPlaylistProvider
 {
     /**
      * A list of compatible content types.
@@ -74,6 +70,11 @@ public class KplProvider implements SpecificPlaylistProvider
                         },
                         "Kalliope PlayList"),
     };
+
+    public KplProvider()
+    {
+        super(KplProvider.class);
+    }
 
     @Override
     public String getId()

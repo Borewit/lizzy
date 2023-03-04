@@ -29,17 +29,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
+import christophedelory.playlist.*;
 import org.apache.commons.logging.Log;
 
 import christophedelory.content.type.ContentType;
 import christophedelory.player.PlayerSupport;
-import christophedelory.playlist.AbstractPlaylistComponent;
-import christophedelory.playlist.Media;
-import christophedelory.playlist.Parallel;
-import christophedelory.playlist.Playlist;
-import christophedelory.playlist.Sequence;
-import christophedelory.playlist.SpecificPlaylist;
-import christophedelory.playlist.SpecificPlaylistProvider;
 import christophedelory.playlist.m3u.Resource;
 
 /**
@@ -51,7 +45,7 @@ import christophedelory.playlist.m3u.Resource;
  * @version $Revision: 91 $
  * @author Christophe Delory
  */
-public class PLSProvider implements SpecificPlaylistProvider
+public class PLSProvider extends AbstractPlaylistProvider
 {
     /**
      * A list of compatible content types.
@@ -73,6 +67,11 @@ public class PLSProvider implements SpecificPlaylistProvider
                         },
                         "Winamp PLSv2 Playlist"),
     };
+
+    public PLSProvider()
+    {
+        super(PLSProvider.class);
+    }
 
     @Override
     public String getId()
