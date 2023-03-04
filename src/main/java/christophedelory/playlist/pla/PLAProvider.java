@@ -92,7 +92,7 @@ public class PLAProvider extends AbstractPlaylistProvider
         // Immediately after this there is an ASCII string "iriver UMS PLA", and that's all for the header frame.
         final String magic = new String(array, 4, 14, "US-ASCII"); // Shall not throw UnsupportedEncodingException, IndexOutOfBoundsException.
 
-        if (!"iriver UMS PLA".equals(magic))
+        if (!magic.equals("iriver UMS PLA"))
         {
             throw new IllegalArgumentException("Not a PLA playlist format (bad magic)");
         }

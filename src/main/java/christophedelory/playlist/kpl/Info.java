@@ -46,7 +46,7 @@ public class Info
     /**
      * The internal date format.
      */
-    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd", Locale.US); // Should not throw NullPointerException, IllegalArgumentException.
+    private static final ThreadLocal<DateFormat> dateFormat = ThreadLocal.withInitial(() -> new SimpleDateFormat("yyyy-MM-dd", Locale.US)); // Should not throw NullPointerException, IllegalArgumentException.
 
     /**
      * The creation day.
@@ -90,9 +90,9 @@ public class Info
 
         if (_creation_day != null)
         {
-            synchronized(DATE_FORMAT)
+            synchronized(dateFormat.get())
             {
-                ret = DATE_FORMAT.format(_creation_day); // Should not throw NullPointerException because of _creation_day.
+                ret = dateFormat.get().format(_creation_day); // Should not throw NullPointerException because of _creation_day.
             }
         }
 
@@ -116,9 +116,9 @@ public class Info
         }
         else
         {
-            synchronized(DATE_FORMAT)
+            synchronized(dateFormat.get())
             {
-                _creation_day = DATE_FORMAT.parse(day); // May throw ParseException.
+                _creation_day = dateFormat.get().parse(day); // May throw ParseException.
             }
         }
     }
@@ -157,9 +157,9 @@ public class Info
 
         if (_modified_day != null)
         {
-            synchronized(DATE_FORMAT)
+            synchronized(dateFormat.get())
             {
-                ret = DATE_FORMAT.format(_modified_day); // Should not throw NullPointerException because of _modified_day.
+                ret = dateFormat.get().format(_modified_day); // Should not throw NullPointerException because of _modified_day.
             }
         }
 
@@ -183,9 +183,9 @@ public class Info
         }
         else
         {
-            synchronized(DATE_FORMAT)
+            synchronized(dateFormat.get())
             {
-                _modified_day = DATE_FORMAT.parse(day); // May throw ParseException.
+                _modified_day = dateFormat.get().parse(day); // May throw ParseException.
             }
         }
     }

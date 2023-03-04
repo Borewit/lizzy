@@ -104,7 +104,7 @@ public class PLPProvider extends AbstractPlaylistProvider
                 // First the PLP marker string.
                 if (!magic1Found)
                 {
-                    if (!"PLP PLAYLIST".equals(line)) // NOPMD Deeply nested if then statement
+                    if (!line.equals("PLP PLAYLIST")) // NOPMD Deeply nested if then statement
                     {
                         throw new IllegalArgumentException("Not a PLP playlist format");
                     }
@@ -116,7 +116,7 @@ public class PLPProvider extends AbstractPlaylistProvider
                 // Then the version marker string.
                 if (!magic2Found)
                 {
-                    if (!"VERSION 1.20".equals(line)) // NOPMD Deeply nested if then statement
+                    if (!line.equals("VERSION 1.20")) // NOPMD Deeply nested if then statement
                     {
                         logger.error("Malformed PLP playlist (no version information)");
                         ret = null;

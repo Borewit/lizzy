@@ -42,7 +42,7 @@ public class Date extends PlistObject
     /**
      * The internal date and time format.
      */
-    private static final DateFormat DATETIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US); // Should not throw NullPointerException, IllegalArgumentException.
+    private static final ThreadLocal<DateFormat> datetimeFormat = ThreadLocal.withInitial(() -> new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US)); // Should not throw NullPointerException, IllegalArgumentException.
 
     /**
      * The date.
@@ -89,9 +89,9 @@ public class Date extends PlistObject
      */
     public java.lang.String getValueString()
     {
-        synchronized(DATETIME_FORMAT)
+        synchronized(datetimeFormat.get())
         {
-            return DATETIME_FORMAT.format(_value); // Throws NullPointerException if _value is null.
+            return datetimeFormat.get().format(_value); // Throws NullPointerException if _value is null.
         }
     }
 
@@ -105,9 +105,9 @@ public class Date extends PlistObject
      */
     public void setValueString(final java.lang.String value) throws ParseException
     {
-        synchronized(DATETIME_FORMAT)
+        synchronized(datetimeFormat.get())
         {
-            _value = DATETIME_FORMAT.parse(value); // May throw ParseException. Throws NullPointerException if value is null.
+            _value = datetimeFormat.get().parse(value); // May throw ParseException. Throws NullPointerException if value is null.
         }
     }
 

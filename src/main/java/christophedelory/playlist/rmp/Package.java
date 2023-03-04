@@ -56,7 +56,7 @@ public class Package implements SpecificPlaylist
     /**
      * The internal date and time format.
      */
-    private static final DateFormat DATETIME_FORMAT = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.US); // Should not throw NullPointerException, IllegalArgumentException.
+    private static final ThreadLocal<DateFormat> datetimeFormat = ThreadLocal.withInitial(() -> new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.US)); // Should not throw NullPointerException, IllegalArgumentException.
 
     /**
      * The provider of this specific playlist.
@@ -266,9 +266,9 @@ public class Package implements SpecificPlaylist
 
         if (_expirationDate != null)
         {
-            synchronized(DATETIME_FORMAT)
+            synchronized(datetimeFormat.get())
             {
-                ret = DATETIME_FORMAT.format(_expirationDate); // Should not throw NullPointerException because of _expirationDate.
+                ret = datetimeFormat.get().format(_expirationDate); // Should not throw NullPointerException because of _expirationDate.
             }
         }
 
@@ -285,9 +285,9 @@ public class Package implements SpecificPlaylist
      */
     public void setExpirationDateString(final String expirationDate) throws ParseException
     {
-        synchronized(DATETIME_FORMAT)
+        synchronized(datetimeFormat.get())
         {
-            _expirationDate = DATETIME_FORMAT.parse(expirationDate); // May throw ParseException. Throws NullPointerException if expirationDate is null.
+            _expirationDate = datetimeFormat.get().parse(expirationDate); // May throw ParseException. Throws NullPointerException if expirationDate is null.
         }
     }
 

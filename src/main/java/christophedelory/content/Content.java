@@ -419,7 +419,7 @@ public class Content
                 _length = length;
             }
 
-            if ((type != null) && !"content/unknown".equals(type))
+            if ((type != null) && !type.equals("content/unknown"))
             {
                 _type = type;
             }

@@ -642,7 +642,7 @@ public class Track
      */
     public void setIsStreamingString(final String isStreaming)
     {
-        _isStreaming = "1".equals(isStreaming); // isStreaming may be null.
+        _isStreaming = isStreaming.equals("1"); // isStreaming may be null.
     }
 
     /**

@@ -24,20 +24,7 @@
  */
 package christophedelory.lizzy;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-
-import org.kohsuke.args4j.Argument;
-import org.kohsuke.args4j.CmdLineException;
-import org.kohsuke.args4j.CmdLineParser;
-import org.kohsuke.args4j.Option;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 import christophedelory.playlist.Playlist;
 import christophedelory.playlist.SpecificPlaylist;
@@ -47,6 +34,19 @@ import christophedelory.playlist.m3u.M3U;
 import christophedelory.playlist.plp.PLP;
 import christophedelory.playlist.rss.RSSProvider;
 import christophedelory.xml.Version;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import org.kohsuke.args4j.Argument;
+import org.kohsuke.args4j.CmdLineException;
+import org.kohsuke.args4j.CmdLineParser;
+import org.kohsuke.args4j.Option;
 
 /**
  * Converts a given playlist file to a specified format.
@@ -73,7 +73,7 @@ public final class Transcode
         final URL url = Version.class.getClassLoader().getResource(resourceName); // May throw SecurityException. Throws NullPointerException if resourceName is null.
 
         if (url != null) {
-            final BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream())); // May throw IOException. Throws NullPointerException if url is null.
+            final BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), UTF_8)); // May throw IOException. Throws NullPointerException if url is null.
 
             final String version = reader.readLine(); // May throw IOException.
             Version.CURRENT = Version.valueOf(version); // Throws NullPointerException if version is null. Should not throw IllegalArgumentException, IndexOutOfBoundsException, NumberFormatException.

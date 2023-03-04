@@ -25,6 +25,8 @@
 package christophedelory.playlist.asx;
 
 import christophedelory.lang.StringUtils;
+import com.google.common.base.Splitter;
+import java.util.List;
 
 /**
  * Defines the length of time the stream must be rendered.
@@ -115,35 +117,35 @@ public class Duration extends Child
      */
     public void setValueString(final String value)
     {
-        final String[] array = value.trim().split(":"); // Throws NullPointerException if value is null. Should not throw PatternSyntaxException.
+        final List<String> array = Splitter.on(':').splitToList(value.trim()); // Throws NullPointerException if value is null. Should not throw PatternSyntaxException.
 
-        if (array.length != 3)
+        if (array.size() != 3)
         {
             throw new IllegalArgumentException("Invalid duration format " + value);
         }
 
-        final long hours = Long.parseLong(array[0]); // May throw NumberFormatException.
+        final long hours = Long.parseLong(array.get(0)); // May throw NumberFormatException.
 
         if (hours < 0L)
         {
             throw new IllegalArgumentException("Negative hours");
         }
 
-        final long minutes = Long.parseLong(array[1]); // May throw NumberFormatException.
+        final long minutes = Long.parseLong(array.get(1)); // May throw NumberFormatException.
 
         if ((minutes < 0L) || (minutes > 59L))
         {
             throw new IllegalArgumentException("Invalid minutes");
         }
 
-        final String[] subArray = array[2].split("\\."); // Should not throw PatternSyntaxException.
+        final List<String> subArray = Splitter.on('.').splitToList(array.get(2)); // Should not throw PatternSyntaxException.
 
-        if (subArray.length > 2)
+        if (subArray.size() > 2)
         {
             throw new IllegalArgumentException("Invalid duration format " + value);
         }
 
-        final long seconds = Long.parseLong(subArray[0]); // May throw NumberFormatException.
+        final long seconds = Long.parseLong(subArray.get(0)); // May throw NumberFormatException.
 
         if ((seconds < 0L) || (seconds > 59L))
         {
@@ -152,9 +154,9 @@ public class Duration extends Child
 
         long millis = 0L;
 
-        if (subArray.length > 1)
+        if (subArray.size() > 1)
         {
-            final StringBuilder sb = new StringBuilder(subArray[1]);
+            final StringBuilder sb = new StringBuilder(subArray.get(1));
 
             switch (sb.length())
             {

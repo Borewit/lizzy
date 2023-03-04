@@ -134,7 +134,7 @@ public class PLSProvider extends AbstractPlaylistProvider
                 String key = line.substring(0, idx).trim().toLowerCase(); // Shall not throw IndexOutOfBoundsException.
                 final String value = line.substring(idx + 1).trim(); // Shall not throw IndexOutOfBoundsException.
 
-                if ("numberofentries".equals(key))
+                if (key.equals("numberofentries"))
                 {
                     int tmpValue;
                     
@@ -253,10 +253,10 @@ public class PLSProvider extends AbstractPlaylistProvider
                         break;
                     }
                 }
-                else if ("version".equals(key))
+                else if (key.equals("version"))
                 {
                     // If present, shall be "2".
-                    if (!"2".equals(value))
+                    if (!value.equals("2"))
                     {
                         logger.error("Unknown PLS version " + value);
                         ret = null;

@@ -47,7 +47,7 @@ public class FileTypeMapProvider implements ContentTypeProvider
             final String contentType = map.getContentType(contentName);
 
             // Test the default map.
-            if (!"application/octet-stream".equals(contentType))
+            if (!contentType.equals("application/octet-stream"))
             {
                 ret = new ContentType(new String[] { ext }, new String[] { contentType }, null, null);
             }

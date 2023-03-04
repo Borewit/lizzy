@@ -157,15 +157,15 @@ public class MPCPLProvider extends AbstractPlaylistProvider
 
                 final Resource resource = ret.getResources().get(resourceIndex); // Shall not throw ArrayIndexOutOfBoundsException.
 
-                if ("filename".equals(key))
+                if (key.equals("filename"))
                 {
                     resource.setFilename(value);
                 }
-                else if ("type".equals(key))
+                else if (key.equals("type"))
                 {
                     resource.setType(value);
                 }
-                else if ("subtitle".equals(key))
+                else if (key.equals("subtitle"))
                 {
                     resource.setSubtitle(value);
                 }

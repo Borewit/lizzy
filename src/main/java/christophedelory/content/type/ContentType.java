@@ -141,7 +141,7 @@ public class ContentType extends FileFilter implements Cloneable
      * @see #setDescription
      * @see FileFilter#getDescription
      */
-    public String getDescription()
+    @Override public String getDescription()
     {
         return _description;
     }
@@ -191,7 +191,7 @@ public class ContentType extends FileFilter implements Cloneable
     @Override
     public boolean accept(final File f)
     {
-        return (f.isDirectory()) ? true : matchExtension(f.getName()); // Throws NullPointerException if f is null.
+        return  f.isDirectory() ? true : matchExtension(f.getName()); // Throws NullPointerException if f is null.
     }
 
     /**

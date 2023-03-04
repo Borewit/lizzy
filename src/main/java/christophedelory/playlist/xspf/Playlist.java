@@ -545,7 +545,7 @@ public class Playlist implements SpecificPlaylist
             throw new IllegalArgumentException("No application attribute");
         }
 
-        if (!"application".equals(attr.getLocalName()))
+        if (!attr.getLocalName().equals("application"))
         {
             throw new IllegalArgumentException("Unknown attribute");
         }

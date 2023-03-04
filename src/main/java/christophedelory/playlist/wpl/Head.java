@@ -24,10 +24,10 @@
  */
 package christophedelory.playlist.wpl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import christophedelory.lang.StringUtils;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Contains metadata that applies to the entire playlist.
@@ -178,7 +178,7 @@ public class Head
     public boolean removeMetaByName(final String name)
     {
         boolean ret = false;
-        final java.util.Iterator<Meta> iter = _metas.iterator();
+        final Iterator<Meta> iter = _metas.iterator();
 
         while (iter.hasNext())
         {

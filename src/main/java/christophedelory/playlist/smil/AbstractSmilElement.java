@@ -25,6 +25,8 @@
 package christophedelory.playlist.smil;
 
 import christophedelory.lang.StringUtils;
+import com.google.common.base.Splitter;
+import java.util.List;
 
 /**
  * The media object elements.
@@ -415,43 +417,43 @@ public abstract class AbstractSmilElement extends Core
                 long minutes = 0L;
                 long seconds = 0L;
                 long millis = 0L;
-                final String[] array = str.split(":"); // Should not throw PatternSyntaxException.
+                final List<String> array = Splitter.on(':').splitToList(str); // Should not throw PatternSyntaxException.
 
-                switch (array.length) // NOPMD A high ratio of statements to labels in a switch statement. Consider refactoring
+                switch (array.size()) // NOPMD A high ratio of statements to labels in a switch statement. Consider refactoring
                 {
                     case 3: // Full-clock-value ::= Hours ":" Minutes ":" Seconds ("." Fraction)?
                     {
-                        hours = Long.parseLong(array[0]); // May throw NumberFormatException.
+                        hours = Long.parseLong(array.get(0)); // May throw NumberFormatException.
 
                         if (hours < 0L)
                         {
                             throw new IllegalArgumentException("Negative hours");
                         }
 
-                        minutes = Long.parseLong(array[1]); // May throw NumberFormatException.
+                        minutes = Long.parseLong(array.get(1)); // May throw NumberFormatException.
 
                         if ((minutes < 0L) || (minutes > 59L))
                         {
                             throw new IllegalArgumentException("Invalid minutes");
                         }
 
-                        final String[] subArray = array[2].split("\\."); // Should not throw PatternSyntaxException.
+                        final List<String> subArray = Splitter.on('.').splitToList(array.get(2)); // Should not throw PatternSyntaxException.
 
-                        if (subArray.length > 2)
+                        if (subArray.size() > 2)
                         {
                             throw new IllegalArgumentException("Invalid duration format " + str);
                         }
 
-                        seconds = Long.parseLong(subArray[0]); // May throw NumberFormatException.
+                        seconds = Long.parseLong(subArray.get(0)); // May throw NumberFormatException.
 
                         if ((seconds < 0L) || (seconds > 59L))
                         {
                             throw new IllegalArgumentException("Invalid seconds");
                         }
 
-                        if (subArray.length > 1)
+                        if (subArray.size() > 1)
                         {
-                            final StringBuilder sb = new StringBuilder(subArray[1]);
+                            final StringBuilder sb = new StringBuilder(subArray.get(1));
 
                             switch (sb.length())
                             {
@@ -481,30 +483,30 @@ public abstract class AbstractSmilElement extends Core
 
                     case 2: // Partial-clock-value ::= Minutes ":" Seconds ("." Fraction)?
                     {
-                        minutes = Long.parseLong(array[0]); // May throw NumberFormatException.
+                        minutes = Long.parseLong(array.get(0)); // May throw NumberFormatException.
 
                         if ((minutes < 0L) || (minutes > 59L))
                         {
                             throw new IllegalArgumentException("Invalid minutes");
                         }
 
-                        final String[] subArray = array[1].split("\\."); // Should not throw PatternSyntaxException.
+                        final List<String> subArray = Splitter.on('.').splitToList(array.get(1)); // Should not throw PatternSyntaxException.
 
-                        if (subArray.length > 2)
+                        if (subArray.size() > 2)
                         {
                             throw new IllegalArgumentException("Invalid duration format " + str);
                         }
 
-                        seconds = Long.parseLong(subArray[0]); // May throw NumberFormatException.
+                        seconds = Long.parseLong(subArray.get(0)); // May throw NumberFormatException.
 
                         if ((seconds < 0L) || (seconds > 59L))
                         {
                             throw new IllegalArgumentException("Invalid seconds");
                         }
 
-                        if (subArray.length > 1)
+                        if (subArray.size() > 1)
                         {
-                            final StringBuilder sb = new StringBuilder(subArray[1]);
+                            final StringBuilder sb = new StringBuilder(subArray.get(1));
 
                             switch (sb.length())
                             {
@@ -534,7 +536,7 @@ public abstract class AbstractSmilElement extends Core
 
                     case 1: // Timecount-value ::= Timecount ("." Fraction)? (Metric)?
                     {
-                        String input = array[0].toLowerCase(); // Default value.
+                        String input = array.get(0).toLowerCase(); // Default value.
                         float multiplier = 1000f; // Default value.
 
                         if (input.endsWith("h"))

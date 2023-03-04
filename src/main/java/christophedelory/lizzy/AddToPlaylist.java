@@ -304,7 +304,7 @@ public final class AddToPlaylist
                 outputPath = outputUrl.getPath(); // May still be null.
 
                 // Go back to a real file whenever possible, because URLConnection does not support writing to files.
-                if ("file".equals(outputUrl.getProtocol()))
+                if (outputUrl.getProtocol().equals("file"))
                 {
                     final URI uri = outputUrl.toURI(); // May throw URISyntaxException.
                     outputFile = new File(uri); // May throw IllegalArgumentException.
@@ -493,7 +493,7 @@ public final class AddToPlaylist
                             sb.insert(0, '/'); // Shall not throw StringIndexOutOfBoundsException.
                             final String previousFileName = previousFile.getName();
 
-                            if (!"/".equals(previousFileName) && !"\\".equals(previousFileName))
+                            if (!previousFileName.equals("/") && !previousFileName.equals("\\"))
                             {
                                 sb.insert(0, previousFileName); // Shall not throw StringIndexOutOfBoundsException.
                             }

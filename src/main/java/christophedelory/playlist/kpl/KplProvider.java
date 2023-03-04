@@ -121,7 +121,7 @@ public class KplProvider extends AbstractPlaylistProvider
         documentBuilder.setErrorHandler(new DefaultHandler()); // To avoid logs on System.err like "[Fatal Error] :1:1: Content is not allowed in prolog."
         final Document document = documentBuilder.parse(new InputSource(reader)); // May throw IOException, SAXException. Shall not throw IllegalArgumentException.
 
-        if (!"xml".equals(document.getDocumentElement().getTagName())) // Throws NullPointerException if getDocumentElement() is null.
+        if (!document.getDocumentElement().getTagName().equals("xml")) // Throws NullPointerException if getDocumentElement() is null.
         {
             throw new IllegalArgumentException("Not a Kalliope playlist (root element is not named 'xml')");
         }

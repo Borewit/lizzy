@@ -17,29 +17,29 @@ final class RFC822
     /**
      * RFC822 date and time format, full version.
      */
-    private static final DateFormat FULL_RFC822_DATETIME_FORMAT = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z", Locale.US); // Should not throw NullPointerException, IllegalArgumentException.
+    private static final ThreadLocal<DateFormat> fullRfc822DatetimeFormat = ThreadLocal.withInitial(() -> new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z", Locale.US)); // Should not throw NullPointerException, IllegalArgumentException.
 
     /**
      * RFC822 date and time format, full version, without seconds.
      */
-    private static final DateFormat FULL_RFC822_DATETIME_FORMAT_2 = new SimpleDateFormat("EEE, d MMM yyyy HH:mm Z", Locale.US); // Should not throw NullPointerException, IllegalArgumentException.
+    private static final ThreadLocal<DateFormat> fullRfc822DatetimeFormat2 = ThreadLocal.withInitial(() -> new SimpleDateFormat("EEE, d MMM yyyy HH:mm Z", Locale.US)); // Should not throw NullPointerException, IllegalArgumentException.
 
     /**
      * RFC822 date and time format, compact version.
      */
-    private static final DateFormat COMPACT_RFC822_DATETIME_FORMAT = new SimpleDateFormat("d MMM yyyy HH:mm:ss Z", Locale.US); // Should not throw NullPointerException, IllegalArgumentException.
+    private static final ThreadLocal<DateFormat> compactRfc822DatetimeFormat = ThreadLocal.withInitial(() -> new SimpleDateFormat("d MMM yyyy HH:mm:ss Z", Locale.US)); // Should not throw NullPointerException, IllegalArgumentException.
 
     /**
      * RFC822 date and time format, compact version, without seconds.
      */
-    private static final DateFormat COMPACT_RFC822_DATETIME_FORMAT_2 = new SimpleDateFormat("d MMM yyyy HH:mm Z", Locale.US); // Should not throw NullPointerException, IllegalArgumentException.
+    private static final ThreadLocal<DateFormat> compactRfc822DatetimeFormat2 = ThreadLocal.withInitial(() -> new SimpleDateFormat("d MMM yyyy HH:mm Z", Locale.US)); // Should not throw NullPointerException, IllegalArgumentException.
 
     /**
      * The ISO8601 {@link Date} formatter for date-time without time zone.
      * The {@link java.util.TimeZone} used here is the default local time zone.
      * The input {@link Date} is a GMT date and time.
      */
-    public static final DateFormat ISO8601_DATETIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US); // Should not throw NullPointerException, IllegalArgumentException.
+    public static final ThreadLocal<DateFormat> iso8601DatetimeFormat = ThreadLocal.withInitial(() -> new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US)); // Should not throw NullPointerException, IllegalArgumentException.
 
     /**
      * Returns a RFC822 date and time string representation of the specified date.
@@ -49,9 +49,9 @@ final class RFC822
      */
     public static String toString(final Date date)
     {
-        synchronized(FULL_RFC822_DATETIME_FORMAT)
+        synchronized(fullRfc822DatetimeFormat.get())
         {
-            return FULL_RFC822_DATETIME_FORMAT.format(date); // Throws NullPointerException if date is null.
+            return fullRfc822DatetimeFormat.get().format(date); // Throws NullPointerException if date is null.
         }
     }
 
@@ -65,11 +65,11 @@ final class RFC822
     {
         Date ret = null;
 
-        synchronized(FULL_RFC822_DATETIME_FORMAT)
+        synchronized(fullRfc822DatetimeFormat.get())
         {
             try
             {
-                ret = FULL_RFC822_DATETIME_FORMAT.parse(dateString); // May throw ParseException. Throws NullPointerException if dateString is null.
+                ret = fullRfc822DatetimeFormat.get().parse(dateString); // May throw ParseException. Throws NullPointerException if dateString is null.
             }
             catch (ParseException e)
             {
@@ -80,11 +80,11 @@ final class RFC822
 
         if (ret == null)
         {
-            synchronized(FULL_RFC822_DATETIME_FORMAT_2)
+            synchronized(fullRfc822DatetimeFormat2.get())
             {
                 try
                 {
-                    ret = FULL_RFC822_DATETIME_FORMAT_2.parse(dateString); // May throw ParseException.
+                    ret = fullRfc822DatetimeFormat2.get().parse(dateString); // May throw ParseException.
                 }
                 catch (ParseException e)
                 {
@@ -96,11 +96,11 @@ final class RFC822
 
         if (ret == null)
         {
-            synchronized(COMPACT_RFC822_DATETIME_FORMAT)
+            synchronized(compactRfc822DatetimeFormat.get())
             {
                 try
                 {
-                    ret = COMPACT_RFC822_DATETIME_FORMAT.parse(dateString); // May throw ParseException.
+                    ret = compactRfc822DatetimeFormat.get().parse(dateString); // May throw ParseException.
                 }
                 catch (ParseException e)
                 {
@@ -112,11 +112,11 @@ final class RFC822
 
         if (ret == null)
         {
-            synchronized(COMPACT_RFC822_DATETIME_FORMAT_2)
+            synchronized(compactRfc822DatetimeFormat2.get())
             {
                 try
                 {
-                    ret = COMPACT_RFC822_DATETIME_FORMAT_2.parse(dateString); // May throw ParseException.
+                    ret = compactRfc822DatetimeFormat2.get().parse(dateString); // May throw ParseException.
                 }
                 catch (ParseException e)
                 {
