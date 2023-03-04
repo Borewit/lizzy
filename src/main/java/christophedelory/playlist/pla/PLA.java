@@ -25,6 +25,7 @@
 package christophedelory.playlist.pla;
 
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
@@ -86,7 +87,7 @@ public class PLA implements SpecificPlaylist
         array[17] = 'A';
 
         final int nbSongs = _filenames.size();
-        array[3] = (byte)((nbSongs & 0x000000ff) >> 0);
+        array[3] = (byte)((nbSongs & 0x000000ff));
         array[2] = (byte)((nbSongs & 0x0000ff00) >> 8);
         array[1] = (byte)((nbSongs & 0x00ff0000) >> 16);
         array[0] = (byte)((nbSongs & 0xff000000) >> 24);
@@ -112,10 +113,10 @@ public class PLA implements SpecificPlaylist
 
             // File index is one-based.
             fileIndex++;
-            array[1] = (byte)((fileIndex & 0x000000ff) >> 0);
+            array[1] = (byte)((fileIndex & 0x000000ff));
             array[0] = (byte)((fileIndex & 0x0000ff00) >> 8);
 
-            final byte[] tmp = filename.getBytes("UTF-16BE"); // Shall not throw UnsupportedEncodingException.
+            final byte[] tmp = filename.getBytes(StandardCharsets.UTF_16BE); // Shall not throw UnsupportedEncodingException.
             System.arraycopy(tmp, 0, array, 2, tmp.length); // May throw IndexOutOfBoundsException. Shall not throw ArrayStoreException, NullPointerException.
 
             out.write(array); // May throw IOException.

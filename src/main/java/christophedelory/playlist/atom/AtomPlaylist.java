@@ -24,17 +24,17 @@
  */
 package christophedelory.playlist.atom;
 
-import java.io.OutputStream;
-import java.io.StringWriter;
-
 import christophedelory.atom.Entry;
 import christophedelory.atom.Feed;
 import christophedelory.atom.Link;
+import christophedelory.content.Content;
 import christophedelory.playlist.Media;
 import christophedelory.playlist.Playlist;
 import christophedelory.playlist.SpecificPlaylist;
 import christophedelory.playlist.SpecificPlaylistProvider;
 import christophedelory.xml.XmlSerializer;
+import java.io.OutputStream;
+import java.io.StringWriter;
 
 /**
  * An Atom {@link Feed} document wrapper.
@@ -100,7 +100,7 @@ public class AtomPlaylist implements SpecificPlaylist
                 if ((link.getHref() != null) && "enclosure".equals(link.getRel()))
                 {
                     final Media media = new Media(); // NOPMD Avoid instantiating new objects inside loops
-                    final christophedelory.content.Content content = new christophedelory.content.Content(link.getHref()); // NOPMD Avoid instantiating new objects inside loops
+                    final Content content = new Content(link.getHref()); // NOPMD Avoid instantiating new objects inside loops
                     content.setType(link.getType());
 
                     if (link.getLength() != null)

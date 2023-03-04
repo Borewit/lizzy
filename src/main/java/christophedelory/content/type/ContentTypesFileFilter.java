@@ -103,6 +103,7 @@ public class ContentTypesFileFilter extends FileFilter
      * @return a description. Shall not be <code>null</code>.
      * @see FileFilter#getDescription
      */
+    @Override
     public String getDescription()
     {
         final StringBuilder sb = new StringBuilder(_title);

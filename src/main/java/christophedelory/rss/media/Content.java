@@ -534,7 +534,8 @@ public class Content extends BaseMedia
      */
     public boolean isDefault()
     {
-        return (_isDefault == null) ? false /*FIXME TBC*/ : _isDefault.booleanValue();
+        /*FIXME TBC*/
+        return _isDefault != null && _isDefault.booleanValue();
     }
 
     /**

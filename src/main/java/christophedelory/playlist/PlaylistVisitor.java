@@ -42,72 +42,56 @@ public interface PlaylistVisitor
     /**
      * Starts the visit of the specified playlist.
      * @param target the element being visited. Shall not be <code>null</code>.
-     * @throws NullPointerException if <code>target</code> is <code>null</code>.
-     * @throws Exception if any error occurs during the visit.
      * @see #endVisitPlaylist
      */
-    void beginVisitPlaylist(final Playlist target) throws Exception;
+    void beginVisitPlaylist(final Playlist target);
 
     /**
      * Finishes the visit of the specified playlist.
      * @param target the element being visited. Shall not be <code>null</code>.
-     * @throws NullPointerException if <code>target</code> is <code>null</code>.
-     * @throws Exception if any error occurs during the visit.
      * @see #beginVisitPlaylist
      */
-    void endVisitPlaylist(final Playlist target) throws Exception;
+    void endVisitPlaylist(final Playlist target);
 
     /**
      * Starts the visit of the specified parallel timing container.
      * @param target the element being visited. Shall not be <code>null</code>.
-     * @throws NullPointerException if <code>target</code> is <code>null</code>.
-     * @throws Exception if any error occurs during the visit.
      * @see #endVisitParallel
      */
-    void beginVisitParallel(final Parallel target) throws Exception;
+    void beginVisitParallel(final Parallel target);
 
     /**
      * Finishes the visit of the specified parallel timing container.
      * @param target the element being visited. Shall not be <code>null</code>.
-     * @throws NullPointerException if <code>target</code> is <code>null</code>.
-     * @throws Exception if any error occurs during the visit.
      * @see #beginVisitParallel
      */
-    void endVisitParallel(final Parallel target) throws Exception;
+    void endVisitParallel(final Parallel target);
 
     /**
      * Starts the visit of the specified sequence.
      * @param target the element being visited. Shall not be <code>null</code>.
-     * @throws NullPointerException if <code>target</code> is <code>null</code>.
-     * @throws Exception if any error occurs during the visit.
      * @see #endVisitSequence
      */
-    void beginVisitSequence(final Sequence target) throws Exception;
+    void beginVisitSequence(final Sequence target);
 
     /**
      * Finishes the visit of the specified sequence.
      * @param target the element being visited. Shall not be <code>null</code>.
-     * @throws NullPointerException if <code>target</code> is <code>null</code>.
-     * @throws Exception if any error occurs during the visit.
      * @see #beginVisitSequence
      */
-    void endVisitSequence(final Sequence target) throws Exception;
+    void endVisitSequence(final Sequence target);
 
     /**
      * Starts the visit of the specified media.
      * @param target the element being visited. Shall not be <code>null</code>.
-     * @throws NullPointerException if <code>target</code> is <code>null</code>.
-     * @throws Exception if any error occurs during the visit.
      * @see #endVisitMedia
      */
-    void beginVisitMedia(final Media target) throws Exception;
+    void beginVisitMedia(final Media target);
 
     /**
      * Finishes the visit of the specified media.
      * @param target the element being visited. Shall not be <code>null</code>.
-     * @throws NullPointerException if <code>target</code> is <code>null</code>.
-     * @throws Exception if any error occurs during the visit.
      * @see #beginVisitMedia
      */
-    void endVisitMedia(final Media target) throws Exception;
+    void endVisitMedia(final Media target);
 }

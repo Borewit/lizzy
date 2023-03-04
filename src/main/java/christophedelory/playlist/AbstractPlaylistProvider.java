@@ -8,7 +8,7 @@ import java.io.InputStream;
 
 public abstract class AbstractPlaylistProvider implements SpecificPlaylistProvider
 {
-  protected Log logger;
+  protected final Log logger;
 
   public AbstractPlaylistProvider(Class clazz) {
     this.logger = LogFactory.getLog(clazz);

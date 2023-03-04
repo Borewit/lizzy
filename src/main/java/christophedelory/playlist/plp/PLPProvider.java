@@ -176,11 +176,8 @@ public class PLPProvider extends AbstractPlaylistProvider
      * Adds the song file names referenced in the specified generic playlist component to the input list.
      * @param filenames the resulting list of file names. Shall not be <code>null</code>.
      * @param component the generic playlist component to handle. Shall not be <code>null</code>.
-     * @throws NullPointerException if <code>filenames</code> is <code>null</code>.
-     * @throws NullPointerException if <code>component</code> is <code>null</code>.
-     * @throws Exception if this service provider is unable to represent the input playlist.
      */
-    private void addToPlaylist(final List<String> filenames, final AbstractPlaylistComponent component) throws Exception
+    private void addToPlaylist(final List<String> filenames, final AbstractPlaylistComponent component)
     {
         if (component instanceof Sequence)
         {

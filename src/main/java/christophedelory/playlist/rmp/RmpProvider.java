@@ -135,11 +135,8 @@ public class RmpProvider extends AbstractPlaylistProvider
      * Adds the specified generic playlist component, and all its childs if any, to the input track list.
      * @param trackList the parent track list. Shall not be <code>null</code>.
      * @param component the generic playlist component to handle. Shall not be <code>null</code>.
-     * @throws NullPointerException if <code>trackList</code> is <code>null</code>.
-     * @throws NullPointerException if <code>component</code> is <code>null</code>.
-     * @throws Exception if this service provider is unable to represent the input playlist.
      */
-    private void addToPlaylist(final Tracklist trackList, final AbstractPlaylistComponent component) throws Exception
+    private void addToPlaylist(final Tracklist trackList, final AbstractPlaylistComponent component)
     {
         if (component instanceof Sequence)
         {

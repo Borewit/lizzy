@@ -55,7 +55,7 @@ public class PlayerSupport implements Cloneable
         VLC_MEDIA_PLAYER,
         WINAMP,
         WINDOWS_MEDIA_PLAYER,
-    };
+    }
 
     /**
      * Returns a string representation of the specified player.

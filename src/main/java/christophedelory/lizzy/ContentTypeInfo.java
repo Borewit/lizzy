@@ -218,7 +218,7 @@ public final class ContentTypeInfo
             sb.append("</tbody></table></body></html>");
         }
 
-        System.out.println(sb.toString()); // NOPMD System.out.print is used
+        System.out.println(sb); // NOPMD System.out.print is used
     }
 
     /**

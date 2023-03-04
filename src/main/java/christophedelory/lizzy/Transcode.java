@@ -24,20 +24,7 @@
  */
 package christophedelory.lizzy;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-
-import org.kohsuke.args4j.Argument;
-import org.kohsuke.args4j.CmdLineException;
-import org.kohsuke.args4j.CmdLineParser;
-import org.kohsuke.args4j.Option;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 import christophedelory.playlist.Playlist;
 import christophedelory.playlist.SpecificPlaylist;
@@ -47,6 +34,19 @@ import christophedelory.playlist.m3u.M3U;
 import christophedelory.playlist.plp.PLP;
 import christophedelory.playlist.rss.RSSProvider;
 import christophedelory.xml.Version;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import org.kohsuke.args4j.Argument;
+import org.kohsuke.args4j.CmdLineException;
+import org.kohsuke.args4j.CmdLineParser;
+import org.kohsuke.args4j.Option;
 
 /**
  * Converts a given playlist file to a specified format.
@@ -73,7 +73,7 @@ public final class Transcode
         final URL url = Version.class.getClassLoader().getResource(resourceName); // May throw SecurityException. Throws NullPointerException if resourceName is null.
 
         if (url != null) {
-            final BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream())); // May throw IOException. Throws NullPointerException if url is null.
+            final BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), UTF_8)); // May throw IOException. Throws NullPointerException if url is null.
 
             final String version = reader.readLine(); // May throw IOException.
             Version.CURRENT = Version.valueOf(version); // Throws NullPointerException if version is null. Should not throw IllegalArgumentException, IndexOutOfBoundsException, NumberFormatException.
@@ -126,55 +126,55 @@ public final class Transcode
      * The playlist type, if specified.
      */
     @Option(name="-t",usage="The output playlist type\nAllowed values: see below\nIf missing, the input playlist type is used",metaVar="type")
-    private volatile String _type = null;
+    private String _type = null;
 
     /**
      * Specifies if the intermediate generic playlist shall be displayed or not.
      */
     @Option(name="-g",usage="Show the intermediate generic playlist")
-    private volatile boolean _showGenericPlaylist = false;
+    private boolean _showGenericPlaylist = false;
 
     /**
      * Specifies if the (parsed) input playlist shall be displayed or not.
      */
     @Option(name="-i",usage="Show the parsed input playlist")
-    private volatile boolean _showInputPlaylist = false;
+    private boolean _showInputPlaylist = false;
 
     /**
      * Specifies if the content metadata shall be fetched, if possible.
      */
     @Option(name="-m",usage="Fetch if possible the media content metadata")
-    private volatile boolean _fetchContentMetadata = false;
+    private boolean _fetchContentMetadata = false;
 
     /**
      * The output file or URL.
      */
     @Option(name="-o",usage="The output file or URL\nIf missing, stdout is used\nIf the output playlist type is not specified (-t), it will be inferred from the output file name extension",metaVar="file/URL")
-    private volatile String _output = null;
+    private String _output = null;
 
     /**
      * Specifies that the marshalled M3U playlist must use the Extension M3U format.
      */
     @Option(name="-m3u:ext",usage="The output M3U playlist must use the Extension M3U format")
-    private volatile boolean _extM3U = false;
+    private boolean _extM3U = false;
 
     /**
      * Specifies that the output RSS shall make use of the RSS Media extension.
      */
     @Option(name="-rss:media",usage="The output RSS playlist must use the RSS Media format")
-    private volatile boolean _useRSSMedia = false;
+    private boolean _useRSSMedia = false;
 
     /**
      * Specifies the disk identifier of the output PLP playlist.
      */
     @Option(name="-plp:disk",usage="The disk identifier of the output PLP playlist\nExamples: HARP, HDD",metaVar="disk")
-    private volatile String _diskSpecifier = null;
+    private String _diskSpecifier = null;
 
     /**
      * The input file or URL.
      */
     @Argument(usage="The input playlist file or URL",metaVar="input-playlist",required=true)
-    private volatile ArrayList<String> _arguments = new ArrayList<String>(); // NOPMD Avoid using implementation types; use the interface instead
+    private ArrayList<String> _arguments = new ArrayList<String>(); // NOPMD Avoid using implementation types; use the interface instead
 
     /**
      * The default no-arg constructor shall not be publicly available.

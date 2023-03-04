@@ -54,12 +54,9 @@ public class PlaylistToString extends BasePlaylistVisitor
 
     /**
      * Builds a new playlist visitor.
-     * @see BasePlaylistVisitor#BasePlaylistVisitor
      */
     public PlaylistToString()
     {
-        super();
-
         _sb = new StringBuilder();
         _indent = 0;
         _debug = false;
@@ -83,7 +80,7 @@ public class PlaylistToString extends BasePlaylistVisitor
     }
 
     @Override
-    public void beginVisitParallel(final Parallel target) throws Exception
+    public void beginVisitParallel(final Parallel target)
     {
         addIndent();
         _sb.append("PARALLEL(x");
@@ -101,13 +98,13 @@ public class PlaylistToString extends BasePlaylistVisitor
     }
 
     @Override
-    public void endVisitParallel(final Parallel target) throws Exception
+    public void endVisitParallel(final Parallel target)
     {
         _indent -= 2;
     }
 
     @Override
-    public void beginVisitSequence(final Sequence target) throws Exception
+    public void beginVisitSequence(final Sequence target)
     {
         addIndent();
         _sb.append("SEQUENCE(x");
@@ -125,13 +122,13 @@ public class PlaylistToString extends BasePlaylistVisitor
     }
 
     @Override
-    public void endVisitSequence(final Sequence target) throws Exception
+    public void endVisitSequence(final Sequence target)
     {
         _indent -= 2;
     }
 
     @Override
-    public void beginVisitMedia(final Media target) throws Exception
+    public void beginVisitMedia(final Media target)
     {
         addIndent();
         _sb.append("MEDIA(x");

@@ -21,21 +21,12 @@ application {
 
 dependencies {
     implementation 'args4j:args4j:2.33'
-    implementation 'org.codehaus.castor:castor-core:1.4.1'
     implementation 'org.codehaus.castor:castor-xml:1.4.1'
     implementation 'commons-logging:commons-logging:1.2'
-    implementation 'asm:asm:3.3.1'
-    implementation 'commons-beanutils:commons-beanutils-core:1.8.3'
-    implementation 'commons-collections:commons-collections:3.2.2'
-    implementation 'commons-jexl:commons-jexl:1.0'
-    implementation 'org.dom4j:dom4j:2.1.4'
-    // https://mvnrepository.com/artifact/xml-apis/xml-apis
-    implementation 'xml-apis:xml-apis:1.4.01'
-    // https://mvnrepository.com/artifact/com.sun.activation/javax.activation
-    implementation 'com.sun.activation:javax.activation:1.2.0'
 
     // JAXB API only
     implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.3'
+
     //JAXB RI, Jakarta XML Binding
     runtimeOnly 'com.sun.xml.bind:jaxb-impl:2.3.8'
 
@@ -54,7 +45,7 @@ task javadocJar(type: Jar) {
 task sourcesJar(type: Jar) {
     archiveClassifier.set('sources')
     from sourceSets.main.allSource
-    duplicatesStrategy = 'include'
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
 java {
