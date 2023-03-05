@@ -101,7 +101,7 @@ public class Content
      */
     public Content(final String url)
     {
-        _urlString = url.trim().replace('\\', '/'); // Throws NullPointerException if url is null.
+        _urlString = url.trim(); // Throws NullPointerException if url is null.
     }
 
     /**

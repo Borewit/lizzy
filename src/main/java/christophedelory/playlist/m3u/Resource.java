@@ -88,7 +88,7 @@ public class Resource
      */
     public void setLocation(final String location)
     {
-        _location = location.trim().replace('\\', '/'); // Throws NullPointerException if location is null.
+        _location = location.trim(); // Throws NullPointerException if location is null.
     }
 
     /**

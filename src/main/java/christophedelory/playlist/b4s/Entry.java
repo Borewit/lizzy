@@ -74,7 +74,7 @@ public class Entry
      */
     public void setPlaystring(final String playstring)
     {
-        _playstring = playstring.trim().replace('\\', '/'); // Throws NullPointerException if playstring is null.
+        _playstring = playstring.trim(); // Throws NullPointerException if playstring is null.
     }
 
     /**

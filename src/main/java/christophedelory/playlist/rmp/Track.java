@@ -183,7 +183,6 @@ public class Track
     public void setUrlString(final String url)
     {
         _url = StringUtils.normalize(url);
-        //_url = url.trim().replace('\\', '/'); // Throws NullPointerException if url is null.
     }
 
     /**
@@ -514,7 +513,6 @@ public class Track
     public void setContextInfoUrlString(final String url)
     {
         _contextInfoUrl = StringUtils.normalize(url);
-        //_contextInfoUrl = url.trim().replace('\\', '/'); // Throws NullPointerException if url is null.
     }
 
     /**
