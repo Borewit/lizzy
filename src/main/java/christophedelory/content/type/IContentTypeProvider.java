@@ -24,35 +24,19 @@
  */
 package christophedelory.content.type;
 
-import java.net.FileNameMap;
-import java.net.URLConnection;
-
 /**
- * A content type provider based on {@link FileNameMap}.
- * @version $Revision: 90 $
+ * Provides if possible a content type for a given media content.
+ * Concrete classes must have a zero-argument constructor so that they can be instantiated during loading.
+ * @version $Revision: 55 $
  * @author Christophe Delory
  */
-public class FileNameMapProvider implements ContentTypeProvider
+public interface IContentTypeProvider
 {
-    @Override
-    public ContentType getContentType(final String contentName)
-    {
-        ContentType ret = null;
-        final int idx = contentName.lastIndexOf('.');
-
-        if (idx >= 0)
-        {
-            final String ext = contentName.substring(idx); // Shall not throw IndexOutOfBoundsException.
-
-            final FileNameMap map = URLConnection.getFileNameMap();
-            final String contentType = map.getContentTypeFor(contentName);
-
-            if (contentType != null)
-            {
-                ret = new ContentType(new String[] { ext }, new String[] { contentType }, null, null);
-            }
-        }
-
-        return ret;
-    }
+    /**
+     * Returns a content type representing the given content name (file or URL).
+     * @param contentName a content (file or URL) name. Shall not be <code>null</code>.
+     * @return a content type. May be <code>null</code> if none was found.
+     * @throws NullPointerException if <code>contentName</code> is <code>null</code>.
+     */
+    ContentType getContentType(final String contentName);
 }

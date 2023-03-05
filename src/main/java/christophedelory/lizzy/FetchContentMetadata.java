@@ -29,7 +29,7 @@ import org.apache.commons.logging.LogFactory;
 
 import christophedelory.content.ContentMetadataCenter;
 import christophedelory.content.type.ContentType;
-import christophedelory.content.type.ContentTypeFactory;
+import christophedelory.content.type.ContentTypeProvider;
 import christophedelory.playlist.BasePlaylistVisitor;
 import christophedelory.playlist.Media;
 
@@ -82,7 +82,7 @@ public class FetchContentMetadata extends BasePlaylistVisitor
             // Override the type, if we can find a valid one.
             try
             {
-                final ContentType contentType = ContentTypeFactory.getInstance().getContentType(target.getSource().getURI()); // May throw SecurityException, URISyntaxException.
+                final ContentType contentType = ContentTypeProvider.getInstance().getContentType(target.getSource().getURI()); // May throw SecurityException, URISyntaxException.
 
                 if (contentType != null)
                 {

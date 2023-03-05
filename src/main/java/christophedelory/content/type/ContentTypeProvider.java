@@ -24,19 +24,94 @@
  */
 package christophedelory.content.type;
 
+import javax.activation.FileTypeMap;
+import javax.activation.MimetypesFileTypeMap;
+import java.net.FileNameMap;
+import java.net.URI;
+import java.net.URLConnection;
+import java.util.ServiceLoader;
+
 /**
- * Provides if possible a content type for a given media content.
- * Concrete classes must have a zero-argument constructor so that they can be instantiated during loading.
- * @version $Revision: 55 $
+ * A {@link IContentTypeProvider}.
+ * @version $Revision: 92 $
  * @author Christophe Delory
  */
-public interface ContentTypeProvider
+public final class ContentTypeProvider implements IContentTypeProvider
 {
     /**
-     * Returns a content type representing the given content name (file or URL).
-     * @param contentName a content (file or URL) name. Shall not be <code>null</code>.
+     * The singleton instance.
+     */
+    private static ContentTypeProvider _instance = null;
+    private FileTypeMap fileTypeMap = new MimetypesFileTypeMap();
+
+    /**
+     * Returns the unique class instance.
+     * @return an instance of this class. Shall not be <code>null</code>.
+     */
+    public static ContentTypeProvider getInstance()
+    {
+        synchronized(ContentTypeProvider.class)
+        {
+            if (_instance == null)
+            {
+                _instance = new ContentTypeProvider();
+            }
+        }
+
+        return _instance;
+    }
+
+    /**
+     * The associated service providers loader.
+     */
+    private final ServiceLoader<IContentTypeProvider> _serviceLoader;
+
+    /**
+     * Builds a new content type factory.
+     */
+    private ContentTypeProvider()
+    {
+        _serviceLoader = ServiceLoader.load(IContentTypeProvider.class);
+    }
+
+    /**
+     * Returns a content type representing the given content file name
+     * @param contentName a content file name. Shall not be <code>null</code>.
      * @return a content type. May be <code>null</code> if none was found.
      * @throws NullPointerException if <code>contentName</code> is <code>null</code>.
+     * @throws SecurityException if a required system property value cannot be accessed.
+     * @see #getContentType
      */
-    ContentType getContentType(final String contentName);
+    public ContentType getContentType(final String contentName)
+    {
+        ContentType ret = null;
+        final int idx = contentName.lastIndexOf('.');
+
+        if (idx >= 0)
+        {
+            final String ext = contentName.substring(idx); // Shall not throw IndexOutOfBoundsException.
+
+            final FileTypeMap map = new MimetypesFileTypeMap();
+            final String contentType = map.getContentType(contentName);
+
+            if (contentType != null)
+            {
+                ret = new ContentType(new String[] { ext }, new String[] { contentType }, null, null);
+            }
+        }
+        return ret;
+    }
+
+    /**
+     * Returns a content type representing the given content URI.
+     * @param uri a content URI. Shall not be <code>null</code>.
+     * @return a content type. May be <code>null</code> if none was found.
+     * @throws NullPointerException if <code>uri</code> is <code>null</code>.
+     * @see IContentTypeProvider#getContentType
+     */
+    public ContentType getContentType(final URI uri)
+    {
+        final String path = uri.getPath(); // Throws NullPointerException if uri is null.
+        return path == null ? null :  getContentType(path);
+    }
 }

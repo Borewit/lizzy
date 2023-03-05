@@ -1,0 +1,27 @@
+application/vnd.rn-realmedia rm
+audio/ape ape
+audio/basic snd ulw
+audio/flac flac
+audio/musepack mpc mp+ mpp
+audio/ogg ogg
+audio/opus opus
+audio/speex spx spx
+audio/wav wav wave
+audio/webm webm
+audio/x-aiff aifc
+audio/x-matroska mka
+audio/x-midi kar mid midi smf
+audio/x-mpeg abs mp1 mp2 mp3 mpa mpega
+audio/x-mpegurl m3u
+audio/x-ms-wma wma
+audio/x-scpls pls
+audio/x-wav bwf
+audio/x-wavpack wv
+audio/x-wavpack-correction wvc
+image/bmp bmp
+video/mpeg2 mpv2
+video/x-dv dv
+video/x-matroska mkv mk3d mks
+video/x-ms-asf asf asx
+video/x-rad-screenplay avx
+video/x-sgi-movie movie
