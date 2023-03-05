@@ -26,9 +26,7 @@ package christophedelory.content.type;
 
 import javax.activation.FileTypeMap;
 import javax.activation.MimetypesFileTypeMap;
-import java.net.FileNameMap;
 import java.net.URI;
-import java.net.URLConnection;
 import java.util.ServiceLoader;
 
 /**
