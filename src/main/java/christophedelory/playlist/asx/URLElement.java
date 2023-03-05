@@ -62,6 +62,6 @@ public abstract class URLElement extends AsxElement
      */
     public void setHref(final String href)
     {
-        _href = href.trim().replace('\\', '/'); // Throws NullPointerException if href is null.
+        _href = href.trim(); // Throws NullPointerException if href is null.
     }
 }

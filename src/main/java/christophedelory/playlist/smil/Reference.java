@@ -98,7 +98,7 @@ public class Reference extends AbstractSmilElement
         }
         else
         {
-            _source = source.trim().replace('\\', '/');
+            _source = source.trim();
         }
     }
 

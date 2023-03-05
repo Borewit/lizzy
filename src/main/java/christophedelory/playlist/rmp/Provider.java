@@ -126,7 +126,6 @@ public class Provider
     public void setUrlString(final String url)
     {
         _url = StringUtils.normalize(url);
-        //_url = url.trim().replace('\\', '/'); // Throws NullPointerException if url is null.
     }
 
     /**

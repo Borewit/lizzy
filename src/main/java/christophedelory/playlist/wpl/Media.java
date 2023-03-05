@@ -76,7 +76,7 @@ public class Media
      */
     public void setSource(final String source)
     {
-        _source = source.trim().replace('\\', '/'); // Throws NullPointerException if source is null.
+        this._source = source;
     }
 
     /**
