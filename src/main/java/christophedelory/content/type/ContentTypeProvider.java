@@ -27,7 +27,6 @@ package christophedelory.content.type;
 import javax.activation.FileTypeMap;
 import javax.activation.MimetypesFileTypeMap;
 import java.net.URI;
-import java.util.ServiceLoader;
 
 /**
  * A {@link IContentTypeProvider}.
@@ -40,7 +39,7 @@ public final class ContentTypeProvider implements IContentTypeProvider
      * The singleton instance.
      */
     private static ContentTypeProvider _instance = null;
-    private FileTypeMap fileTypeMap = new MimetypesFileTypeMap();
+    private final FileTypeMap fileTypeMap = new MimetypesFileTypeMap();
 
     /**
      * Returns the unique class instance.
@@ -60,19 +59,6 @@ public final class ContentTypeProvider implements IContentTypeProvider
     }
 
     /**
-     * The associated service providers loader.
-     */
-    private final ServiceLoader<IContentTypeProvider> _serviceLoader;
-
-    /**
-     * Builds a new content type factory.
-     */
-    private ContentTypeProvider()
-    {
-        _serviceLoader = ServiceLoader.load(IContentTypeProvider.class);
-    }
-
-    /**
      * Returns a content type representing the given content file name
      * @param contentName a content file name. Shall not be <code>null</code>.
      * @return a content type. May be <code>null</code> if none was found.
@@ -89,7 +75,7 @@ public final class ContentTypeProvider implements IContentTypeProvider
         {
             final String ext = contentName.substring(idx); // Shall not throw IndexOutOfBoundsException.
 
-            final FileTypeMap map = new MimetypesFileTypeMap();
+            final FileTypeMap map = fileTypeMap;
             final String contentType = map.getContentType(contentName);
 
             if (contentType != null)
