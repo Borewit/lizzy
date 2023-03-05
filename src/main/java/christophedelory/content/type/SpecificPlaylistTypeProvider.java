@@ -34,7 +34,7 @@ import christophedelory.playlist.SpecificPlaylistProvider;
  * @version $Revision: 90 $
  * @author Christophe Delory
  */
-public class SpecificPlaylistTypeProvider implements ContentTypeProvider
+public class SpecificPlaylistTypeProvider implements IContentTypeProvider
 {
     @Override
     public ContentType getContentType(final String contentName)

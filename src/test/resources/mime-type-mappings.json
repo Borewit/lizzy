@@ -1,0 +1,220 @@
+{
+  "mimeTypeMappings": [
+    {
+      "extension": "abs",
+      "mimeType": "audio/x-mpeg"
+    },
+    {
+      "extension": "aif",
+      "mimeType": "audio/x-aiff"
+    },
+    {
+      "extension": "aifc",
+      "mimeType": "audio/x-aiff"
+    },
+    {
+      "extension": "aiff",
+      "mimeType": "audio/x-aiff"
+    },
+    {
+      "extension": "asf",
+      "mimeType": "video/x-ms-asf"
+    },
+    {
+      "extension": "asx",
+      "mimeType": "video/x-ms-asf"
+    },
+    {
+      "extension": "au",
+      "mimeType": "audio/basic"
+    },
+    {
+      "extension": "avi",
+      "mimeType": "video/x-msvideo"
+    },
+    {
+      "extension": "avx",
+      "mimeType": "video/x-rad-screenplay"
+    },
+    {
+      "extension": "bmp",
+      "mimeType": "image/bmp"
+    },
+    {
+      "extension": "dv",
+      "mimeType": "video/x-dv"
+    },
+    {
+      "extension": "gif",
+      "mimeType": "image/gif"
+    },
+    {
+      "extension": "ief",
+      "mimeType": "image/ief"
+    },
+    {
+      "extension": "kar",
+      "mimeType": "audio/x-midi"
+    },
+    {
+      "extension": "m3u",
+      "mimeType": "audio/x-mpegurl"
+    },
+    {
+      "extension": "mid",
+      "mimeType": "audio/x-midi"
+    },
+    {
+      "extension": "midi",
+      "mimeType": "audio/x-midi"
+    },
+    {
+      "extension": "mov",
+      "mimeType": "video/quicktime"
+    },
+    {
+      "extension": "movie",
+      "mimeType": "video/x-sgi-movie"
+    },
+    {
+      "extension": "mp1",
+      "mimeType": "audio/x-mpeg"
+    },
+    {
+      "extension": "mp2",
+      "mimeType": "audio/x-mpeg"
+    },
+    {
+      "extension": "mp3",
+      "mimeType": "audio/x-mpeg"
+    },
+    {
+      "extension": "mpa",
+      "mimeType": "audio/x-mpeg"
+    },
+    {
+      "extension": "mpe",
+      "mimeType": "video/mpeg"
+    },
+    {
+      "extension": "mpeg",
+      "mimeType": "video/mpeg"
+    },
+    {
+      "extension": "mpega",
+      "mimeType": "audio/x-mpeg"
+    },
+    {
+      "extension": "mpg",
+      "mimeType": "video/mpeg"
+    },
+    {
+      "extension": "mpv2",
+      "mimeType": "video/mpeg2"
+    },
+    {
+      "extension": "ogg",
+      "mimeType": "audio/ogg"
+    },
+    {
+      "extension": "pls",
+      "mimeType": "audio/x-scpls"
+    },
+    {
+      "extension": "qt",
+      "mimeType": "video/quicktime"
+    },
+    {
+      "extension": "rm",
+      "mimeType": "application/vnd.rn-realmedia"
+    },
+    {
+      "extension": "smf",
+      "mimeType": "audio/x-midi"
+    },
+    {
+      "extension": "snd",
+      "mimeType": "audio/basic"
+    },
+    {
+      "extension": "ulw",
+      "mimeType": "audio/basic"
+    },
+    {
+      "extension": "wav",
+      "mimeType": "audio/wav"
+    },
+    {
+      "extension": "wave",
+      "mimeType": "audio/wav"
+    },
+    {
+      "extension": "ape",
+      "mimeType": "audio/ape"
+    },
+    {
+      "extension": "bwf",
+      "mimeType": "audio/x-wav"
+    },
+    {
+      "extension": "flac",
+      "mimeType": "audio/flac"
+    },
+    {
+      "extension": "mka",
+      "mimeType": "audio/x-matroska"
+    },
+    {
+      "extension": "mk3d",
+      "mimeType": "video/x-matroska"
+    },
+    {
+      "extension": "mkv",
+      "mimeType": "video/x-matroska"
+    },
+    {
+      "extension": "mks",
+      "mimeType": "video/x-matroska"
+    },
+    {
+      "extension": "mpc",
+      "mimeType": "audio/musepack"
+    },
+    {
+      "extension": "mp+",
+      "mimeType": "audio/musepack"
+    },
+    {
+      "extension": "mpp",
+      "mimeType": "audio/musepack"
+    },
+    {
+      "extension": "opus",
+      "mimeType": "audio/opus"
+    },
+    {
+      "extension": "spx",
+      "mimeType": "audio/speex"
+    },
+    {
+      "extension": "spx",
+      "mimeType": "audio/speex"
+    },
+    {
+      "extension": "webm",
+      "mimeType": "audio/webm"
+    },
+    {
+      "extension": "wv",
+      "mimeType": "audio/x-wavpack"
+    },
+    {
+      "extension": "wvc",
+      "mimeType": "audio/x-wavpack-correction"
+    },
+    {
+      "extension": "wma",
+      "mimeType": "audio/x-ms-wma"
+    }
+  ]
+}
