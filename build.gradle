@@ -3,6 +3,7 @@ plugins {
     id 'maven-publish'
     id 'application'
     id 'signing'
+    id 'checkstyle'
 }
 
 apply plugin: 'maven-publish'
@@ -116,6 +117,10 @@ publishing {
             }
         }
     }
+}
+
+task checkStyle(type: DefaultTask, dependsOn: [checkstyleMain, checkstyleTest]) {
+    group = 'verification'
 }
 
 signing {

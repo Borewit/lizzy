@@ -108,49 +108,49 @@ public final class AddToPlaylist
     /**
      * The playlist type, if specified.
      */
-    @Option(name="-t",usage="The output playlist type\nAllowed values: see below",metaVar="type")
+    @Option(name="-t", usage="The output playlist type\nAllowed values: see below", metaVar="type")
     private String _type = null;
 
     /**
      * Specifies if the content metadata shall be fetched, if possible.
      */
-    @Option(name="-m",usage="Fetch if possible the media content metadata")
+    @Option(name="-m", usage="Fetch if possible the media content metadata")
     private boolean _fetchContentMetadata = false;
 
     /**
      * The sub-directories shall be recursively scanned.
      */
-    @Option(name="-r",usage="Recursively add sub-directories contents")
+    @Option(name="-r", usage="Recursively add sub-directories contents")
     private boolean _recursive = false;
 
     /**
      * The output file or URL.
      */
-    @Option(name="-o",usage="The output file or URL\nIf missing, a file save dialog is prompted\nIf the output playlist type is not specified (-t), it will be inferred from the output file name extension",metaVar="file/URL")
+    @Option(name="-o", usage="The output file or URL\nIf missing, a file save dialog is prompted\nIf the output playlist type is not specified (-t), it will be inferred from the output file name extension", metaVar="file/URL")
     private String _output = null;
 
     /**
      * Specifies that the marshalled M3U playlist must use the Extension M3U format.
      */
-    @Option(name="-m3u:ext",usage="The output M3U playlist must use the Extension M3U format")
+    @Option(name="-m3u:ext", usage="The output M3U playlist must use the Extension M3U format")
     private boolean _extM3U = false;
 
     /**
      * Specifies that the output RSS shall make use of the RSS Media extension.
      */
-    @Option(name="-rss:media",usage="The output RSS playlist must use the RSS Media format")
+    @Option(name="-rss:media", usage="The output RSS playlist must use the RSS Media format")
     private boolean _useRSSMedia = false;
 
     /**
      * Specifies the disk identifier of the output PLP playlist.
      */
-    @Option(name="-plp:disk",usage="The disk identifier of the output PLP playlist\nExamples: HARP, HDD",metaVar="disk")
+    @Option(name="-plp:disk", usage="The disk identifier of the output PLP playlist\nExamples: HARP, HDD", metaVar="disk")
     private String _diskSpecifier = null;
 
     /**
      * The list of input files or directories.
      */
-    @Argument(usage="One or more files or directories to add to the output playlist",metaVar="input-files(s)",required=true)
+    @Argument(usage="One or more files or directories to add to the output playlist", metaVar="input-files(s)", required=true)
     private ArrayList<String> _arguments = new ArrayList<>(); // NOPMD Avoid using implementation types; use the interface instead
 
     /**

@@ -30,8 +30,9 @@ import java.util.List;
 
 /**
  * The super class of the media elements ASX and ENTRY.
- * @version $Revision: 92 $
+ *
  * @author Christophe Delory
+ * @version $Revision: 92 $
  * @castor.class xml="asxOrEntryElement"
  */
 public class AsxOrEntryElement extends AsxElement
@@ -84,18 +85,17 @@ public class AsxOrEntryElement extends AsxElement
     /**
      * A list of parameters.
      */
-    private final Hashtable<Param,Param> _params = new Hashtable<Param,Param>();
+    private final Hashtable<Param, Param> _params = new Hashtable<>();
 
     /**
      * Returns the URL string appended to the front of URLs sent to the WMP control.
+     *
      * @return a base. May be <code>null</code>.
+     * @castor.field get-method="getBase"
+     * set-method="setBase"
+     * @castor.field-xml name="base"
+     * node="element"
      * @see #setBase
-     * @castor.field
-     *  get-method="getBase"
-     *  set-method="setBase"
-     * @castor.field-xml
-     *  name="base"
-     *  node="element"
      */
     public Base getBase()
     {
@@ -104,6 +104,7 @@ public class AsxOrEntryElement extends AsxElement
 
     /**
      * Initializes the URL string appended to the front of URLs sent to the WMP control.
+     *
      * @param base a base. May be <code>null</code>.
      * @see #getBase
      */
@@ -122,14 +123,13 @@ public class AsxOrEntryElement extends AsxElement
      * A text string specifying the title for an ASX or ENTRY element.
      * Each parent ASX and ENTRY element should contain at most one child TITLE element.
      * Multiple TITLE elements <strike>after the first</strike> before the last will be ignored and will not display.
+     *
      * @return a title. May be <code>null</code>.
+     * @castor.field get-method="getTitle"
+     * set-method="setTitle"
+     * @castor.field-xml name="title"
+     * node="element"
      * @see #setTitle
-     * @castor.field
-     *  get-method="getTitle"
-     *  set-method="setTitle"
-     * @castor.field-xml
-     *  name="title"
-     *  node="element"
      */
     public TextElement getTitle()
     {
@@ -138,6 +138,7 @@ public class AsxOrEntryElement extends AsxElement
 
     /**
      * Initializes the title of this element.
+     *
      * @param title a title. May be <code>null</code>.
      * @see #getTitle
      */
@@ -156,14 +157,13 @@ public class AsxOrEntryElement extends AsxElement
      * Contains text that represents a description of the associated ASX or ENTRY element.
      * Only the <strike>first</strike> last ABSTRACT element within the scope of another element is used when an Advanced Stream Redirector (ASX) file is processed.
      * <strike>Subsequent</strike> Other ABSTRACT elements in that scope are ignored.
+     *
      * @return an abstract. May be <code>null</code>.
+     * @castor.field get-method="getAbstract"
+     * set-method="setAbstract"
+     * @castor.field-xml name="abstract"
+     * node="element"
      * @see #setAbstract
-     * @castor.field
-     *  get-method="getAbstract"
-     *  set-method="setAbstract"
-     * @castor.field-xml
-     *  name="abstract"
-     *  node="element"
      */
     public TextElement getAbstract()
     {
@@ -172,6 +172,7 @@ public class AsxOrEntryElement extends AsxElement
 
     /**
      * Initializes the description of the associated element.
+     *
      * @param abstrct an abstract. May be <code>null</code>.
      * @see #getAbstract
      */
@@ -191,14 +192,13 @@ public class AsxOrEntryElement extends AsxElement
      * You can use the AUTHOR element within the ASX element and within ENTRY elements.
      * Each parent ASX and ENTRY element should contain at most one child AUTHOR element.
      * Multiple AUTHOR elements <strike>after the first</strike> before the last will be ignored and will not display.
+     *
      * @return an author. May be <code>null</code>.
+     * @castor.field get-method="getAuthor"
+     * set-method="setAuthor"
+     * @castor.field-xml name="author"
+     * node="element"
      * @see #setAuthor
-     * @castor.field
-     *  get-method="getAuthor"
-     *  set-method="setAuthor"
-     * @castor.field-xml
-     *  name="author"
-     *  node="element"
      */
     public TextElement getAuthor()
     {
@@ -207,6 +207,7 @@ public class AsxOrEntryElement extends AsxElement
 
     /**
      * Initializes the author of a media clip or a Windows Media metafile.
+     *
      * @param author an author. May be <code>null</code>.
      * @see #getAuthor
      */
@@ -228,14 +229,13 @@ public class AsxOrEntryElement extends AsxElement
      * If the metafile is encoded using UTF-8, copyright and trademark symbols will display correctly.
      * Each parent ASX and ENTRY element should contain at most one child COPYRIGHT element.
      * Multiple COPYRIGHT elements <strike>after the first</strike> before the last will be ignored and will not display.
+     *
      * @return a copyright. May be <code>null</code>.
+     * @castor.field get-method="getCopyright"
+     * set-method="setCopyright"
+     * @castor.field-xml name="copyright"
+     * node="element"
      * @see #setCopyright
-     * @castor.field
-     *  get-method="getCopyright"
-     *  set-method="setCopyright"
-     * @castor.field-xml
-     *  name="copyright"
-     *  node="element"
      */
     public TextElement getCopyright()
     {
@@ -244,6 +244,7 @@ public class AsxOrEntryElement extends AsxElement
 
     /**
      * Initializes the copyright information for this element.
+     *
      * @param copyright a copyright. May be <code>null</code>.
      * @see #getCopyright
      */
@@ -259,14 +260,13 @@ public class AsxOrEntryElement extends AsxElement
 
     /**
      * Returns the URL of a graphic file that will appear in the display panel of the associated element.
+     *
      * @return a banner. May be <code>null</code>.
+     * @castor.field get-method="getBanner"
+     * set-method="setBanner"
+     * @castor.field-xml name="banner"
+     * node="element"
      * @see #setBanner
-     * @castor.field
-     *  get-method="getBanner"
-     *  set-method="setBanner"
-     * @castor.field-xml
-     *  name="banner"
-     *  node="element"
      */
     public Banner getBanner()
     {
@@ -275,6 +275,7 @@ public class AsxOrEntryElement extends AsxElement
 
     /**
      * Initializes the URL of a graphic file that will appear in the display panel of the associated element.
+     *
      * @param banner a banner. May be <code>null</code>.
      * @see #getBanner
      */
@@ -290,14 +291,13 @@ public class AsxOrEntryElement extends AsxElement
 
     /**
      * Returns the URL of a graphic file that will appear in the display panel of the associated element.
+     *
      * @return supplementary information for this element. May be <code>null</code>.
+     * @castor.field get-method="getMoreInfo"
+     * set-method="setMoreInfo"
+     * @castor.field-xml name="moreinfo"
+     * node="element"
      * @see #setMoreInfo
-     * @castor.field
-     *  get-method="getMoreInfo"
-     *  set-method="setMoreInfo"
-     * @castor.field-xml
-     *  name="moreinfo"
-     *  node="element"
      */
     public MoreInfo getMoreInfo()
     {
@@ -306,6 +306,7 @@ public class AsxOrEntryElement extends AsxElement
 
     /**
      * Initializes the URL of a graphic file that will appear in the display panel of the associated element.
+     *
      * @param moreInfo supplementary information for this element. May be <code>null</code>.
      * @see #getMoreInfo
      */
@@ -321,14 +322,13 @@ public class AsxOrEntryElement extends AsxElement
 
     /**
      * Returns the length of time a clip is played in preview mode.
+     *
      * @return a preview duration. May be <code>null</code>.
+     * @castor.field get-method="getPreviewDuration"
+     * set-method="setPreviewDuration"
+     * @castor.field-xml name="previewduration"
+     * node="element"
      * @see #setPreviewDuration
-     * @castor.field
-     *  get-method="getPreviewDuration"
-     *  set-method="setPreviewDuration"
-     * @castor.field-xml
-     *  name="previewduration"
-     *  node="element"
      */
     public PreviewDuration getPreviewDuration()
     {
@@ -337,6 +337,7 @@ public class AsxOrEntryElement extends AsxElement
 
     /**
      * Initializes the preview duration.
+     *
      * @param previewDuration a preview duration. May be <code>null</code>.
      * @see #getPreviewDuration
      */
@@ -352,6 +353,7 @@ public class AsxOrEntryElement extends AsxElement
 
     /**
      * Adds a parameter to this element.
+     *
      * @param param a param. Shall not be <code>null</code>.
      * @throws NullPointerException if <code>param</code> is <code>null</code>.
      * @see #getParams
@@ -364,24 +366,24 @@ public class AsxOrEntryElement extends AsxElement
 
     /**
      * Returns all parameters defined in this element.
+     *
      * @return a list of parameters. May be empty but not <code>null</code>.
+     * @castor.field get-method="getParams"
+     * set-method="addParam"
+     * type="christophedelory.playlist.asx.Param"
+     * collection="hashtable"
+     * @castor.field-xml name="param"
+     * node="element"
      * @see #addParam
-     * @castor.field
-     *  get-method="getParams"
-     *  set-method="addParam"
-     *  type="christophedelory.playlist.asx.Param"
-     *  collection="hashtable"
-     * @castor.field-xml
-     *  name="param"
-     *  node="element"
      */
-    public Hashtable<Param,Param> getParams()
+    public Hashtable<Param, Param> getParams()
     {
         return _params;
     }
 
     /**
      * Searches for the parameter named from <code>name</code>.
+     *
      * @param name the parameter name. Shall not be <code>null</code>.
      * @return the parameter value, or <code>null</code> if no such param could be found, or the parameter value itself is <code>null</code>.
      * @throws NullPointerException if <code>name</code> is <code>null</code>.
@@ -395,23 +397,22 @@ public class AsxOrEntryElement extends AsxElement
         {
             ret = p.getValue();
         }
-        
+
         return ret;
     }
 
     /**
      * Lists all log URLs associated to this element.
      * Allows instructing Windows Media Player to submit any log data to the specified URL for the associated element.
+     *
      * @return a list of URLs. May be empty but not <code>null</code>.
+     * @castor.field get-method="getLogURLs"
+     * set-method="addLogURL"
+     * type="christophedelory.playlist.asx.LogURL"
+     * collection="arraylist"
+     * @castor.field-xml name="logurl"
+     * node="element"
      * @see #addLogURL
-     * @castor.field
-     *  get-method="getLogURLs"
-     *  set-method="addLogURL"
-     *  type="christophedelory.playlist.asx.LogURL"
-     *  collection="arraylist"
-     * @castor.field-xml
-     *  name="logurl"
-     *  node="element"
      */
     public List<LogURL> getLogURLs()
     {
@@ -420,6 +421,7 @@ public class AsxOrEntryElement extends AsxElement
 
     /**
      * Adds a log URL of this element.
+     *
      * @param logURL a log URL. Shall not be <code>null</code>.
      * @throws NullPointerException if <code>logURL</code> is <code>null</code>.
      * @see #getLogURLs

@@ -64,7 +64,7 @@ public interface SpecificPlaylistProvider
      * @see SpecificPlaylist#writeTo
      * @see SpecificPlaylistFactory#readFrom
      */
-    SpecificPlaylist readFrom(final InputStream in, final String encoding) throws Exception;
+    SpecificPlaylist readFrom(InputStream in, String encoding) throws Exception;
 
     /**
      * Reads a playlist from the specified input stream.
@@ -80,7 +80,7 @@ public interface SpecificPlaylistProvider
      * @see SpecificPlaylistFactory#readFrom
      * @see SpecificPlaylist#writeTo
      */
-    SpecificPlaylist readFrom(final InputStream in, final String encoding, final Log logger) throws Exception;
+    SpecificPlaylist readFrom(InputStream in, String encoding, Log logger) throws Exception;
 
     /**
      * Builds a specific representation of the given generic playlist.
@@ -90,5 +90,5 @@ public interface SpecificPlaylistProvider
      * @throws Exception if this service provider is unable to represent the input playlist.
      * @see SpecificPlaylist#toPlaylist
      */
-    SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws Exception;
+    SpecificPlaylist toSpecificPlaylist(Playlist playlist) throws Exception;
 }

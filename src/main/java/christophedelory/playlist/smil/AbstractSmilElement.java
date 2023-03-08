@@ -697,5 +697,5 @@ public abstract class AbstractSmilElement extends Core
      * @param visitor a SMIL playlist visitor. Shall not be <code>null</code>.
      * @throws NullPointerException if <code>visitor</code> is <code>null</code>.
      */
-    public abstract void acceptDown(final SmilVisitor visitor);
+    public abstract void acceptDown(SmilVisitor visitor);
 }

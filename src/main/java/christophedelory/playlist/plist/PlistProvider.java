@@ -29,7 +29,6 @@ import java.io.StringReader;
 import java.util.Date;
 
 import christophedelory.playlist.*;
-import christophedelory.playlist.pla.PLAProvider;
 import org.apache.commons.logging.Log;
 
 import christophedelory.content.type.ContentType;
@@ -41,7 +40,6 @@ import christophedelory.plist.Plist;
 import christophedelory.plist.True;
 import christophedelory.xml.Version;
 import christophedelory.xml.XmlSerializer;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * The iTunes library format.

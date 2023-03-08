@@ -47,7 +47,7 @@ public interface SmilVisitor
      * @throws NullPointerException if <code>target</code> is <code>null</code>.
      * @see #endVisitSmil
      */
-    void beginVisitSmil(final Smil target);
+    void beginVisitSmil(Smil target);
 
     /**
      * Finishes the visit of the specified SMIL playlist.
@@ -55,7 +55,7 @@ public interface SmilVisitor
      * @throws NullPointerException if <code>target</code> is <code>null</code>.
      * @see #beginVisitSmil
      */
-    void endVisitSmil(final Smil target);
+    void endVisitSmil(Smil target);
 
     /**
      * Starts the visit of the specified header.
@@ -63,7 +63,7 @@ public interface SmilVisitor
      * @throws NullPointerException if <code>target</code> is <code>null</code>.
      * @see #endVisitHead
      */
-    void beginVisitHead(final Head target);
+    void beginVisitHead(Head target);
 
     /**
      * Finishes the visit of the specified head element.
@@ -71,7 +71,7 @@ public interface SmilVisitor
      * @throws NullPointerException if <code>target</code> is <code>null</code>.
      * @see #beginVisitHead
      */
-    void endVisitHead(final Head target);
+    void endVisitHead(Head target);
 
     /**
      * Starts the visit of the specified layout.
@@ -79,7 +79,7 @@ public interface SmilVisitor
      * @throws NullPointerException if <code>target</code> is <code>null</code>.
      * @see #endVisitLayout
      */
-    void beginVisitLayout(final Layout target);
+    void beginVisitLayout(Layout target);
 
     /**
      * Finishes the visit of the specified layout.
@@ -87,7 +87,7 @@ public interface SmilVisitor
      * @throws NullPointerException if <code>target</code> is <code>null</code>.
      * @see #beginVisitLayout
      */
-    void endVisitLayout(final Layout target);
+    void endVisitLayout(Layout target);
 
     /**
      * Starts the visit of the specified root layout.
@@ -95,7 +95,7 @@ public interface SmilVisitor
      * @throws NullPointerException if <code>target</code> is <code>null</code>.
      * @see #endVisitRootLayout
      */
-    void beginVisitRootLayout(final RootLayout target);
+    void beginVisitRootLayout(RootLayout target);
 
     /**
      * Finishes the visit of the specified root layout element.
@@ -103,7 +103,7 @@ public interface SmilVisitor
      * @throws NullPointerException if <code>target</code> is <code>null</code>.
      * @see #beginVisitRootLayout
      */
-    void endVisitRootLayout(final RootLayout target);
+    void endVisitRootLayout(RootLayout target);
 
     /**
      * Starts the visit of the specified region.
@@ -111,7 +111,7 @@ public interface SmilVisitor
      * @throws NullPointerException if <code>target</code> is <code>null</code>.
      * @see #endVisitRegion
      */
-    void beginVisitRegion(final Region target);
+    void beginVisitRegion(Region target);
 
     /**
      * Finishes the visit of the specified Region element.
@@ -119,7 +119,7 @@ public interface SmilVisitor
      * @throws NullPointerException if <code>target</code> is <code>null</code>.
      * @see #beginVisitRegion
      */
-    void endVisitRegion(final Region Region);
+    void endVisitRegion(Region Region);
 
     /**
      * Starts the visit of the specified body.
@@ -127,7 +127,7 @@ public interface SmilVisitor
      * @throws NullPointerException if <code>target</code> is <code>null</code>.
      * @see #endVisitBody
      */
-    void beginVisitBody(final Body target);
+    void beginVisitBody(Body target);
 
     /**
      * Finishes the visit of the specified body.
@@ -135,7 +135,7 @@ public interface SmilVisitor
      * @throws NullPointerException if <code>target</code> is <code>null</code>.
      * @see #beginVisitBody
      */
-    void endVisitBody(final Body target);
+    void endVisitBody(Body target);
 
     /**
      * Starts the visit of the specified parallel time container.
@@ -143,7 +143,7 @@ public interface SmilVisitor
      * @throws NullPointerException if <code>target</code> is <code>null</code>.
      * @see #endVisitParTimingElement
      */
-    void beginVisitParTimingElement(final ParallelTimingElement target);
+    void beginVisitParTimingElement(ParallelTimingElement target);
 
     /**
      * Finishes the visit of the specified parallel time container.
@@ -151,7 +151,7 @@ public interface SmilVisitor
      * @throws NullPointerException if <code>target</code> is <code>null</code>.
      * @see #beginVisitParTimingElement
      */
-    void endVisitParTimingElement(final ParallelTimingElement target);
+    void endVisitParTimingElement(ParallelTimingElement target);
 
     /**
      * Starts the visit of the specified sequence.
@@ -159,7 +159,7 @@ public interface SmilVisitor
      * @throws NullPointerException if <code>target</code> is <code>null</code>.
      * @see #endVisitSeqTimingElement
      */
-    void beginVisitSeqTimingElement(final SequentialTimingElement target);
+    void beginVisitSeqTimingElement(SequentialTimingElement target);
 
     /**
      * Finishes the visit of the specified sequence.
@@ -167,7 +167,7 @@ public interface SmilVisitor
      * @throws NullPointerException if <code>target</code> is <code>null</code>.
      * @see #beginVisitSeqTimingElement
      */
-    void endVisitSeqTimingElement(final SequentialTimingElement target);
+    void endVisitSeqTimingElement(SequentialTimingElement target);
 
     /**
      * Starts the visit of the specified exclusive time container.
@@ -175,7 +175,7 @@ public interface SmilVisitor
      * @throws NullPointerException if <code>target</code> is <code>null</code>.
      * @see #endVisitExclTimingElement
      */
-    void beginVisitExclTimingElement(final ExclusiveTimingElement target);
+    void beginVisitExclTimingElement(ExclusiveTimingElement target);
 
     /**
      * Finishes the visit of the specified exclusive time container.
@@ -183,7 +183,7 @@ public interface SmilVisitor
      * @throws NullPointerException if <code>target</code> is <code>null</code>.
      * @see #beginVisitExclTimingElement
      */
-    void endVisitExclTimingElement(final ExclusiveTimingElement target);
+    void endVisitExclTimingElement(ExclusiveTimingElement target);
 
     /**
      * Starts the visit of the specified SMIL reference.
@@ -191,7 +191,7 @@ public interface SmilVisitor
      * @throws NullPointerException if <code>target</code> is <code>null</code>.
      * @see #endVisitReference
      */
-    void beginVisitReference(final Reference target);
+    void beginVisitReference(Reference target);
 
     /**
      * Finishes the visit of the specified SMIL reference.
@@ -199,5 +199,5 @@ public interface SmilVisitor
      * @throws NullPointerException if <code>target</code> is <code>null</code>.
      * @see #beginVisitReference
      */
-    void endVisitReference(final Reference target);
+    void endVisitReference(Reference target);
 }

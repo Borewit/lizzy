@@ -34,7 +34,6 @@ import christophedelory.content.type.ContentType;
 import christophedelory.io.IOUtils;
 import christophedelory.player.PlayerSupport;
 import christophedelory.xml.XmlSerializer;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * The Windows Media ASX playlist XML format.

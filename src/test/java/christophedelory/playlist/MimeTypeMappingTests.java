@@ -36,7 +36,7 @@ public class MimeTypeMappingTests
       }
     }
 
-    if(!missingMappings.isEmpty()) {
+    if (!missingMappings.isEmpty()) {
       // Print missing mappings, so you can copy past to `META-INF/mime.types`
       String line = "#-------------------------------------------------------------";
       System.out.println(line);

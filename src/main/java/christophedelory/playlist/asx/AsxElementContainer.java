@@ -40,7 +40,7 @@ public interface AsxElementContainer
      * @throws IllegalStateException if the specified element is not valid here.
      * @see #getAsxElements
      */
-    void addAsxElement(final AsxElement asxElement);
+    void addAsxElement(AsxElement asxElement);
 
     /**
      * Returns the list of ASX elements defined in this container.

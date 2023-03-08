@@ -56,7 +56,7 @@ public final class XmlSerializer
     /**
      * The list of mappings already built.
      */
-    private static final Map<String,XmlSerializer> _mappings = new LinkedHashMap<>();
+    private static final Map<String, XmlSerializer> _mappings = new LinkedHashMap<>();
 
     /**
      * Retrieves the XML serializer instance associated to the specified package name.

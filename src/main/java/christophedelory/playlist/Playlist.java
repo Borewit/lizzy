@@ -37,7 +37,7 @@ public class Playlist
     /**
      * The instance logger.
      */
-    private final static Log _logger = LogFactory.getLog(Playlist.class); // May throw LogConfigurationException.
+    private static final Log _logger = LogFactory.getLog(Playlist.class); // May throw LogConfigurationException.
 
     /**
      * The normalization process.
@@ -254,7 +254,7 @@ public class Playlist
             final AbstractPlaylistComponent[] targetComponents = target.getComponents();
 
             // Iterate from last to second.
-            for (int i = (targetComponents.length - 1); i > 0 ; i--)
+            for (int i = (targetComponents.length - 1); i > 0; i--)
             {
                 if ((targetComponents[i - 1] instanceof Sequence) && (targetComponents[i] instanceof Sequence))
                 {

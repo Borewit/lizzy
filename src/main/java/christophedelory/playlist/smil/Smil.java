@@ -307,7 +307,7 @@ public class Smil extends Core implements SpecificPlaylist
          * Builds a new SMIL visitor.
          * @param regionId a SMIL region identifier. Should not be <code>null</code>.
          */
-        public ReferenceVisitor(final String regionId)
+        ReferenceVisitor(final String regionId)
         {
             super();
 

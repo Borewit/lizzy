@@ -38,5 +38,5 @@ public interface IContentTypeProvider
      * @return a content type. May be <code>null</code> if none was found.
      * @throws NullPointerException if <code>contentName</code> is <code>null</code>.
      */
-    ContentType getContentType(final String contentName);
+    ContentType getContentType(String contentName);
 }
