@@ -37,6 +37,9 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-params'
     testRuntimeOnly 'org.junit.platform:junit-platform-reporting'
 
+    // PLIST implementation
+    implementation 'com.googlecode.plist:dd-plist:1.26'
+
     // Used to load MIME-types from JSON
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
     testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.14.2'

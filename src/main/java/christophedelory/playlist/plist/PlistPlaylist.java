@@ -24,250 +24,201 @@
  */
 package christophedelory.playlist.plist;
 
-import java.io.OutputStream;
-import java.io.StringWriter;
-import java.util.Date;
-
 import christophedelory.content.Content;
-import christophedelory.playlist.Media;
-import christophedelory.playlist.Playlist;
-import christophedelory.playlist.Sequence;
-import christophedelory.playlist.SpecificPlaylist;
-import christophedelory.playlist.SpecificPlaylistProvider;
-import christophedelory.plist.Array;
-import christophedelory.plist.Dict;
-import christophedelory.plist.Plist;
-import christophedelory.plist.PlistObject;
-import christophedelory.plist.PlistText;
-import christophedelory.xml.XmlSerializer;
+import christophedelory.playlist.*;
+import com.dd.plist.*;
+
+import java.io.OutputStream;
+import java.util.Date;
 
 /**
  * The definition of an iTunes playlist.
- * @version $Revision: 92 $
+ *
  * @author Christophe Delory
+ * @version $Revision: 92 $
  */
 public class PlistPlaylist implements SpecificPlaylist
 {
-    /**
-     * The provider of this specific playlist.
-     */
-    private transient SpecificPlaylistProvider _provider = null;
+  /**
+   * The provider of this specific playlist.
+   */
+  private transient SpecificPlaylistProvider _provider = null;
 
-    /**
-     * The playlist itself.
-     */
-    private Plist _plist = new Plist();
+  /**
+   * The playlist itself.
+   */
+  private NSDictionary _plist = new NSDictionary();
 
-    @Override
-    public void setProvider(final SpecificPlaylistProvider provider)
+  @Override
+  public void setProvider(final SpecificPlaylistProvider provider)
+  {
+    _provider = provider;
+  }
+
+  @Override
+  public SpecificPlaylistProvider getProvider()
+  {
+    return _provider;
+  }
+
+  @Override
+  public void writeTo(final OutputStream out, final String encoding) throws Exception
+  {
+    XMLPropertyListWriter.write(_plist, out);
+    out.flush(); // May throw IOException.
+  }
+
+  @Override
+  public Playlist toPlaylist()
+  {
+    final Playlist ret = new Playlist();
+
+    NSDictionary tracks = null;
+
+    final NSObject tracksObject = _plist.objectForKey("Tracks");
+
+    if (tracksObject instanceof NSDictionary)
     {
-        _provider = provider;
+      tracks = (NSDictionary) tracksObject;
     }
 
-    @Override
-    public SpecificPlaylistProvider getProvider()
+    NSArray playlists = null;
+    final NSObject playlistsObject = _plist.objectForKey("Playlists");
+
+    if (playlistsObject instanceof NSArray)
     {
-        return _provider;
+      playlists = (NSArray) playlistsObject;
     }
 
-    @Override
-    public void writeTo(final OutputStream out, final String encoding) throws Exception
+    if ((tracks != null) && (playlists != null))
     {
-        // Marshal the PLIST playlist.
-        final StringWriter writer = new StringWriter();
-        final XmlSerializer serializer = XmlSerializer.getMapping("christophedelory/plist"); // May throw Exception.
-        // Specifies whether XML documents (as generated at marshalling) should use indentation or not. Default is false.
-        serializer.getMarshaller().setProperty("org.exolab.castor.indent", "true");
-        serializer.marshal(_plist, writer, false); // May throw Exception.
+      // Iterate through the playlists.
+      for (NSObject playlistObject : playlists.getArray())
+      {
+        if (!(playlistObject instanceof NSDictionary)) continue; // NOPMD Deeply nested if then statement
 
-        String enc = encoding;
+        final NSDictionary playlist = (NSDictionary) playlistObject;
+        final NSObject playlistItemsArrayObject = playlist.objectForKey("Playlist Items");
 
-        if (enc == null)
+        if (!(playlistItemsArrayObject instanceof NSArray)) continue;
+
+        final NSArray playlistItemsArray = (NSArray) playlistItemsArrayObject;
+        // Each playlist is assigned to a dedicated sequence.
+        final Sequence sequence = new Sequence(); // NOPMD Avoid instantiating new objects inside loops
+        ret.getRootSequence().addComponent(sequence);
+
+        for (NSObject playlistItemsDictObject : playlistItemsArray.getArray())
         {
-            enc = "UTF-8";
-        }
+          if (!(playlistItemsDictObject instanceof NSDictionary)) continue;
 
-        final byte[] bytes = writer.toString().getBytes(enc); // May throw UnsupportedEncodingException.
-        out.write(bytes); // Throws NullPointerException if out is null. May throw IOException.
-        out.flush(); // May throw IOException.
-    }
+          final NSObject trackIdObject = ((NSDictionary) playlistItemsDictObject).objectForKey("Track ID");
 
-    @Override
-    public Playlist toPlaylist()
-    {
-        final Playlist ret = new Playlist();
+          if (!(trackIdObject instanceof NSNumber)) continue;
 
-        if ((_plist.getPlistObject() != null) && (_plist.getPlistObject() instanceof Dict))
-        {
-            final Dict rootDict = (Dict) _plist.getPlistObject();
+          final int trackId = ((NSNumber) trackIdObject).intValue();
 
-            Dict tracks = null;
-            final PlistObject tracksObject = rootDict.findObjectByKey("Tracks");
+          // Got one track identifier!!!
+          // Now find it in the track list.
+          final NSObject trackObject = tracks.objectForKey(Integer.toString(trackId));
 
-            if ((tracksObject != null) && (tracksObject instanceof Dict))
+          if (!(trackObject instanceof NSDictionary)) continue;
+
+          final NSDictionary track = (NSDictionary) trackObject;
+          final NSObject locationObject = track.objectForKey("Location");
+
+          if (!(locationObject instanceof NSString)) continue;
+
+          final String location = ((NSString) locationObject).getContent();
+
+          if (location == null) continue;
+
+          // Now create the media.
+          final Media media = new Media(); // NOPMD Avoid instantiating new objects inside loops
+          final Content content = new Content(location); // NOPMD Avoid instantiating new objects inside loops
+          media.setSource(content);
+
+          // Try to retrieve the duration.
+          final NSObject totalTimeObject = track.objectForKey("Total Time");
+
+          if (totalTimeObject instanceof NSNumber)
+          {
+            try
             {
-                tracks = (Dict) tracksObject;
+              final long totalTime = ((NSNumber) totalTimeObject).longValue();
+              content.setDuration(totalTime);
+            }
+            catch (NumberFormatException ignore) // NOPMD Avoid empty catch blocks
+            {
+              // Ignore it.
             }
 
-            Array playlists = null;
-            final PlistObject playlistsObject = rootDict.findObjectByKey("Playlists");
+            // Try to retrieve the length.
+            final NSObject sizeObject = track.objectForKey("Size");
 
-            if ((playlistsObject != null) && (playlistsObject instanceof Array))
+            if (sizeObject instanceof NSNumber)
             {
-                playlists = (Array) playlistsObject;
-            }
+              try
+              {
+                final long size = ((NSNumber) sizeObject).longValue();
 
-            if ((tracks != null) && (playlists != null))
-            {
-                // Iterate through the playlists.
-                for (PlistObject playlistObject : playlists.getPlistObjects())
+                if (size >= 0)
                 {
-                    if (playlistObject instanceof Dict) // NOPMD Deeply nested if then statement
-                    {
-                        final Dict playlist = (Dict) playlistObject;
-                        final PlistObject playlistItemsArrayObject = playlist.findObjectByKey("Playlist Items");
-
-                        if ((playlistItemsArrayObject != null) && (playlistItemsArrayObject instanceof Array))
-                        {
-                            final Array playlistItemsArray = (Array) playlistItemsArrayObject;
-                            // Each playlist is assigned to a dedicated sequence.
-                            final Sequence sequence = new Sequence(); // NOPMD Avoid instantiating new objects inside loops
-
-                            for (PlistObject playlistItemsDictObject : playlistItemsArray.getPlistObjects())
-                            {
-                                if (playlistItemsDictObject instanceof Dict)
-                                {
-                                    final PlistObject trackIdObject = ((Dict) playlistItemsDictObject).findObjectByKey("Track ID");
-
-                                    if ((trackIdObject != null) && (trackIdObject instanceof PlistText))
-                                    {
-                                        final String trackId = ((PlistText) trackIdObject).getValue();
-
-                                        if (trackId != null)
-                                        {
-                                            // Got one track identifier!!!
-                                            // Now find it in the track list.
-                                            final PlistObject trackObject = tracks.findObjectByKey(trackId);
-
-                                            if ((trackObject != null) && (trackObject instanceof Dict))
-                                            {
-                                                final Dict track = (Dict) trackObject;
-                                                final PlistObject locationObject = track.findObjectByKey("Location");
-
-                                                if ((locationObject != null) && (locationObject instanceof PlistText))
-                                                {
-                                                    final String location = ((PlistText) locationObject).getValue();
-
-                                                    if (location != null)
-                                                    {
-                                                        // Now create the media.
-                                                        final Media media = new Media(); // NOPMD Avoid instantiating new objects inside loops
-                                                        final Content content = new Content(location); // NOPMD Avoid instantiating new objects inside loops
-                                                        media.setSource(content);
-
-                                                        // Try to retrieve the duration.
-                                                        final PlistObject totalTimeObject = track.findObjectByKey("Total Time");
-
-                                                        if ((totalTimeObject != null) && (totalTimeObject instanceof christophedelory.plist.Integer))
-                                                        {
-                                                            final String totalTimeString = ((christophedelory.plist.Integer) totalTimeObject).getValue();
-
-                                                            if (totalTimeString != null)
-                                                            {
-                                                                try
-                                                                {
-                                                                    final Integer totalTime = Integer.decode(totalTimeString); // May throw NumberFormatException.
-                                                                    content.setDuration(totalTime.longValue());
-                                                                }
-                                                                catch (NumberFormatException e) // NOPMD Avoid empty catch blocks
-                                                                {
-                                                                    // Ignore it.
-                                                                }
-                                                            }
-                                                        }
-
-                                                        // Try to retrieve the length.
-                                                        final PlistObject sizeObject = track.findObjectByKey("Size");
-
-                                                        if ((sizeObject != null) && (sizeObject instanceof christophedelory.plist.Integer))
-                                                        {
-                                                            final String sizeString = ((christophedelory.plist.Integer) sizeObject).getValue();
-
-                                                            if (sizeString != null)
-                                                            {
-                                                                try
-                                                                {
-                                                                    final Integer size = Integer.decode(sizeString); // May throw NumberFormatException.
-
-                                                                    if (size.intValue() >= 0)
-                                                                    {
-                                                                        content.setLength(size.longValue());
-                                                                    }
-                                                                }
-                                                                catch (NumberFormatException e) // NOPMD Avoid empty catch blocks
-                                                                {
-                                                                    // Ignore it.
-                                                                }
-                                                            }
-                                                        }
-
-                                                        // Try to retrieve the last modified date.
-                                                        final PlistObject dateModifiedObject = track.findObjectByKey("Date Modified");
-
-                                                        if ((dateModifiedObject != null) && (dateModifiedObject instanceof christophedelory.plist.Date))
-                                                        {
-                                                            final Date dateModified = ((christophedelory.plist.Date) dateModifiedObject).getValue();
-
-                                                            if (dateModified != null)
-                                                            {
-                                                                content.setLastModified(dateModified.getTime());
-                                                            }
-                                                        }
-
-                                                        sequence.addComponent(media);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-
-                            ret.getRootSequence().addComponent(sequence);
-                        }
-                    }
+                  content.setLength(size);
                 }
-
-                ret.normalize();
+              }
+              catch (NumberFormatException e) // NOPMD Avoid empty catch blocks
+              {
+                // Ignore it.
+              }
             }
+
+            // Try to retrieve the last modified date.
+            final NSObject dateModifiedObject = track.objectForKey("Date Modified");
+
+            if (dateModifiedObject instanceof NSDate)
+            {
+              final Date dateModified = ((NSDate) dateModifiedObject).getDate();
+              if (dateModified != null)
+              {
+                content.setLastModified(dateModified.getTime());
+              }
+            }
+          }
+          sequence.addComponent(media);
         }
+      }
 
-        return ret;
+      ret.normalize();
     }
 
-    /**
-     * Returns the playlist itself.
-     * @return a plist element. Shall not be <code>null</code>.
-     * @see #setPlist
-     */
-    public Plist getPlist()
+    return ret;
+  }
+
+  /**
+   * Returns the playlist itself.
+   *
+   * @return a plist element. Shall not be <code>null</code>.
+   * @see #setPlist
+   */
+  public NSDictionary getPlist()
+  {
+    return _plist;
+  }
+
+  /**
+   * Initializes the playlist itself.
+   *
+   * @param plist a plist element. Shall not be <code>null</code>.
+   * @throws NullPointerException if <code>plist</code> is <code>null</code>.
+   * @see #getPlist
+   */
+  public void setPlist(final NSDictionary plist)
+  {
+    if (plist == null)
     {
-        return _plist;
+      throw new NullPointerException("No plist");
     }
 
-    /**
-     * Initializes the playlist itself.
-     * @param plist a plist element. Shall not be <code>null</code>.
-     * @throws NullPointerException if <code>plist</code> is <code>null</code>.
-     * @see #getPlist
-     */
-    public void setPlist(final Plist plist)
-    {
-        if (plist == null)
-        {
-            throw new NullPointerException("No plist");
-        }
-
-        _plist = plist;
-    }
+    _plist = plist;
+  }
 }
