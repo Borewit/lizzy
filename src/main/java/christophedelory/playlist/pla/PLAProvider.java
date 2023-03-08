@@ -29,12 +29,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import christophedelory.playlist.*;
-import christophedelory.playlist.mpcpl.MPCPLProvider;
 import org.apache.commons.logging.Log;
 
 import christophedelory.content.type.ContentType;
 import christophedelory.player.PlayerSupport;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * Playlist format for iRiver devices.

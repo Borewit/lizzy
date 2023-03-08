@@ -1,6 +1,5 @@
 package christophedelory.playlist;
 
-import christophedelory.playlist.plp.PLPProvider;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

@@ -44,5 +44,5 @@ public interface ContentMetadataProvider
      * @throws Exception if any error occurs.
      * @see ContentMetadataCenter#fillMetadata
      */
-    void fillMetadata(final Content content, final Log logger) throws Exception;
+    void fillMetadata(Content content, Log logger) throws Exception;
 }

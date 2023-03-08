@@ -44,54 +44,54 @@ public interface PlaylistVisitor
      * @param target the element being visited. Shall not be <code>null</code>.
      * @see #endVisitPlaylist
      */
-    void beginVisitPlaylist(final Playlist target);
+    void beginVisitPlaylist(Playlist target);
 
     /**
      * Finishes the visit of the specified playlist.
      * @param target the element being visited. Shall not be <code>null</code>.
      * @see #beginVisitPlaylist
      */
-    void endVisitPlaylist(final Playlist target);
+    void endVisitPlaylist(Playlist target);
 
     /**
      * Starts the visit of the specified parallel timing container.
      * @param target the element being visited. Shall not be <code>null</code>.
      * @see #endVisitParallel
      */
-    void beginVisitParallel(final Parallel target);
+    void beginVisitParallel(Parallel target);
 
     /**
      * Finishes the visit of the specified parallel timing container.
      * @param target the element being visited. Shall not be <code>null</code>.
      * @see #beginVisitParallel
      */
-    void endVisitParallel(final Parallel target);
+    void endVisitParallel(Parallel target);
 
     /**
      * Starts the visit of the specified sequence.
      * @param target the element being visited. Shall not be <code>null</code>.
      * @see #endVisitSequence
      */
-    void beginVisitSequence(final Sequence target);
+    void beginVisitSequence(Sequence target);
 
     /**
      * Finishes the visit of the specified sequence.
      * @param target the element being visited. Shall not be <code>null</code>.
      * @see #beginVisitSequence
      */
-    void endVisitSequence(final Sequence target);
+    void endVisitSequence(Sequence target);
 
     /**
      * Starts the visit of the specified media.
      * @param target the element being visited. Shall not be <code>null</code>.
      * @see #endVisitMedia
      */
-    void beginVisitMedia(final Media target);
+    void beginVisitMedia(Media target);
 
     /**
      * Finishes the visit of the specified media.
      * @param target the element being visited. Shall not be <code>null</code>.
      * @see #beginVisitMedia
      */
-    void endVisitMedia(final Media target);
+    void endVisitMedia(Media target);
 }

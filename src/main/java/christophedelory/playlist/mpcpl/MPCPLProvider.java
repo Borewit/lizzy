@@ -30,12 +30,10 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 import christophedelory.playlist.*;
-import christophedelory.playlist.m3u.M3UProvider;
 import org.apache.commons.logging.Log;
 
 import christophedelory.content.type.ContentType;
 import christophedelory.player.PlayerSupport;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * The Media Player Classic Playlist (MPCPL) provider.

@@ -40,7 +40,7 @@ public class Dict extends PlistObject
     /**
      * The list of plist objects.
      */
-    private final Hashtable<Key,PlistObject> _objects = new Hashtable<Key,PlistObject>();
+    private final Hashtable<Key, PlistObject> _objects = new Hashtable<>();
 
     /**
      * A temporary key value, yet to link with a plist object.
@@ -52,7 +52,7 @@ public class Dict extends PlistObject
      * @return a map of keys to plist objects. May be empty but not <code>null</code>.
      * @see #put
      */
-    public Hashtable<Key,PlistObject> getDictionary()
+    public Hashtable<Key, PlistObject> getDictionary()
     {
         return _objects;
     }
@@ -109,7 +109,7 @@ public class Dict extends PlistObject
     @Deprecated
     public List<PlistObject> getKeysAndObjects()
     {
-        final List<PlistObject> ret = new ArrayList<PlistObject>(_objects.size());
+        final List<PlistObject> ret = new ArrayList<>(_objects.size());
         final Enumeration<Key> iter = _objects.keys();
 
         while (iter.hasMoreElements())

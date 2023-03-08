@@ -31,7 +31,6 @@ import java.net.URI;
 import java.util.Date;
 
 import christophedelory.playlist.*;
-import christophedelory.playlist.pls.PLSProvider;
 import org.apache.commons.logging.Log;
 
 import christophedelory.content.type.ContentType;

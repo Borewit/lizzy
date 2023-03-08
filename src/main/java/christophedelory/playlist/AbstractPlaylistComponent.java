@@ -97,7 +97,7 @@ public abstract class AbstractPlaylistComponent
      * @throws NullPointerException if <code>visitor</code> is <code>null</code>.
      * @throws Exception if any error occurs during the visit.
      */
-    public abstract void acceptDown(final PlaylistVisitor visitor) throws Exception;
+    public abstract void acceptDown(PlaylistVisitor visitor) throws Exception;
 
     /**
      * Accepts the specified playlist visitor.
@@ -105,7 +105,7 @@ public abstract class AbstractPlaylistComponent
      * @throws NullPointerException if <code>visitor</code> is <code>null</code>.
      * @throws Exception if any error occurs during the visit.
      */
-    public void acceptUp(final PlaylistVisitor visitor) throws Exception
+    public void acceptUp(PlaylistVisitor visitor) throws Exception
     {
         if (_parent != null)
         {

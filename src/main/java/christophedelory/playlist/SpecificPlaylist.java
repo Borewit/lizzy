@@ -39,7 +39,7 @@ public interface SpecificPlaylist
      * @throws NullPointerException if <code>provider</code> is <code>null</code>.
      * @see #getProvider
      */
-    void setProvider(final SpecificPlaylistProvider provider);
+    void setProvider(SpecificPlaylistProvider provider);
 
     /**
      * Returns the provider of this specific playlist.
@@ -58,7 +58,7 @@ public interface SpecificPlaylist
      * @see SpecificPlaylistFactory#readFrom
      * @see SpecificPlaylistProvider#readFrom
      */
-    void writeTo(final OutputStream out, final String encoding) throws Exception;
+    void writeTo(OutputStream out, String encoding) throws Exception;
 
     /**
      * Builds a generic representation from this specific playlist.

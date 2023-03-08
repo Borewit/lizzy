@@ -32,6 +32,7 @@ import java.util.List;
  * Media objects that are not the same content should not be included in the same media group element.
  * For instance: the same song recorded in both the WAV and MP3 format.
  * It's an optional element that must only be used for this purpose.
+ *
  * @author Christophe Delory
  * @version $Revision: 92 $
  * @castor.class xml="media:group" ns-uri="http://search.yahoo.com/mrss/" ns-prefix="media"
@@ -44,7 +45,8 @@ public class Group extends BaseMedia
     private final List<Content> _mediaContents = new ArrayList<Content>();
 
     /**
-	 * Adds a media content.
+     * Adds a media content.
+     *
      * @param mediaContent a media content. Shall not be <code>null</code>.
      * @throws NullPointerException if <code>mediaContent</code> is <code>null</code>.
      * @see #getMediaContents
@@ -60,17 +62,16 @@ public class Group extends BaseMedia
     }
 
     /**
-	 * Returns the list of media contents.
+     * Returns the list of media contents.
+     *
      * @return a list of media contents. May be empty but not <code>null</code>.
+     * @castor.field type="christophedelory.rss.media.Content"
+     * get-method="getMediaContents"
+     * set-method="addMediaContent"
+     * collection="arraylist"
+     * @castor.field-xml name="media:content"
+     * node="element"
      * @see #addMediaContent
-     * @castor.field
-     *  type="christophedelory.rss.media.Content"
-     *  get-method="getMediaContents"
-     *  set-method="addMediaContent"
-     *  collection="arraylist"
-     * @castor.field-xml
-     *  name="media:content"
-     *  node="element"
      */
     public List<Content> getMediaContents()
     {

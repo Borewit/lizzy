@@ -24,17 +24,16 @@
  */
 package christophedelory.playlist.pls;
 
+import christophedelory.content.type.ContentType;
+import christophedelory.player.PlayerSupport;
+import christophedelory.playlist.*;
+import christophedelory.playlist.m3u.Resource;
+import org.apache.commons.logging.Log;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
-
-import christophedelory.playlist.*;
-import org.apache.commons.logging.Log;
-
-import christophedelory.content.type.ContentType;
-import christophedelory.player.PlayerSupport;
-import christophedelory.playlist.m3u.Resource;
 
 /**
  * A text playlist similar to .ini (program settings) files.
@@ -42,8 +41,9 @@ import christophedelory.playlist.m3u.Resource;
  * <br>
  * The syntax of a PLS file is the same syntax as a Windows .ini file and was probably chosen because of support in the Windows API.
  * Metadata is included in the entry for each song, in a set of parallel arrays where FileN=[address of file]; TitleN=[title of song].
- * @version $Revision: 91 $
+ *
  * @author Christophe Delory
+ * @version $Revision: 91 $
  */
 public class PLSProvider extends AbstractPlaylistProvider
 {
@@ -51,22 +51,22 @@ public class PLSProvider extends AbstractPlaylistProvider
      * A list of compatible content types.
      */
     private static final ContentType[] FILETYPES =
-    {
-        new ContentType(new String[] { ".pls" },
-                        new String[] { "audio/x-scpls" },
-                        new PlayerSupport[]
-                        {
-                            new PlayerSupport(PlayerSupport.Player.WINAMP, true, null),
-                            new PlayerSupport(PlayerSupport.Player.VLC_MEDIA_PLAYER, false, null),
-                            new PlayerSupport(PlayerSupport.Player.MEDIA_PLAYER_CLASSIC, true, null),
-                            new PlayerSupport(PlayerSupport.Player.FOOBAR2000, false, null),
-                            new PlayerSupport(PlayerSupport.Player.MPLAYER, true, null),
-                            new PlayerSupport(PlayerSupport.Player.QUICKTIME, true, null),
-                            new PlayerSupport(PlayerSupport.Player.ITUNES, true, null),
-                            new PlayerSupport(PlayerSupport.Player.REALPLAYER, false, null),
-                        },
-                        "Winamp PLSv2 Playlist"),
-    };
+        {
+            new ContentType(new String[]{".pls"},
+                new String[]{"audio/x-scpls"},
+                new PlayerSupport[]
+                    {
+                        new PlayerSupport(PlayerSupport.Player.WINAMP, true, null),
+                        new PlayerSupport(PlayerSupport.Player.VLC_MEDIA_PLAYER, false, null),
+                        new PlayerSupport(PlayerSupport.Player.MEDIA_PLAYER_CLASSIC, true, null),
+                        new PlayerSupport(PlayerSupport.Player.FOOBAR2000, false, null),
+                        new PlayerSupport(PlayerSupport.Player.MPLAYER, true, null),
+                        new PlayerSupport(PlayerSupport.Player.QUICKTIME, true, null),
+                        new PlayerSupport(PlayerSupport.Player.ITUNES, true, null),
+                        new PlayerSupport(PlayerSupport.Player.REALPLAYER, false, null),
+                    },
+                "Winamp PLSv2 Playlist"),
+        };
 
     public PLSProvider()
     {
@@ -137,7 +137,7 @@ public class PLSProvider extends AbstractPlaylistProvider
                 if ("numberofentries".equals(key))
                 {
                     int tmpValue;
-                    
+
                     try
                     {
                         tmpValue = Integer.parseInt(value); // May throw NumberFormatException.
@@ -309,6 +309,7 @@ public class PLSProvider extends AbstractPlaylistProvider
 
     /**
      * Adds the resources referenced in the specified generic playlist component to the input list.
+     *
      * @param resources the resulting list of resources. Shall not be <code>null</code>.
      * @param component the generic playlist component to handle. Shall not be <code>null</code>.
      */

@@ -24,10 +24,10 @@
  */
 package christophedelory.playlist.asx;
 
+import christophedelory.lang.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import christophedelory.lang.StringUtils;
 
 /**
  * Defines a media clip.
@@ -37,8 +37,9 @@ import christophedelory.lang.StringUtils;
  * information about the clip that the WMP control will display as text (AUTHOR, COPYRIGHT, TITLE), and other settings related to the clip.
  * The REF child element links the content to be streamed for the parent ENTRY element.
  * Though the script will not break, the ENTRY is meaningless without a REF child.
- * @version $Revision: 92 $
+ *
  * @author Christophe Delory
+ * @version $Revision: 92 $
  * @castor.class xml="entry"
  */
 public class Entry extends AsxOrEntryElement
@@ -90,15 +91,14 @@ public class Entry extends AsxOrEntryElement
      * <dt>NO</dt><dd>User cannot skip forward past the clip.</dd>
      * </dl>
      * The default value is "YES".
+     *
      * @return the associated value as a string. May be <code>null</code>.
+     * @castor.field get-method="getClientSkipString"
+     * set-method="setClientSkipString"
+     * @castor.field-xml name="clientskip"
+     * node="attribute"
      * @see #setClientSkipString
      * @see #isClientSkip
-     * @castor.field
-     *  get-method="getClientSkipString"
-     *  set-method="setClientSkipString"
-     * @castor.field-xml
-     *  name="clientskip"
-     *  node="attribute"
      */
     public String getClientSkipString()
     {
@@ -108,12 +108,13 @@ public class Entry extends AsxOrEntryElement
         {
             ret = "NO";
         }
-        
+
         return ret;
     }
 
     /**
      * Initializes the value indicating whether the user can skip forward past the clip.
+     *
      * @param clientSkip the value. May be <code>null</code>.
      * @see #getClientSkipString
      * @see #setClientSkip
@@ -122,11 +123,12 @@ public class Entry extends AsxOrEntryElement
     {
         final String skip = StringUtils.normalize(clientSkip);
 
-        _clientSkip = ! "NO".equalsIgnoreCase(skip);
+        _clientSkip = !"NO".equalsIgnoreCase(skip);
     }
 
     /**
      * Indicates whether the user can skip forward past the clip.
+     *
      * @return the associated boolean.
      * @see #setClientSkip
      * @see #getClientSkipString
@@ -138,6 +140,7 @@ public class Entry extends AsxOrEntryElement
 
     /**
      * Indicates whether the user can skip forward past the clip.
+     *
      * @param clientSkip the associated boolean.
      * @see #isClientSkip
      * @see #setClientSkipString
@@ -161,15 +164,14 @@ public class Entry extends AsxOrEntryElement
      * <dt>NO</dt><dd>The WMP control will not ignore this entry.</dd>
      * </dl>
      * The default value is "NO".
+     *
      * @return the associated value. May be <code>null</code>.
+     * @castor.field get-method="getSkipIfRefString"
+     * set-method="setSkipIfRefString"
+     * @castor.field-xml name="skipifref"
+     * node="attribute"
      * @see #setSkipIfRefString
      * @see #isSkipIfRef
-     * @castor.field
-     *  get-method="getSkipIfRefString"
-     *  set-method="setSkipIfRefString"
-     * @castor.field-xml
-     *  name="skipifref"
-     *  node="attribute"
      */
     public String getSkipIfRefString()
     {
@@ -179,12 +181,13 @@ public class Entry extends AsxOrEntryElement
         {
             ret = "YES";
         }
-        
+
         return ret;
     }
 
     /**
      * Initializes the value indicating whether the Windows Media Player control should skip this clip when the ENTRY element is included in a second ASX file through the use of an ENTRYREF element.
+     *
      * @param skipIfRef a value. May be <code>null</code>.
      * @see #getSkipIfRefString
      * @see #setSkipIfRef
@@ -198,6 +201,7 @@ public class Entry extends AsxOrEntryElement
 
     /**
      * Indicates whether the Windows Media Player control should skip this clip when the ENTRY element is included in a second ASX file through the use of an ENTRYREF element.
+     *
      * @return the associated boolean.
      * @see #setSkipIfRef
      * @see #getSkipIfRefString
@@ -209,6 +213,7 @@ public class Entry extends AsxOrEntryElement
 
     /**
      * Indicates whether the Windows Media Player control should skip this clip when the ENTRY element is included in a second ASX file through the use of an ENTRYREF element.
+     *
      * @param skipIfRef the associated boolean.
      * @see #isSkipIfRef
      * @see #setSkipIfRefString
@@ -221,14 +226,13 @@ public class Entry extends AsxOrEntryElement
     /**
      * Returns the length of time the WMP control will render a stream.
      * A DURATION element defined within a REF element overrides one that appears within the REF element's parent ENTRY element.
+     *
      * @return a duration. May be <code>null</code>.
+     * @castor.field get-method="getDuration"
+     * set-method="setDuration"
+     * @castor.field-xml name="duration"
+     * node="element"
      * @see #setDuration
-     * @castor.field
-     *  get-method="getDuration"
-     *  set-method="setDuration"
-     * @castor.field-xml
-     *  name="duration"
-     *  node="element"
      */
     public Duration getDuration()
     {
@@ -237,6 +241,7 @@ public class Entry extends AsxOrEntryElement
 
     /**
      * Initializes the length of time the WMP control will render a stream.
+     *
      * @param duration a duration. May be <code>null</code>.
      * @see #getDuration
      */
@@ -254,14 +259,13 @@ public class Entry extends AsxOrEntryElement
      * Returns the start time of this ENTRY.
      * Defines a time index into the content from which the stream must play.
      * This element can be used only with stored, on-demand content that has been indexed.
+     *
      * @return a start time. May be <code>null</code>.
+     * @castor.field get-method="getStartTime"
+     * set-method="setStartTime"
+     * @castor.field-xml name="starttime"
+     * node="element"
      * @see #setStartTime
-     * @castor.field
-     *  get-method="getStartTime"
-     *  set-method="setStartTime"
-     * @castor.field-xml
-     *  name="starttime"
-     *  node="element"
      */
     public Duration getStartTime()
     {
@@ -270,6 +274,7 @@ public class Entry extends AsxOrEntryElement
 
     /**
      * Initializes the start time of this ENTRY.
+     *
      * @param startTime a start time. May be <code>null</code>.
      * @see #getStartTime
      */
@@ -289,14 +294,13 @@ public class Entry extends AsxOrEntryElement
      * A STARTMARKER element also takes precedence over a STARTTIME element.
      * If the marker specified by a STARTMARKER element occurs later in the stream than the marker defined by an ENDMARKER element,
      * no content plays, but no error is generated.
+     *
      * @return a start marker. May be <code>null</code>.
+     * @castor.field get-method="getStartMarker"
+     * set-method="setStartMarker"
+     * @castor.field-xml name="startmarker"
+     * node="element"
      * @see #setStartMarker
-     * @castor.field
-     *  get-method="getStartMarker"
-     *  set-method="setStartMarker"
-     * @castor.field-xml
-     *  name="startmarker"
-     *  node="element"
      */
     public Marker getStartMarker()
     {
@@ -305,6 +309,7 @@ public class Entry extends AsxOrEntryElement
 
     /**
      * Initializes the marker at which Windows Media Player starts rendering the stream.
+     *
      * @param startMarker a start marker. May be <code>null</code>.
      * @see #getStartMarker
      */
@@ -326,14 +331,13 @@ public class Entry extends AsxOrEntryElement
      * An ENDMARKER element defined within a REF element takes precedence over an ENDMARKER defined within the REF element's parent ENTRY element.
      * If the marker specified by an END MARKER element occurs earlier in the stream than the marker defined by a STARTMARKER element,
      * no content plays, but no error is generated.
+     *
      * @return an end marker. May be <code>null</code>.
+     * @castor.field get-method="getEndMarker"
+     * set-method="setEndMarker"
+     * @castor.field-xml name="endmarker"
+     * node="element"
      * @see #setEndMarker
-     * @castor.field
-     *  get-method="getEndMarker"
-     *  set-method="setEndMarker"
-     * @castor.field-xml
-     *  name="endmarker"
-     *  node="element"
      */
     public Marker getEndMarker()
     {
@@ -342,6 +346,7 @@ public class Entry extends AsxOrEntryElement
 
     /**
      * Initializes the marker at which Windows Media Player ends rendering the stream.
+     *
      * @param endMarker an end marker. May be <code>null</code>.
      * @see #getEndMarker
      */
@@ -357,6 +362,7 @@ public class Entry extends AsxOrEntryElement
 
     /**
      * Adds a reference to this ASX.
+     *
      * @param ref an ASX reference. Shall not be <code>null</code>.
      * @throws NullPointerException if <code>ref</code> is <code>null</code>.
      * @see #getReferences
@@ -369,16 +375,15 @@ public class Entry extends AsxOrEntryElement
 
     /**
      * Returns the list of references defined for this ASX.
+     *
      * @return a list of references. May be empty but not <code>null</code>.
+     * @castor.field get-method="getReferences"
+     * set-method="addReference"
+     * type="christophedelory.playlist.asx.Reference"
+     * collection="arraylist"
+     * @castor.field-xml name="ref"
+     * node="element"
      * @see #addReference
-     * @castor.field
-     *  get-method="getReferences"
-     *  set-method="addReference"
-     *  type="christophedelory.playlist.asx.Reference"
-     *  collection="arraylist"
-     * @castor.field-xml
-     *  name="ref"
-     *  node="element"
      */
     public List<Reference> getReferences()
     {

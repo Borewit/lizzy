@@ -31,8 +31,6 @@ import java.net.URI;
 import java.util.Date;
 
 import christophedelory.playlist.*;
-import christophedelory.playlist.asx.AsxProvider;
-import christophedelory.playlist.b4s.B4sProvider;
 import org.apache.commons.logging.Log;
 
 import christophedelory.atom.Entry;
@@ -47,7 +45,6 @@ import christophedelory.io.IOUtils;
 import christophedelory.player.PlayerSupport;
 import christophedelory.xml.Version;
 import christophedelory.xml.XmlSerializer;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * The Atom playlist provider.

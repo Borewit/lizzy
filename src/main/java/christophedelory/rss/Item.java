@@ -24,15 +24,15 @@
  */
 package christophedelory.rss;
 
+import christophedelory.rss.media.BaseMedia;
+import christophedelory.rss.media.Content;
+import christophedelory.rss.media.Group;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import christophedelory.rss.media.BaseMedia;
-import christophedelory.rss.media.Content;
-import christophedelory.rss.media.Group;
 
 /**
  * An item may represent a "story" -- much like a story in a newspaper or magazine;
@@ -49,6 +49,7 @@ import christophedelory.rss.media.Group;
  * However, if one is using this module to strictly publish media, there should be one item element for each media object/group.
  * This is to allow for proper attribution for the origination of the media content through the link element.
  * It also allows the full benefit of the other RSS elements to be realized.
+ *
  * @author Christophe Delory
  * @version $Revision: 92 $
  * @castor.class xml="item"
@@ -129,14 +130,13 @@ public class Item extends BaseMedia // I don't want regular RSS item to directly
      * For example, there is no actual limit on the number of links a weblog item can have.
      * Example: "Venice Film Festival Tries to Quit Sinking".
      * No default value.
+     *
      * @return the item's title. May be <code>null</code>.
+     * @castor.field get-method="getTitle"
+     * set-method="setTitle"
+     * @castor.field-xml name="title"
+     * node="element"
      * @see #setTitle
-     * @castor.field
-     *  get-method="getTitle"
-     *  set-method="setTitle"
-     * @castor.field-xml
-     *  name="title"
-     *  node="element"
      */
     public String getTitle()
     {
@@ -145,6 +145,7 @@ public class Item extends BaseMedia // I don't want regular RSS item to directly
 
     /**
      * Initializes the title of the item.
+     *
      * @param title the item's title. May be <code>null</code>.
      * @see #getTitle
      */
@@ -155,9 +156,10 @@ public class Item extends BaseMedia // I don't want regular RSS item to directly
 
     /**
      * Initializes the URL of the item.
+     *
      * @param link an URL as a string. Shall not be <code>null</code>.
      * @throws NullPointerException if <code>link</code> is <code>null</code>.
-     * @throws URISyntaxException if the given string violates RFC 2396, as augmented by the {@link URI} deviations.
+     * @throws URISyntaxException   if the given string violates RFC 2396, as augmented by the {@link URI} deviations.
      * @see #getLinkString
      * @see #setLink
      */
@@ -168,15 +170,14 @@ public class Item extends BaseMedia // I don't want regular RSS item to directly
 
     /**
      * Returns the URL of the item.
+     *
      * @return an URL as a string. May be <code>null</code>.
+     * @castor.field get-method="getLinkString"
+     * set-method="setLinkString"
+     * @castor.field-xml name="link"
+     * node="element"
      * @see #setLinkString
      * @see #getLink
-     * @castor.field
-     *  get-method="getLinkString"
-     *  set-method="setLinkString"
-     * @castor.field-xml
-     *  name="link"
-     *  node="element"
      */
     public String getLinkString()
     {
@@ -192,6 +193,7 @@ public class Item extends BaseMedia // I don't want regular RSS item to directly
 
     /**
      * Initializes the URL of the item.
+     *
      * @param link an URL. May be <code>null</code>.
      * @see #getLink
      * @see #setLinkString
@@ -210,6 +212,7 @@ public class Item extends BaseMedia // I don't want regular RSS item to directly
      * For example, there is no actual limit on the number of links a weblog item can have.
      * Example: "http://nytimes.com/2004/12/07FEST.html".
      * No default value.
+     *
      * @return an URL. May be <code>null</code>.
      * @see #setLink
      * @see #getLinkString
@@ -224,14 +227,13 @@ public class Item extends BaseMedia // I don't want regular RSS item to directly
      * 0.92 allows entity-encoded HTML in the description of an item, to reflect actual practice by bloggers, who are often proficient HTML coders.
      * Example: "Some of the most heated chatter at the Venice Film Festival this week was about the way that the arrival of the stars at the Palazzo del Cinema was being staged.".
      * No default value.
+     *
      * @return the item's description. May be <code>null</code>.
+     * @castor.field get-method="getDescription"
+     * set-method="setDescription"
+     * @castor.field-xml name="description"
+     * node="element"
      * @see #setDescription
-     * @castor.field
-     *  get-method="getDescription"
-     *  set-method="setDescription"
-     * @castor.field-xml
-     *  name="description"
-     *  node="element"
      */
     public String getDescription()
     {
@@ -240,6 +242,7 @@ public class Item extends BaseMedia // I don't want regular RSS item to directly
 
     /**
      * Initializes the item synopsis.
+     *
      * @param description the item's description. May be <code>null</code>.
      * @see #getDescription
      */
@@ -255,15 +258,14 @@ public class Item extends BaseMedia // I don't want regular RSS item to directly
      * For a weblog authored by a single individual it would make sense to omit the element.
      * Example: "lawyer@boyer.net (Lawyer Boyer)".
      * No default value.
+     *
      * @return the author's email. May be <code>null</code>.
+     * @castor.field get-method="getAuthor"
+     * set-method="setAuthor"
+     * @castor.field-xml name="author"
+     * node="element"
      * @see #setAuthor
      * @since 2.0
-     * @castor.field
-     *  get-method="getAuthor"
-     *  set-method="setAuthor"
-     * @castor.field-xml
-     *  name="author"
-     *  node="element"
      */
     public String getAuthor()
     {
@@ -272,6 +274,7 @@ public class Item extends BaseMedia // I don't want regular RSS item to directly
 
     /**
      * Initializes the email address of the author of the item.
+     *
      * @param author the author's email. May be <code>null</code>.
      * @see #getAuthor
      * @since 2.0
@@ -286,17 +289,16 @@ public class Item extends BaseMedia // I don't want regular RSS item to directly
      * You may include as many category elements as you need to, for different domains,
      * and to have an item cross-referenced in different parts of the same domain.
      * The list is initially empty.
+     *
      * @return a list of categories. May be empty but not <code>null</code>.
+     * @castor.field get-method="getCategories"
+     * set-method="addCategory"
+     * type="christophedelory.rss.Category"
+     * collection="arraylist"
+     * @castor.field-xml name="category"
+     * node="element"
      * @see #addCategory
      * @since 0.92
-     * @castor.field
-     *  get-method="getCategories"
-     *  set-method="addCategory"
-     *  type="christophedelory.rss.Category"
-     *  collection="arraylist"
-     * @castor.field-xml
-     *  name="category"
-     *  node="element"
      */
     public List<Category> getCategories()
     {
@@ -305,6 +307,7 @@ public class Item extends BaseMedia // I don't want regular RSS item to directly
 
     /**
      * Includes the item in a category.
+     *
      * @param category an item's category. Shall not be <code>null</code>.
      * @throws NullPointerException if <code>category</code> is <code>null</code>.
      * @see #getCategories
@@ -326,15 +329,14 @@ public class Item extends BaseMedia // I don't want regular RSS item to directly
      * Example: "http://ekzemplo.com/entry/4403/comments".
      * More about comments <a href="http://backend.userland.com/weblogComments">here</a>.
      * No default value.
+     *
      * @return an URL as a string. May be <code>null</code>.
+     * @castor.field get-method="getComments"
+     * set-method="setComments"
+     * @castor.field-xml name="comments"
+     * node="element"
      * @see #setComments
      * @since 2.0
-     * @castor.field
-     *  get-method="getComments"
-     *  set-method="setComments"
-     * @castor.field-xml
-     *  name="comments"
-     *  node="element"
      */
     public String getComments()
     {
@@ -343,6 +345,7 @@ public class Item extends BaseMedia // I don't want regular RSS item to directly
 
     /**
      * Initializes an URL of a page for comments relating to the item.
+     *
      * @param comments an URL as a string. May be <code>null</code>.
      * @see #getComments
      * @since 2.0
@@ -355,15 +358,14 @@ public class Item extends BaseMedia // I don't want regular RSS item to directly
     /**
      * Describes a media object that is attached to the item.
      * No default value.
+     *
      * @return a media descriptor. May be <code>null</code>.
+     * @castor.field get-method="getEnclosure"
+     * set-method="setEnclosure"
+     * @castor.field-xml name="enclosure"
+     * node="element"
      * @see #setEnclosure
      * @since 0.92
-     * @castor.field
-     *  get-method="getEnclosure"
-     *  set-method="setEnclosure"
-     * @castor.field-xml
-     *  name="enclosure"
-     *  node="element"
      */
     public Enclosure getEnclosure()
     {
@@ -372,6 +374,7 @@ public class Item extends BaseMedia // I don't want regular RSS item to directly
 
     /**
      * Describes a media object that is attached to the item.
+     *
      * @param enclosure a media descriptor. May be <code>null</code>.
      * @see #getEnclosure
      * @since 0.92
@@ -391,15 +394,14 @@ public class Item extends BaseMedia // I don't want regular RSS item to directly
      * In all cases, it's recommended that you provide the guid, and if possible make it a permalink.
      * This enables aggregators to not repeat items, even if there have been editing changes.
      * No default value.
+     *
      * @return a GUID. May be <code>null</code>.
+     * @castor.field get-method="getGuid"
+     * set-method="setGuid"
+     * @castor.field-xml name="guid"
+     * node="element"
      * @see #setGuid
      * @since 2.0
-     * @castor.field
-     *  get-method="getGuid"
-     *  set-method="setGuid"
-     * @castor.field-xml
-     *  name="guid"
-     *  node="element"
      */
     public GUID getGuid()
     {
@@ -408,6 +410,7 @@ public class Item extends BaseMedia // I don't want regular RSS item to directly
 
     /**
      * Initializes a string that uniquely identifies the item.
+     *
      * @param guid a GUID. May be <code>null</code>.
      * @see #getGuid
      * @since 2.0
@@ -419,6 +422,7 @@ public class Item extends BaseMedia // I don't want regular RSS item to directly
 
     /**
      * Indicates when the item was published.
+     *
      * @param pubDate a date as a string. Shall not be <code>null</code>.
      * @throws NullPointerException if <code>pubDate</code> is <code>null</code>.
      * @see #getPubDateString
@@ -432,16 +436,15 @@ public class Item extends BaseMedia // I don't want regular RSS item to directly
 
     /**
      * Indicates when the item was published.
+     *
      * @return a date as a string. May be <code>null</code>.
+     * @castor.field get-method="getPubDateString"
+     * set-method="setPubDateString"
+     * @castor.field-xml name="pubDate"
+     * node="element"
      * @see #setPubDateString
      * @see #getPubDate
      * @since 2.0
-     * @castor.field
-     *  get-method="getPubDateString"
-     *  set-method="setPubDateString"
-     * @castor.field-xml
-     *  name="pubDate"
-     *  node="element"
      */
     public String getPubDateString()
     {
@@ -461,6 +464,7 @@ public class Item extends BaseMedia // I don't want regular RSS item to directly
      * If it's a date in the future, aggregators may choose to not display the item until that date.
      * Example: "Sun, 19 May 2002 15:21:36 GMT".
      * No default value.
+     *
      * @return a date. May be <code>null</code>.
      * @see #setPubDate
      * @see #getPubDateString
@@ -473,6 +477,7 @@ public class Item extends BaseMedia // I don't want regular RSS item to directly
 
     /**
      * Indicates when the item was published.
+     *
      * @param pubDate a date. May be <code>null</code>.
      * @see #getPubDate
      * @see #setPubDateString
@@ -486,15 +491,14 @@ public class Item extends BaseMedia // I don't want regular RSS item to directly
     /**
      * Returns the RSS channel that the item came from.
      * No default value.
+     *
      * @return the item's source. May be <code>null</code>.
+     * @castor.field get-method="getSource"
+     * set-method="setSource"
+     * @castor.field-xml name="source"
+     * node="element"
      * @see #setSource
      * @since 0.92
-     * @castor.field
-     *  get-method="getSource"
-     *  set-method="setSource"
-     * @castor.field-xml
-     *  name="source"
-     *  node="element"
      */
     public Source getSource()
     {
@@ -503,6 +507,7 @@ public class Item extends BaseMedia // I don't want regular RSS item to directly
 
     /**
      * Initializes the RSS channel that the item came from.
+     *
      * @param source the item's source. May be <code>null</code>.
      * @see #getSource
      * @since 0.92
@@ -512,76 +517,77 @@ public class Item extends BaseMedia // I don't want regular RSS item to directly
         _source = source;
     }
 
-	/**
-	 * Adds a media content.
+    /**
+     * Adds a media content.
+     *
      * @param mediaContent a media content. Shall not be <code>null</code>.
      * @throws NullPointerException if <code>mediaContent</code> is <code>null</code>.
-	 * @see #getMediaContents
-	 */
-	public void addMediaContent(final Content mediaContent)
-	{
+     * @see #getMediaContents
+     */
+    public void addMediaContent(final Content mediaContent)
+    {
         if (mediaContent == null)
         {
             throw new NullPointerException("no media content");
         }
 
-		_mediaContents.add(mediaContent);
-	}
+        _mediaContents.add(mediaContent);
+    }
 
-	/**
-	 * Returns the list of media contents.
+    /**
+     * Returns the list of media contents.
+     *
      * @return a list of media contents. May be empty but not <code>null</code>.
-	 * @see #addMediaContent
-     * @castor.field
-     *  type="christophedelory.rss.media.Content"
-     *  get-method="getMediaContents"
-     *  set-method="addMediaContent"
-     *  collection="arraylist"
-     * @castor.field-xml
-     *  name="media:content"
-     *  node="element"
-	 */
-	public List<Content> getMediaContents()
-	{
-		return _mediaContents;
-	}
+     * @castor.field type="christophedelory.rss.media.Content"
+     * get-method="getMediaContents"
+     * set-method="addMediaContent"
+     * collection="arraylist"
+     * @castor.field-xml name="media:content"
+     * node="element"
+     * @see #addMediaContent
+     */
+    public List<Content> getMediaContents()
+    {
+        return _mediaContents;
+    }
 
-	/**
+    /**
      * Returns the list of media groups.
+     *
      * @return a list of media groups. May be empty but not <code>null</code>.
-	 * @see #addMediaGroup
-     * @castor.field
-     *  type="christophedelory.rss.media.Group"
-     *  get-method="getMediaGroups"
-     *  set-method="addMediaGroup"
-     *  collection="arraylist"
-     * @castor.field-xml
-     *  name="media:group"
-     *  node="element"
-	 */
-	public List<Group> getMediaGroups()
-	{
-		return _mediaGroups;
-	}
+     * @castor.field type="christophedelory.rss.media.Group"
+     * get-method="getMediaGroups"
+     * set-method="addMediaGroup"
+     * collection="arraylist"
+     * @castor.field-xml name="media:group"
+     * node="element"
+     * @see #addMediaGroup
+     */
+    public List<Group> getMediaGroups()
+    {
+        return _mediaGroups;
+    }
 
-	/**
-	 * Adds a media group.
+    /**
+     * Adds a media group.
+     *
      * @param mediaGroup a media group. Shall not be <code>null</code>.
      * @throws NullPointerException if <code>mediaGroup</code> is <code>null</code>.
-	 * @see #getMediaGroups
-	 */
-	public void addMediaGroup(final Group mediaGroup)
-	{
+     * @see #getMediaGroups
+     */
+    public void addMediaGroup(final Group mediaGroup)
+    {
         if (mediaGroup == null)
         {
             throw new NullPointerException("no media group");
         }
 
-		_mediaGroups.add(mediaGroup);
-	}
+        _mediaGroups.add(mediaGroup);
+    }
 
     /**
      * Initializes the parent channel.
+     *
      * @param channel the parent channel. May be <code>null</code>.
      * @see #getChannel
      */
@@ -592,6 +598,7 @@ public class Item extends BaseMedia // I don't want regular RSS item to directly
 
     /**
      * Returns the parent channel, if any.
+     *
      * @return the parent channel. May be <code>null</code>.
      */
     public Channel getChannel()

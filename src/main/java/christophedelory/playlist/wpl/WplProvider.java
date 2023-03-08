@@ -28,7 +28,6 @@ import java.io.InputStream;
 import java.io.StringReader;
 
 import christophedelory.playlist.*;
-import christophedelory.playlist.smil.SmilProvider;
 import org.apache.commons.logging.Log;
 
 import christophedelory.content.type.ContentType;

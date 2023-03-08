@@ -28,14 +28,12 @@ import java.io.InputStream;
 import java.io.StringReader;
 
 import christophedelory.playlist.*;
-import christophedelory.playlist.b4s.B4sProvider;
 import org.apache.commons.logging.Log;
 
 import christophedelory.content.type.ContentType;
 import christophedelory.io.IOUtils;
 import christophedelory.player.PlayerSupport;
 import christophedelory.xml.XmlSerializer;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * The Hypetape XML playlist format.

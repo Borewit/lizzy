@@ -67,7 +67,7 @@ final class RFC822
           compactRfc822DatetimeFormat2.get()
         };
 
-        for(DateFormat dateFormat : formatsToTry)
+        for (DateFormat dateFormat : formatsToTry)
         {
             try
             {

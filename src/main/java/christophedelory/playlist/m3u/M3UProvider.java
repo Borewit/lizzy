@@ -31,12 +31,10 @@ import java.util.List;
 import java.util.Locale;
 
 import christophedelory.playlist.*;
-import christophedelory.playlist.kpl.KplProvider;
 import org.apache.commons.logging.Log;
 
 import christophedelory.content.type.ContentType;
 import christophedelory.player.PlayerSupport;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * A simple text-based list of the locations of the items, with each item on a new line.

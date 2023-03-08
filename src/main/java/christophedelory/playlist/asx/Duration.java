@@ -71,22 +71,19 @@ public class Duration extends Child
         // Hours.
         long i = millis / (60L * 60L * 1000L);
 
-        //if (i > 0L)
-        {
-            sb.append(StringUtils.toString(i, 2));
-            sb.append(':');
-            millis -= i * 60L * 60L * 1000L;
-        }
+
+        sb.append(StringUtils.toString(i, 2));
+        sb.append(':');
+        millis -= i * 60L * 60L * 1000L;
+
 
         // Minutes.
         i = millis / (60L * 1000L);
 
-        //if (i > 0L)
-        {
-            sb.append(StringUtils.toString(i, 2));
-            sb.append(':');
-            millis -= i * 60L * 1000L;
-        }
+
+        sb.append(StringUtils.toString(i, 2));
+        sb.append(':');
+        millis -= i * 60L * 1000L;
 
         // Seconds.
         i = millis / 1000L;

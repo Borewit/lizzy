@@ -30,12 +30,10 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 import christophedelory.playlist.*;
-import christophedelory.playlist.plist.PlistProvider;
 import org.apache.commons.logging.Log;
 
 import christophedelory.content.type.ContentType;
 import christophedelory.player.PlayerSupport;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * The PLP playlist format, which lists locations of files in a standard text format.
