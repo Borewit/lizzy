@@ -4,6 +4,8 @@ plugins {
     id 'application'
     id 'signing'
     id 'checkstyle'
+    // https://github.com/unbroken-dome/gradle-xjc-plugin
+    id 'org.unbroken-dome.xjc' version '2.0.0'
 }
 
 apply plugin: 'maven-publish'
@@ -26,6 +28,7 @@ dependencies {
     implementation 'commons-logging:commons-logging:1.2'
 
     // JAXB API only
+    api 'javax.xml.bind:jaxb-api:2.2.12'
     implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.3'
 
     //JAXB RI, Jakarta XML Binding
@@ -139,3 +142,12 @@ javadoc {
     options.addBooleanOption("Xdoclint:none", true)
     options.addStringOption("Xmaxwarns", "1")
 }
+
+task checkJavaSources(type: SourceTask) {
+    source 'src/main/java'
+}
+
+// Prevent generated Java sources are checked
+tasks.checkstyleMain.source = fileTree(dir: 'src/main/java').include('**/*.java')
+
+

@@ -24,22 +24,31 @@
  */
 package christophedelory.playlist.xspf;
 
-import java.io.InputStream;
-
-import christophedelory.playlist.*;
-import org.apache.commons.logging.Log;
-
 import christophedelory.content.type.ContentType;
 import christophedelory.player.PlayerSupport;
-import christophedelory.xml.XmlSerializer;
+import christophedelory.playlist.*;
+import io.github.borewit.playlist.xspf.XspfPlaylist;
+import io.github.borewit.playlist.xspf.XspfTrack;
+import io.github.borewit.playlist.xspf.XspfTrackList;
+import org.apache.commons.logging.Log;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamReader;
+import java.io.InputStream;
+import java.math.BigInteger;
+import java.util.List;
 
 /**
  * XML Shareable Playlist Format (XSPF), pronounced spiff, is an XML-based playlist format for digital media, sponsored by the Xiph.Org Foundation.
  * Lucas Gonze of Yahoo.com/Webjay.org originated the format in 2004.
  * XSPF is a data format for sharing the kind of playlist that can be played on a personal computer or portable device.
  * In the same way that any user on any computer can open any web page, XSPF is intended to provide portability for playlists.
- * @version $Revision: 91 $
+ *
  * @author Christophe Delory
+ * @version $Revision: 91 $
  */
 public class XspfProvider extends AbstractPlaylistProvider
 {
@@ -47,15 +56,15 @@ public class XspfProvider extends AbstractPlaylistProvider
      * A list of compatible content types.
      */
     private static final ContentType[] FILETYPES =
-    {
-        new ContentType(new String[] { ".xspf" },
-                        new String[] { "application/xspf+xml" },
-                        new PlayerSupport[]
-                        {
-                            new PlayerSupport(PlayerSupport.Player.VLC_MEDIA_PLAYER, true, null),
-                        },
-                        "XML Shareable Playlist Format (XSPF)"),
-    };
+        {
+            new ContentType(new String[]{".xspf"},
+                new String[]{"application/xspf+xml"},
+                new PlayerSupport[]
+                    {
+                        new PlayerSupport(PlayerSupport.Player.VLC_MEDIA_PLAYER, true, null),
+                    },
+                "XML Shareable Playlist Format (XSPF)"),
+        };
 
     public XspfProvider()
     {
@@ -77,33 +86,36 @@ public class XspfProvider extends AbstractPlaylistProvider
     @Override
     public SpecificPlaylist readFrom(final InputStream in, final String encoding, final Log logger) throws Exception
     {
-        // Unmarshal the WPL playlist.
-        final XmlSerializer serializer = XmlSerializer.getMapping("christophedelory/playlist/xspf"); // May throw Exception.
-        serializer.getUnmarshaller().setIgnoreExtraElements(true);
+        JAXBContext jaxbContext = JAXBContext.newInstance(XspfPlaylist.class);
+        Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
-        final SpecificPlaylist ret = (SpecificPlaylist) serializer.unmarshal(preProcessXml(in, encoding)); // May throw Exception.
-        ret.setProvider(this);
-
-        return ret;
+        XMLInputFactory xmlInputFactory = XMLInputFactory.newFactory();
+        xmlInputFactory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);  // Prevent downloading DTD
+        XMLStreamReader xmlStreamReader = xmlInputFactory.createXMLStreamReader(in, encoding);
+        JAXBElement<XspfPlaylist> xspfPlaylist = unmarshaller.unmarshal(xmlStreamReader, XspfPlaylist.class);
+        return new XspfPlaylistAdapter(xspfPlaylist.getValue());
     }
 
     @Override
     public SpecificPlaylist toSpecificPlaylist(final christophedelory.playlist.Playlist playlist) throws Exception
     {
-        final Playlist ret = new Playlist();
+        XspfTrackList xspfTrackList = new XspfTrackList();
+        addToPlaylist(xspfTrackList.getTrack(), playlist.getRootSequence()); // May throw Exception.
+        XspfPlaylist xspfPlaylist = new XspfPlaylist();
+        xspfPlaylist.setTrackList(xspfTrackList);
+
+        XspfPlaylistAdapter ret = new XspfPlaylistAdapter(xspfPlaylist);
         ret.setProvider(this);
-
-        addToPlaylist(ret, playlist.getRootSequence()); // May throw Exception.
-
         return ret;
     }
 
     /**
      * Adds the specified generic playlist component, and all its childs if any, to the input track list.
-     * @param playlist the parent playlist. Shall not be <code>null</code>.
-     * @param component the generic playlist component to handle. Shall not be <code>null</code>.
+     *
+     * @param xspfTrackList the parent playlist. Shall not be <code>null</code>.
+     * @param component     the generic playlist component to handle. Shall not be <code>null</code>.
      */
-    private void addToPlaylist(final Playlist playlist, final AbstractPlaylistComponent component)
+    private void addToPlaylist(List<XspfTrack> xspfTrackList, final AbstractPlaylistComponent component)
     {
         if (component instanceof Sequence)
         {
@@ -120,7 +132,7 @@ public class XspfProvider extends AbstractPlaylistProvider
             {
                 for (AbstractPlaylistComponent c : components)
                 {
-                    addToPlaylist(playlist, c); // May throw Exception.
+                    addToPlaylist(xspfTrackList, c); // May throw Exception.
                 }
             }
         }
@@ -146,17 +158,14 @@ public class XspfProvider extends AbstractPlaylistProvider
             {
                 for (int iter = 0; iter < media.getRepeatCount(); iter++)
                 {
-                    final Track track = new Track(); // NOPMD Avoid instantiating new objects inside loops
-                    final Location location = new Location(); // NOPMD Avoid instantiating new objects inside loops
-                    location.setText(media.getSource().toString());
-                    track.addStringContainer(location);
+                    final XspfTrack track = new XspfTrack(); // NOPMD Avoid instantiating new objects inside loops
+                    track.getLocation().add(media.getSource().toString());
 
                     if (media.getSource().getDuration() > 0L) // NOPMD Deeply nested if..then statements are hard to read
                     {
-                        track.setDuration((int) media.getSource().getDuration());
+                        track.setDuration(BigInteger.valueOf(media.getSource().getDuration()));
                     }
-
-                    playlist.addTrack(track);
+                    xspfTrackList.add(track);
                 }
             }
         }
