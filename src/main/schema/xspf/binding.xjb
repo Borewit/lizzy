@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jaxb:bindings version="1.0"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+>
+
+    <jaxb:bindings schemaLocation="xspf-1_0.2.xsd" node="/xs:schema">
+        <jaxb:schemaBindings>
+            <jaxb:package name="io.github.borewit.playlist.xspf"/>
+        </jaxb:schemaBindings>
+
+        <jaxb:bindings node="//xs:complexType[@name='AttributionType']">
+            <jaxb:class name="XspfAttribution"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:complexType[@name='ExtensionType']">
+            <jaxb:class name="XspfExtension"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:complexType[@name='LinkType']">
+            <jaxb:class name="XspfLink"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:complexType[@name='MetaType']">
+            <jaxb:class name="XspfMeta"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:complexType[@name='PlaylistType']">
+            <jaxb:class name="XspfPlaylist"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:complexType[@name='TrackListType']">
+            <jaxb:class name="XspfTrackList"/>
+        </jaxb:bindings>
+        <jaxb:bindings node="//xs:complexType[@name='TrackType']">
+            <jaxb:class name="XspfTrack"/>
+        </jaxb:bindings>
+    </jaxb:bindings>
+</jaxb:bindings>

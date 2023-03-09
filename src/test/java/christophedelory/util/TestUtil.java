@@ -1,4 +1,8 @@
 package christophedelory.util;
+import christophedelory.playlist.Playlist;
+import christophedelory.playlist.SpecificPlaylist;
+import christophedelory.playlist.SpecificPlaylistFactory;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,6 +13,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class TestUtil
 {
@@ -31,5 +37,25 @@ public class TestUtil
                 .filter(file -> !skipSamples.contains(file.getFileName().toString()))
                 .collect(Collectors.toList());
         }
+    }
+
+    public static Playlist makeAbstractPlaylist()
+    {
+        try
+        {
+            return readPlaylistFrom("test01.m3u");
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static Playlist readPlaylistFrom(String filename) throws Exception
+    {
+        Path playlistPath = getSampleFolderPath().resolve(filename);
+        final SpecificPlaylist inputSpecificPlaylist = SpecificPlaylistFactory.getInstance().readFrom(playlistPath.toFile());
+        assertNotNull(inputSpecificPlaylist, "inputSpecificPlaylist");
+        return inputSpecificPlaylist.toPlaylist();
     }
 }
