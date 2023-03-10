@@ -1,12 +1,14 @@
 package christophedelory.playlist;
 
-import christophedelory.io.IOUtils;
 import christophedelory.xml.XmlSerializer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 public abstract class AbstractPlaylistProvider implements SpecificPlaylistProvider
 {
@@ -34,27 +36,11 @@ public abstract class AbstractPlaylistProvider implements SpecificPlaylistProvid
     return ret;
   }
 
-  protected final String preProcessXml(final InputStream in, final String encoding) throws IOException
+  protected final InputStreamReader preProcessXml(final InputStream in, final String encoding) throws IOException
   {
-    String enc = encoding;
-
-    if (enc == null)
-    {
-      enc = "UTF-8";
-    }
-
-    String str = IOUtils.toString(in, enc); // May throw IOException. Throws NullPointerException if in is null.
-
-    // Replace all occurrences of a single '&' with "&amp;" (or leave this construct as is).
-    // First replace blindly all '&' to its corresponding character reference.
-    str = str.replace("&", "&amp;");
-    // Then restore any existing character reference.
-    str = str.replaceAll("&amp;([a-zA-Z0-9#]+;)", "&$1"); // Shall not throw PatternSyntaxException.
-
-    // Workaround Castor bug 2521:
-    str = str.replace("xmlns=\"http://www.w3.org/2005/Atom\"", "");
-
-    return str;
+    final Charset charset = encoding == null ? StandardCharsets.UTF_8 : Charset.forName(encoding);
+    logger.debug(String.format("Decoding with charset %s", charset));
+    return new InputStreamReader(in, charset);
   }
 
 }

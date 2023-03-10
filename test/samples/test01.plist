@@ -17,7 +17,7 @@
 <dict>
   <key>Track ID</key><integer>839</integer>
   <key>Name</key><string>Sweet Georgia Brown</string>
-  <key>Artist</key><string>Count Basie & His Orchestra</string>
+  <key>Artist</key><string>Count Basie &amp; His Orchestra</string>
   <key>Composer</key><string>Bernie/Pinkard/Casey</string>
   <key>Album</key><string>Prime Time</string>
   <key>Genre</key><string>Jazz</string>
@@ -40,7 +40,7 @@
   <key>Artwork Count</key><integer>1</integer>
   <key>File Type</key><integer>1295274016</integer>
   <key>File Creator</key><integer>1752133483</integer>
-  <key>Location</key><string>file://localhost/Users/niel/Music/iTunes/iTunes%20Music/Count%20Basie%20&%20His%20Orchestra/Prime%20Time/03%20Sweet%20Georgia%20Brown.m4p</string>
+  <key>Location</key><string>file://localhost/Users/niel/Music/iTunes/iTunes%20Music/Count%20Basie%20&amp;%20His%20Orchestra/Prime%20Time/03%20Sweet%20Georgia%20Brown.m4p</string>
   <key>File Folder Count</key><integer>4</integer>
   <key>Library Folder Count</key><integer>1</integer>
 </dict>

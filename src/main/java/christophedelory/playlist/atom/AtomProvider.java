@@ -26,7 +26,6 @@ package christophedelory.playlist.atom;
 
 import java.io.File;
 import java.io.InputStream;
-import java.io.StringReader;
 import java.net.URI;
 import java.util.Date;
 
@@ -88,9 +87,8 @@ public class AtomProvider extends AbstractPlaylistProvider
         final XmlSerializer serializer = XmlSerializer.getMapping("christophedelory/atom"); // May throw Exception.
         serializer.getUnmarshaller().setIgnoreExtraElements(true);
 
-        final StringReader reader = new StringReader(preProcessXml(in, encoding));
         // TODO Allow also an Entry.
-        final Feed feed = (Feed) serializer.unmarshal(reader); // May throw Exception.
+        final Feed feed = (Feed) serializer.unmarshal(preProcessXml(in, encoding)); // May throw Exception.
 
         final AtomPlaylist ret = new AtomPlaylist();
         ret.setProvider(this);

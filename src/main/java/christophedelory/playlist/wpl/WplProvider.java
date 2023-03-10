@@ -25,7 +25,6 @@
 package christophedelory.playlist.wpl;
 
 import java.io.InputStream;
-import java.io.StringReader;
 
 import christophedelory.playlist.*;
 import org.apache.commons.logging.Log;
@@ -80,8 +79,7 @@ public class WplProvider extends AbstractPlaylistProvider
         final XmlSerializer serializer = XmlSerializer.getMapping("christophedelory/playlist/wpl"); // May throw Exception.
         serializer.getUnmarshaller().setIgnoreExtraElements(false); // Force an error if unknown elements are found.
 
-        final StringReader reader = new StringReader(preProcessXml(in, encoding));
-        final SpecificPlaylist ret = (SpecificPlaylist) serializer.unmarshal(reader); // May throw Exception.
+        final SpecificPlaylist ret = (SpecificPlaylist) serializer.unmarshal(preProcessXml(in, encoding)); // May throw Exception.
         ret.setProvider(this);
 
         return ret;

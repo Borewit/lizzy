@@ -25,7 +25,6 @@
 package christophedelory.playlist.plist;
 
 import java.io.InputStream;
-import java.io.StringReader;
 import java.util.Date;
 
 import christophedelory.playlist.*;
@@ -85,8 +84,7 @@ public class PlistProvider extends AbstractPlaylistProvider
         final XmlSerializer serializer = XmlSerializer.getMapping("christophedelory/plist"); // May throw Exception.
         serializer.getUnmarshaller().setIgnoreExtraElements(false); // Force an error if unknown elements are found.
 
-        final StringReader reader = new StringReader(preProcessXml(in, encoding));
-        final Plist plist = (Plist) serializer.unmarshal(reader); // May throw Exception.
+        final Plist plist = (Plist) serializer.unmarshal(preProcessXml(in, encoding)); // May throw Exception.
 
         final PlistPlaylist ret = new PlistPlaylist();
         ret.setProvider(this);

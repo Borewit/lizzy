@@ -27,6 +27,7 @@ package christophedelory.playlist.asx;
 import java.io.InputStream;
 import java.io.StringReader;
 
+import christophedelory.io.IOUtils;
 import christophedelory.playlist.*;
 import org.apache.commons.logging.Log;
 
@@ -106,7 +107,7 @@ public class AsxProvider extends AbstractPlaylistProvider
     public SpecificPlaylist readFrom(final InputStream in, final String encoding, final Log logger) throws Exception
     {
         // Then restore any existing character reference.
-        String str = preProcessXml(in, encoding);
+        String str = IOUtils.toString(in, encoding);
 
         // Convert all XML element/attribute names to lower case.
         final StringBuilder sb = new StringBuilder();
