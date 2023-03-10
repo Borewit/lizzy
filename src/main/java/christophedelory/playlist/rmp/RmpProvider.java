@@ -34,7 +34,6 @@ import christophedelory.playlist.*;
 import org.apache.commons.logging.Log;
 
 import christophedelory.content.type.ContentType;
-import christophedelory.io.IOUtils;
 import christophedelory.player.PlayerSupport;
 import christophedelory.xml.Version;
 
@@ -80,23 +79,8 @@ public class RmpProvider extends AbstractPlaylistProvider
     @Override
     public SpecificPlaylist readFrom(final InputStream in, final String encoding, final Log logger) throws Exception
     {
-        String enc = encoding;
-
-        if (enc == null)
-        {
-            enc = "UTF-8";
-        }
-
-        String str = IOUtils.toString(in, enc); // May throw IOException. Throws NullPointerException if in is null.
-
-        // Replace all occurrences of a single '&' with "&amp;" (or leave this construct as is).
-        // First replace blindly all '&' to its corresponding character reference.
-        str = str.replace("&", "&amp;");
-        // Then restore any existing character reference.
-        str = str.replaceAll("&amp;([a-zA-Z0-9#]+;)", "&$1"); // Shall not throw PatternSyntaxException.
-
         // Unmarshal the RMP playlist.
-        final StringReader reader = new StringReader(str);
+        final StringReader reader = new StringReader(preProcessXml(in, encoding));
         final JAXBContext jc = JAXBContext.newInstance("christophedelory.playlist.rmp"); // May throw JAXBException.
         final Unmarshaller unmarshaller = jc.createUnmarshaller(); // May throw JAXBException.
         final SpecificPlaylist ret = (SpecificPlaylist) unmarshaller.unmarshal(reader); // May throw JAXBException, UnmarshalException. Shall not throw IllegalArgumentException.

@@ -34,7 +34,6 @@ import christophedelory.playlist.*;
 import org.apache.commons.logging.Log;
 
 import christophedelory.content.type.ContentType;
-import christophedelory.io.IOUtils;
 import christophedelory.player.PlayerSupport;
 import christophedelory.rss.Channel;
 import christophedelory.rss.Enclosure;
@@ -89,26 +88,11 @@ public class RSSProvider extends AbstractPlaylistProvider
     @Override
     public SpecificPlaylist readFrom(final InputStream in, final String encoding, final Log logger) throws Exception
     {
-        String enc = encoding;
-
-        if (enc == null)
-        {
-            enc = "UTF-8";
-        }
-
-        String str = IOUtils.toString(in, enc); // May throw IOException. Throws NullPointerException if in is null.
-
-        // Replace all occurrences of a single '&' with "&amp;" (or leave this construct as is).
-        // First replace blindly all '&' to its corresponding character reference.
-        str = str.replace("&", "&amp;");
-        // Then restore any existing character reference.
-        str = str.replaceAll("&amp;([a-zA-Z0-9#]+;)", "&$1"); // Shall not throw PatternSyntaxException.
-
         // Unmarshal the SMIL playlist.
         final XmlSerializer serializer = XmlSerializer.getMapping("christophedelory/rss"); // May throw Exception.
         serializer.getUnmarshaller().setIgnoreExtraElements(true);
 
-        final StringReader reader = new StringReader(str);
+        final StringReader reader = new StringReader(preProcessXml(in, encoding));
         final RSS rss = (RSS) serializer.unmarshal(reader); // May throw Exception.
 
         final RSSPlaylist ret = new RSSPlaylist();

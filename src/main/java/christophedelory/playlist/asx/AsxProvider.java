@@ -31,7 +31,6 @@ import christophedelory.playlist.*;
 import org.apache.commons.logging.Log;
 
 import christophedelory.content.type.ContentType;
-import christophedelory.io.IOUtils;
 import christophedelory.player.PlayerSupport;
 import christophedelory.xml.XmlSerializer;
 
@@ -106,20 +105,8 @@ public class AsxProvider extends AbstractPlaylistProvider
     @Override
     public SpecificPlaylist readFrom(final InputStream in, final String encoding, final Log logger) throws Exception
     {
-        String enc = encoding;
-
-        if (enc == null)
-        {
-            enc = "UTF-8"; // FIXME US-ASCII?
-        }
-
-        String str = IOUtils.toString(in, enc); // May throw IOException. Throws NullPointerException if in is null.
-
-        // Replace all occurrences of a single '&' with "&amp;" (or leave this construct as is).
-        // First replace blindly all '&' to its corresponding character reference.
-        str = str.replace("&", "&amp;");
         // Then restore any existing character reference.
-        str = str.replaceAll("&amp;([a-zA-Z0-9#]+;)", "&$1"); // Shall not throw PatternSyntaxException.
+        String str = preProcessXml(in, encoding);
 
         // Convert all XML element/attribute names to lower case.
         final StringBuilder sb = new StringBuilder();
