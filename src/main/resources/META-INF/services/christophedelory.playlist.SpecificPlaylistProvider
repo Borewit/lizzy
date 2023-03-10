@@ -13,7 +13,6 @@ christophedelory.playlist.hypetape.HypetapeProvider
 christophedelory.playlist.xspf.XspfProvider
 christophedelory.playlist.rmp.RmpProvider
 christophedelory.playlist.plist.PlistProvider
-christophedelory.playlist.kpl.KplProvider
 christophedelory.playlist.pls.PLSProvider
 christophedelory.playlist.mpcpl.MPCPLProvider
 christophedelory.playlist.plp.PLPProvider

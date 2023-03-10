@@ -54,13 +54,6 @@ public abstract class AbstractPlaylistProvider implements SpecificPlaylistProvid
     // Workaround Castor bug 2521:
     str = str.replace("xmlns=\"http://www.w3.org/2005/Atom\"", "");
 
-    // An XML element name cannot begin with a digit (like in "0").
-    // Thus the document we are about to parse is NOT well-formed.
-    // But I can't set the "well-formed" parameter to the DOMConfiguration before parsing, nor call setStrictErrorChecking(false).
-    // Thus this trick.
-    str = str.replaceAll("<([0-9]+) ", "<x$1 "); // Shall not throw PatternSyntaxException.
-    str = str.replaceAll("</([0-9]+)", "</x$1"); // Shall not throw PatternSyntaxException.
-
     return str;
   }
 

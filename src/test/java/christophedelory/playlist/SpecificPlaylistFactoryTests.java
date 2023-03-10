@@ -19,7 +19,7 @@ public class SpecificPlaylistFactoryTests
   }
 
   @ParameterizedTest
-  @ValueSource(strings = {"pla", "asx", "b4s", "wpl", "smil", "rss", "atom", "hypetape", "xspf", "rmp", "plist", "kpl", "pls", "mpcpl", "plp", "m3u"})
+  @ValueSource(strings = {"pla", "asx", "b4s", "wpl", "smil", "rss", "atom", "hypetape", "xspf", "rmp", "plist", "pls", "mpcpl", "plp", "m3u"})
   void testSerializePlaylist(String extension) throws Exception
   {
     SpecificPlaylistFactory specificPlaylistFactory = SpecificPlaylistFactory.getInstance();
