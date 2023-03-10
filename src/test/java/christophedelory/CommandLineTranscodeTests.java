@@ -1,7 +1,7 @@
 package christophedelory;
 
 import christophedelory.lizzy.Transcode;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -14,7 +14,8 @@ import java.util.stream.Collectors;
 import static christophedelory.util.TestUtil.getSamplePaths;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class TranscodeTests
+@DisplayName("Command Line Application Tests")
+public class CommandLineTranscodeTests
 {
 
     private static Path getSampleFolderPath()
@@ -23,6 +24,7 @@ public class TranscodeTests
         return Paths.get(currentDir, "test", "samples");
     }
 
+    @DisplayName("Transcode playlist via command line")
     @ParameterizedTest
     @ValueSource(strings = {"pla", "asx", "b4s", "wpl", "smil", "rss", "atom", "hypetape", "xspf", "rmp", "plist", "pls", "mpcpl", "plp", "m3u"})
     public void transcodePlaylist(String type) throws IOException
@@ -42,19 +44,6 @@ public class TranscodeTests
                 fail(String.format("Transconding of \"%s\" failed", samplePath));
 
             }
-        }
-    }
-
-    @Test
-    public void transcodeAtomPlaylist() throws Exception
-    {
-        List<Path> samples = getSamplePaths().stream()
-            .filter(sample -> sample.toString().endsWith("test02.atom"))
-            .collect(Collectors.toList());
-
-        for (Path samplePath : samples)
-        {
-            transcode(samplePath);
         }
     }
 
