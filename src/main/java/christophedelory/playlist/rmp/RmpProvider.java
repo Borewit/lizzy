@@ -25,7 +25,6 @@
 package christophedelory.playlist.rmp;
 
 import java.io.InputStream;
-import java.io.StringReader;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
@@ -80,10 +79,9 @@ public class RmpProvider extends AbstractPlaylistProvider
     public SpecificPlaylist readFrom(final InputStream in, final String encoding, final Log logger) throws Exception
     {
         // Unmarshal the RMP playlist.
-        final StringReader reader = new StringReader(preProcessXml(in, encoding));
         final JAXBContext jc = JAXBContext.newInstance("christophedelory.playlist.rmp"); // May throw JAXBException.
         final Unmarshaller unmarshaller = jc.createUnmarshaller(); // May throw JAXBException.
-        final SpecificPlaylist ret = (SpecificPlaylist) unmarshaller.unmarshal(reader); // May throw JAXBException, UnmarshalException. Shall not throw IllegalArgumentException.
+        final SpecificPlaylist ret = (SpecificPlaylist) unmarshaller.unmarshal(preProcessXml(in, encoding)); // May throw JAXBException, UnmarshalException. Shall not throw IllegalArgumentException.
         ret.setProvider(this);
 
         return ret;

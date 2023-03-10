@@ -5,7 +5,7 @@
  <Abstract>Cafe-Music CD by John Smith and friends</Abstract>
  <Moreinfo href="http://www.johnsmith.com/" />
  <Entry>
-   <Author>John & Jane Smith</Author>
+   <Author>John amp; Jane Smith</Author>
    <Title>Raging Tango</Title>
    <Moreinfo href="http://www.johnsmith.com/tango.htm" />
    <ref href = "http://www.johnsmith.com/media/Raging_Tango.mp3"/>

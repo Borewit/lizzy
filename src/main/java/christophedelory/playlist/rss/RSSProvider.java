@@ -26,7 +26,6 @@ package christophedelory.playlist.rss;
 
 import java.io.File;
 import java.io.InputStream;
-import java.io.StringReader;
 import java.net.URI;
 import java.util.Date;
 
@@ -92,8 +91,7 @@ public class RSSProvider extends AbstractPlaylistProvider
         final XmlSerializer serializer = XmlSerializer.getMapping("christophedelory/rss"); // May throw Exception.
         serializer.getUnmarshaller().setIgnoreExtraElements(true);
 
-        final StringReader reader = new StringReader(preProcessXml(in, encoding));
-        final RSS rss = (RSS) serializer.unmarshal(reader); // May throw Exception.
+        final RSS rss = (RSS) serializer.unmarshal(preProcessXml(in, encoding)); // May throw Exception.
 
         final RSSPlaylist ret = new RSSPlaylist();
         ret.setProvider(this);
