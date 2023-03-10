@@ -44,11 +44,8 @@ public class TranscodeTests
     {
         final String[] targetPlaylistFormats = {"pla", "asx", "b4s", "wpl", "smil", "rss", "atom", "hypetape", "xspf", "rmp", "plist", "pls", "mpcpl", "plp", "m3u"};
 
-        SpecificPlaylistProvider inputProvider = SpecificPlaylistFactory.getInstance().findProviderByExtension(samplePath.toString()); // Shall not throw NullPointerException because of _type.
-        assertNotNull(inputProvider, String.format("Input provider for sample \"%s\"", samplePath));
-
         final SpecificPlaylist inputSpecificPlaylist = SpecificPlaylistFactory.getInstance().readFrom(samplePath.toFile());
-        assertNotNull(inputSpecificPlaylist, String.format("Convert input playlist to abstract playlist", samplePath));
+        assertNotNull(inputSpecificPlaylist, String.format("Convert input playlist to abstract playlist \"%s\"", samplePath));
 
         final FetchContentMetadata metadataVisitor = new FetchContentMetadata();
         final Playlist inputPlaylist = inputSpecificPlaylist.toPlaylist();
@@ -61,5 +58,4 @@ public class TranscodeTests
             outputProvider.toSpecificPlaylist(inputPlaylist);
         }
     }
-
 }
