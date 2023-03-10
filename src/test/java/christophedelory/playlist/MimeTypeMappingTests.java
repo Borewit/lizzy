@@ -3,6 +3,7 @@ package christophedelory.playlist;
 import christophedelory.test.json.mime.MimeTypeMapping;
 import christophedelory.test.json.mime.MimeTypeMappings;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import javax.activation.FileTypeMap;
@@ -16,10 +17,12 @@ import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@DisplayName("MIME-Type mapping tests")
 public class MimeTypeMappingTests
 {
 
   @Test
+  @DisplayName("Check if required Media MIME-Type mapping is present")
   public void checkMediaMimeTypeMappingsPresence() throws IOException
   {
     FileTypeMap fileTypeMap = new MimetypesFileTypeMap();
