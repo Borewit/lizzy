@@ -32,7 +32,6 @@ import christophedelory.playlist.*;
 import org.apache.commons.logging.Log;
 
 import christophedelory.content.type.ContentType;
-import christophedelory.io.IOUtils;
 import christophedelory.player.PlayerSupport;
 import christophedelory.plist.Array;
 import christophedelory.plist.Dict;
@@ -82,26 +81,11 @@ public class PlistProvider extends AbstractPlaylistProvider
     @Override
     public SpecificPlaylist readFrom(final InputStream in, final String encoding, final Log logger) throws Exception
     {
-        String enc = encoding;
-
-        if (enc == null)
-        {
-            enc = "UTF-8";
-        }
-
-        String str = IOUtils.toString(in, enc); // May throw IOException. Throws NullPointerException if in is null.
-
-        // Replace all occurrences of a single '&' with "&amp;" (or leave this construct as is).
-        // First replace blindly all '&' to its corresponding character reference.
-        str = str.replace("&", "&amp;");
-        // Then restore any existing character reference.
-        str = str.replaceAll("&amp;([a-zA-Z0-9#]+;)", "&$1"); // Shall not throw PatternSyntaxException.
-
         // Unmarshal the playlist.
         final XmlSerializer serializer = XmlSerializer.getMapping("christophedelory/plist"); // May throw Exception.
         serializer.getUnmarshaller().setIgnoreExtraElements(false); // Force an error if unknown elements are found.
 
-        final StringReader reader = new StringReader(str);
+        final StringReader reader = new StringReader(preProcessXml(in, encoding));
         final Plist plist = (Plist) serializer.unmarshal(reader); // May throw Exception.
 
         final PlistPlaylist ret = new PlistPlaylist();

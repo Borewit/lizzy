@@ -43,7 +43,6 @@ import org.w3c.dom.NodeList;
 import org.apache.commons.logging.Log;
 
 import christophedelory.content.type.ContentType;
-import christophedelory.io.IOUtils;
 import christophedelory.player.PlayerSupport;
 import christophedelory.xml.Version;
 
@@ -89,30 +88,8 @@ public class KplProvider extends AbstractPlaylistProvider
     @Override
     public SpecificPlaylist readFrom(final InputStream in, final String encoding, final Log logger) throws Exception
     {
-        String enc = encoding;
-
-        if (enc == null)
-        {
-            enc = "UTF-8";
-        }
-
-        String str = IOUtils.toString(in, enc); // May throw IOException. Throws NullPointerException if in is null.
-
-        // Replace all occurrences of a single '&' with "&amp;" (or leave this construct as is).
-        // First replace blindly all '&' to its corresponding character reference.
-        str = str.replace("&", "&amp;");
-        // Then restore any existing character reference.
-        str = str.replaceAll("&amp;([a-zA-Z0-9#]+;)", "&$1"); // Shall not throw PatternSyntaxException.
-
-        // An XML element name cannot begin with a digit (like in "0").
-        // Thus the document we are about to parse is NOT well-formed.
-        // But I can't set the "well-formed" parameter to the DOMConfiguration before parsing, nor call setStrictErrorChecking(false).
-        // Thus this trick.
-        str = str.replaceAll("<([0-9]+) ", "<x$1 "); // Shall not throw PatternSyntaxException.
-        str = str.replaceAll("</([0-9]+)", "</x$1"); // Shall not throw PatternSyntaxException.
-
         // Unmarshal the KPL playlist.
-        final StringReader reader = new StringReader(str);
+        final StringReader reader = new StringReader(preProcessXml(in, encoding));
 
         final DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance(); // May throw FactoryConfigurationError.
         final DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder(); // May throw ParserConfigurationException.

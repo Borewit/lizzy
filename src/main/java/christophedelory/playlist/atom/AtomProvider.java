@@ -41,7 +41,6 @@ import christophedelory.atom.Person;
 import christophedelory.atom.TextContainer;
 import christophedelory.atom.URIContainer;
 import christophedelory.content.type.ContentType;
-import christophedelory.io.IOUtils;
 import christophedelory.player.PlayerSupport;
 import christophedelory.xml.Version;
 import christophedelory.xml.XmlSerializer;
@@ -85,29 +84,11 @@ public class AtomProvider extends AbstractPlaylistProvider
     @Override
     public SpecificPlaylist readFrom(final InputStream in, final String encoding, final Log logger) throws Exception
     {
-        String enc = encoding;
-
-        if (enc == null)
-        {
-            enc = "UTF-8";
-        }
-
-        String str = IOUtils.toString(in, enc); // May throw IOException. Throws NullPointerException if in is null.
-
-        // Replace all occurrences of a single '&' with "&amp;" (or leave this construct as is).
-        // First replace blindly all '&' to its corresponding character reference.
-        str = str.replace("&", "&amp;");
-        // Then restore any existing character reference.
-        str = str.replaceAll("&amp;([a-zA-Z0-9#]+;)", "&$1"); // Shall not throw PatternSyntaxException.
-
-        // Workaround Castor bug 2521:
-        str = str.replace("xmlns=\"http://www.w3.org/2005/Atom\"", "");
-
         // Unmarshal the SMIL playlist.
         final XmlSerializer serializer = XmlSerializer.getMapping("christophedelory/atom"); // May throw Exception.
         serializer.getUnmarshaller().setIgnoreExtraElements(true);
 
-        final StringReader reader = new StringReader(str);
+        final StringReader reader = new StringReader(preProcessXml(in, encoding));
         // TODO Allow also an Entry.
         final Feed feed = (Feed) serializer.unmarshal(reader); // May throw Exception.
 
