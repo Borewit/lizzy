@@ -26,16 +26,14 @@ package christophedelory.content;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLConnection;
+import java.net.*;
+import java.nio.file.Paths;
 
 /**
  * The definition of a content and its metadata.
- * @version $Revision: 92 $
+ *
  * @author Christophe Delory
+ * @version $Revision: 92 $
  */
 public class Content
 {
@@ -96,6 +94,7 @@ public class Content
 
     /**
      * Builds a new content from the specified URL.
+     *
      * @param url an URL as a string. Shall not be <code>null</code>.
      * @throws NullPointerException if <code>url</code> is <code>null</code>.
      */
@@ -106,6 +105,7 @@ public class Content
 
     /**
      * Builds a new content from the specified URI.
+     *
      * @param uri an URI. Shall not be <code>null</code>.
      * @throws NullPointerException if <code>uri</code> is <code>null</code>.
      */
@@ -117,6 +117,7 @@ public class Content
 
     /**
      * Builds a new content from the specified URL.
+     *
      * @param url an URL. Shall not be <code>null</code>.
      * @throws NullPointerException if <code>url</code> is <code>null</code>.
      */
@@ -128,42 +129,27 @@ public class Content
 
     /**
      * Returns the URI of the content.
+     *
      * @return an URI. Shall not be <code>null</code>.
-     * @throws SecurityException if a required system property value cannot be accessed.
+     * @throws SecurityException  if a required system property value cannot be accessed.
      * @throws URISyntaxException if this URL is not formatted strictly according to to RFC2396 and cannot be converted to a URI.
      * @see #getURL
      * @see #toString
      */
     public URI getURI() throws URISyntaxException
     {
-        synchronized(this)
+        synchronized (this)
         {
             if (_uri == null)
             {
-                URI uri = null;
-
-                if (_url == null)
+                if (_urlString.startsWith("/"))
                 {
-                    try
-                    {
-                        uri = new URI(_urlString); // May throw URISyntaxException.
-                    }
-                    catch (URISyntaxException e)
-                    {
-                        uri = null;
-                    }
-
-                    if ((uri == null) || !uri.isAbsolute())
-                    {
-                        uri = new File(_urlString).toURI(); // May throw SecurityException. Shall not throw NullPointerException because of _urlString.
-                    }
+                    _uri = Paths.get(_urlString).toUri();
                 }
                 else
                 {
-                    uri = _url.toURI(); // May throw URISyntaxException.
+                    _uri = new URI(_urlString);
                 }
-
-                _uri = uri.normalize();
             }
         }
 
@@ -172,16 +158,17 @@ public class Content
 
     /**
      * Returns the URL of the content.
+     *
      * @return an URL. Shall not be <code>null</code>.
-     * @throws SecurityException if a required system property value cannot be accessed.
+     * @throws SecurityException        if a required system property value cannot be accessed.
      * @throws IllegalArgumentException if the URL is not absolute.
-     * @throws MalformedURLException if a protocol handler for the URL could not be found, or if some other error occurred while constructing the URL.
+     * @throws MalformedURLException    if a protocol handler for the URL could not be found, or if some other error occurred while constructing the URL.
      * @see #getURI
      * @see #toString
      */
     public URL getURL() throws MalformedURLException
     {
-        synchronized(this)
+        synchronized (this)
         {
             if (_url == null)
             {
@@ -191,8 +178,8 @@ public class Content
                 }
                 catch (MalformedURLException e)
                 {
-                    _uri = new File(_urlString).toURI().normalize(); // May throw SecurityException.
-                    _url = _uri.toURL(); // May throw IllegalArgumentException, MalformedURLException.
+                    URI uri = new File(_urlString).toURI().normalize(); // May throw SecurityException.
+                    _url = uri.toURL(); // May throw IllegalArgumentException, MalformedURLException.
                 }
             }
         }
@@ -202,6 +189,7 @@ public class Content
 
     /**
      * Returns the content encoding of the resource that the URL references.
+     *
      * @return a content encoding, or <code>null</code> if unknown.
      * @see #setEncoding
      */
@@ -212,6 +200,7 @@ public class Content
 
     /**
      * Initializes or overrides the content encoding.
+     *
      * @param encoding a content encoding. May be <code>null</code>.
      * @see #getEncoding
      */
@@ -222,6 +211,7 @@ public class Content
 
     /**
      * Returns the content length in bytes of the resource that the URL references.
+     *
      * @return a content length, or <code>-1L</code> if unknown.
      * @see #setLength
      */
@@ -232,6 +222,7 @@ public class Content
 
     /**
      * Initializes or overrides the content length, in bytes.
+     *
      * @param length a content length. May be negative.
      * @see #getLength
      */
@@ -242,6 +233,7 @@ public class Content
 
     /**
      * Returns the content type of the resource that the URL references.
+     *
      * @return a content type, or <code>null</code> if unknown.
      * @see #setType
      */
@@ -252,6 +244,7 @@ public class Content
 
     /**
      * Initializes or overrides the content type.
+     *
      * @param type a content type. May be <code>null</code>.
      * @see #getType
      */
@@ -263,6 +256,7 @@ public class Content
     /**
      * Returns the date the resource that the URL references was last modified.
      * The value is the number of milliseconds since January 1, 1970 GMT.
+     *
      * @return a date, or <code>0L</code> if unknown.
      * @see #setLastModified
      */
@@ -273,6 +267,7 @@ public class Content
 
     /**
      * Initializes or overrides the last modified date.
+     *
      * @param lastModified a date. May be negative or null.
      * @see #getLastModified
      */
@@ -283,6 +278,7 @@ public class Content
 
     /**
      * Returns the content duration in milliseconds.
+     *
      * @return a duration value. May be negative if unknown.
      * @see #setDuration
      */
@@ -293,6 +289,7 @@ public class Content
 
     /**
      * Initializes the content duration in milliseconds.
+     *
      * @param duration a duration value. May be negative if unknown.
      * @see #getDuration
      */
@@ -303,9 +300,10 @@ public class Content
 
     /**
      * Returns the content width in pixels.
+     *
      * @return a width, or <code>-1</code> if unknown.
-     * @since 1.0.0
      * @see #setWidth
+     * @since 1.0.0
      */
     public int getWidth()
     {
@@ -314,9 +312,10 @@ public class Content
 
     /**
      * Initializes or overrides the content width, in pixels.
+     *
      * @param width a width. May be negative if unknown.
-     * @since 1.0.0
      * @see #getWidth
+     * @since 1.0.0
      */
     public void setWidth(final int width)
     {
@@ -325,9 +324,10 @@ public class Content
 
     /**
      * Returns the content height in pixels.
+     *
      * @return an height, or <code>-1</code> if unknown.
-     * @since 1.0.0
      * @see #setHeight
+     * @since 1.0.0
      */
     public int getHeight()
     {
@@ -336,9 +336,10 @@ public class Content
 
     /**
      * Initializes or overrides the content height, in pixels.
+     *
      * @param height an height. May be negative if unknown.
-     * @since 1.0.0
      * @see #getHeight
+     * @since 1.0.0
      */
     public void setHeight(final int height)
     {
@@ -348,29 +349,32 @@ public class Content
     /**
      * Specifies if the last connection to the content through its URL has been successful or not.
      * If <code>true</code>, the content metadata may be pertinent.
+     *
      * @return <code>true</code> if the content has been successfully accessed through its URL, <code>false</code> otherwise.
      * @see #connect
      */
     public boolean isValid()
     {
-        synchronized (this) {
+        synchronized (this)
+        {
             return _connected != null && _connected.booleanValue();
         }
     }
 
     /**
      * Connects to the specified URL, if not already done.
-     * @throws SecurityException if a required system property value cannot be accessed.
+     *
+     * @throws SecurityException        if a required system property value cannot be accessed.
      * @throws IllegalArgumentException if the URL is not absolute.
-     * @throws MalformedURLException if a protocol handler for the URL could not be found, or if some other error occurred while constructing the URL.
-     * @throws IOException if any I/O error occurs.
+     * @throws MalformedURLException    if a protocol handler for the URL could not be found, or if some other error occurred while constructing the URL.
+     * @throws IOException              if any I/O error occurs.
      * @see #getURL
      */
     public void connect() throws IOException
     {
         boolean connect = false;
 
-        synchronized(this)
+        synchronized (this)
         {
             if (_connected == null)
             {
@@ -430,7 +434,7 @@ public class Content
                 _lastModified = lastModified;
             }
 
-            synchronized(this)
+            synchronized (this)
             {
                 _connected = Boolean.TRUE;
             }
@@ -441,6 +445,7 @@ public class Content
      * Indicates whether some other object is "equal to" this one.
      * Two objects are the same if their string representations are the same.
      * Examples of valid instances for <code>obj</code>: <code>Content</code>, <code>URL</code>, <code>URI</code>, <code>String</code>, etc.
+     *
      * @param obj the reference object with which to compare. May be <code>null</code>.
      * @return <code>true</code> if this object is the same as the <code>obj</code> argument; <code>false</code> otherwise.
      * @see #toString
@@ -454,6 +459,7 @@ public class Content
     /**
      * Returns a hash code value for this object.
      * This method is supported for the benefit of hashtables such as those provided by {@link java.util.Hashtable}.
+     *
      * @return a hash code value for this object.
      * @since 1.0.0
      */
@@ -465,6 +471,7 @@ public class Content
 
     /**
      * Returns the content URL as a string.
+     *
      * @return an URL as a string.
      * @see #getURL
      * @see #getURI
