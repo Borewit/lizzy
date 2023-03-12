@@ -1,16 +1,18 @@
 package christophedelory.util;
+
 import christophedelory.playlist.Playlist;
-import christophedelory.playlist.SpecificPlaylist;
 import christophedelory.playlist.SpecificPlaylistFactory;
+import christophedelory.playlist.SpecificPlaylistProvider;
+import christophedelory.test.json.playlist.JsonPlaylist;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -18,11 +20,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class TestUtil
 {
-    public static Path getSampleFolderPath()
-    {
-        String currentDir = System.getProperty("user.dir");
-        return Paths.get(currentDir, "test", "samples");
-    }
+    public static final Path testFolderPath = Paths.get(System.getProperty("user.dir"), "test");
+    public static final Path sampleFolderPath = testFolderPath.resolve("samples");
+    public static final Path jsonTestDataPath = testFolderPath.resolve("playlists.json");
 
     public static List<Path> getSamplePaths() throws IOException
     {
@@ -31,7 +31,7 @@ public class TestUtil
             "test03.smil",
             "test08.smil"
         ));
-        try (Stream<Path> files = Files.list(getSampleFolderPath()))
+        try (Stream<Path> files = Files.list(sampleFolderPath))
         {
             return files
                 .filter(file -> !skipSamples.contains(file.getFileName().toString()))
@@ -53,9 +53,23 @@ public class TestUtil
 
     public static Playlist readPlaylistFrom(String filename) throws Exception
     {
-        Path playlistPath = getSampleFolderPath().resolve(filename);
-        final SpecificPlaylist inputSpecificPlaylist = SpecificPlaylistFactory.getInstance().readFrom(playlistPath.toFile());
-        assertNotNull(inputSpecificPlaylist, "inputSpecificPlaylist");
-        return inputSpecificPlaylist.toPlaylist();
+        Path playlistPath = sampleFolderPath.resolve(filename);
+        return readPlaylistFrom(playlistPath);
+    }
+
+    public static Playlist readPlaylistFrom(Path playlistPath) throws Exception
+    {
+        SpecificPlaylistProvider specificPlaylistProvider = SpecificPlaylistFactory.getInstance().findProviderByExtension(playlistPath.toString());
+        assertNotNull(specificPlaylistProvider, String.format("Provider by extension %s", playlistPath));
+        try (InputStream is = Files.newInputStream(playlistPath))
+        {
+            return specificPlaylistProvider.readFrom(is, null).toPlaylist();
+        }
+    }
+
+    public static Map<String, JsonPlaylist> getPlaylistMetadata() throws IOException
+    {
+        TypeReference<TreeMap<String, JsonPlaylist>> typeRef = new TypeReference<TreeMap<String, JsonPlaylist>>() {};
+        return new ObjectMapper().readValue(jsonTestDataPath.toFile(), typeRef);
     }
 }
