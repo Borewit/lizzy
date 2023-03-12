@@ -171,7 +171,7 @@
       <bind-xml name="ref" node="element"/>
     </field>
   </class>
-  <class name="christophedelory.playlist.asx.Asx" extends="christophedelory.playlist.asx.AsxOrEntryElement">
+  <class name="christophedelory.playlist.asx.AsxPlaylistAdapter" extends="christophedelory.playlist.asx.AsxOrEntryElement">
     <map-to xml="asx"/>
     <field name="version" set-method="setVersion" get-method="getVersion" required="true" type="string">
       <bind-xml name="version" node="attribute"/>

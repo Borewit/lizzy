@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Unofficial ASX (Windows Media Metafile Playlist) Schema
+
+  Written by Borewit on 10-03-2023
+
+  The schema is optimized for JXC/JAXB
+  - The xs:sequence should be interpreted as unordered
+  - ASX tags and attributes should be read as case-insensitive
+
+-->
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <!--
+        ASX Element
+        https://learn.microsoft.com/windows/win32/wmp/asx-element
+    -->
+    <xs:element name="ASX">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="BaseEntryElement">
+                    <xs:sequence>
+                        <xs:element name="ENTRY" type="EntryElement" minOccurs="0" maxOccurs="unbounded" />
+                        <xs:element name="REPEAT" type="RepeatElement" minOccurs="0" maxOccurs="unbounded" />
+                        <xs:element name="ENTRYREF" type="EntryrefElement" minOccurs="0" maxOccurs="unbounded" />
+                        <xs:element name="SKIN" type="RefElement" minOccurs="0" maxOccurs="unbounded" />
+                    </xs:sequence>
+
+                    <!-- Decimal number representing the version number of the syntax for the metafile. Set to 3 or 3.0. -->
+                    <xs:attribute name="VERSION " use="required">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="3"/>
+                                <xs:enumeration value="3.0"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+
+                    <!-- Value indicating whether Windows Media Player enters preview mode before playing the first clip. -->
+                    <xs:attribute name="PREVIEWMODE" use="optional" type="BooleanType"/>
+
+                    <!-- Value indicating whether Windows Media Player reserves space for a banner graphic. -->
+                    <xs:attribute name="BANNERBAR">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="AUTO"/>
+                                <xs:enumeration value="FIXED"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <!--
+        ABSTRACT Element
+        https://learn.microsoft.com/windows/win32/wmp/abstract-element
+    -->
+    <xs:simpleType name="AbstractElement">
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+
+    <!--
+        AUTHOR Element
+        https://learn.microsoft.com/windows/win32/wmp/author-element
+    -->
+    <xs:simpleType name="AuthorElement">
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+
+    <!--
+        BANNER Element
+        https://learn.microsoft.com/windows/win32/wmp/banner-element
+    -->
+    <xs:complexType name="BannerElement">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="ABSTRACT" type="xs:string" minOccurs="0"/>
+            <xs:element name="MOREINFO" type="MoreinfoElement" minOccurs="0" maxOccurs="1"/>
+        </xs:choice>
+        <xs:attribute name="HREF" type="xs:anyURI" use="required"/>
+    </xs:complexType>
+
+    <!--
+        BASE Element
+        https://learn.microsoft.com/windows/win32/wmp/base-element
+    -->
+    <xs:complexType name="BaseElement">
+        <xs:attribute name="HREF" type="xs:anyURI" use="required"/>
+    </xs:complexType>
+
+    <!--
+        COPYRIGHT Element
+        https://learn.microsoft.com/windows/win32/wmp/copyright-element
+    -->
+    <xs:simpleType name="CopyrightElement">
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+
+    <!--
+        DURATION Element
+        https://learn.microsoft.com/windows/win32/wmp/duration-element
+    -->
+    <xs:complexType name="DurationElement">
+        <xs:attribute name="VALUE" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <!--
+        ENTRY Element
+        https://learn.microsoft.com/windows/win32/wmp/entry-element
+    -->
+    <xs:complexType name="EntryElement">
+        <xs:complexContent>
+            <xs:extension base="BaseEntryElement">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="1" name="DURATION" type="DurationElement"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="ENDMARKER" type="EndmarkerElement"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="REF" type="RefElement"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="STARTTIME" type="DurationElement"/>
+                </xs:sequence>
+                <!-- Value indicating whether the user can skip forward past the clip. -->
+                <xs:attribute name="CLIENTSKIP" type="BooleanType" use="optional"/>
+                <!-- Value indicating whether Windows Media Player should skip this clip when the ENTRY element is included in a second metafile through the use of an ENTRYREF element. -->
+                <xs:attribute name="SKIPIFREF" type="BooleanType" use="optional"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <!--
+       MOREINFO Element
+       https://learn.microsoft.com/windows/win32/wmp/moreinfo-element
+    -->
+    <xs:complexType name="MoreinfoElement">
+        <xs:attribute name="HREF" type="xs:anyURI" use="required"/>
+        <xs:attribute name="TARGET" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="_blank"/>
+                    <xs:enumeration value="_self"/>
+                    <xs:enumeration value="_parent"/>
+                    <xs:enumeration value="_top"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+
+    <!--
+       PARAM Element
+       https://learn.microsoft.com/windows/win32/wmp/param-element
+    -->
+    <xs:complexType name="ParamElement">
+        <xs:attribute name="NAME" type="xs:string" use="required"/>
+        <xs:attribute name="VALUE" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <!--
+        REF Element
+        https://learn.microsoft.com/windows/win32/wmp/ref-element
+    -->
+    <xs:complexType name="RefElement">
+        <xs:attribute name="HREF" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <!--
+        REPEAT Element
+        https://learn.microsoft.com/windows/win32/wmp/repeat-element
+    -->
+    <xs:complexType name="RepeatElement">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="ENTRY" type="EntryElement" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="ENTRYREF" type="EntryrefElement" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:choice>
+        <xs:attribute name="COUNT" type="xs:decimal" use="required"/>
+    </xs:complexType>
+
+    <!--
+        STARTMARKER  Element
+        https://learn.microsoft.com/windows/win32/wmp/startmarker-element
+    -->
+    <xs:complexType name="StartmarkerElement">
+        <xs:complexContent>
+            <xs:extension base="MarkerElement"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <!--
+        ENDMARKER Element
+        https://learn.microsoft.com/windows/win32/wmp/endmarker-element
+    -->
+    <xs:complexType name="EndmarkerElement">
+        <xs:complexContent>
+            <xs:extension base="MarkerElement"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <!--
+    ENTRYREF Element
+        https://learn.microsoft.com/windows/win32/wmp/entryref-element
+    -->
+    <xs:complexType name="EntryrefElement">
+        <xs:complexContent>
+            <xs:extension base="RefElement"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <!--
+        TITLE Element (metafile)
+        https://learn.microsoft.com/windows/win32/wmp/endmarker-element
+    -->
+    <xs:simpleType name="TitleElement">
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+
+
+    <!-- Shared common structure between ASX and ENTRY Element -->
+    <xs:complexType name="BaseEntryElement">
+        <xs:sequence>
+            <xs:element name="ABSTRACT" type="AbstractElement" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="AUTHOR" type="AuthorElement" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="BANNER" type="BannerElement" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="BASE" type="BaseElement" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="COPYRIGHT" type="CopyrightElement" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="MOREINFO" type="MoreinfoElement" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="PREVIEWDURATION" type="DurationElement" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="TITLE" type="TitleElement" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="PARAM" type="ParamElement" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!--
+        Common structure for STARTMARKER & ENDMARKER element
+    -->
+    <xs:complexType name="MarkerElement">
+        <xs:attribute name="NUMBER" type="xs:decimal" use="optional"/>
+        <xs:attribute name="NAME" type="xs:string" use="optional"/>
+    </xs:complexType>
+
+    <xs:simpleType name="BooleanType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="YES"/>
+            <xs:enumeration value="NO"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>

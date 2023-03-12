@@ -4,7 +4,6 @@ import christophedelory.playlist.Media;
 import christophedelory.playlist.Playlist;
 import christophedelory.playlist.SpecificPlaylist;
 import christophedelory.util.TestUtil;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +20,6 @@ public class AsxPlaylistTests
 {
 
     @Test
-    @Disabled // ToDo Need to fix the MSS mapping
     @DisplayName("Read ASX playlist file: Microsoft example")
     public void readReferenceAsx() throws Exception
     {
@@ -33,7 +31,7 @@ public class AsxPlaylistTests
         Media media = (Media) entry;
         assertNotNull(media.getSource(), "Media source");
         assertNotNull(media.getSource().getURL(), "Media source URL");
-        assertEquals("mms://windowsmediaserver/path/yourfile.asf", media.getSource().getURI().toString(), "Media source URL");
+        assertEquals("mms://windowsmediaserver/path/yourfile.asf", media.getSource().toString(), "Media source URL");
     }
 
     @Test
@@ -47,7 +45,7 @@ public class AsxPlaylistTests
     }
 
     @Test
-    @DisplayName("Read ASX representing Live Stream")
+    @DisplayName("Read ASX ANSI")
     public void readLiveStreamASx() throws Exception
     {
         Playlist playlist = TestUtil.readPlaylistFrom("test03.asx");

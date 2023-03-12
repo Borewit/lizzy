@@ -24,6 +24,7 @@ public class PlistPlaylistTests
         assertEquals(1, playlist.getRootSequence().getComponents().length);
     }
 
+
     @Test
     @DisplayName("Write to p-list playlist file")
     public void writePlist() throws Exception

@@ -18,6 +18,10 @@ public abstract class AbstractPlaylistProvider implements SpecificPlaylistProvid
     this.logger = LogFactory.getLog(clazz);
   }
 
+  public SpecificPlaylist readFrom(final InputStream in) throws Exception {
+    return this.readFrom(in, null, logger);
+  }
+
   @Override
   public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws Exception {
     return this.readFrom(in, encoding, logger);
