@@ -32,11 +32,7 @@ import io.github.borewit.playlist.xspf.XspfTrack;
 import io.github.borewit.playlist.xspf.XspfTrackList;
 import org.apache.commons.logging.Log;
 
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamReader;
 import java.io.InputStream;
 import java.math.BigInteger;
 import java.util.List;
@@ -50,7 +46,7 @@ import java.util.List;
  * @author Christophe Delory
  * @version $Revision: 91 $
  */
-public class XspfProvider extends AbstractPlaylistProvider
+public class XspfProvider extends JaxbPlaylistProvider<XspfPlaylist>
 {
     /**
      * A list of compatible content types.
@@ -68,7 +64,7 @@ public class XspfProvider extends AbstractPlaylistProvider
 
     public XspfProvider()
     {
-        super(XspfProvider.class);
+        super(XspfProvider.class, XspfPlaylist.class);
     }
 
     @Override
@@ -86,14 +82,10 @@ public class XspfProvider extends AbstractPlaylistProvider
     @Override
     public SpecificPlaylist readFrom(final InputStream in, final String encoding, final Log logger) throws Exception
     {
-        JAXBContext jaxbContext = JAXBContext.newInstance(XspfPlaylist.class);
-        Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-
-        XMLInputFactory xmlInputFactory = XMLInputFactory.newFactory();
-        xmlInputFactory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);  // Prevent downloading DTD
-        XMLStreamReader xmlStreamReader = xmlInputFactory.createXMLStreamReader(in, encoding);
-        JAXBElement<XspfPlaylist> xspfPlaylist = unmarshaller.unmarshal(xmlStreamReader, XspfPlaylist.class);
-        return new XspfPlaylistAdapter(xspfPlaylist.getValue());
+        final JAXBElement<XspfPlaylist> xspfPlaylist = this.unmarshal(in, encoding);
+        String rootElementName = xspfPlaylist.getName().getLocalPart();
+        return rootElementName != null && rootElementName.equals("playlist") ?
+            new XspfPlaylistAdapter(xspfPlaylist.getValue()) : null;
     }
 
     @Override

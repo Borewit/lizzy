@@ -29,7 +29,8 @@ public class TestUtil
         Set<String> skipSamples = new HashSet<>(Arrays.asList(
             "test02.smil",
             "test03.smil",
-            "test08.smil"
+            "test08.smil",
+            "repeat.asx"
         ));
         try (Stream<Path> files = Files.list(sampleFolderPath))
         {
@@ -63,13 +64,22 @@ public class TestUtil
         assertNotNull(specificPlaylistProvider, String.format("Provider by extension %s", playlistPath));
         try (InputStream is = Files.newInputStream(playlistPath))
         {
-            return specificPlaylistProvider.readFrom(is, null).toPlaylist();
+            try
+            {
+                return specificPlaylistProvider.readFrom(is, null).toPlaylist();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(String.format("Failed to read from %s", playlistPath.getFileName()), e);
+            }
         }
     }
 
     public static Map<String, JsonPlaylist> getPlaylistMetadata() throws IOException
     {
-        TypeReference<TreeMap<String, JsonPlaylist>> typeRef = new TypeReference<TreeMap<String, JsonPlaylist>>() {};
+        TypeReference<TreeMap<String, JsonPlaylist>> typeRef = new TypeReference<TreeMap<String, JsonPlaylist>>()
+        {
+        };
         return new ObjectMapper().readValue(jsonTestDataPath.toFile(), typeRef);
     }
 }

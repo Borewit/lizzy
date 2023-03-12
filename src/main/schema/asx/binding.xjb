@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jaxb:bindings version="1.0"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+>
+
+    <jaxb:bindings schemaLocation="asx-3.0.xsd" node="/xs:schema">
+        <jaxb:schemaBindings>
+            <jaxb:package name="io.github.borewit.playlist.asx"/>
+        </jaxb:schemaBindings>
+        <jaxb:bindings node="//xs:element[@name='ASX']">
+            <jaxb:class name="Asx"/>
+        </jaxb:bindings>
+    </jaxb:bindings>
+</jaxb:bindings>

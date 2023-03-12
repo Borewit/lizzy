@@ -71,11 +71,4 @@ public final class IOUtils
 
         return writer.toString();
     }
-
-    /**
-     * The default no-arg constructor shall not be accessible.
-     */
-    private IOUtils()
-    {
-    }
 }

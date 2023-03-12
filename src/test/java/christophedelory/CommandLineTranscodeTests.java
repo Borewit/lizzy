@@ -1,33 +1,25 @@
 package christophedelory;
 
 import christophedelory.lizzy.Transcode;
+import christophedelory.util.TestUtil;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static christophedelory.util.TestUtil.getSamplePaths;
-import static org.junit.jupiter.api.Assertions.fail;
 
 @DisplayName("Command Line Application Tests")
 public class CommandLineTranscodeTests
 {
-
-    private static Path getSampleFolderPath()
-    {
-        String currentDir = System.getProperty("user.dir");
-        return Paths.get(currentDir, "test", "samples");
-    }
-
     @DisplayName("Transcode playlist via command line")
     @ParameterizedTest
     @ValueSource(strings = {"pla", "asx", "b4s", "wpl", "smil", "rss", "atom", "hypetape", "xspf", "rmp", "plist", "pls", "mpcpl", "plp", "m3u"})
-    public void transcodePlaylist(String type) throws IOException
+    public void transcodePlaylist(String type) throws Exception
     {
         List<Path> samples = getSamplePaths().stream()
             .filter(sample -> sample.toString().endsWith(type))
@@ -41,9 +33,22 @@ public class CommandLineTranscodeTests
             }
             catch (Exception e)
             {
-                fail(String.format("Transconding of \"%s\" failed", samplePath));
-
+                throw new Exception(String.format("Transcoding of \"%s\" failed", samplePath.getFileName()), e);
             }
+        }
+    }
+
+    @Test
+    public void transcodeb4Playlist() throws Exception
+    {
+        Path path = TestUtil.sampleFolderPath.resolve("test01.b4s");
+        try
+        {
+            transcode(path);
+        }
+        catch (Exception e)
+        {
+            throw new Exception(String.format("Transcoding of \"%s\" failed", path.getFileName()), e);
         }
     }
 
@@ -56,19 +61,26 @@ public class CommandLineTranscodeTests
 
             final String sourcePath = samplePath.toString();
 
-            Transcode.main(new String[]{"-t", targetPlaylistFormat, sourcePath});
-
-            switch (targetPlaylistFormat)
+            try
             {
-                case "plp":
-                    Transcode.main(new String[]{"-t", targetPlaylistFormat, "-plp:disk", "HD", sourcePath});
-                    break;
-                case "m3u":
-                    Transcode.main(new String[]{"-t", targetPlaylistFormat, "-m3u:ext", sourcePath});
-                    break;
-                case "rss":
-                    Transcode.main(new String[]{"-t", targetPlaylistFormat, "-rss:media", sourcePath});
-                    break;
+                Transcode.main(new String[]{"-t", targetPlaylistFormat, sourcePath});
+
+                switch (targetPlaylistFormat)
+                {
+                    case "plp":
+                        Transcode.main(new String[]{"-t", targetPlaylistFormat, "-plp:disk", "HD", sourcePath});
+                        break;
+                    case "m3u":
+                        Transcode.main(new String[]{"-t", targetPlaylistFormat, "-m3u:ext", sourcePath});
+                        break;
+                    case "rss":
+                        Transcode.main(new String[]{"-t", targetPlaylistFormat, "-rss:media", sourcePath});
+                        break;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(String.format("Transcoding of \"%s\" to \"%s\" failed", samplePath.getFileName(), targetPlaylistFormat), e);
             }
         }
     }

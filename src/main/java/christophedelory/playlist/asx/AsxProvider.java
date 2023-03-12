@@ -24,71 +24,74 @@
  */
 package christophedelory.playlist.asx;
 
-import java.io.InputStream;
-import java.io.StringReader;
-
-import christophedelory.io.IOUtils;
-import christophedelory.playlist.*;
-import org.apache.commons.logging.Log;
-
 import christophedelory.content.type.ContentType;
 import christophedelory.player.PlayerSupport;
-import christophedelory.xml.XmlSerializer;
+import christophedelory.playlist.*;
+import io.github.borewit.playlist.asx.*;
+import org.apache.commons.logging.Log;
+
+import javax.xml.bind.JAXBElement;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+import javax.xml.stream.util.StreamReaderDelegate;
+import java.io.InputStream;
+import java.math.BigDecimal;
 
 /**
  * The Windows Media ASX playlist XML format.
  * An XML style playlist containing more information about the items on the playlist.
- * @version $Revision: 90 $
+ *
  * @author Christophe Delory
+ * @version $Revision: 90 $
  */
-public class AsxProvider extends AbstractPlaylistProvider
+public class AsxProvider extends JaxbPlaylistProvider<Asx>
 {
     /**
      * A list of compatible content types.
      */
     private static final ContentType[] FILETYPES =
-    {
-        new ContentType(new String[] { ".asx" },
-                        new String[] { "video/x-ms-asf" },
-                        new PlayerSupport[]
-                        {
-                            new PlayerSupport(PlayerSupport.Player.WINAMP, false, null),
-                            new PlayerSupport(PlayerSupport.Player.VLC_MEDIA_PLAYER, false, null),
-                            new PlayerSupport(PlayerSupport.Player.WINDOWS_MEDIA_PLAYER, true, null),
-                            new PlayerSupport(PlayerSupport.Player.MEDIA_PLAYER_CLASSIC, true, null),
-                            new PlayerSupport(PlayerSupport.Player.REALPLAYER, false, null),
-                        },
-                        "Advanced Stream Redirector (ASX)"),
-        new ContentType(new String[] { ".wmx" },
-                        new String[] { "video/x-ms-wvx" },
-                        new PlayerSupport[]
-                        {
-                            new PlayerSupport(PlayerSupport.Player.REALPLAYER, false, null),
-                        },
-                        "Windows Media Redirector (WMX)"),
-        new ContentType(new String[] { ".wvx" },
-                        new String[] { "video/x-ms-wvx" },
-                        new PlayerSupport[]
-                        {
-                            new PlayerSupport(PlayerSupport.Player.WINDOWS_MEDIA_PLAYER, false, null),
-                            new PlayerSupport(PlayerSupport.Player.MEDIA_PLAYER_CLASSIC, false, null),
-                            new PlayerSupport(PlayerSupport.Player.REALPLAYER, false, null),
-                        },
-                        "Windows Media Video Redirector (WVX)"),
-        new ContentType(new String[] { ".wax" },
-                        new String[] { "audio/x-ms-wax" },
-                        new PlayerSupport[]
-                        {
-                            new PlayerSupport(PlayerSupport.Player.WINDOWS_MEDIA_PLAYER, false, null),
-                            new PlayerSupport(PlayerSupport.Player.MEDIA_PLAYER_CLASSIC, false, null),
-                            new PlayerSupport(PlayerSupport.Player.REALPLAYER, false, null),
-                        },
-                        "Windows Media Audio Redirector (WAX)"),
-    };
+        {
+            new ContentType(new String[]{".asx"},
+                new String[]{"video/x-ms-asf"},
+                new PlayerSupport[]
+                    {
+                        new PlayerSupport(PlayerSupport.Player.WINAMP, false, null),
+                        new PlayerSupport(PlayerSupport.Player.VLC_MEDIA_PLAYER, false, null),
+                        new PlayerSupport(PlayerSupport.Player.WINDOWS_MEDIA_PLAYER, true, null),
+                        new PlayerSupport(PlayerSupport.Player.MEDIA_PLAYER_CLASSIC, true, null),
+                        new PlayerSupport(PlayerSupport.Player.REALPLAYER, false, null),
+                    },
+                "Advanced Stream Redirector (ASX)"),
+            new ContentType(new String[]{".wmx"},
+                new String[]{"video/x-ms-wvx"},
+                new PlayerSupport[]
+                    {
+                        new PlayerSupport(PlayerSupport.Player.REALPLAYER, false, null),
+                    },
+                "Windows Media Redirector (WMX)"),
+            new ContentType(new String[]{".wvx"},
+                new String[]{"video/x-ms-wvx"},
+                new PlayerSupport[]
+                    {
+                        new PlayerSupport(PlayerSupport.Player.WINDOWS_MEDIA_PLAYER, false, null),
+                        new PlayerSupport(PlayerSupport.Player.MEDIA_PLAYER_CLASSIC, false, null),
+                        new PlayerSupport(PlayerSupport.Player.REALPLAYER, false, null),
+                    },
+                "Windows Media Video Redirector (WVX)"),
+            new ContentType(new String[]{".wax"},
+                new String[]{"audio/x-ms-wax"},
+                new PlayerSupport[]
+                    {
+                        new PlayerSupport(PlayerSupport.Player.WINDOWS_MEDIA_PLAYER, false, null),
+                        new PlayerSupport(PlayerSupport.Player.MEDIA_PLAYER_CLASSIC, false, null),
+                        new PlayerSupport(PlayerSupport.Player.REALPLAYER, false, null),
+                    },
+                "Windows Media Audio Redirector (WAX)"),
+        };
 
     public AsxProvider()
     {
-        super(AsxProvider.class);
+        super(AsxProvider.class, Asx.class);
     }
 
     @Override
@@ -106,113 +109,30 @@ public class AsxProvider extends AbstractPlaylistProvider
     @Override
     public SpecificPlaylist readFrom(final InputStream in, final String encoding, final Log logger) throws Exception
     {
-        // Then restore any existing character reference.
-        String str = IOUtils.toString(in, encoding);
+        final JAXBElement<Asx> asx = this.unmarshal(in, encoding);
+        String rootElementName = asx.getName().getLocalPart();
 
-        // Convert all XML element/attribute names to lower case.
-        final StringBuilder sb = new StringBuilder();
-        final int len = str.length();
-        boolean inElement = false;
-        boolean inAttribute = false;
-        char previousChar = ' '; // Neutral value in our case.
-        char attributeSeparator = '"'; // Dummy initialization, just to make the compiler happy.
-
-        for (int i = 0; i < len; i++)
-        {
-            final char c = str.charAt(i); // Shall not throw IndexOutOfBoundsException.
-
-            switch (c)
-            {
-                case '<':
-                    inElement = true;
-                    inAttribute = true;
-                    sb.append(c);
-                    break;
-
-                case '>':
-                    inElement = false;
-                    inAttribute = false;
-                    sb.append(c);
-                    break;
-
-                case '"':
-                    if (inElement && (previousChar != '\\'))
-                    {
-                        if (inAttribute)
-                        {
-                            attributeSeparator = '"';
-                            inAttribute = false;
-                        }
-                        else if (attributeSeparator == '"')
-                        {
-                            inAttribute = true;
-                        }
-                    }
-
-                    sb.append(c);
-                    break;
-
-                case '\'':
-                    if (inElement && (previousChar != '\\'))
-                    {
-                        if (inAttribute)
-                        {
-                            attributeSeparator = '\'';
-                            inAttribute = false;
-                        }
-                        else if (attributeSeparator == '\'')
-                        {
-                            inAttribute = true;
-                        }
-                    }
-
-                    sb.append(c);
-                    break;
-
-                default:
-                    if (inElement && inAttribute)
-                    {
-                        sb.append(Character.toLowerCase(c));
-                    }
-                    else
-                    {
-                        sb.append(c);
-                    }
-            }
-
-            previousChar = c;
-        }
-
-        str = sb.toString();
-
-        // Unmarshal the ASX playlist.
-        final XmlSerializer serializer = XmlSerializer.getMapping("christophedelory/playlist/asx"); // May throw Exception.
-        serializer.getUnmarshaller().setIgnoreExtraElements(false); // Force an error if unknown elements are found.
-
-        final StringReader reader = new StringReader(str);
-        final SpecificPlaylist ret = (SpecificPlaylist) serializer.unmarshal(reader); // May throw Exception.
-        ret.setProvider(this);
-
-        return ret;
+        return rootElementName != null && rootElementName.equalsIgnoreCase("ASX") ?
+            new AsxPlaylistAdapter(asx.getValue()) : null;
     }
 
     @Override
     public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws Exception
     {
-        final Asx ret = new Asx();
-        ret.setProvider(this);
+        final AsxPlaylistAdapter asxPlaylist = new AsxPlaylistAdapter();
 
-        addToPlaylist(ret, playlist.getRootSequence()); // May throw Exception.
+        addToPlaylist(asxPlaylist.getAsx(), playlist.getRootSequence()); // May throw Exception.
 
-        return ret;
+        return asxPlaylist;
     }
 
     /**
      * Adds the specified generic playlist component, and all its childs if any, to the input ASX elements container.
-     * @param container the parent ASX element. Shall not be <code>null</code>.
+     *
+     * @param asx       the parent ASX element. Shall not be <code>null</code>.
      * @param component the generic playlist component to handle. Shall not be <code>null</code>.
      */
-    private void addToPlaylist(final AsxElementContainer container, final AbstractPlaylistComponent component)
+    private void addToPlaylist(final Asx asx, final AbstractPlaylistComponent component)
     {
         if (component instanceof Sequence)
         {
@@ -220,28 +140,19 @@ public class AsxProvider extends AbstractPlaylistProvider
 
             if (sequence.getRepeatCount() != 0) // Ignore "empty" sequences.
             {
-                AsxElementContainer newContainer = container;
+                // EntryElement newContainer = new EntryElement();
 
                 // Do we need a repeat element?
                 if (sequence.getRepeatCount() < 0)
                 {
-                    final Repeat repeat = new Repeat();
-                    container.addAsxElement(repeat);
-                    newContainer = repeat;
+                    final RepeatElement repeat = new RepeatElement();
+                    asx.getREPEAT().add(repeat);
                 }
                 else if (sequence.getRepeatCount() > 1)
                 {
-                    final Repeat repeat = new Repeat();
-                    repeat.setCount(Integer.valueOf(sequence.getRepeatCount() - 1));
-                    container.addAsxElement(repeat);
-                    newContainer = repeat;
-                }
-
-                final AbstractPlaylistComponent[] components = sequence.getComponents();
-
-                for (AbstractPlaylistComponent c : components)
-                {
-                    addToPlaylist(newContainer, c);
+                    final RepeatElement repeat = new RepeatElement();
+                    repeat.setCOUNT(BigDecimal.valueOf(sequence.getRepeatCount() - 1));
+                    asx.getREPEAT().add(repeat);
                 }
             }
         }
@@ -254,63 +165,86 @@ public class AsxProvider extends AbstractPlaylistProvider
             final Media media = (Media) component;
 
             if ((media.getRepeatCount() != 0) && (media.getSource() != null)) // Ignore "empty" media.
-            {
-                AsxElementContainer newContainer = container;
-
                 // Do we need a repeat element?
                 if (media.getRepeatCount() < 0)
                 {
-                    final Repeat repeat = new Repeat();
-                    container.addAsxElement(repeat);
-                    newContainer = repeat;
+                    final RepeatElement repeat = new RepeatElement();
+                    asx.getREPEAT().add(repeat);
                 }
                 else if (media.getRepeatCount() > 1)
                 {
-                    final Repeat repeat = new Repeat();
-                    repeat.setCount(Integer.valueOf(media.getRepeatCount() - 1));
-                    container.addAsxElement(repeat);
-                    newContainer = repeat;
+                    final RepeatElement repeat = new RepeatElement();
+                    repeat.setCOUNT(BigDecimal.valueOf(media.getRepeatCount() - 1));
+                    asx.getREPEAT().add(repeat);
                 }
 
-                boolean isPlaylist = false;
-                final String path = media.getSource().toString().toLowerCase();
+            boolean isPlaylist = false;
+            final String path = media.getSource().toString().toLowerCase();
 
-                for (ContentType type : FILETYPES)
+            for (ContentType type : FILETYPES)
+            {
+                for (String extension : type.getExtensions())
                 {
-                    for (String extension : type.getExtensions())
-                    {
-                        isPlaylist = isPlaylist || path.endsWith(extension);
-                    }
-                }
-
-                if (isPlaylist)
-                {
-                    if (media.getDuration() != null)
-                    {
-                        throw new IllegalArgumentException("An ASX playlist referenced in another ASX playlist cannot be timed");
-                    }
-
-                    final Entryref entryRef = new Entryref();
-                    entryRef.setHref(media.getSource().toString());
-                    newContainer.addAsxElement(entryRef);
-                }
-                else
-                {
-                    final Entry entry = new Entry();
-                    final Reference reference = new Reference();
-                    reference.setHref(media.getSource().toString());
-
-                    if (media.getDuration() != null)
-                    {
-                        final Duration duration = new Duration();
-                        duration.setValue(media.getDuration().longValue());
-                        reference.setDuration(duration);
-                    }
-
-                    entry.addReference(reference);
-                    newContainer.addAsxElement(entry);
+                    isPlaylist = isPlaylist || path.endsWith(extension);
                 }
             }
+
+            if (isPlaylist)
+            {
+                if (media.getDuration() != null)
+                {
+                    throw new IllegalArgumentException("An ASX playlist referenced in another ASX playlist cannot be timed");
+                }
+
+                final EntryrefElement entryRef = new EntryrefElement();
+                entryRef.setHREF(media.getSource().toString());
+                asx.getENTRYREF().add(entryRef);
+            }
+            else
+            {
+                final EntryElement entry = new EntryElement();
+                final RefElement reference = new RefElement();
+                reference.setHREF(media.getSource().toString());
+
+                if (media.getDuration() != null)
+                {
+                    final DurationElement duration = new DurationElement();
+                    // ToDo
+                    // duration.setValue(media.getDuration().longValue());
+                    // reference.setDuration(duration);
+                }
+
+                entry.setREF(reference);
+                asx.getENTRY().add(entry);
+            }
+        }
+    }
+
+    @Override
+    protected XMLStreamReader getXmlStreamReader(final InputStream in, final String encoding) throws XMLStreamException
+    {
+        // Normalize XML tags and attributes to uppercase
+        return new AsxStreamReaderDelegate(super.getXmlStreamReader(in, encoding));
+    }
+
+    /**
+     * Override the XML reader, having effectively a case-insensitive XML reader
+     */
+    private static class AsxStreamReaderDelegate extends StreamReaderDelegate
+    {
+
+        AsxStreamReaderDelegate(XMLStreamReader xsr) {
+            super(xsr);
+        }
+
+        @Override
+        public String getAttributeLocalName(int index) {
+            return super.getAttributeLocalName(index).toUpperCase();
+        }
+
+        @Override
+        public String getLocalName() {
+            return super.getLocalName().toUpperCase();
         }
     }
 }

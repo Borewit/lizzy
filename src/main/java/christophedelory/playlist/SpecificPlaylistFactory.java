@@ -126,11 +126,10 @@ public final class SpecificPlaylistFactory
             //final String contentType = urlConnection.getContentType(); // May be null.
 
             final InputStream in = urlConnection.getInputStream(); // May throw IOException, UnknownServiceException.
-
             try
             {
                 ret = service.readFrom(in, contentEncoding, _logger); // May throw Exception. Shall not throw NullPointerException because of in.
-                // Returns it even if null.
+                if (ret == null) continue;
                 break;
             }
             catch (Exception e)
