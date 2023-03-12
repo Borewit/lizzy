@@ -1,6 +1,7 @@
 package christophedelory.playlist;
 
 import christophedelory.lizzy.FetchContentMetadata;
+import christophedelory.util.TestUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -12,7 +13,6 @@ import java.util.stream.Collectors;
 
 import static christophedelory.util.TestUtil.getSamplePaths;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
 
 @DisplayName("Transcode all supported playlist formats")
 public class TranscodeTests
@@ -35,7 +35,7 @@ public class TranscodeTests
             }
             catch (Exception e)
             {
-                fail(String.format("Transconding of \"%s\" failed", samplePath), e);
+                throw new IOException(String.format("Transcoding of \"%s\" failed", samplePath), e);
             }
         }
     }
@@ -44,11 +44,8 @@ public class TranscodeTests
     {
         final String[] targetPlaylistFormats = {"pla", "asx", "b4s", "wpl", "smil", "rss", "atom", "hypetape", "xspf", "rmp", "plist", "pls", "mpcpl", "plp", "m3u"};
 
-        final SpecificPlaylist inputSpecificPlaylist = SpecificPlaylistFactory.getInstance().readFrom(samplePath.toFile());
-        assertNotNull(inputSpecificPlaylist, String.format("Convert input playlist to abstract playlist \"%s\"", samplePath));
-
+        final Playlist inputPlaylist = TestUtil.readPlaylistFrom(samplePath);
         final FetchContentMetadata metadataVisitor = new FetchContentMetadata();
-        final Playlist inputPlaylist = inputSpecificPlaylist.toPlaylist();
         inputPlaylist.acceptDown(metadataVisitor);
 
         for (String targetPlaylistFormat : targetPlaylistFormats)
