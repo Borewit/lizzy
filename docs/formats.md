@@ -95,12 +95,6 @@
         <td>iTunes [RW]</td>
     </tr>
     <tr valign=top>
-        <td>Kalliope PlayList</td>
-        <td><code>.kpl</code></td>
-        <td><code>text/xml</code></td>
-        <td></td>
-    </tr>
-    <tr valign=top>
         <td>Winamp PLSv2 Playlist</td>
         <td><code>.pls</code></td>
         <td><code>audio/x-scpls</code></td>

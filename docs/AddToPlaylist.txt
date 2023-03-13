@@ -5,7 +5,7 @@ usage: AddToPlaylist [options] <input-file(s)>
  -m3u:ext       : The output M3U playlist must use the Extension M3U format
  -o file/URL    : The output file or URL
                   If missing, a file save dialog is prompted
-                  If the output playlist type is not specified (-t), it will be 
+                  If the output playlist type is not specified (-t), it will be
                   inferred from the output file name extension
  -plp:disk disk : The disk identifier of the output PLP playlist
                   Examples: HARP, HDD
@@ -13,4 +13,4 @@ usage: AddToPlaylist [options] <input-file(s)>
  -rss:media     : The output RSS playlist must use the RSS Media format
  -t type        : The output playlist type
                   Allowed values: see below
-Supported playlist provider types: pla/asx/b4s/wpl/smil/rss/atom/hypetape/xspf/rmp/plist/kpl/pls/mpcpl/plp/m3u
+Supported playlist provider types: pla/asx/b4s/wpl/smil/rss/atom/hypetape/xspf/rmp/plist/pls/mpcpl/plp/m3u

@@ -5,7 +5,7 @@
 Lizzy is an open source Java library allowing to parse, create, edit, 
 convert and save almost any type of [multimedia playlist](https://en.wikipedia.org/wiki/Playlist) multimedia playlist.
 
-The currently supported formats are the following: M3U/M3U8/M4U/RAM, ASX/WMX/WVX/WAX, WPL, XSPF, SMIL, RMP, PLS, B4S/BPL, RSS/MediaRSS, Atom, PLIST, MPCPL, Hypetape, KPL, PLA and PLP (see details <a href="docs/formats.md">here</a>).
+The currently supported formats are the following: M3U/M3U8/M4U/RAM, ASX/WMX/WVX/WAX, WPL, XSPF, SMIL, RMP, PLS, B4S/BPL, RSS/MediaRSS, Atom, PLIST, MPCPL, PLA and PLP (see details <a href="docs/formats.md">here</a>).
 
 Two versatile command-line tools are also available (see the [Getting started](#Getting started) guide).
 
@@ -107,7 +107,6 @@ Please refer to &ldquo;<a href="#Third-party libraries">Third-party libraries</a
 XML playlists are marshalled (created) and unmarshalled (parsed) through 3 different means:
 
 1. Through [JAXB](https://java.sun.com/xml/jaxb): see the RMP format.</li>
-1. By using directly any available XML parser: see the KPL format.</li>
 1. Through the [Castor framework](https://www.castor.org/): see all other XML-based formats.</li>
 
 ## Build
@@ -154,10 +153,6 @@ You will find here different Web links to playlist-related information, that hav
             <li>Atom:</li>
             <ul>
                 <li><a href="https://atompub.org/rfc4287.html">The Atom Syndication Format</a>
-            </ul>
-            <li>Hypetape:</li>
-            <ul>
-                <li><a href="https://lists.musicbrainz.org/pipermail/playlist/2008-December/002105.html">Hypetape's playlist format</a>
             </ul>
             <li>M3U:</li>
             <ul>
