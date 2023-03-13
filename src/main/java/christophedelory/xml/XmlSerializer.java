@@ -26,13 +26,7 @@ package christophedelory.xml;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.Reader;
-import java.io.Writer;
+import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -43,6 +37,7 @@ import org.exolab.castor.mapping.Mapping;
 import org.exolab.castor.mapping.MappingException;
 import org.exolab.castor.xml.Marshaller;
 import org.exolab.castor.xml.Unmarshaller;
+import org.exolab.castor.xml.XMLContext;
 import org.xml.sax.InputSource;
 
 /**
@@ -316,7 +311,21 @@ public final class XmlSerializer
         _unmarshaller.setValidation(false);
         _unmarshaller.setIgnoreExtraElements(true);
 
-        _marshaller = new Marshaller();
+
+        StringWriter myWriter= new StringWriter();
+        XMLContext xmlContext = new XMLContext();
+        xmlContext.setProperty(org.castor.xml.XMLProperties.SERIALIZER_FACTORY,
+            org.exolab.castor.xml.XercesXMLSerializerFactory.class.getName());
+        _marshaller = xmlContext.createMarshaller();
+        try
+        {
+            _marshaller.setWriter(myWriter);
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
+
         _marshaller.setMapping(mapping); // May throw MappingException.
         _marshaller.setValidation(false);
         //_marshaller.setDebug(true);

@@ -34,6 +34,10 @@ dependencies {
     //JAXB RI, Jakarta XML Binding
     runtimeOnly 'com.sun.xml.bind:jaxb-impl:2.3.8'
 
+    // Can be reomved with castor-xml dependency
+    // https://mvnrepository.com/artifact/xerces/xercesImpl
+    runtimeOnly 'xerces:xercesImpl:2.12.2'
+
     // JUnit Jupiter using Gradle's native JUnit Platform
     testImplementation platform('org.junit:junit-bom:5.9.2')
     testImplementation 'org.junit.jupiter:junit-jupiter'
