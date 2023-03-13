@@ -80,7 +80,7 @@ public class B4sProvider extends AbstractPlaylistProvider
         final XmlSerializer serializer = XmlSerializer.getMapping("christophedelory/playlist/b4s"); // May throw Exception.
         serializer.getUnmarshaller().setIgnoreExtraElements(false); // Force an error if unknown elements are found.
 
-        final SpecificPlaylist ret = (SpecificPlaylist) serializer.unmarshal(preProcessXml(in, encoding)); // May throw Exception.
+        final WinampXML ret = (WinampXML) serializer.unmarshal(preProcessXml(in, encoding)); // May throw Exception.
         ret.setProvider(this);
 
         return ret;

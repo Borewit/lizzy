@@ -53,7 +53,6 @@ public class Playlist implements SpecificPlaylist
      */
     private final List<Track> _tracks = new ArrayList<Track>();
 
-    @Override
     public void setProvider(final SpecificPlaylistProvider provider)
     {
         _provider = provider;

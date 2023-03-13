@@ -81,8 +81,7 @@ public class PlistProvider extends AbstractPlaylistProvider
     public SpecificPlaylist readFrom(final InputStream in, final String encoding, final Log logger) throws Exception
     {
         NSDictionary plist = (NSDictionary) PropertyListParser.parse(in);
-        final PlistPlaylist ret = new PlistPlaylist();
-        ret.setProvider(this);
+        final PlistPlaylist ret = new PlistPlaylist(this);
         ret.setPlist(plist);
 
         return ret;
@@ -91,8 +90,7 @@ public class PlistProvider extends AbstractPlaylistProvider
     @Override
     public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws Exception
     {
-        final PlistPlaylist ret = new PlistPlaylist();
-        ret.setProvider(this);
+        final PlistPlaylist ret = new PlistPlaylist(this);
 
         final NSDictionary rootDict = new NSDictionary();
         ret.setPlist(rootDict);

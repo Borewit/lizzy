@@ -60,7 +60,6 @@ public class Smil implements SpecificPlaylist
      */
     private Body _body = null;
 
-    @Override
     public void setProvider(final SpecificPlaylistProvider provider)
     {
         _provider = provider;

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jaxb:bindings version="1.0"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+>
+
+    <jaxb:bindings schemaLocation="rmp.xsd" node="/xs:schema">
+        <jaxb:schemaBindings>
+            <jaxb:package name="io.github.borewit.playlist.rmp"/>
+            <jaxb:nameXmlTransform>
+                <jaxb:elementName prefix="Rmp"/>
+            </jaxb:nameXmlTransform>
+        </jaxb:schemaBindings>
+        <jaxb:bindings node="/xs:schema/xs:element[@name='PACKAGE']">
+            <jaxb:class name="RmpPackage"/>
+        </jaxb:bindings>
+    </jaxb:bindings>
+</jaxb:bindings>

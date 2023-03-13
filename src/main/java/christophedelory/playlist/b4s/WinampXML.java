@@ -51,7 +51,6 @@ public class WinampXML implements SpecificPlaylist
      */
     private Playlist _playlist = new Playlist();
 
-    @Override
     public void setProvider(final SpecificPlaylistProvider provider)
     {
         _provider = provider;

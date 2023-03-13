@@ -85,7 +85,7 @@ public class XspfProvider extends JaxbPlaylistProvider<XspfPlaylist>
         final JAXBElement<XspfPlaylist> xspfPlaylist = this.unmarshal(in, encoding);
         String rootElementName = xspfPlaylist.getName().getLocalPart();
         return rootElementName != null && rootElementName.equals("playlist") ?
-            new XspfPlaylistAdapter(xspfPlaylist.getValue()) : null;
+            new XspfPlaylistAdapter(this, xspfPlaylist.getValue()) : null;
     }
 
     @Override
@@ -96,8 +96,7 @@ public class XspfProvider extends JaxbPlaylistProvider<XspfPlaylist>
         XspfPlaylist xspfPlaylist = new XspfPlaylist();
         xspfPlaylist.setTrackList(xspfTrackList);
 
-        XspfPlaylistAdapter ret = new XspfPlaylistAdapter(xspfPlaylist);
-        ret.setProvider(this);
+        XspfPlaylistAdapter ret = new XspfPlaylistAdapter(this, xspfPlaylist);
         return ret;
     }
 

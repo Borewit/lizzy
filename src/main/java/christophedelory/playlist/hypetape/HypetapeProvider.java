@@ -77,7 +77,7 @@ public class HypetapeProvider extends AbstractPlaylistProvider
         final XmlSerializer serializer = XmlSerializer.getMapping("christophedelory/playlist/hypetape"); // May throw Exception.
         serializer.getUnmarshaller().setIgnoreExtraElements(false);
 
-        final SpecificPlaylist ret = (SpecificPlaylist) serializer.unmarshal(preProcessXml(in, encoding)); // May throw Exception.
+        final Playlist ret = (Playlist) serializer.unmarshal(preProcessXml(in, encoding)); // May throw Exception.
         ret.setProvider(this);
 
         return ret;

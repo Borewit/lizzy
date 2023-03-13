@@ -42,21 +42,22 @@ public class PlistPlaylist implements SpecificPlaylist
   /**
    * The provider of this specific playlist.
    */
-  private transient SpecificPlaylistProvider _provider = null;
+  private final PlistProvider _provider;
 
   /**
    * The playlist itself.
    */
   private NSDictionary _plist = new NSDictionary();
 
-  @Override
-  public void setProvider(final SpecificPlaylistProvider provider)
+
+
+  public PlistPlaylist(final PlistProvider provider)
   {
     _provider = provider;
   }
 
   @Override
-  public SpecificPlaylistProvider getProvider()
+  public PlistProvider getProvider()
   {
     return _provider;
   }

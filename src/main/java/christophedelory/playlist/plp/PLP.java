@@ -59,7 +59,6 @@ public class PLP implements SpecificPlaylist
      */
     private String _diskSpecifier = "HARP";
 
-    @Override
     public void setProvider(final SpecificPlaylistProvider provider)
     {
         _provider = provider;

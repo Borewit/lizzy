@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified"
+           targetNamespace="https://www.real.com/rmp"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="PACKAGE">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="TITLE" type="xs:string"/>
+                <xs:element name="ACTION" type="xs:string" minOccurs="0"/>
+                <xs:element name="TARGET" type="xs:string" minOccurs="0"/>
+                <xs:element name="EXP_DATE" type="xs:string" minOccurs="0"/>
+                <xs:element name="PROVIDER" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="AUTHOR" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="NAME" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="URL" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="COPYRIGHT" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="CONTACT" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="SERVER">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="NAME" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="DESC" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="NETNAME" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                            <xs:element name="LOCATION" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                            <xs:element name="KEY" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="TRACKLIST">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="LISTID" type="xs:string"/>
+                            <xs:element name="TRACK" minOccurs="0" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="TRACKID" type="xs:string" minOccurs="0"/>
+                                        <xs:element name="URL" type="xs:string" minOccurs="0"/>
+                                        <xs:element name="TITLE" type="xs:string" minOccurs="0"/>
+                                        <xs:element name="ALBUM" minOccurs="0"/>
+                                        <xs:element name="ARTIST" minOccurs="0"/>
+                                        <xs:element name="GENRE" minOccurs="0"/>
+                                        <xs:element name="FILENAME" type="xs:string" minOccurs="0"/>
+                                        <xs:element name="SIZE" type="xs:unsignedInt" minOccurs="0"/>
+                                        <xs:element name="FORMAT" type="xs:string" minOccurs="0"/>
+                                        <xs:element name="QUALITY" type="xs:unsignedInt" minOccurs="0"/>
+                                        <xs:element name="CHANNELS" type="xs:unsignedByte" minOccurs="0"/>
+                                        <xs:element name="DURATION" type="xs:unsignedShort" minOccurs="0"/>
+                                        <xs:element name="CONTEXTINFO_URL" type="xs:string" minOccurs="0"/>
+                                        <xs:element name="CONTEXTINFO_WIDTH" type="xs:unsignedShort" minOccurs="0"/>
+                                        <xs:element name="CONTEXTINFO_HEIGHT" type="xs:unsignedByte" minOccurs="0"/>
+                                        <xs:element name="IS_STREAMING" type="xs:unsignedByte" minOccurs="0"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="SIG" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

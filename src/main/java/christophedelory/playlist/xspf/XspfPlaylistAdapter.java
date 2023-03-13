@@ -27,16 +27,14 @@ package christophedelory.playlist.xspf;
 import java.io.OutputStream;
 
 import christophedelory.content.Content;
+import christophedelory.playlist.JaxbPlaylistProvider;
 import christophedelory.playlist.Media;
 import christophedelory.playlist.SpecificPlaylist;
-import christophedelory.playlist.SpecificPlaylistProvider;
 
 import io.github.borewit.playlist.xspf.ObjectFactory;
 import io.github.borewit.playlist.xspf.XspfPlaylist;
 import io.github.borewit.playlist.xspf.XspfTrack;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
 
 /**
  * XSPF, an XML format designed to enable playlist sharing.
@@ -49,35 +47,25 @@ public class XspfPlaylistAdapter implements SpecificPlaylist
     /**
      * The provider of this specific playlist.
      */
-    private transient SpecificPlaylistProvider _provider = null;
+    private final JaxbPlaylistProvider provider;
 
     private final XspfPlaylist xspfPlaylist;
 
-    public XspfPlaylistAdapter(XspfPlaylist xspfPlaylist) {
+    public XspfPlaylistAdapter(JaxbPlaylistProvider provider, XspfPlaylist xspfPlaylist) {
+        this.provider = provider;
         this.xspfPlaylist = xspfPlaylist;
     }
 
     @Override
-    public void setProvider(final SpecificPlaylistProvider provider)
+    public JaxbPlaylistProvider getProvider()
     {
-        _provider = provider;
-    }
-
-    @Override
-    public SpecificPlaylistProvider getProvider()
-    {
-        return _provider;
+        return provider;
     }
 
     @Override
     public void writeTo(final OutputStream out, final String encoding) throws Exception
     {
-        // Marshal the playlist.
-        JAXBContext jaxbContext = JAXBContext.newInstance(XspfPlaylist.class);
-        Marshaller marshaller = jaxbContext.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        marshaller.marshal(new ObjectFactory().createPlaylist(xspfPlaylist), out);
-        out.flush(); // May throw IOException.
+        this.provider.writeTo(new ObjectFactory().createPlaylist(xspfPlaylist), out, encoding);
     }
 
     @Override

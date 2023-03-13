@@ -25,24 +25,25 @@
 package christophedelory.playlist.rmp;
 
 import java.io.InputStream;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Unmarshaller;
+import java.util.List;
 
 import christophedelory.playlist.*;
-import org.apache.commons.logging.Log;
+import io.github.borewit.playlist.rmp.RmpPackage;
 
 import christophedelory.content.type.ContentType;
 import christophedelory.player.PlayerSupport;
 import christophedelory.xml.Version;
+import org.apache.commons.logging.Log;
+
+import javax.xml.bind.JAXBElement;
 
 /**
  * The Real Metadata Package playlist file.
- * @version $Revision: 91 $
+ * @author Borewit
  * @author Christophe Delory
  * @since 0.3.0
  */
-public class RmpProvider extends AbstractPlaylistProvider
+public class RmpProvider extends JaxbPlaylistProvider<RmpPackage>
 {
     /**
      * A list of compatible content types.
@@ -60,7 +61,7 @@ public class RmpProvider extends AbstractPlaylistProvider
 
     public RmpProvider()
     {
-        super(RmpProvider.class);
+        super(RmpProvider.class, RmpPackage.class);
     }
 
     @Override
@@ -78,39 +79,39 @@ public class RmpProvider extends AbstractPlaylistProvider
     @Override
     public SpecificPlaylist readFrom(final InputStream in, final String encoding, final Log logger) throws Exception
     {
-        // Unmarshal the RMP playlist.
-        final JAXBContext jc = JAXBContext.newInstance("christophedelory.playlist.rmp"); // May throw JAXBException.
-        final Unmarshaller unmarshaller = jc.createUnmarshaller(); // May throw JAXBException.
-        final SpecificPlaylist ret = (SpecificPlaylist) unmarshaller.unmarshal(preProcessXml(in, encoding)); // May throw JAXBException, UnmarshalException. Shall not throw IllegalArgumentException.
-        ret.setProvider(this);
+        final JAXBElement<RmpPackage> rmp = this.unmarshal(in, encoding);
+        String rootElementName = rmp.getName().getLocalPart();
 
-        return ret;
+        return rootElementName != null && rootElementName.equalsIgnoreCase("PACKAGE") ?
+            new RmpPlaylistAdapter(this, rmp.getValue()) : null;
     }
 
     @Override
     public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws Exception
     {
-        final Package ret = new Package();
-        ret.setProvider(this);
+        final RmpPackage rmpPackage = new RmpPackage();
 
-        ret.setTitle("Lizzy v" + Version.CURRENT + " RMP playlist");
-        ret.setAction("import,replace");
-        ret.setTarget(Integer.toString(System.identityHashCode(ret)));
-        ret.getTracklist().setId(Integer.toString(System.identityHashCode(ret.getTracklist())));
+        rmpPackage.setTITLE("Lizzy v" + Version.CURRENT + " RMP playlist");
+        rmpPackage.setACTION("import,replace");
+        rmpPackage.setTARGET(Integer.toString(System.identityHashCode(rmpPackage)));
 
-        final Provider provider = new Provider();
-        provider.setAuthor("Christophe Delory");
-        provider.setName("Lizzy v" + Version.CURRENT);
-        provider.setUrlString("http://sourceforge.net/projects/lizzy/");
-        provider.setCopyright("Copyright (c) 2008-2009, Christophe Delory");
-        provider.setContact("cdelory@users.sourceforge.net");
-        ret.setPackageProvider(provider);
+        RmpPackage.TRACKLIST tracklist = new RmpPackage.TRACKLIST();
+        tracklist.setLISTID(Integer.toString(System.identityHashCode(rmpPackage.getTRACKLIST())));
+        rmpPackage.setTRACKLIST(tracklist);
+
+        final RmpPackage.PROVIDER provider = new RmpPackage.PROVIDER();
+        provider.setAUTHOR("Christophe Delory");
+        provider.setNAME("Lizzy v" + Version.CURRENT);
+        provider.setURL("http://sourceforge.net/projects/lizzy/");
+        provider.setCOPYRIGHT("Copyright (c) 2008-2009, Christophe Delory");
+        provider.setCONTACT("cdelory@users.sourceforge.net");
+        rmpPackage.setPROVIDER(provider);
 
         // TODO setSignature()?
 
-        addToPlaylist(ret.getTracklist(), playlist.getRootSequence()); // May throw Exception.
+        addToPlaylist(tracklist.getTRACK(), playlist.getRootSequence()); // May throw Exception.
 
-        return ret;
+        return  new RmpPlaylistAdapter(this, rmpPackage);
     }
 
     /**
@@ -118,7 +119,7 @@ public class RmpProvider extends AbstractPlaylistProvider
      * @param trackList the parent track list. Shall not be <code>null</code>.
      * @param component the generic playlist component to handle. Shall not be <code>null</code>.
      */
-    private void addToPlaylist(final Tracklist trackList, final AbstractPlaylistComponent component)
+    private void addToPlaylist(final List<RmpPackage.TRACKLIST.TRACK> trackList, final AbstractPlaylistComponent component)
     {
         if (component instanceof Sequence)
         {
@@ -161,24 +162,24 @@ public class RmpProvider extends AbstractPlaylistProvider
             {
                 for (int iter = 0; iter < media.getRepeatCount(); iter++)
                 {
-                    final Track track = new Track(); // NOPMD Avoid instantiating new objects inside loops
-                    track.setId(Integer.toString(System.identityHashCode(track))); // FIXME Why not media.getSource() as id?
-                    track.setTitle(media.getSource().toString());
-                    track.setFileName(media.getSource().toString());
+                    final RmpPackage.TRACKLIST.TRACK track = new RmpPackage.TRACKLIST.TRACK(); // NOPMD Avoid instantiating new objects inside loops
+                    track.setTRACKID(Integer.toString(System.identityHashCode(track))); // FIXME Why not media.getSource() as id?
+                    track.setTITLE(media.getSource().toString());
+                    track.setFILENAME(media.getSource().toString());
 
                     if (media.getSource().getLength() >= 0L) // NOPMD Deeply nested if..then statements are hard to read
                     {
-                        track.setSize(media.getSource().getLength()); // Shall not throw IllegalArgumentException.
+                        track.setSIZE(media.getSource().getLength()); // Shall not throw IllegalArgumentException.
                     }
 
                     if (media.getSource().getDuration() >= 0L) // NOPMD Deeply nested if..then statements are hard to read
                     {
-                        track.setDuration((int)(media.getSource().getDuration() / 1000L)); // Shall not throw IllegalArgumentException.
+                        track.setDURATION((int)(media.getSource().getDuration() / 1000L)); // Shall not throw IllegalArgumentException.
                     }
 
                     // TODO setFormat()?
 
-                    trackList.addTrack(track);
+                    trackList.add(track);
                 }
             }
         }

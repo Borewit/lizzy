@@ -9,7 +9,9 @@
   - ASX tags and attributes should be read as case-insensitive
 
 -->
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified"
+           targetNamespace="https://www.microsoft.com/asx"
+           xmlns:asx="https://www.microsoft.com/asx"
            xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
     <!--
@@ -19,12 +21,12 @@
     <xs:element name="ASX">
         <xs:complexType>
             <xs:complexContent>
-                <xs:extension base="BaseEntryElement">
+                <xs:extension base="asx:BaseElement">
                     <xs:sequence>
-                        <xs:element name="ENTRY" type="EntryElement" minOccurs="0" maxOccurs="unbounded" />
-                        <xs:element name="REPEAT" type="RepeatElement" minOccurs="0" maxOccurs="unbounded" />
-                        <xs:element name="ENTRYREF" type="EntryrefElement" minOccurs="0" maxOccurs="unbounded" />
-                        <xs:element name="SKIN" type="RefElement" minOccurs="0" maxOccurs="unbounded" />
+                        <xs:element name="ENTRY" type="asx:EntryElement" minOccurs="0" maxOccurs="unbounded" />
+                        <xs:element name="REPEAT" type="asx:RepeatElement" minOccurs="0" maxOccurs="unbounded" />
+                        <xs:element name="ENTRYREF" type="asx:EntryrefElement" minOccurs="0" maxOccurs="unbounded" />
+                        <xs:element name="SKIN" type="asx:RefElement" minOccurs="0" maxOccurs="unbounded" />
                     </xs:sequence>
 
                     <!-- Decimal number representing the version number of the syntax for the metafile. Set to 3 or 3.0. -->
@@ -38,7 +40,7 @@
                     </xs:attribute>
 
                     <!-- Value indicating whether Windows Media Player enters preview mode before playing the first clip. -->
-                    <xs:attribute name="PREVIEWMODE" use="optional" type="BooleanType"/>
+                    <xs:attribute name="PREVIEWMODE" use="optional" type="asx:BooleanType"/>
 
                     <!-- Value indicating whether Windows Media Player reserves space for a banner graphic. -->
                     <xs:attribute name="BANNERBAR">
@@ -77,7 +79,7 @@
     <xs:complexType name="BannerElement">
         <xs:choice minOccurs="0" maxOccurs="unbounded">
             <xs:element name="ABSTRACT" type="xs:string" minOccurs="0"/>
-            <xs:element name="MOREINFO" type="MoreinfoElement" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="MOREINFO" type="asx:MoreinfoElement" minOccurs="0" maxOccurs="1"/>
         </xs:choice>
         <xs:attribute name="HREF" type="xs:anyURI" use="required"/>
     </xs:complexType>
@@ -112,17 +114,17 @@
     -->
     <xs:complexType name="EntryElement">
         <xs:complexContent>
-            <xs:extension base="BaseEntryElement">
+            <xs:extension base="asx:BaseEntryElement">
                 <xs:sequence>
-                    <xs:element minOccurs="0" maxOccurs="1" name="DURATION" type="DurationElement"/>
-                    <xs:element minOccurs="0" maxOccurs="1" name="ENDMARKER" type="EndmarkerElement"/>
-                    <xs:element minOccurs="0" maxOccurs="1" name="REF" type="RefElement"/>
-                    <xs:element minOccurs="0" maxOccurs="1" name="STARTTIME" type="DurationElement"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="DURATION" type="asx:DurationElement"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="ENDMARKER" type="asx:EndmarkerElement"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="REF" type="asx:RefElement"/>
+                    <xs:element minOccurs="0" maxOccurs="1" name="STARTTIME" type="asx:DurationElement"/>
                 </xs:sequence>
                 <!-- Value indicating whether the user can skip forward past the clip. -->
-                <xs:attribute name="CLIENTSKIP" type="BooleanType" use="optional"/>
+                <xs:attribute name="CLIENTSKIP" type="asx:BooleanType" use="optional"/>
                 <!-- Value indicating whether Windows Media Player should skip this clip when the ENTRY element is included in a second metafile through the use of an ENTRYREF element. -->
-                <xs:attribute name="SKIPIFREF" type="BooleanType" use="optional"/>
+                <xs:attribute name="SKIPIFREF" type="asx:BooleanType" use="optional"/>
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
@@ -168,8 +170,8 @@
     -->
     <xs:complexType name="RepeatElement">
         <xs:choice minOccurs="0" maxOccurs="unbounded">
-            <xs:element name="ENTRY" type="EntryElement" minOccurs="0" maxOccurs="unbounded"/>
-            <xs:element name="ENTRYREF" type="EntryrefElement" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="ENTRY" type="asx:EntryElement" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="ENTRYREF" type="asx:EntryrefElement" minOccurs="0" maxOccurs="unbounded"/>
         </xs:choice>
         <xs:attribute name="COUNT" type="xs:decimal" use="required"/>
     </xs:complexType>
@@ -180,7 +182,7 @@
     -->
     <xs:complexType name="StartmarkerElement">
         <xs:complexContent>
-            <xs:extension base="MarkerElement"/>
+            <xs:extension base="asx:MarkerElement"/>
         </xs:complexContent>
     </xs:complexType>
 
@@ -190,7 +192,7 @@
     -->
     <xs:complexType name="EndmarkerElement">
         <xs:complexContent>
-            <xs:extension base="MarkerElement"/>
+            <xs:extension base="asx:MarkerElement"/>
         </xs:complexContent>
     </xs:complexType>
 
@@ -200,7 +202,7 @@
     -->
     <xs:complexType name="EntryrefElement">
         <xs:complexContent>
-            <xs:extension base="RefElement"/>
+            <xs:extension base="asx:RefElement"/>
         </xs:complexContent>
     </xs:complexType>
 
@@ -216,15 +218,15 @@
     <!-- Shared common structure between ASX and ENTRY Element -->
     <xs:complexType name="BaseEntryElement">
         <xs:sequence>
-            <xs:element name="ABSTRACT" type="AbstractElement" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="AUTHOR" type="AuthorElement" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="BANNER" type="BannerElement" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="BASE" type="BaseElement" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="COPYRIGHT" type="CopyrightElement" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="MOREINFO" type="MoreinfoElement" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="PREVIEWDURATION" type="DurationElement" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="TITLE" type="TitleElement" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="PARAM" type="ParamElement" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="ABSTRACT" type="asx:AbstractElement" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="AUTHOR" type="asx:AuthorElement" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="BANNER" type="asx:BannerElement" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="BASE" type="asx:BaseElement" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="COPYRIGHT" type="asx:CopyrightElement" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="MOREINFO" type="asx:MoreinfoElement" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="PREVIEWDURATION" type="asx:DurationElement" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="TITLE" type="asx:TitleElement" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="PARAM" type="asx:ParamElement" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
 

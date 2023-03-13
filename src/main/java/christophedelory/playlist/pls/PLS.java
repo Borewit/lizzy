@@ -72,7 +72,6 @@ public class PLS implements SpecificPlaylist
      */
     private final List<Resource> _resources = new ArrayList<Resource>();
 
-    @Override
     public void setProvider(final SpecificPlaylistProvider provider)
     {
         _provider = provider;
