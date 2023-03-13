@@ -25,23 +25,18 @@
 package christophedelory.playlist.rss;
 
 import java.io.OutputStream;
-import java.io.StringWriter;
 
-import christophedelory.playlist.Media;
-import christophedelory.playlist.Playlist;
-import christophedelory.playlist.Sequence;
-import christophedelory.playlist.SpecificPlaylist;
-import christophedelory.playlist.SpecificPlaylistProvider;
-import christophedelory.rss.Enclosure;
-import christophedelory.rss.Item;
-import christophedelory.rss.RSS;
-import christophedelory.rss.media.Content;
-import christophedelory.rss.media.Group;
-import christophedelory.xml.XmlSerializer;
+import christophedelory.playlist.*;
+import io.github.borewit.playlist.rss20.Enclosure;
+import io.github.borewit.playlist.rss20.Item;
+import io.github.borewit.playlist.rss20.Rss;
+import io.github.borewit.playlist.rss20.media.Group;
+import io.github.borewit.playlist.rss20.media.MediaContent;
+import io.github.borewit.playlist.rss20.ObjectFactory;
 
 /**
- * A {@link RSS} document wrapper.
- * @version $Revision: 92 $
+ * Playlist to {@link Rss} JAXB object adapter.
+ * @author Borewit
  * @author Christophe Delory
  */
 public class RSSPlaylist implements SpecificPlaylist
@@ -49,46 +44,28 @@ public class RSSPlaylist implements SpecificPlaylist
     /**
      * The provider of this specific playlist.
      */
-    private transient SpecificPlaylistProvider _provider = null;
+    private transient RSSProvider provider = null;
 
     /**
      * The RSS document itself.
      */
-    private RSS _rss = new RSS();
+    private final Rss rss;
 
-    public void setProvider(final SpecificPlaylistProvider provider)
-    {
-        _provider = provider;
+    public RSSPlaylist(final RSSProvider provider, Rss rss) {
+        this.provider = provider;
+        this.rss = rss;
     }
 
     @Override
-    public SpecificPlaylistProvider getProvider()
+    public RSSProvider getProvider()
     {
-        return _provider;
+        return provider;
     }
 
     @Override
     public void writeTo(final OutputStream out, final String encoding) throws Exception
     {
-        // Marshal the RSS document.
-        final StringWriter writer = new StringWriter();
-        final XmlSerializer serializer = XmlSerializer.getMapping("christophedelory/rss"); // May throw Exception.
-        // Specifies whether XML documents (as generated at marshalling) should use indentation or not. Default is false.
-        serializer.getMarshaller().setProperty("org.exolab.castor.indent", "true");
-        //serializer.getMarshaller().setNamespaceMapping("", "http://purl.org/rss/1.0/modules/content/");
-        serializer.getMarshaller().setNamespaceMapping("media", "http://search.yahoo.com/mrss/");
-        serializer.marshal(_rss, writer, false); // May throw Exception.
-
-        String enc = encoding;
-
-        if (enc == null)
-        {
-            enc = "UTF-8";
-        }
-
-        final byte[] bytes = writer.toString().getBytes(enc); // May throw UnsupportedEncodingException.
-        out.write(bytes); // Throws NullPointerException if out is null. May throw IOException.
-        out.flush(); // May throw IOException.
+        this.provider.writeTo(new ObjectFactory().createRss(this.rss), out, encoding);
     }
 
     @Override
@@ -96,21 +73,21 @@ public class RSSPlaylist implements SpecificPlaylist
     {
         final Playlist ret = new Playlist();
 
-        for (Item item : _rss.getChannel().getItems())
+        for (Item item : rss.getChannel().getItem())
         {
             final Enclosure enclosure = item.getEnclosure();
 
-            if ((enclosure == null) || (enclosure.getURL() == null))
+            if ((enclosure == null) || (enclosure.getUrl() == null))
             {
-                for (Group mediaGroup : item.getMediaGroups())
+                for (Group mediaGroup : item.getGroup())
                 {
                     boolean foundOne = false;
 
                     // First search for the default one.
-                    for (Content mediaContent : mediaGroup.getMediaContents())
+                    for (MediaContent mediaContent : mediaGroup.getContent())
                     {
                         // Put only the first valid one in this case.
-                        if (mediaContent.isDefault() && addMediaContent(mediaContent, ret.getRootSequence()))
+                        if (mediaContent.isIsDefault() && addMediaContent(mediaContent, ret.getRootSequence()))
                         {
                             foundOne = true;
                             break;
@@ -119,7 +96,7 @@ public class RSSPlaylist implements SpecificPlaylist
 
                     if (!foundOne)
                     {
-                        for (Content mediaContent : mediaGroup.getMediaContents())
+                        for (MediaContent mediaContent : mediaGroup.getContent())
                         {
                             // Put only the first valid one.
                             if (addMediaContent(mediaContent, ret.getRootSequence()))
@@ -131,7 +108,7 @@ public class RSSPlaylist implements SpecificPlaylist
                     }
                 }
 
-                for (Content mediaContent : item.getMediaContents())
+                for (MediaContent mediaContent : item.getContent())
                 {
                     addMediaContent(mediaContent, ret.getRootSequence());
                 }
@@ -139,7 +116,7 @@ public class RSSPlaylist implements SpecificPlaylist
             else
             {
                 final Media media = new Media(); // NOPMD Avoid instantiating new objects inside loops
-                final christophedelory.content.Content content = new christophedelory.content.Content(enclosure.getURL()); // NOPMD Avoid instantiating new objects inside loops
+                final christophedelory.content.Content content = new christophedelory.content.Content(enclosure.getUrl()); // NOPMD Avoid instantiating new objects inside loops
                 content.setLength(enclosure.getLength());
                 content.setType(enclosure.getType());
                 media.setSource(content);
@@ -161,34 +138,34 @@ public class RSSPlaylist implements SpecificPlaylist
      * @throws NullPointerException if <code>mediaContent</code> is <code>null</code>.
      * @throws NullPointerException if <code>sequence</code> is <code>null</code>.
      */
-    private boolean addMediaContent(final Content mediaContent, final Sequence sequence)
+    private boolean addMediaContent(final MediaContent mediaContent, final Sequence sequence)
     {
         boolean ret = false;
 
-        if (mediaContent.getURL() != null) // NOPMD Avoid if (x != y) ..; else ..;
+        if (mediaContent.getUrl() != null) // NOPMD Avoid if (x != y) ..; else ..;
         {
             final Media media = new Media();
-            final christophedelory.content.Content content = new christophedelory.content.Content(mediaContent.getURL());
+            final christophedelory.content.Content content = new christophedelory.content.Content(mediaContent.getUrl());
             content.setType(mediaContent.getType()); // May be null.
 
             if (mediaContent.getFileSize() != null)
             {
-                content.setLength(mediaContent.getFileSize().longValue());
+                content.setLength(mediaContent.getFileSize());
             }
 
             if (mediaContent.getDuration() != null)
             {
-                content.setDuration(mediaContent.getDuration().longValue() * 1000L);
+                content.setDuration(mediaContent.getDuration() * 1000L);
             }
 
             if (mediaContent.getWidth() != null)
             {
-                content.setWidth(mediaContent.getWidth().intValue()); // Even if negative.
+                content.setWidth(mediaContent.getWidth()); // Even if negative.
             }
 
             if (mediaContent.getHeight() != null)
             {
-                content.setHeight(mediaContent.getHeight().intValue()); // Even if negative.
+                content.setHeight(mediaContent.getHeight()); // Even if negative.
             }
 
             media.setSource(content);
@@ -196,20 +173,20 @@ public class RSSPlaylist implements SpecificPlaylist
 
             ret = true;
         }
-        else if ((mediaContent.getMediaPlayer() != null) && (mediaContent.getMediaPlayer().getURL() != null))
+        else if ((mediaContent.getPlayer() != null) && (mediaContent.getPlayer().getUrl() != null))
         {
             final Media media = new Media();
-            final christophedelory.content.Content content = new christophedelory.content.Content(mediaContent.getMediaPlayer().getURL());
+            final christophedelory.content.Content content = new christophedelory.content.Content(mediaContent.getPlayer().getUrl());
             content.setType(mediaContent.getType()); // May be null.
 
             if (mediaContent.getFileSize() != null)
             {
-                content.setLength(mediaContent.getFileSize().longValue());
+                content.setLength(mediaContent.getFileSize());
             }
 
             if (mediaContent.getDuration() != null)
             {
-                content.setDuration(mediaContent.getDuration().longValue() * 1000L);
+                content.setDuration(mediaContent.getDuration() * 1000L);
             }
 
             media.setSource(content);
@@ -219,31 +196,5 @@ public class RSSPlaylist implements SpecificPlaylist
         }
 
         return ret;
-    }
-
-    /**
-     * Returns the RSS document itself.
-     * @return a RSS element. Shall not be <code>null</code>.
-     * @see #setRSS
-     */
-    public RSS getRSS()
-    {
-        return _rss;
-    }
-
-    /**
-     * Initializes the RSS document itself.
-     * @param rss a RSS element. Shall not be <code>null</code>.
-     * @throws NullPointerException if <code>rss</code> is <code>null</code>.
-     * @see #getRSS
-     */
-    public void setRSS(final RSS rss)
-    {
-        if (rss == null)
-        {
-            throw new NullPointerException("No RSS document");
-        }
-
-        _rss = rss;
     }
 }
