@@ -27,7 +27,7 @@ public class SpecificPlaylistFactoryTests
 
     @DisplayName("Read playlist formats")
     @ParameterizedTest
-    @ValueSource(strings = {"pla", "asx", "b4s", "wpl", "smil", "rss", "atom", "hypetape", "xspf", "rmp", "plist", "pls", "mpcpl", "plp", "m3u"})
+    @ValueSource(strings = {"pla", "asx", "b4s", "wpl", "smil", "rss", "atom", "xspf", "rmp", "plist", "pls", "mpcpl", "plp", "m3u"})
     void testReadPlaylist(String extension) throws Exception
     {
         Map<String, JsonPlaylist> playlistMap = TestUtil.getPlaylistMetadata();
@@ -92,7 +92,7 @@ public class SpecificPlaylistFactoryTests
 
     @DisplayName("Serialize playlist format")
     @ParameterizedTest
-    @ValueSource(strings = {"pla", "asx", "b4s", "wpl", "smil", "rss", "atom", "hypetape", "xspf", "rmp", "plist", "pls", "mpcpl", "plp", "m3u"})
+    @ValueSource(strings = {"pla", "asx", "b4s", "wpl", "smil", "rss", "atom", "xspf", "rmp", "plist", "pls", "mpcpl", "plp", "m3u"})
     void testSerializePlaylist(String extension) throws Exception
     {
         SpecificPlaylistFactory specificPlaylistFactory = SpecificPlaylistFactory.getInstance();

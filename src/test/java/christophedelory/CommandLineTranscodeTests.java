@@ -18,7 +18,7 @@ public class CommandLineTranscodeTests
 {
     @DisplayName("Transcode playlist via command line")
     @ParameterizedTest
-    @ValueSource(strings = {"pla", "asx", "b4s", "wpl", "smil", "rss", "atom", "hypetape", "xspf", "rmp", "plist", "pls", "mpcpl", "plp", "m3u"})
+    @ValueSource(strings = {"pla", "asx", "b4s", "wpl", "smil", "rss", "atom", "xspf", "rmp", "plist", "pls", "mpcpl", "plp", "m3u"})
     public void transcodePlaylist(String type) throws Exception
     {
         List<Path> samples = getSamplePaths().stream()
@@ -54,7 +54,7 @@ public class CommandLineTranscodeTests
 
     private void transcode(Path samplePath) throws Exception
     {
-        final String[] targetPlaylistFormats = {"pla", "asx", "b4s", "wpl", "smil", "rss", "atom", "hypetape", "xspf", "rmp", "plist", "pls", "mpcpl", "plp", "m3u"};
+        final String[] targetPlaylistFormats = {"pla", "asx", "b4s", "wpl", "smil", "rss", "atom", "xspf", "rmp", "plist", "pls", "mpcpl", "plp", "m3u"};
 
         for (String targetPlaylistFormat : targetPlaylistFormats)
         {
