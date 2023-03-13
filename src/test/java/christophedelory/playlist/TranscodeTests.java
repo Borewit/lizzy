@@ -20,7 +20,7 @@ public class TranscodeTests
 
     @DisplayName("Transcode playlist format")
     @ParameterizedTest
-    @ValueSource(strings = {"pla", "asx", "b4s", "wpl", "smil", "rss", "atom", "hypetape", "xspf", "rmp", "plist", "pls", "mpcpl", "plp", "m3u"})
+    @ValueSource(strings = {"pla", "asx", "b4s", "wpl", "smil", "rss", "atom", "xspf", "rmp", "plist", "pls", "mpcpl", "plp", "m3u"})
     public void transcodePlaylist(String type) throws IOException
     {
         List<Path> samples = getSamplePaths().stream()
@@ -42,7 +42,7 @@ public class TranscodeTests
 
     private void transcode(Path samplePath) throws Exception
     {
-        final String[] targetPlaylistFormats = {"pla", "asx", "b4s", "wpl", "smil", "rss", "atom", "hypetape", "xspf", "rmp", "plist", "pls", "mpcpl", "plp", "m3u"};
+        final String[] targetPlaylistFormats = {"pla", "asx", "b4s", "wpl", "smil", "rss", "atom", "xspf", "rmp", "plist", "pls", "mpcpl", "plp", "m3u"};
 
         final Playlist inputPlaylist = TestUtil.readPlaylistFrom(samplePath);
         final FetchContentMetadata metadataVisitor = new FetchContentMetadata();

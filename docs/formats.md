@@ -71,12 +71,6 @@
         <td></td>
     </tr>
     <tr valign=top>
-        <td>Hypetape XML Playlist Format</td>
-        <td><code>.hypetape .xml</code></td>
-        <td><code>text/xml</code></td>
-        <td></td>
-    </tr>
-    <tr valign=top>
         <td>XML Shareable Playlist Format (XSPF)</td>
         <td><code>.xspf</code></td>
         <td><code>application/xspf+xml</code></td>
