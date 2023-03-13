@@ -81,7 +81,7 @@ public class SmilProvider extends AbstractPlaylistProvider
         final XmlSerializer serializer = XmlSerializer.getMapping("christophedelory/playlist/smil"); // May throw Exception.
         serializer.getUnmarshaller().setIgnoreExtraElements(true); // Many SMIL elements are not implemented yet.
 
-        final SpecificPlaylist ret = (SpecificPlaylist) serializer.unmarshal(preProcessXml(in, encoding)); // May throw Exception.
+        final Smil ret = (Smil) serializer.unmarshal(preProcessXml(in, encoding)); // May throw Exception.
         ret.setProvider(this);
 
         return ret;

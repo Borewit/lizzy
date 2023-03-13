@@ -54,7 +54,6 @@ public class PLA implements SpecificPlaylist
      */
     private final List<String> _filenames = new ArrayList<String>();
 
-    @Override
     public void setProvider(final SpecificPlaylistProvider provider)
     {
         _provider = provider;

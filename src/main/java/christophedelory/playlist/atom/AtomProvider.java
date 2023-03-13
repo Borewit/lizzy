@@ -90,8 +90,7 @@ public class AtomProvider extends AbstractPlaylistProvider
         // TODO Allow also an Entry.
         final Feed feed = (Feed) serializer.unmarshal(preProcessXml(in, encoding)); // May throw Exception.
 
-        final AtomPlaylist ret = new AtomPlaylist();
-        ret.setProvider(this);
+        final AtomPlaylist ret = new AtomPlaylist(this);
         ret.setFeed(feed);
 
         return ret;
@@ -100,8 +99,7 @@ public class AtomProvider extends AbstractPlaylistProvider
     @Override
     public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws Exception
     {
-        final AtomPlaylist ret = new AtomPlaylist();
-        ret.setProvider(this);
+        final AtomPlaylist ret = new AtomPlaylist(this);
 
         final Feed feed = ret.getFeed();
 

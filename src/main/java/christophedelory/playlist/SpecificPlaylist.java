@@ -34,14 +34,6 @@ import java.io.OutputStream;
 public interface SpecificPlaylist
 {
     /**
-     * Initializes the provider of this specific playlist.
-     * @param provider the provider of this playlist. Shall not be <code>null</code>.
-     * @throws NullPointerException if <code>provider</code> is <code>null</code>.
-     * @see #getProvider
-     */
-    void setProvider(SpecificPlaylistProvider provider);
-
-    /**
      * Returns the provider of this specific playlist.
      * @return the provider of this playlist. May be <code>null</code>.
      * @see #setProvider

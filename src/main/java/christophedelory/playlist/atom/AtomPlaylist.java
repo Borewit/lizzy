@@ -53,8 +53,7 @@ public class AtomPlaylist implements SpecificPlaylist
      */
     private Feed _feed = new Feed();
 
-    @Override
-    public void setProvider(final SpecificPlaylistProvider provider)
+    public AtomPlaylist(final SpecificPlaylistProvider provider)
     {
         _provider = provider;
     }

@@ -79,7 +79,7 @@ public class WplProvider extends AbstractPlaylistProvider
         final XmlSerializer serializer = XmlSerializer.getMapping("christophedelory/playlist/wpl"); // May throw Exception.
         serializer.getUnmarshaller().setIgnoreExtraElements(false); // Force an error if unknown elements are found.
 
-        final SpecificPlaylist ret = (SpecificPlaylist) serializer.unmarshal(preProcessXml(in, encoding)); // May throw Exception.
+        final Smil ret = (Smil) serializer.unmarshal(preProcessXml(in, encoding)); // May throw Exception.
         ret.setProvider(this);
 
         return ret;

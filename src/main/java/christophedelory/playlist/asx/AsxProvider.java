@@ -113,13 +113,13 @@ public class AsxProvider extends JaxbPlaylistProvider<Asx>
         String rootElementName = asx.getName().getLocalPart();
 
         return rootElementName != null && rootElementName.equalsIgnoreCase("ASX") ?
-            new AsxPlaylistAdapter(asx.getValue()) : null;
+            new AsxPlaylistAdapter(this, asx.getValue()) : null;
     }
 
     @Override
     public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws Exception
     {
-        final AsxPlaylistAdapter asxPlaylist = new AsxPlaylistAdapter();
+        final AsxPlaylistAdapter asxPlaylist = new AsxPlaylistAdapter(this);
 
         addToPlaylist(asxPlaylist.getAsx(), playlist.getRootSequence()); // May throw Exception.
 

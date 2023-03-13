@@ -58,7 +58,6 @@ public class M3U implements SpecificPlaylist
      */
     private boolean _extensionM3U = false;
 
-    @Override
     public void setProvider(final SpecificPlaylistProvider provider)
     {
         _provider = provider;

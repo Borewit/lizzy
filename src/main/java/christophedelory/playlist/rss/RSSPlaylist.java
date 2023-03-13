@@ -56,7 +56,6 @@ public class RSSPlaylist implements SpecificPlaylist
      */
     private RSS _rss = new RSS();
 
-    @Override
     public void setProvider(final SpecificPlaylistProvider provider)
     {
         _provider = provider;

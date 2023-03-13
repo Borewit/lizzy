@@ -28,8 +28,6 @@ import christophedelory.content.Content;
 import christophedelory.playlist.*;
 import io.github.borewit.playlist.asx.*;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
 import java.io.OutputStream;
 
 /**
@@ -45,21 +43,27 @@ public class AsxPlaylistAdapter implements SpecificPlaylist
     /**
      * The provider of this specific playlist.
      */
-    private transient SpecificPlaylistProvider _provider = null;
+    private final AsxProvider provider;
 
     /**
      * JAXB component
      */
     private final Asx asx;
 
-    public AsxPlaylistAdapter()
-    {
-        this.asx = new Asx();
-        this.asx.setVERSION("3.0");
+    private static Asx makeAsx() {
+        Asx asx = new Asx();
+        asx.setVERSION("3.0");
+        return asx;
     }
 
-    public AsxPlaylistAdapter(Asx asx)
+    public AsxPlaylistAdapter(AsxProvider provider)
     {
+        this(provider, makeAsx());
+    }
+
+    public AsxPlaylistAdapter(AsxProvider provider, Asx asx)
+    {
+        this.provider = provider;
         this.asx = asx;
     }
 
@@ -69,26 +73,15 @@ public class AsxPlaylistAdapter implements SpecificPlaylist
     }
 
     @Override
-    public void setProvider(final SpecificPlaylistProvider provider)
+    public JaxbPlaylistProvider getProvider()
     {
-        _provider = provider;
-    }
-
-    @Override
-    public SpecificPlaylistProvider getProvider()
-    {
-        return _provider;
+        return provider;
     }
 
     @Override
     public void writeTo(final OutputStream out, final String encoding) throws Exception
     {
-        // Marshal the playlist.
-        JAXBContext jaxbContext = JAXBContext.newInstance(Asx.class);
-        Marshaller marshaller = jaxbContext.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        marshaller.marshal(this.asx, out);
-        out.flush(); // May throw IOException.
+        this.provider.writeTo(this.asx, out, encoding);
     }
 
     @Override

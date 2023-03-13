@@ -1,6 +1,5 @@
 package christophedelory.playlist;
 
-import christophedelory.xml.XmlSerializer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -25,19 +24,6 @@ public abstract class AbstractPlaylistProvider implements SpecificPlaylistProvid
   @Override
   public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws Exception {
     return this.readFrom(in, encoding, logger);
-  }
-
-  @Override
-  public SpecificPlaylist readFrom(final InputStream in, final String encoding, final Log logger) throws Exception
-  {
-    // Unmarshal the WPL playlist.
-    final XmlSerializer serializer = XmlSerializer.getMapping("christophedelory/playlist/xspf"); // May throw Exception.
-    serializer.getUnmarshaller().setIgnoreExtraElements(true);
-
-    final SpecificPlaylist ret = (SpecificPlaylist) serializer.unmarshal(in); // May throw Exception.
-    ret.setProvider(this);
-
-    return ret;
   }
 
   protected final InputStreamReader preProcessXml(final InputStream in, final String encoding) throws IOException
