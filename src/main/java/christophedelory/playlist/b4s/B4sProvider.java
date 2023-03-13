@@ -25,21 +25,24 @@
 package christophedelory.playlist.b4s;
 
 import java.io.InputStream;
+import java.util.List;
 
 import christophedelory.playlist.*;
+import io.github.borewit.playlist.b4s.WinampXML;
 import org.apache.commons.logging.Log;
 
 import christophedelory.content.type.ContentType;
 import christophedelory.player.PlayerSupport;
-import christophedelory.xml.XmlSerializer;
+
+import javax.xml.bind.JAXBElement;
 
 /**
  * A proprietary XML-based format introduced in Winamp version 3.
  * Resembles iTunes library XML in many ways.
- * @version $Revision: 91 $
+ * @author Borewit
  * @author Christophe Delory
  */
-public class B4sProvider extends AbstractPlaylistProvider
+public class B4sProvider extends JaxbPlaylistProvider<WinampXML>
 {
     /**
      * A list of compatible content types.
@@ -58,7 +61,7 @@ public class B4sProvider extends AbstractPlaylistProvider
 
     public B4sProvider()
     {
-        super(B4sProvider.class);
+        super(B4sProvider.class, WinampXML.class);
     }
 
     @Override
@@ -76,25 +79,23 @@ public class B4sProvider extends AbstractPlaylistProvider
     @Override
     public SpecificPlaylist readFrom(final InputStream in, final String encoding, final Log logger) throws Exception
     {
-        // Unmarshal the B4S playlist.
-        final XmlSerializer serializer = XmlSerializer.getMapping("christophedelory/playlist/b4s"); // May throw Exception.
-        serializer.getUnmarshaller().setIgnoreExtraElements(false); // Force an error if unknown elements are found.
+        final JAXBElement<WinampXML> winampXMLJAXBElement = this.unmarshal(in, encoding);
+        String rootElementName = winampXMLJAXBElement.getName().getLocalPart();
 
-        final WinampXML ret = (WinampXML) serializer.unmarshal(preProcessXml(in, encoding)); // May throw Exception.
-        ret.setProvider(this);
-
-        return ret;
+        return rootElementName != null && rootElementName.equalsIgnoreCase("WinampXML") ?
+            new WinampXMLAdapter(this, winampXMLJAXBElement.getValue()) : null;
     }
 
     @Override
     public SpecificPlaylist toSpecificPlaylist(final christophedelory.playlist.Playlist playlist) throws Exception
     {
-        final WinampXML ret = new WinampXML();
-        ret.setProvider(this);
+        final WinampXML winampXML = new WinampXML();
+        final WinampXML.Playlist xmlPlaylist = new WinampXML.Playlist();
+        winampXML.setPlaylist(xmlPlaylist);
 
-        addToPlaylist(ret.getPlaylist(), playlist.getRootSequence()); // May throw Exception.
+        addToPlaylist(xmlPlaylist.getEntry(), playlist.getRootSequence()); // May throw Exception.
 
-        return ret;
+        return new WinampXMLAdapter(this, winampXML);
     }
 
     /**
@@ -102,7 +103,7 @@ public class B4sProvider extends AbstractPlaylistProvider
      * @param playlist the parent playlist. Shall not be <code>null</code>.
      * @param component the generic playlist component to handle. Shall not be <code>null</code>.
      */
-    private void addToPlaylist(final Playlist playlist, final AbstractPlaylistComponent component)
+    private void addToPlaylist(final List<WinampXML.Playlist.Entry> playlist, final AbstractPlaylistComponent component)
     {
         if (component instanceof Sequence)
         {
@@ -145,15 +146,15 @@ public class B4sProvider extends AbstractPlaylistProvider
             {
                 for (int iter = 0; iter < media.getRepeatCount(); iter++)
                 {
-                    final Entry entry = new Entry(); // NOPMD Avoid instantiating new objects inside loops
+                    final WinampXML.Playlist.Entry entry = new WinampXML.Playlist.Entry(); // NOPMD Avoid instantiating new objects inside loops
                     entry.setPlaystring(media.getSource().toString());
 
                     if (media.getSource().getLength() >= 0L) // NOPMD Deeply nested if..then statements are hard to read
                     {
-                        entry.setLength((int) media.getSource().getLength()); // Shall not throw IllegalArgumentException.
+                        entry.setLength(media.getSource().getLength()); // Shall not throw IllegalArgumentException.
                     }
 
-                    playlist.addEntry(entry);
+                    playlist.add(entry);
                 }
             }
         }
