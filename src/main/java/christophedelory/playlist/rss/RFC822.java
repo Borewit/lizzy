@@ -1,4 +1,4 @@
-package christophedelory.rss;
+package christophedelory.playlist.rss;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -12,7 +12,7 @@ import java.util.Locale;
  * @version $Revision: 91 $
  * @author Christophe Delory
  */
-final class RFC822
+public final class RFC822
 {
     /**
      * RFC822 date and time format, full version.
