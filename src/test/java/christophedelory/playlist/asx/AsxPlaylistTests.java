@@ -67,9 +67,9 @@ public class AsxPlaylistTests
 
     @Test
     @DisplayName("Write to ASX playlist file")
-    public void writePlist() throws Exception
+    public void writeAsx() throws Exception
     {
-        writePlist("test01.asx");
+        writeAsx("test01.asx");
     }
 
     @Test
@@ -92,7 +92,7 @@ public class AsxPlaylistTests
         }
     }
 
-    private static void writePlist(String testFile) throws Exception
+    private static void writeAsx(String testFile) throws Exception
     {
         Playlist playlist = TestUtil.readPlaylistFrom(testFile);
         AsxProvider asxProvider = new AsxProvider();
