@@ -5,6 +5,8 @@
             </layout>
         </head>
         <body>
-            <video src="myvideo.flv" />
+            <seq>
+                <video src="myvideo.flv" />
+            </seq>
         </body>
 </smil>

@@ -24,42 +24,49 @@
  */
 package christophedelory.playlist.smil;
 
-import java.io.InputStream;
-
-import christophedelory.playlist.*;
-import org.apache.commons.logging.Log;
-
 import christophedelory.content.type.ContentType;
 import christophedelory.player.PlayerSupport;
-import christophedelory.xml.XmlSerializer;
+import christophedelory.playlist.*;
+import io.github.borewit.playlist.smil20.*;
+import org.apache.commons.logging.Log;
+
+import javax.xml.bind.JAXBElement;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+import javax.xml.stream.util.StreamReaderDelegate;
+import java.io.InputStream;
+import java.util.Arrays;
 
 /**
  * The W3C SMIL playlist XML format.
  * An XML recommendation of the World Wide Web Consortium that includes playlist features.
- * @version $Revision: 90 $
+ *
+ * @author Borewit
  * @author Christophe Delory
  */
-public class SmilProvider extends AbstractPlaylistProvider
+public class SmilProvider extends JaxbPlaylistProvider<Smil>
 {
+    public static final String smilNamespace = "http://www.w3.org/2001/SMIL20/Language";
+
     /**
      * A list of compatible content types.
      */
     private static final ContentType[] FILETYPES =
-    {
-        new ContentType(new String[] { ".smil", ".smi" },
-                        new String[] { "application/smil+xml", "application/smil" },
-                        new PlayerSupport[]
-                        {
-                            new PlayerSupport(PlayerSupport.Player.MEDIA_PLAYER_CLASSIC, false, null),
-                            new PlayerSupport(PlayerSupport.Player.QUICKTIME, true, null),
-                            new PlayerSupport(PlayerSupport.Player.REALPLAYER, false, null),
-                        },
-                        "Synchronized Multimedia Integration Language (SMIL)"),
-    };
+        {
+            new ContentType(new String[]{".smil", ".smi"},
+                new String[]{"application/smil+xml", "application/smil"},
+                new PlayerSupport[]
+                    {
+                        new PlayerSupport(PlayerSupport.Player.MEDIA_PLAYER_CLASSIC, false, null),
+                        new PlayerSupport(PlayerSupport.Player.QUICKTIME, true, null),
+                        new PlayerSupport(PlayerSupport.Player.REALPLAYER, false, null),
+                    },
+                "Synchronized Multimedia Integration Language (SMIL)"),
+        };
 
     public SmilProvider()
     {
-        super(SmilProvider.class);
+        super(SmilProvider.class, Smil.class);
     }
 
     @Override
@@ -77,87 +84,105 @@ public class SmilProvider extends AbstractPlaylistProvider
     @Override
     public SpecificPlaylist readFrom(final InputStream in, final String encoding, final Log logger) throws Exception
     {
-        // Unmarshal the SMIL playlist.
-        final XmlSerializer serializer = XmlSerializer.getMapping("christophedelory/playlist/smil"); // May throw Exception.
-        serializer.getUnmarshaller().setIgnoreExtraElements(true); // Many SMIL elements are not implemented yet.
+        final JAXBElement<Smil> smil = this.unmarshal(in, encoding);
+        String rootElementName = smil.getName().getLocalPart();
 
-        final Smil ret = (Smil) serializer.unmarshal(preProcessXml(in, encoding)); // May throw Exception.
-        ret.setProvider(this);
-
-        return ret;
+        return rootElementName != null && rootElementName.equalsIgnoreCase("smil") ?
+            new SmilAdapter(this, smil.getValue()) : null;
     }
 
     @Override
     public SpecificPlaylist toSpecificPlaylist(final Playlist playlist)
     {
-        final Smil ret = new Smil();
-        ret.setProvider(this);
+        final Smil smil = new Smil();
+        final SmilContainerBody body = new SmilContainerBody();
+        smil.setBody(body);
+        final SmilSequence smilSequence = new SmilSequence();
+        body.getSeqOrParOrExl().add(smilSequence);
 
-        final Body body = new Body();
-        body.setRepeatCount(Float.valueOf((float) playlist.getRootSequence().getRepeatCount()));
-        ret.setBody(body);
+        addToPlaylist(smilSequence, playlist.getRootSequence());
 
-        final AbstractPlaylistComponent[] components = playlist.getRootSequence().getComponents();
-
-        for (AbstractPlaylistComponent component : components)
-        {
-            addToPlaylist(body, component);
-        }
-
-        return ret;
+        return new SmilAdapter(this, smil);
     }
 
     /**
      * Adds the specified generic playlist component, and all its childs if any, to the input time container.
+     *
      * @param timingElement the parent time container. Shall not be <code>null</code>.
-     * @param component the generic playlist component to handle. Shall not be <code>null</code>.
+     * @param component     the generic playlist component to handle. Shall not be <code>null</code>.
      * @throws NullPointerException if <code>timingElement</code> is <code>null</code>.
      * @throws NullPointerException if <code>component</code> is <code>null</code>.
      */
-    private void addToPlaylist(final AbstractTimingElement timingElement, final AbstractPlaylistComponent component)
+    private void addToPlaylist(final SmilTimeContainer timingElement, final AbstractPlaylistComponent component)
     {
-        if (component instanceof Sequence)
+        if (component instanceof AbstractTimeContainer)
         {
-            final Sequence sequence = (Sequence) component;
-            final SequentialTimingElement seq = new SequentialTimingElement();
-            seq.setRepeatCount(Float.valueOf((float) sequence.getRepeatCount()));
-            timingElement.addSmilElement(seq);
-
-            final AbstractPlaylistComponent[] components = sequence.getComponents();
-
-            for (AbstractPlaylistComponent c : components)
+            AbstractTimeContainer timeContainer = (AbstractTimeContainer) component;
+            SmilTimeContainer smilTimeContainer;
+            if (component instanceof Sequence)
             {
-                addToPlaylist(seq, c);
+                smilTimeContainer = new SmilSequence();
             }
-        }
-        else if (component instanceof Parallel)
-        {
-            final Parallel parallel = (Parallel) component;
-            final ParallelTimingElement par = new ParallelTimingElement();
-            par.setRepeatCount(Float.valueOf((float) parallel.getRepeatCount()));
-            timingElement.addSmilElement(par);
-
-            final AbstractPlaylistComponent[] components = parallel.getComponents();
-
-            for (AbstractPlaylistComponent c : components)
+            else if (component instanceof Parallel)
             {
-                addToPlaylist(par, c);
+                smilTimeContainer = new SmilParallel();
             }
+            else
+            {
+                throw new RuntimeException("Unexpected AbstractTimeContainer instance");
+            }
+            smilTimeContainer.setRepeatCount(timeContainer.getRepeatCount());
+            timingElement.getSeqOrParOrExl().add(smilTimeContainer);
+
+            // Recursion
+            Arrays.stream(timeContainer.getComponents()).forEach(c -> addToPlaylist(smilTimeContainer, c));
         }
         else if (component instanceof Media)
         {
             final Media media = (Media) component;
-            final Reference ref = new Reference();
+            final SmilReference ref = new SmilReference();
 
             if (media.getSource() != null)
             {
-                ref.setSource(media.getSource().toString());
+                ref.setSrc(media.getSource().toString());
                 ref.setType(media.getSource().getType()); // May be null.
             }
 
-            ref.setDuration(media.getDuration());
-            ref.setRepeatCount(Float.valueOf((float) media.getRepeatCount()));
-            timingElement.addSmilElement(ref);
+            ref.setDur(Duration.toString(media.getDuration()));
+            ref.setRepeatCount(media.getRepeatCount());
+            timingElement.getAudioOrImgOrRef().add(ref);
+        }
+        else
+        {
+            throw new RuntimeException("Unexpected component instance type");
+        }
+    }
+
+    /**
+     * Overrides XMLStreamReader in such a way that we can parse both qualified and unqualified SMIL
+     */
+    @Override
+    protected XMLStreamReader getXmlStreamReader(final InputStream in, final String encoding) throws XMLStreamException
+    {
+        // Normalize XML tags and attributes to uppercase
+        return new NormalizeNamespace(super.getXmlStreamReader(in, encoding));
+    }
+
+    /**
+     * Use SMIL namespace if there is no namespace defined
+     */
+    private static class NormalizeNamespace extends StreamReaderDelegate
+    {
+        NormalizeNamespace(XMLStreamReader xsr)
+        {
+            super(xsr);
+        }
+
+        @Override
+        public String getNamespaceURI()
+        {
+            final String nsUri = super.getNamespaceURI();
+            return nsUri == null ? smilNamespace : nsUri;
         }
     }
 }

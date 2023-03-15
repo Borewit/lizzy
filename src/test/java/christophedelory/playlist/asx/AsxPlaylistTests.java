@@ -9,10 +9,9 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 import java.nio.file.Path;
 
+import static christophedelory.util.TestUtil.checkPlaylistItemSource;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Advanced Stream Redirector (ASX) Playlist Tests")
@@ -101,15 +100,5 @@ public class AsxPlaylistTests
             SpecificPlaylist specificPlaylist = asxProvider.toSpecificPlaylist(playlist);
             specificPlaylist.writeTo(byteArrayOutputStream, null);
         }
-    }
-
-    private static void checkPlaylistItemSource(final Playlist playlist, final int itemIndex, final String expectedUri) throws MalformedURLException, URISyntaxException
-    {
-        Object entry = playlist.getRootSequence().getComponents()[itemIndex];
-        assertTrue(entry instanceof Media, "Expect playlist media entry");
-        Media media = (Media) entry;
-        assertNotNull(media.getSource(), "Media source");
-        assertNotNull(media.getSource().getURL(), "Media source URL");
-        assertEquals(expectedUri, media.getSource().getURI().toString(), "Media source URL");
     }
 }
