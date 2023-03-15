@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 
+import static christophedelory.util.TestUtil.checkPlaylistItemSource;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -22,6 +23,7 @@ public class PlistPlaylistTests
         Playlist playlist = TestUtil.readPlaylistFrom("test01.plist");
         assertNotNull(playlist, "playlist");
         assertEquals(1, playlist.getRootSequence().getComponents().length);
+        checkPlaylistItemSource(playlist, 0, "file://localhost/Users/niel/Music/iTunes/iTunes%20Music/Count%20Basie%20&%20His%20Orchestra/Prime%20Time/03%20Sweet%20Georgia%20Brown.m4p");
     }
 
 
@@ -31,15 +33,10 @@ public class PlistPlaylistTests
     {
         Playlist playlist = TestUtil.readPlaylistFrom("test01.plist");
         PlistProvider plistProvider = new PlistProvider();
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        try
+        try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream())
         {
             SpecificPlaylist specificPlaylist = plistProvider.toSpecificPlaylist(playlist);
             specificPlaylist.writeTo(byteArrayOutputStream, null);
-        }
-        finally
-        {
-            byteArrayOutputStream.close();
         }
     }
 

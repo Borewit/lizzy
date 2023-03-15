@@ -43,6 +43,13 @@ public class Media extends AbstractPlaylistComponent
      */
     private Long _duration = null;
 
+    public Media() {
+    }
+
+    public Media(Content source) {
+        this._source = source;
+    }
+
     /**
      * Returns the media source.
      * @return a media source. May be <code>null</code> if not yet initialized.

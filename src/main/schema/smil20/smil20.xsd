@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+  Lightweight SMIL 2.0 schema, for JAXB beans able to read SMIL used for mostly audio playlists
+
+-->
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:smil="http://www.w3.org/2001/SMIL20/Language"
+           targetNamespace="http://www.w3.org/2001/SMIL20/Language">
+
+    <xs:element name="smil">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="smil:head" minOccurs="0"/>
+                <xs:element name="body" type="smil:ContainerBody" minOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- ================== The Document Head =============================== -->
+    <xs:element name="head">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="meta" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:attribute name="name" type="xs:string" />
+                        <xs:attribute name="base" type="xs:string" />
+                        <xs:attribute name="content" type="xs:string" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="layout" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="root-layout">
+                                <xs:complexType>
+                                    <xs:attribute name="width" type="xs:unsignedByte" use="required" />
+                                    <xs:attribute name="height" type="xs:unsignedByte" use="required" />
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- =================== The Document Body - Timing Root ================= -->
+    <xs:complexType name="TimeContainer">
+        <xs:complexContent>
+            <xs:extension base="smil:ContainerBody">
+                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="audio" type="smil:Audio"/>
+                    <xs:element name="img" type="smil:Image"/>
+                    <xs:element name="ref" type="smil:Reference"/>
+                    <xs:element name="video" type="smil:Video"/>
+                </xs:choice>
+                <xs:attribute name="repeatCount" type="xs:int" use="optional" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Sequence">
+        <xs:complexContent>
+            <xs:extension base="smil:TimeContainer"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Parallel">
+        <xs:complexContent>
+            <xs:extension base="smil:TimeContainer"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="MutuallyExclusive">
+        <xs:complexContent>
+            <xs:extension base="smil:TimeContainer"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="None">
+        <xs:complexContent>
+            <xs:extension base="smil:TimeContainer"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ContainerBody">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element maxOccurs="unbounded" name="seq" type="smil:Sequence"/>
+            <xs:element maxOccurs="unbounded" name="par" type="smil:Parallel"/>
+            <xs:element maxOccurs="unbounded" name="exl" type="smil:MutuallyExclusive"/>
+            <xs:element maxOccurs="unbounded" name="none" type="smil:None"/>
+        </xs:choice>
+    </xs:complexType>
+
+    <xs:complexType name="Image">
+        <xs:complexContent>
+            <xs:extension base="smil:Reference"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Audio">
+        <xs:complexContent>
+            <xs:extension base="smil:Reference"/>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Video">
+        <xs:complexContent>
+            <xs:extension base="smil:Reference">
+                <xs:attribute name="clipBegin" type="xs:string" />
+                <xs:attribute name="clipEnd" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Reference">
+        <xs:attribute name="src" type="xs:string" use="required" />
+        <xs:attribute name="dur" type="xs:string" />
+        <xs:attribute name="repeatCount" type="xs:int" />
+        <xs:attribute name="type" type="xs:string" />
+    </xs:complexType>
+
+</xs:schema>

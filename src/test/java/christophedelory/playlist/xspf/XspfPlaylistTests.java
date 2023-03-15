@@ -8,7 +8,8 @@ import christophedelory.playlist.Playlist;
 
     import java.io.ByteArrayOutputStream;
 
-    import static org.junit.jupiter.api.Assertions.assertEquals;
+import static christophedelory.util.TestUtil.checkPlaylistItemSource;
+import static org.junit.jupiter.api.Assertions.assertEquals;
     import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DisplayName("XSPF Playlist Tests")
@@ -23,6 +24,9 @@ public class XspfPlaylistTests
         Playlist playlist = TestUtil.readPlaylistFrom("test02.xspf");
         assertNotNull(playlist, "playlist");
         assertEquals(3, playlist.getRootSequence().getComponents().length);
+        checkPlaylistItemSource(playlist, 0, "http://example.net/song_1.ogg");
+        checkPlaylistItemSource(playlist, 1, "http://example.net/song_2.flac");
+        checkPlaylistItemSource(playlist, 2, "http://example.com/song_3.mp3");
     }
 
     @Test

@@ -1,5 +1,6 @@
 package christophedelory.util;
 
+import christophedelory.playlist.Media;
 import christophedelory.playlist.Playlist;
 import christophedelory.playlist.SpecificPlaylistFactory;
 import christophedelory.playlist.SpecificPlaylistProvider;
@@ -9,6 +10,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,7 +19,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestUtil
 {
@@ -81,5 +84,14 @@ public class TestUtil
         {
         };
         return new ObjectMapper().readValue(jsonTestDataPath.toFile(), typeRef);
+    }
+
+    public static void checkPlaylistItemSource(final Playlist playlist, final int itemIndex, final String expectedUri) throws MalformedURLException, URISyntaxException
+    {
+        Object entry = playlist.getRootSequence().getComponents()[itemIndex];
+        assertTrue(entry instanceof Media, "Expect playlist media entry");
+        Media media = (Media) entry;
+        assertNotNull(media.getSource(), "Media source");
+        assertEquals(expectedUri, media.getSource().toString(), "Media source URL");
     }
 }

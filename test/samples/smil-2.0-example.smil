@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<smil
+        xmlns="http://www.w3.org/2001/SMIL20/Language">
+    <head>
+        <meta name="outputDescription" content="http://storage/main/sintel/sintel_dref.mp4"/>
+    </head>
+    <body>
+        <seq>
+            <video src="http://storage/ads/origin/origin08_x264.mp4"/>
+            <video src="http://storage/main/sintel/sintel_dref.mp4" clipEnd="wallclock(1970-01-01T00:00:30.000Z)"/>
+            <video src="http://storage/ads/capture/capture10_x264.mp4"/>
+            <video src="http://storage/main/sintel/sintel_dref.mp4" clipBegin="wallclock(1970-01-01T00:00:30.000Z)" clipEnd="wallclock(1970-01-01T00:01:00.000Z)"/>
+        </seq>
+    </body>
+</smil>
