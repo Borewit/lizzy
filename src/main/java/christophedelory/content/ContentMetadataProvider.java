@@ -24,8 +24,6 @@
  */
 package christophedelory.content;
 
-import org.apache.commons.logging.Log;
-
 /**
  * Fills the metadata of a given {@link Content content}.
  * @see ContentMetadataCenter
@@ -38,11 +36,10 @@ public interface ContentMetadataProvider
     /**
      * Fills if possible the metadata of the specified content.
      * @param content a content. Shall not be <code>null</code>.
-     * @param logger the logger that may be used during the metadata extraction process, if needed. Shall not be <code>null</code>.
      * @throws NullPointerException if <code>content</code> is <code>null</code>.
      * @throws NullPointerException if <code>logger</code> is <code>null</code>.
      * @throws Exception if any error occurs.
      * @see ContentMetadataCenter#fillMetadata
      */
-    void fillMetadata(Content content, Log logger) throws Exception;
+    void fillMetadata(Content content) throws Exception;
 }

@@ -24,21 +24,19 @@
  */
 package christophedelory.playlist.b4s;
 
-import java.io.InputStream;
-import java.util.List;
-
-import christophedelory.playlist.*;
-import io.github.borewit.playlist.b4s.WinampXML;
-import org.apache.commons.logging.Log;
-
 import christophedelory.content.type.ContentType;
 import christophedelory.player.PlayerSupport;
+import christophedelory.playlist.*;
+import io.github.borewit.playlist.b4s.WinampXML;
 
 import javax.xml.bind.JAXBElement;
+import java.io.InputStream;
+import java.util.List;
 
 /**
  * A proprietary XML-based format introduced in Winamp version 3.
  * Resembles iTunes library XML in many ways.
+ *
  * @author Borewit
  * @author Christophe Delory
  */
@@ -48,20 +46,20 @@ public class B4sProvider extends JaxbPlaylistProvider<WinampXML>
      * A list of compatible content types.
      */
     private static final ContentType[] FILETYPES =
-    {
-        new ContentType(new String[] { ".b4s", ".bpl" },
-                        new String[] { "text/xml" }, // FIXME Something better?
-                        new PlayerSupport[]
-                        {
-                            new PlayerSupport(PlayerSupport.Player.WINAMP, false, null),
-                            new PlayerSupport(PlayerSupport.Player.VLC_MEDIA_PLAYER, false, null),
-                        },
-                        "Winamp 3+ Playlist"),
-    };
+        {
+            new ContentType(new String[]{".b4s", ".bpl"},
+                new String[]{"text/xml"}, // FIXME Something better?
+                new PlayerSupport[]
+                    {
+                        new PlayerSupport(PlayerSupport.Player.WINAMP, false, null),
+                        new PlayerSupport(PlayerSupport.Player.VLC_MEDIA_PLAYER, false, null),
+                    },
+                "Winamp 3+ Playlist"),
+        };
 
     public B4sProvider()
     {
-        super(B4sProvider.class, WinampXML.class);
+        super(WinampXML.class);
     }
 
     @Override
@@ -77,7 +75,7 @@ public class B4sProvider extends JaxbPlaylistProvider<WinampXML>
     }
 
     @Override
-    public SpecificPlaylist readFrom(final InputStream in, final String encoding, final Log logger) throws Exception
+    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws Exception
     {
         final JAXBElement<WinampXML> winampXMLJAXBElement = this.unmarshal(in, encoding);
         String rootElementName = winampXMLJAXBElement.getName().getLocalPart();
@@ -100,7 +98,8 @@ public class B4sProvider extends JaxbPlaylistProvider<WinampXML>
 
     /**
      * Adds the specified generic playlist component, and all its childs if any, to the input playlist.
-     * @param playlist the parent playlist. Shall not be <code>null</code>.
+     *
+     * @param playlist  the parent playlist. Shall not be <code>null</code>.
      * @param component the generic playlist component to handle. Shall not be <code>null</code>.
      */
     private void addToPlaylist(final List<WinampXML.Playlist.Entry> playlist, final AbstractPlaylistComponent component)

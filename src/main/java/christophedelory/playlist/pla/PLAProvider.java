@@ -29,10 +29,11 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import christophedelory.playlist.*;
-import org.apache.commons.logging.Log;
 
 import christophedelory.content.type.ContentType;
 import christophedelory.player.PlayerSupport;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Playlist format for iRiver devices.
@@ -42,6 +43,8 @@ import christophedelory.player.PlayerSupport;
  */
 public class PLAProvider extends AbstractPlaylistProvider
 {
+    private final Logger logger = LogManager.getLogger(PLAProvider.class);
+
     /**
      * A list of compatible content types.
      */
@@ -54,11 +57,6 @@ public class PLAProvider extends AbstractPlaylistProvider
                         },
                         "iRiver iQuickList File"),
     };
-
-    public PLAProvider()
-    {
-        super(PLAProvider.class);
-    }
 
     @Override
     public String getId()
@@ -73,7 +71,7 @@ public class PLAProvider extends AbstractPlaylistProvider
     }
 
     @Override
-    public SpecificPlaylist readFrom(final InputStream in, final String encoding, final Log logger) throws Exception
+    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws Exception
     {
         PLA ret = new PLA();
         ret.setProvider(this);

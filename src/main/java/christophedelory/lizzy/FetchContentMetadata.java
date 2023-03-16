@@ -24,14 +24,13 @@
  */
 package christophedelory.lizzy;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import christophedelory.content.ContentMetadataCenter;
 import christophedelory.content.type.ContentType;
 import christophedelory.content.type.ContentTypeProvider;
 import christophedelory.playlist.BasePlaylistVisitor;
 import christophedelory.playlist.Media;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Fetches if possible the metadata of all media contents.
@@ -43,7 +42,7 @@ public class FetchContentMetadata extends BasePlaylistVisitor
     /**
      * The logger.
      */
-    private final Log _logger = LogFactory.getLog(getClass()); // May throw LogConfigurationException.
+    private final Logger logger = LogManager.getLogger(FetchContentMetadata.class);
 
     /**
      * Specifies if we must connect to the media content URL in order to fetch additional metadata.
@@ -73,7 +72,7 @@ public class FetchContentMetadata extends BasePlaylistVisitor
                 }
                 catch (Exception e)
                 {
-                    _logger.warn("Cannot access media content " + target.getSource(), e);
+                    logger.warn("Cannot access media content " + target.getSource(), e);
                 }
 
                 ContentMetadataCenter.getInstance().fillMetadata(target.getSource());
@@ -91,7 +90,7 @@ public class FetchContentMetadata extends BasePlaylistVisitor
             }
             catch (Exception e)
             {
-                _logger.warn("Cannot build URI for media content " + target.getSource(), e);
+                logger.warn("Cannot build URI for media content " + target.getSource(), e);
             }
         }
     }

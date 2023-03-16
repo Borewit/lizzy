@@ -24,10 +24,10 @@
  */
 package christophedelory.content;
 
-import java.util.ServiceLoader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import java.util.ServiceLoader;
 
 /**
  * Fills the metadata of a given {@link Content content} through {@link ContentMetadataProvider metadata providers}.
@@ -36,8 +36,9 @@ import org.apache.commons.logging.LogFactory;
  * <li>The content {@link Content#setDuration duration}</li>
  * <li>The content {@link Content#setWidth width} and {@link Content#setHeight height}</li>
  * </ul>
- * @version $Revision: 92 $
+ *
  * @author Christophe Delory
+ * @version $Revision: 92 $
  * @since 1.0.0
  */
 public final class ContentMetadataCenter
@@ -49,11 +50,12 @@ public final class ContentMetadataCenter
 
     /**
      * Returns the unique class instance.
+     *
      * @return an instance of this class. Shall not be <code>null</code>.
      */
     public static ContentMetadataCenter getInstance()
     {
-        synchronized(ContentMetadataCenter.class)
+        synchronized (ContentMetadataCenter.class)
         {
             if (_instance == null)
             {
@@ -72,14 +74,13 @@ public final class ContentMetadataCenter
     /**
      * The logger attached to this instance.
      */
-    private final Log _logger;
+    private final Logger logger = LogManager.getLogger(ContentMetadataCenter.class);
 
     /**
      * Builds a new content metadata center.
      */
     private ContentMetadataCenter()
     {
-        _logger = LogFactory.getLog(getClass()); // May throw LogConfigurationException.
         _serviceLoader = ServiceLoader.load(ContentMetadataProvider.class);
     }
 
@@ -94,6 +95,7 @@ public final class ContentMetadataCenter
 
     /**
      * Fills if possible the metadata of the specified content.
+     *
      * @param content a content. Shall not be <code>null</code>.
      * @return <code>true</code> if a provider recognized the format, <code>false</code> otherwise.
      * @throws NullPointerException if <code>content</code> is <code>null</code>.
@@ -107,7 +109,7 @@ public final class ContentMetadataCenter
         {
             try
             {
-                service.fillMetadata(content, _logger); // Throws NullPointerException if content is null. May throw Exception.
+                service.fillMetadata(content); // Throws NullPointerException if content is null. May throw Exception.
 
                 // If we reached this point, it's OK.
                 ret = true;
@@ -116,13 +118,13 @@ public final class ContentMetadataCenter
             catch (Throwable e)
             {
                 // Ignore it.
-                if (_logger.isTraceEnabled())
+                if (logger.isTraceEnabled())
                 {
-                    _logger.trace("Metadata provider " + service + " cannot handle content <" + content + ">", e);
+                    logger.trace("Metadata provider " + service + " cannot handle content <" + content + ">", e);
                 }
-                else if (_logger.isDebugEnabled())
+                else if (logger.isDebugEnabled())
                 {
-                    _logger.debug("Metadata provider " + service + " cannot handle content <" + content + ">: " + e);
+                    logger.debug("Metadata provider " + service + " cannot handle content <" + content + ">: " + e);
                 }
             }
         }

@@ -24,8 +24,8 @@
  */
 package christophedelory.playlist;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * The definition of the top-level element: the playlist.
@@ -37,7 +37,7 @@ public class Playlist
     /**
      * The instance logger.
      */
-    private static final Log _logger = LogFactory.getLog(Playlist.class); // May throw LogConfigurationException.
+    private final Logger logger = LogManager.getLogger(Playlist.class);
 
     /**
      * The normalization process.
@@ -83,7 +83,7 @@ public class Playlist
         catch (Exception e)
         {
             // Should not occur.
-            _logger.error("Unexpected error condition", e);
+            logger.error("Unexpected error condition", e);
         }
     }
 
@@ -92,13 +92,14 @@ public class Playlist
      */
     private static class Normalization extends BasePlaylistVisitor
     {
+        private final Logger logger = LogManager.getLogger(Normalization.class);
         @Override
         public void endVisitMedia(final Media target)
         {
             // Suppress media components with unspecified URI.
             if (target.getSource() == null)
             {
-                _logger.info("Removing media with no source: " + target);
+                logger.info("Removing media with no source: " + target);
                 target.getParent().removeComponent(target);
             }
         }
@@ -125,7 +126,7 @@ public class Playlist
                 {
                     final Sequence sequence = (Sequence) targetComponents[0];
 
-                    _logger.info("Merging root sequence " + target + " with its single child sequence " + sequence);
+                    logger.info("Merging root sequence " + target + " with its single child sequence " + sequence);
                     target.setRepeatCount(target.getRepeatCount() * sequence.getRepeatCount());
                     final AbstractPlaylistComponent[] components = sequence.getComponents();
                     target.removeComponent(sequence);
@@ -160,7 +161,7 @@ public class Playlist
                 if (componentsNumber == 0)
                 {
                     // Suppress empty time containers.
-                    _logger.info("Removing empty time container " + target);
+                    logger.info("Removing empty time container " + target);
                     targetParent.removeComponent(target);
                     // Done with this time container, as we just removed it from its parent's list.
                 }
@@ -168,7 +169,7 @@ public class Playlist
                 {
                     // Suppress a time container with a single media in it (in fact put it one level up), and multiply their repeat count if needed.
                     final AbstractPlaylistComponent[] targetComponents = target.getComponents();
-                    _logger.info("Replacing time container " + target + " with its single child component " + targetComponents[0]);
+                    logger.info("Replacing time container " + target + " with its single child component " + targetComponents[0]);
                     targetComponents[0].setRepeatCount(targetComponents[0].getRepeatCount() * target.getRepeatCount());
                     target.removeComponent(targetComponents[0]);
                     targetParent.removeComponent(target);
@@ -227,7 +228,7 @@ public class Playlist
                     {
                         final Sequence newSequence = new Sequence(); // NOPMD Avoid instantiating new objects inside loops
                         newSequence.setRepeatCount(1 + upTo - i);
-                        _logger.info("Merging " + newSequence.getRepeatCount() + " identical media in a new sequence");
+                        logger.info("Merging " + newSequence.getRepeatCount() + " identical media in a new sequence");
                         target.addComponent(i, newSequence); // Shall not throw IndexOutOfBoundsException.
 
                         for (int j = i; j <= upTo; j++)
@@ -264,7 +265,7 @@ public class Playlist
                     if (seq1.getRepeatCount() == seq2.getRepeatCount())
                     {
                         // Append the components of the last (second) sequence to the first one.
-                        _logger.info("Merging sequence " + seq2 + " in sequence " + seq1);
+                        logger.info("Merging sequence " + seq2 + " in sequence " + seq1);
                         final AbstractPlaylistComponent[] components = seq2.getComponents();
 
                         for (AbstractPlaylistComponent component : components)

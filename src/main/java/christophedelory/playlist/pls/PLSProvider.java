@@ -28,7 +28,8 @@ import christophedelory.content.type.ContentType;
 import christophedelory.player.PlayerSupport;
 import christophedelory.playlist.*;
 import christophedelory.playlist.m3u.Resource;
-import org.apache.commons.logging.Log;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -47,6 +48,8 @@ import java.util.List;
  */
 public class PLSProvider extends AbstractPlaylistProvider
 {
+    private final Logger logger = LogManager.getLogger(PLSProvider.class);
+
     /**
      * A list of compatible content types.
      */
@@ -68,11 +71,6 @@ public class PLSProvider extends AbstractPlaylistProvider
                 "Winamp PLSv2 Playlist"),
         };
 
-    public PLSProvider()
-    {
-        super(PLSProvider.class);
-    }
-
     @Override
     public String getId()
     {
@@ -86,7 +84,7 @@ public class PLSProvider extends AbstractPlaylistProvider
     }
 
     @Override
-    public SpecificPlaylist readFrom(final InputStream in, final String encoding, final Log logger) throws Exception
+    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws Exception
     {
         String enc = encoding;
 

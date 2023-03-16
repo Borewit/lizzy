@@ -24,22 +24,21 @@
  */
 package christophedelory.playlist.m3u;
 
+import christophedelory.content.type.ContentType;
+import christophedelory.player.PlayerSupport;
+import christophedelory.playlist.*;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Locale;
 
-import christophedelory.playlist.*;
-import org.apache.commons.logging.Log;
-
-import christophedelory.content.type.ContentType;
-import christophedelory.player.PlayerSupport;
-
 /**
  * A simple text-based list of the locations of the items, with each item on a new line.
- * @version $Revision: 91 $
+ *
  * @author Christophe Delory
+ * @version $Revision: 91 $
  */
 public class M3UProvider extends AbstractPlaylistProvider
 {
@@ -47,50 +46,45 @@ public class M3UProvider extends AbstractPlaylistProvider
      * A list of compatible content types.
      */
     private static final ContentType[] FILETYPES =
-    {
-        new ContentType(new String[] { ".m3u" },
-                        new String[] { "audio/x-mpegurl", "audio/mpegurl" },
-                        new PlayerSupport[]
-                        {
-                            new PlayerSupport(PlayerSupport.Player.WINAMP, true, null),
-                            new PlayerSupport(PlayerSupport.Player.VLC_MEDIA_PLAYER, true, null),
-                            new PlayerSupport(PlayerSupport.Player.WINDOWS_MEDIA_PLAYER, true, null),
-                            new PlayerSupport(PlayerSupport.Player.MEDIA_PLAYER_CLASSIC, true, null),
-                            new PlayerSupport(PlayerSupport.Player.FOOBAR2000, true, null),
-                            new PlayerSupport(PlayerSupport.Player.MPLAYER, true, null),
-                            new PlayerSupport(PlayerSupport.Player.QUICKTIME, true, null),
-                            new PlayerSupport(PlayerSupport.Player.ITUNES, true, null),
-                            new PlayerSupport(PlayerSupport.Player.REALPLAYER, false, null),
-                        },
-                        "Winamp M3U"),
-        new ContentType(new String[] { ".m3u8" },
-                        new String[] { "audio/x-mpegurl", "audio/mpegurl" },
-                        new PlayerSupport[]
-                        {
-                            new PlayerSupport(PlayerSupport.Player.WINAMP, true, null),
-                            new PlayerSupport(PlayerSupport.Player.FOOBAR2000, true, null),
-                        },
-                        "Winamp M3U8"),
-        new ContentType(new String[] { ".m4u" },
-                        new String[] { "video/x-mpegurl" },
-                        new PlayerSupport[]
-                        {
-                        },
-                        "M4U Playlist"),
-        new ContentType(new String[] { ".ram" },
-                        new String[] { "audio/vnd.rn-realaudio", "audio/x-pn-realaudio" },
-                        new PlayerSupport[]
-                        {
-                            new PlayerSupport(PlayerSupport.Player.MEDIA_PLAYER_CLASSIC, false, null),
-                            new PlayerSupport(PlayerSupport.Player.REALPLAYER, false, null),
-                        },
-                        "Real Audio Metadata (RAM)"),
-    };
-
-    public M3UProvider()
-    {
-        super(M3UProvider.class);
-    }
+        {
+            new ContentType(new String[]{".m3u"},
+                new String[]{"audio/x-mpegurl", "audio/mpegurl"},
+                new PlayerSupport[]
+                    {
+                        new PlayerSupport(PlayerSupport.Player.WINAMP, true, null),
+                        new PlayerSupport(PlayerSupport.Player.VLC_MEDIA_PLAYER, true, null),
+                        new PlayerSupport(PlayerSupport.Player.WINDOWS_MEDIA_PLAYER, true, null),
+                        new PlayerSupport(PlayerSupport.Player.MEDIA_PLAYER_CLASSIC, true, null),
+                        new PlayerSupport(PlayerSupport.Player.FOOBAR2000, true, null),
+                        new PlayerSupport(PlayerSupport.Player.MPLAYER, true, null),
+                        new PlayerSupport(PlayerSupport.Player.QUICKTIME, true, null),
+                        new PlayerSupport(PlayerSupport.Player.ITUNES, true, null),
+                        new PlayerSupport(PlayerSupport.Player.REALPLAYER, false, null),
+                    },
+                "Winamp M3U"),
+            new ContentType(new String[]{".m3u8"},
+                new String[]{"audio/x-mpegurl", "audio/mpegurl"},
+                new PlayerSupport[]
+                    {
+                        new PlayerSupport(PlayerSupport.Player.WINAMP, true, null),
+                        new PlayerSupport(PlayerSupport.Player.FOOBAR2000, true, null),
+                    },
+                "Winamp M3U8"),
+            new ContentType(new String[]{".m4u"},
+                new String[]{"video/x-mpegurl"},
+                new PlayerSupport[]
+                    {
+                    },
+                "M4U Playlist"),
+            new ContentType(new String[]{".ram"},
+                new String[]{"audio/vnd.rn-realaudio", "audio/x-pn-realaudio"},
+                new PlayerSupport[]
+                    {
+                        new PlayerSupport(PlayerSupport.Player.MEDIA_PLAYER_CLASSIC, false, null),
+                        new PlayerSupport(PlayerSupport.Player.REALPLAYER, false, null),
+                    },
+                "Real Audio Metadata (RAM)"),
+        };
 
     @Override
     public String getId()
@@ -105,7 +99,7 @@ public class M3UProvider extends AbstractPlaylistProvider
     }
 
     @Override
-    public SpecificPlaylist readFrom(final InputStream in, final String encoding, final Log logger) throws Exception
+    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws Exception
     {
         String enc = encoding;
 
@@ -194,6 +188,7 @@ public class M3UProvider extends AbstractPlaylistProvider
 
     /**
      * Adds the resources referenced in the specified generic playlist component to the input list.
+     *
      * @param resources the resulting list of resources. Shall not be <code>null</code>.
      * @param component the generic playlist component to handle. Shall not be <code>null</code>.
      */

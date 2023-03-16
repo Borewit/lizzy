@@ -24,28 +24,21 @@
  */
 package christophedelory.playlist.atom;
 
+import christophedelory.atom.*;
+import christophedelory.content.type.ContentType;
+import christophedelory.player.PlayerSupport;
+import christophedelory.playlist.*;
+import christophedelory.xml.Version;
+import christophedelory.xml.XmlSerializer;
+
 import java.io.File;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Date;
 
-import christophedelory.playlist.*;
-import org.apache.commons.logging.Log;
-
-import christophedelory.atom.Entry;
-import christophedelory.atom.Feed;
-import christophedelory.atom.Generator;
-import christophedelory.atom.Link;
-import christophedelory.atom.Person;
-import christophedelory.atom.TextContainer;
-import christophedelory.atom.URIContainer;
-import christophedelory.content.type.ContentType;
-import christophedelory.player.PlayerSupport;
-import christophedelory.xml.Version;
-import christophedelory.xml.XmlSerializer;
-
 /**
  * The Atom playlist provider.
+ *
  * @author Christophe Delory
  */
 public class AtomProvider extends AbstractPlaylistProvider
@@ -54,19 +47,14 @@ public class AtomProvider extends AbstractPlaylistProvider
      * A list of compatible content types.
      */
     private static final ContentType[] FILETYPES =
-    {
-        new ContentType(new String[] { ".atom", ".xml" },
-                        new String[] { "application/atom+xml" },
-                        new PlayerSupport[]
-                        {
-                        },
-                        "Atom Document"),
-    };
-
-    public AtomProvider()
-    {
-        super(AtomProvider.class);
-    }
+        {
+            new ContentType(new String[]{".atom", ".xml"},
+                new String[]{"application/atom+xml"},
+                new PlayerSupport[]
+                    {
+                    },
+                "Atom Document"),
+        };
 
     @Override
     public String getId()
@@ -81,7 +69,7 @@ public class AtomProvider extends AbstractPlaylistProvider
     }
 
     @Override
-    public SpecificPlaylist readFrom(final InputStream in, final String encoding, final Log logger) throws Exception
+    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws Exception
     {
         // Unmarshal the SMIL playlist.
         final XmlSerializer serializer = XmlSerializer.getMapping("christophedelory/atom"); // May throw Exception.
@@ -140,11 +128,12 @@ public class AtomProvider extends AbstractPlaylistProvider
 
     /**
      * Adds the specified generic playlist component, and all its childs if any, to the input Atom feed.
-     * @param feed the parent Atom feed. Shall not be <code>null</code>.
+     *
+     * @param feed      the parent Atom feed. Shall not be <code>null</code>.
      * @param component the generic playlist component to handle. Shall not be <code>null</code>.
      * @throws NullPointerException if <code>feed</code> is <code>null</code>.
      * @throws NullPointerException if <code>component</code> is <code>null</code>.
-     * @throws Exception if this service provider is unable to represent the input playlist.
+     * @throws Exception            if this service provider is unable to represent the input playlist.
      */
     @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
     private void addToPlaylist(final Feed feed, final AbstractPlaylistComponent component) throws Exception
@@ -199,7 +188,7 @@ public class AtomProvider extends AbstractPlaylistProvider
 
                     if (media.getSource().getLength() >= 0L) // NOPMD Deeply nested if..then statements are hard to read
                     {
-                        link.setLength(Long.valueOf(media.getSource().getLength()));
+                        link.setLength(media.getSource().getLength());
                     }
 
                     entry.addLink(link);

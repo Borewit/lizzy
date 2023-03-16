@@ -1,7 +1,7 @@
 package christophedelory.playlist;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,19 +11,15 @@ import java.nio.charset.StandardCharsets;
 
 public abstract class AbstractPlaylistProvider implements SpecificPlaylistProvider
 {
-  protected final Log logger;
-
-  public AbstractPlaylistProvider(Class clazz) {
-    this.logger = LogFactory.getLog(clazz);
-  }
+  private final Logger logger = LogManager.getLogger(AbstractPlaylistProvider.class);
 
   public SpecificPlaylist readFrom(final InputStream in) throws Exception {
-    return this.readFrom(in, null, logger);
+    return this.readFrom(in, null);
   }
 
   @Override
   public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws Exception {
-    return this.readFrom(in, encoding, logger);
+    return this.readFrom(in, encoding);
   }
 
   protected final InputStreamReader preProcessXml(final InputStream in, final String encoding) throws IOException

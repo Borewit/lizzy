@@ -24,21 +24,19 @@
  */
 package christophedelory.playlist.rmp;
 
+import christophedelory.content.type.ContentType;
+import christophedelory.player.PlayerSupport;
+import christophedelory.playlist.*;
+import christophedelory.xml.Version;
+import io.github.borewit.playlist.rmp.RmpPackage;
+
+import javax.xml.bind.JAXBElement;
 import java.io.InputStream;
 import java.util.List;
 
-import christophedelory.playlist.*;
-import io.github.borewit.playlist.rmp.RmpPackage;
-
-import christophedelory.content.type.ContentType;
-import christophedelory.player.PlayerSupport;
-import christophedelory.xml.Version;
-import org.apache.commons.logging.Log;
-
-import javax.xml.bind.JAXBElement;
-
 /**
  * The Real Metadata Package playlist file.
+ *
  * @author Borewit
  * @author Christophe Delory
  * @since 0.3.0
@@ -49,19 +47,19 @@ public class RmpProvider extends JaxbPlaylistProvider<RmpPackage>
      * A list of compatible content types.
      */
     private static final ContentType[] FILETYPES =
-    {
-        new ContentType(new String[] { ".rmp" },
-                        new String[] { "application/vnd.rn-rn_music_package" },
-                        new PlayerSupport[]
-                        {
-                            new PlayerSupport(PlayerSupport.Player.REALPLAYER, true, null),
-                        },
-                        "Real Metadata Package (RMP)"),
-    };
+        {
+            new ContentType(new String[]{".rmp"},
+                new String[]{"application/vnd.rn-rn_music_package"},
+                new PlayerSupport[]
+                    {
+                        new PlayerSupport(PlayerSupport.Player.REALPLAYER, true, null),
+                    },
+                "Real Metadata Package (RMP)"),
+        };
 
     public RmpProvider()
     {
-        super(RmpProvider.class, RmpPackage.class);
+        super(RmpPackage.class);
     }
 
     @Override
@@ -77,7 +75,7 @@ public class RmpProvider extends JaxbPlaylistProvider<RmpPackage>
     }
 
     @Override
-    public SpecificPlaylist readFrom(final InputStream in, final String encoding, final Log logger) throws Exception
+    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws Exception
     {
         final JAXBElement<RmpPackage> rmp = this.unmarshal(in, encoding);
         String rootElementName = rmp.getName().getLocalPart();
@@ -111,11 +109,12 @@ public class RmpProvider extends JaxbPlaylistProvider<RmpPackage>
 
         addToPlaylist(tracklist.getTRACK(), playlist.getRootSequence()); // May throw Exception.
 
-        return  new RmpPlaylistAdapter(this, rmpPackage);
+        return new RmpPlaylistAdapter(this, rmpPackage);
     }
 
     /**
      * Adds the specified generic playlist component, and all its childs if any, to the input track list.
+     *
      * @param trackList the parent track list. Shall not be <code>null</code>.
      * @param component the generic playlist component to handle. Shall not be <code>null</code>.
      */
@@ -174,7 +173,7 @@ public class RmpProvider extends JaxbPlaylistProvider<RmpPackage>
 
                     if (media.getSource().getDuration() >= 0L) // NOPMD Deeply nested if..then statements are hard to read
                     {
-                        track.setDURATION((int)(media.getSource().getDuration() / 1000L)); // Shall not throw IllegalArgumentException.
+                        track.setDURATION((int) (media.getSource().getDuration() / 1000L)); // Shall not throw IllegalArgumentException.
                     }
 
                     // TODO setFormat()?

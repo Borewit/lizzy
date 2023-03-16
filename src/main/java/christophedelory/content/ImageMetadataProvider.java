@@ -29,8 +29,6 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 
-import org.apache.commons.logging.Log;
-
 /**
  * A content metadata provider based on a AWT {@link BufferedImage}.
  * GIF, PNG, JPEG, BMP, and WBMP formats are supported.
@@ -41,7 +39,7 @@ import org.apache.commons.logging.Log;
 public class ImageMetadataProvider implements ContentMetadataProvider
 {
     @Override
-    public void fillMetadata(final Content content, final Log logger) throws Exception
+    public void fillMetadata(final Content content) throws Exception
     {
         final URL url = content.getURL(); // Throws NullPointerException if content is null. May throw SecurityException, IllegalArgumentException, MalformedURLException.
 

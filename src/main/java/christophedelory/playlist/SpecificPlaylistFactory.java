@@ -34,10 +34,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ServiceLoader;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import christophedelory.content.type.ContentType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * The {@link SpecificPlaylist playlist} factory.
@@ -76,14 +75,13 @@ public final class SpecificPlaylistFactory
     /**
      * The logger attached to this provider factory.
      */
-    private final Log _logger;
+    private final Logger logger = LogManager.getLogger(SpecificPlaylistFactory.class);
 
     /**
      * Builds a new specific playlist factory.
      */
     private SpecificPlaylistFactory()
     {
-        _logger = LogFactory.getLog(getClass()); // May throw LogConfigurationException.
         _serviceLoader = ServiceLoader.load(SpecificPlaylistProvider.class);
     }
 
@@ -128,20 +126,20 @@ public final class SpecificPlaylistFactory
             final InputStream in = urlConnection.getInputStream(); // May throw IOException, UnknownServiceException.
             try
             {
-                ret = service.readFrom(in, contentEncoding, _logger); // May throw Exception. Shall not throw NullPointerException because of in.
+                ret = service.readFrom(in, contentEncoding); // May throw Exception. Shall not throw NullPointerException because of in.
                 if (ret == null) continue;
                 break;
             }
             catch (Exception e)
             {
                 // Ignore it.
-                if (_logger.isTraceEnabled())
+                if (logger.isTraceEnabled())
                 {
-                    _logger.trace("Playlist provider " + service.getId() + " cannot unmarshal <" + url + ">", e);
+                    logger.trace("Playlist provider " + service.getId() + " cannot unmarshal <" + url + ">", e);
                 }
-                else if (_logger.isDebugEnabled())
+                else if (logger.isDebugEnabled())
                 {
-                    _logger.debug("Playlist provider " + service.getId() + " cannot unmarshal <" + url + ">: " + e);
+                    logger.debug("Playlist provider " + service.getId() + " cannot unmarshal <" + url + ">: " + e);
                 }
             }
             finally
