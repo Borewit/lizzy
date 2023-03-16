@@ -24,6 +24,9 @@
  */
 package christophedelory.content;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.net.URL;
 
 import javax.sound.midi.MidiFileFormat;
@@ -32,8 +35,6 @@ import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
-
-import org.apache.commons.logging.Log;
 
 /**
  * A content metadata provider based on the <a href="http://java.sun.com/products/java-media/sound/index.jsp">Java Sound API</a>.
@@ -44,8 +45,10 @@ import org.apache.commons.logging.Log;
  */
 public class SoundMetadataProvider implements ContentMetadataProvider
 {
+    private final Logger logger = LogManager.getLogger(SoundMetadataProvider.class);
+
     @Override
-    public void fillMetadata(final Content content, final Log logger) throws Exception
+    public void fillMetadata(final Content content) throws Exception
     {
         final URL url = content.getURL(); // Throws NullPointerException if content is null. May throw SecurityException, IllegalArgumentException, MalformedURLException.
 

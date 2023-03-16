@@ -30,7 +30,6 @@ import christophedelory.playlist.*;
 import io.github.borewit.playlist.xspf.XspfPlaylist;
 import io.github.borewit.playlist.xspf.XspfTrack;
 import io.github.borewit.playlist.xspf.XspfTrackList;
-import org.apache.commons.logging.Log;
 
 import javax.xml.bind.JAXBElement;
 import java.io.InputStream;
@@ -64,7 +63,7 @@ public class XspfProvider extends JaxbPlaylistProvider<XspfPlaylist>
 
     public XspfProvider()
     {
-        super(XspfProvider.class, XspfPlaylist.class);
+        super(XspfPlaylist.class);
     }
 
     @Override
@@ -80,7 +79,7 @@ public class XspfProvider extends JaxbPlaylistProvider<XspfPlaylist>
     }
 
     @Override
-    public SpecificPlaylist readFrom(final InputStream in, final String encoding, final Log logger) throws Exception
+    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws Exception
     {
         final JAXBElement<XspfPlaylist> xspfPlaylist = this.unmarshal(in, encoding);
         String rootElementName = xspfPlaylist.getName().getLocalPart();
@@ -96,8 +95,7 @@ public class XspfProvider extends JaxbPlaylistProvider<XspfPlaylist>
         XspfPlaylist xspfPlaylist = new XspfPlaylist();
         xspfPlaylist.setTrackList(xspfTrackList);
 
-        XspfPlaylistAdapter ret = new XspfPlaylistAdapter(this, xspfPlaylist);
-        return ret;
+        return new XspfPlaylistAdapter(this, xspfPlaylist);
     }
 
     /**

@@ -28,7 +28,6 @@ import christophedelory.content.type.ContentType;
 import christophedelory.player.PlayerSupport;
 import christophedelory.playlist.*;
 import io.github.borewit.playlist.asx.*;
-import org.apache.commons.logging.Log;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.stream.XMLStreamException;
@@ -91,7 +90,7 @@ public class AsxProvider extends JaxbPlaylistProvider<Asx>
 
     public AsxProvider()
     {
-        super(AsxProvider.class, Asx.class);
+        super(Asx.class);
     }
 
     @Override
@@ -107,7 +106,7 @@ public class AsxProvider extends JaxbPlaylistProvider<Asx>
     }
 
     @Override
-    public SpecificPlaylist readFrom(final InputStream in, final String encoding, final Log logger) throws Exception
+    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws Exception
     {
         final JAXBElement<Asx> asx = this.unmarshal(in, encoding);
         String rootElementName = asx.getName().getLocalPart();

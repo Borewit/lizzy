@@ -24,19 +24,18 @@
  */
 package christophedelory.playlist.wpl;
 
-import java.io.InputStream;
-
-import christophedelory.playlist.*;
-import org.apache.commons.logging.Log;
-
 import christophedelory.content.type.ContentType;
 import christophedelory.player.PlayerSupport;
+import christophedelory.playlist.*;
 import christophedelory.xml.XmlSerializer;
+
+import java.io.InputStream;
 
 /**
  * WPL (Windows Media Player Playlist) is a proprietary XML file format used in Microsoft Windows Media Player versions 9-11.
- * @version $Revision: 91 $
+ *
  * @author Christophe Delory
+ * @version $Revision: 91 $
  */
 public class WplProvider extends AbstractPlaylistProvider
 {
@@ -44,21 +43,16 @@ public class WplProvider extends AbstractPlaylistProvider
      * A list of compatible content types.
      */
     private static final ContentType[] FILETYPES =
-    {
-        new ContentType(new String[] { ".wpl" },
-                        new String[] { "application/vnd.ms-wpl" },
-                        new PlayerSupport[]
-                        {
-                            new PlayerSupport(PlayerSupport.Player.WINAMP, false, null),
-                            new PlayerSupport(PlayerSupport.Player.WINDOWS_MEDIA_PLAYER, true, null),
-                        },
-                        "Windows Media Player Playlist (WPL)"),
-    };
-
-    public WplProvider()
-    {
-        super(WplProvider.class);
-    }
+        {
+            new ContentType(new String[]{".wpl"},
+                new String[]{"application/vnd.ms-wpl"},
+                new PlayerSupport[]
+                    {
+                        new PlayerSupport(PlayerSupport.Player.WINAMP, false, null),
+                        new PlayerSupport(PlayerSupport.Player.WINDOWS_MEDIA_PLAYER, true, null),
+                    },
+                "Windows Media Player Playlist (WPL)"),
+        };
 
     @Override
     public String getId()
@@ -73,7 +67,7 @@ public class WplProvider extends AbstractPlaylistProvider
     }
 
     @Override
-    public SpecificPlaylist readFrom(final InputStream in, final String encoding, final Log logger) throws Exception
+    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws Exception
     {
         // Unmarshal the WPL playlist.
         final XmlSerializer serializer = XmlSerializer.getMapping("christophedelory/playlist/wpl"); // May throw Exception.
@@ -108,7 +102,8 @@ public class WplProvider extends AbstractPlaylistProvider
 
     /**
      * Adds the specified generic playlist component, and all its childs if any, to the input sequence.
-     * @param wplSeq the parent sequence. Shall not be <code>null</code>.
+     *
+     * @param wplSeq    the parent sequence. Shall not be <code>null</code>.
      * @param component the generic playlist component to handle. Shall not be <code>null</code>.
      */
     private void addToPlaylist(final Seq wplSeq, final AbstractPlaylistComponent component)

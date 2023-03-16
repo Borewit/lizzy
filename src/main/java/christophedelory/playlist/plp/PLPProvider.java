@@ -24,42 +24,40 @@
  */
 package christophedelory.playlist.plp;
 
+import christophedelory.content.type.ContentType;
+import christophedelory.player.PlayerSupport;
+import christophedelory.playlist.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
-import christophedelory.playlist.*;
-import org.apache.commons.logging.Log;
-
-import christophedelory.content.type.ContentType;
-import christophedelory.player.PlayerSupport;
-
 /**
  * The PLP playlist format, which lists locations of files in a standard text format.
- * @version $Revision: 91 $
+ *
  * @author Christophe Delory
+ * @version $Revision: 91 $
  * @since 0.2.0
  */
 public class PLPProvider extends AbstractPlaylistProvider
 {
+    private final Logger logger = LogManager.getLogger(PLPProvider.class);
 
     /**
      * A list of compatible content types.
      */
     private static final ContentType[] FILETYPES =
-    {
-        new ContentType(new String[] { ".plp" },
-                        new String[] { "text/plain" }, // FIXME
-                        new PlayerSupport[]
-                        {
-                        },
-                        "Sansa Playlist File"),
-    };
-
-    public PLPProvider() {
-        super(PLPProvider.class);
-    }
+        {
+            new ContentType(new String[]{".plp"},
+                new String[]{"text/plain"}, // FIXME
+                new PlayerSupport[]
+                    {
+                    },
+                "Sansa Playlist File"),
+        };
 
     @Override
     public String getId()
@@ -74,7 +72,7 @@ public class PLPProvider extends AbstractPlaylistProvider
     }
 
     @Override
-    public SpecificPlaylist readFrom(final InputStream in, final String encoding, final Log logger) throws Exception
+    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws Exception
     {
         String enc = encoding;
 
@@ -172,6 +170,7 @@ public class PLPProvider extends AbstractPlaylistProvider
 
     /**
      * Adds the song file names referenced in the specified generic playlist component to the input list.
+     *
      * @param filenames the resulting list of file names. Shall not be <code>null</code>.
      * @param component the generic playlist component to handle. Shall not be <code>null</code>.
      */

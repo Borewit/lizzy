@@ -24,22 +24,22 @@
  */
 package christophedelory.playlist;
 
-import java.io.InputStream;
-
-import org.apache.commons.logging.Log;
-
 import christophedelory.content.type.ContentType;
+
+import java.io.InputStream;
 
 /**
  * A specific playlist provider manages a given type of playlist (for example ASX or M3U).
  * Concrete classes must have a zero-argument constructor so that they can be instantiated during loading.
- * @version $Revision: 92 $
+ *
  * @author Christophe Delory
+ * @version $Revision: 92 $
  */
 public interface SpecificPlaylistProvider
 {
     /**
      * Returns a unique string identifying the type of specific playlists handled by this provider.
+     *
      * @return a playlist identifier. Shall not be <code>null</code>.
      */
     String getId();
@@ -47,6 +47,7 @@ public interface SpecificPlaylistProvider
     /**
      * Returns a list of one or more content types representing the playlists compatible with this provider.
      * The list should be ordered from the most used / recommended to the least one.
+     *
      * @return a list of content types. Shall not be <code>null</code> nor empty.
      */
     ContentType[] getContentTypes();
@@ -54,11 +55,12 @@ public interface SpecificPlaylistProvider
     /**
      * Reads a playlist from the specified input stream.
      * When done, the stream remains open.
+     *
      * @param in an input stream. Shall not be <code>null</code>.
      * @return a new playlist instance, or <code>null</code> if the format has been recognized, but the playlist is malformed.
      * @throws NullPointerException if <code>in</code> is <code>null</code>.
      * @throws NullPointerException if <code>logger</code> is <code>null</code>.
-     * @throws Exception if any error occurs during the unmarshalling process.
+     * @throws Exception            if any error occurs during the unmarshalling process.
      * @see SpecificPlaylist#writeTo
      * @see SpecificPlaylistFactory#readFrom
      */
@@ -67,39 +69,26 @@ public interface SpecificPlaylistProvider
     /**
      * Reads a playlist from the specified input stream.
      * When done, the stream remains open.
-     * @param in an input stream. Shall not be <code>null</code>.
+     *
+     * @param in       an input stream. Shall not be <code>null</code>.
      * @param encoding the content encoding of the input resource, or <code>null</code> if not known.
      * @return a new playlist instance, or <code>null</code> if the format has been recognized, but the playlist is malformed.
      * @throws NullPointerException if <code>in</code> is <code>null</code>.
      * @throws NullPointerException if <code>logger</code> is <code>null</code>.
-     * @throws Exception if any error occurs during the unmarshalling process.
-     * @see SpecificPlaylist#writeTo
+     * @throws Exception            if any error occurs during the unmarshalling process.
+     * @see #readFrom(InputStream, String)
      * @see SpecificPlaylistFactory#readFrom
+     * @see SpecificPlaylist#writeTo
      */
     SpecificPlaylist readFrom(InputStream in, String encoding) throws Exception;
 
     /**
-     * Reads a playlist from the specified input stream.
-     * When done, the stream remains open.
-     * @param in an input stream. Shall not be <code>null</code>.
-     * @param encoding the content encoding of the input resource, or <code>null</code> if not known.
-     * @param logger the logger that may be used during the unmarshalling process, if needed. Shall not be <code>null</code>.
-     * @return a new playlist instance, or <code>null</code> if the format has been recognized, but the playlist is malformed.
-     * @throws NullPointerException if <code>in</code> is <code>null</code>.
-     * @throws NullPointerException if <code>logger</code> is <code>null</code>.
-     * @throws Exception if any error occurs during the unmarshalling process.
-     * @see #readFrom(InputStream, String) 
-     * @see SpecificPlaylistFactory#readFrom
-     * @see SpecificPlaylist#writeTo
-     */
-    SpecificPlaylist readFrom(InputStream in, String encoding, Log logger) throws Exception;
-
-    /**
      * Builds a specific representation of the given generic playlist.
+     *
      * @param playlist a generic playlist. Shall not be <code>null</code>.
      * @return a specific service playlist. Shall not be <code>null</code>.
      * @throws NullPointerException if <code>playlist</code> is <code>null</code>.
-     * @throws Exception if this service provider is unable to represent the input playlist.
+     * @throws Exception            if this service provider is unable to represent the input playlist.
      * @see SpecificPlaylist#toPlaylist
      */
     SpecificPlaylist toSpecificPlaylist(Playlist playlist) throws Exception;

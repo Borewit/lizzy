@@ -13,9 +13,8 @@ public abstract class JaxbPlaylistProvider<T> extends AbstractPlaylistProvider
     private final Class<T> xmlClass;
     private JAXBContext jaxbContext = null;
 
-    public JaxbPlaylistProvider(Class proveriderClass, Class<T> xmlClass)
+    public JaxbPlaylistProvider(Class<T> xmlClass)
     {
-        super(proveriderClass);
         this.xmlClass = xmlClass;
     }
 

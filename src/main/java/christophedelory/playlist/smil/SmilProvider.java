@@ -28,8 +28,6 @@ import christophedelory.content.type.ContentType;
 import christophedelory.player.PlayerSupport;
 import christophedelory.playlist.*;
 import io.github.borewit.playlist.smil20.*;
-import org.apache.commons.logging.Log;
-
 import javax.xml.bind.JAXBElement;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -66,7 +64,7 @@ public class SmilProvider extends JaxbPlaylistProvider<Smil>
 
     public SmilProvider()
     {
-        super(SmilProvider.class, Smil.class);
+        super(Smil.class);
     }
 
     @Override
@@ -82,7 +80,7 @@ public class SmilProvider extends JaxbPlaylistProvider<Smil>
     }
 
     @Override
-    public SpecificPlaylist readFrom(final InputStream in, final String encoding, final Log logger) throws Exception
+    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws Exception
     {
         final JAXBElement<Smil> smil = this.unmarshal(in, encoding);
         String rootElementName = smil.getName().getLocalPart();

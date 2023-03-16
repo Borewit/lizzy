@@ -24,25 +24,22 @@
  */
 package christophedelory.playlist.plist;
 
+import christophedelory.content.type.ContentType;
+import christophedelory.player.PlayerSupport;
+import christophedelory.playlist.*;
+import christophedelory.xml.Version;
+import com.dd.plist.*;
+
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
-import christophedelory.playlist.*;
-import com.dd.plist.*;
-import org.apache.commons.logging.Log;
-
-import christophedelory.content.type.ContentType;
-import christophedelory.player.PlayerSupport;
-
-import christophedelory.xml.Version;
-
 /**
  * The iTunes library format.
- * @version $Revision: 90 $
+ *
  * @author Christophe Delory
+ * @version $Revision: 90 $
  */
 public class PlistProvider extends AbstractPlaylistProvider
 {
@@ -50,20 +47,15 @@ public class PlistProvider extends AbstractPlaylistProvider
      * A list of compatible content types.
      */
     private static final ContentType[] FILETYPES =
-    {
-        new ContentType(new String[] { ".plist", ".xml" },
-                        new String[] { "text/xml" },
-                        new PlayerSupport[]
-                        {
-                            new PlayerSupport(PlayerSupport.Player.ITUNES, true, null),
-                        },
-                        "iTunes Library File"),
-    };
-
-    public PlistProvider()
-    {
-        super(PlistProvider.class);
-    }
+        {
+            new ContentType(new String[]{".plist", ".xml"},
+                new String[]{"text/xml"},
+                new PlayerSupport[]
+                    {
+                        new PlayerSupport(PlayerSupport.Player.ITUNES, true, null),
+                    },
+                "iTunes Library File"),
+        };
 
     @Override
     public String getId()
@@ -78,7 +70,7 @@ public class PlistProvider extends AbstractPlaylistProvider
     }
 
     @Override
-    public SpecificPlaylist readFrom(final InputStream in, final String encoding, final Log logger) throws Exception
+    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws Exception
     {
         NSDictionary plist = (NSDictionary) PropertyListParser.parse(in);
         final PlistPlaylist ret = new PlistPlaylist(this);
@@ -122,8 +114,9 @@ public class PlistProvider extends AbstractPlaylistProvider
 
     /**
      * Adds the specified generic playlist component, and all its childs if any, to the input track list and playlist.
-     * @param tracks the list of tracks. Shall not be <code>null</code>.
-     * @param playlist the playlist. Shall not be <code>null</code>.
+     *
+     * @param tracks    the list of tracks. Shall not be <code>null</code>.
+     * @param playlist  the playlist. Shall not be <code>null</code>.
      * @param component the generic playlist component to handle. Shall not be <code>null</code>.
      */
     @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
