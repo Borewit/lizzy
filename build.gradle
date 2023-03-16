@@ -24,7 +24,6 @@ application {
 
 dependencies {
     implementation 'args4j:args4j:2.33'
-    implementation 'org.codehaus.castor:castor-xml:1.4.1'
 
     // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
     implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
@@ -35,10 +34,6 @@ dependencies {
 
     //JAXB RI, Jakarta XML Binding
     runtimeOnly 'com.sun.xml.bind:jaxb-impl:2.3.8'
-
-    // Can be reomved with castor-xml dependency
-    // https://mvnrepository.com/artifact/xerces/xercesImpl
-    runtimeOnly 'xerces:xercesImpl:2.12.2'
 
     // JUnit Jupiter using Gradle's native JUnit Platform
     testImplementation platform('org.junit:junit-bom:5.9.2')
