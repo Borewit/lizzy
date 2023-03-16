@@ -73,7 +73,7 @@ public class AsxPlaylistAdapter implements SpecificPlaylist
     }
 
     @Override
-    public JaxbPlaylistProvider getProvider()
+    public AsxProvider getProvider()
     {
         return provider;
     }

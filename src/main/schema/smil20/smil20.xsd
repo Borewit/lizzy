@@ -2,6 +2,7 @@
 <!--
 
   Lightweight SMIL 2.0 schema, for JAXB beans able to read SMIL used for mostly audio playlists
+  Also used to parse the Microsoft WPL format.
 
 -->
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
@@ -53,6 +54,7 @@
                     <xs:element name="audio" type="smil:Audio"/>
                     <xs:element name="img" type="smil:Image"/>
                     <xs:element name="ref" type="smil:Reference"/>
+                    <xs:element name="media" type="smil:Media"/>
                     <xs:element name="video" type="smil:Video"/>
                 </xs:choice>
                 <xs:attribute name="repeatCount" type="xs:int" use="optional" />
@@ -110,6 +112,16 @@
             <xs:extension base="smil:Reference">
                 <xs:attribute name="clipBegin" type="xs:string" />
                 <xs:attribute name="clipEnd" type="xs:string" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Media">
+        <xs:complexContent>
+            <xs:extension base="smil:Reference">
+                <xs:attribute name="cid" type="xs:string"/>
+                <!-- Tracking ID -->
+                <xs:attribute name="tid" type="xs:string" />
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>

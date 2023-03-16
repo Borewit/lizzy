@@ -24,24 +24,27 @@
  */
 package christophedelory.playlist.atom;
 
-import christophedelory.atom.*;
 import christophedelory.content.type.ContentType;
 import christophedelory.player.PlayerSupport;
 import christophedelory.playlist.*;
 import christophedelory.xml.Version;
-import christophedelory.xml.XmlSerializer;
+import io.github.borewit.playlist.atom.*;
 
+import javax.xml.bind.JAXBElement;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
 import java.io.File;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * The Atom playlist provider.
  *
  * @author Christophe Delory
  */
-public class AtomProvider extends AbstractPlaylistProvider
+public class AtomProvider extends JaxbPlaylistProvider<FeedType>
 {
     /**
      * A list of compatible content types.
@@ -55,6 +58,11 @@ public class AtomProvider extends AbstractPlaylistProvider
                     },
                 "Atom Document"),
         };
+
+    public AtomProvider()
+    {
+        super(FeedType.class);
+    }
 
     @Override
     public String getId()
@@ -71,32 +79,22 @@ public class AtomProvider extends AbstractPlaylistProvider
     @Override
     public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws Exception
     {
-        // Unmarshal the SMIL playlist.
-        final XmlSerializer serializer = XmlSerializer.getMapping("christophedelory/atom"); // May throw Exception.
-        serializer.getUnmarshaller().setIgnoreExtraElements(true);
+        final JAXBElement<FeedType> feed = this.unmarshal(in, encoding);
+        String rootElementName = feed.getName().getLocalPart();
 
-        // TODO Allow also an Entry.
-        final Feed feed = (Feed) serializer.unmarshal(preProcessXml(in, encoding)); // May throw Exception.
-
-        final AtomPlaylist ret = new AtomPlaylist(this);
-        ret.setFeed(feed);
-
-        return ret;
+        return rootElementName != null && rootElementName.equalsIgnoreCase("Feed") ?
+            new AtomPlaylist(this, feed.getValue()) : null;
     }
 
     @Override
     public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws Exception
     {
-        final AtomPlaylist ret = new AtomPlaylist(this);
+        final FeedType feed = new FeedType();
 
-        final Feed feed = ret.getFeed();
+        feed.setTitle(toAtomText("Lizzy v" + Version.CURRENT + " Atom playlist"));
+        feed.setUpdated(toAtomDate(new Date()));
 
-        final TextContainer title = new TextContainer();
-        title.setText("Lizzy v" + Version.CURRENT + " Atom playlist");
-        feed.setTitle(title);
-        feed.setUpdated(new Date());
-
-        final URIContainer id = new URIContainer();
+        final Id id = new Id();
         final StringBuilder sb = new StringBuilder();
         sb.append("urn:uuid:");
         final String tmpId = Integer.toHexString(System.identityHashCode(feed));
@@ -106,24 +104,47 @@ public class AtomProvider extends AbstractPlaylistProvider
         }
         sb.append(tmpId);
         sb.append("-d399-11d9-b93C-0003939e0af6");
-        id.setURIString(sb.toString());
+        id.setContent(sb.toString());
         feed.setId(id);
 
         final Generator generator = new Generator();
-        generator.setValue("Lizzy");
+        generator.setContent("Lizzy");
         generator.setVersion(Version.CURRENT.toString());
-        generator.setURIString("http://sourceforge.net/projects/lizzy/");
+        generator.setUri("http://sourceforge.net/projects/lizzy/");
         feed.setGenerator(generator);
 
-        final Person me = new Person();
-        me.setName("Christophe Delory");
-        me.setURIString("http://sourceforge.net/users/cdelory/");
-        me.setEmail("cdelory@users.sourceforge.net");
-        feed.addContributor(me);
 
         addToPlaylist(feed, playlist.getRootSequence()); // May throw Exception
 
-        return ret;
+        return new AtomPlaylist(this, feed);
+    }
+
+    private static AtomTextConstruct toAtomText(String title)
+    {
+        AtomTextConstruct atomTextConstruct = new AtomTextConstruct();
+        atomTextConstruct.setValue(title);
+        return atomTextConstruct;
+    }
+
+    private static AtomDateConstruct toAtomDate(long time)
+    {
+        return toAtomDate(new Date(time));
+    }
+
+    private static AtomDateConstruct toAtomDate(Date date)
+    {
+        AtomDateConstruct atomDateConstruct = new AtomDateConstruct();
+        GregorianCalendar c = new GregorianCalendar();
+        c.setTime(date);
+        try
+        {
+            atomDateConstruct.setValue(DatatypeFactory.newInstance().newXMLGregorianCalendar(c));
+        }
+        catch (DatatypeConfigurationException e)
+        {
+            throw new RuntimeException(e);
+        }
+        return new AtomDateConstruct();
     }
 
     /**
@@ -136,7 +157,7 @@ public class AtomProvider extends AbstractPlaylistProvider
      * @throws Exception            if this service provider is unable to represent the input playlist.
      */
     @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
-    private void addToPlaylist(final Feed feed, final AbstractPlaylistComponent component) throws Exception
+    private void addToPlaylist(final FeedType feed, final AbstractPlaylistComponent component) throws Exception
     {
         if (component instanceof Sequence)
         {
@@ -164,6 +185,7 @@ public class AtomProvider extends AbstractPlaylistProvider
         else if (component instanceof Media)
         {
             final Media media = (Media) component;
+            final Date now = new Date();
 
             if (media.getDuration() != null)
             {
@@ -179,7 +201,7 @@ public class AtomProvider extends AbstractPlaylistProvider
             {
                 for (int iter = 0; iter < media.getRepeatCount(); iter++)
                 {
-                    final Entry entry = new Entry();
+                    final EntryType entry = new EntryType();
                     final Link link = new Link();
                     final URI uri = media.getSource().getURI(); // May throw SecurityException, URISyntaxException.
                     link.setHref(uri.toString());
@@ -191,34 +213,36 @@ public class AtomProvider extends AbstractPlaylistProvider
                         link.setLength(media.getSource().getLength());
                     }
 
-                    entry.addLink(link);
+                    entry.getLink().add(link);
 
-                    final TextContainer title = new TextContainer();
+                    final AtomTextConstruct title = new AtomTextConstruct();
 
                     if (uri.getPath() == null)
                     {
-                        title.setText(media.getSource().toString());
+                        title.setValue(media.getSource().toString());
                     }
                     else
                     {
                         final File path = new File(uri.getPath());
-                        title.setText(path.getName());
+                        title.setValue(path.getName());
                     }
 
                     entry.setTitle(title);
 
+                    AtomDateConstruct atomDate = toAtomDate(now);
+
                     if (media.getSource().getLastModified() > 0L)
                     {
-                        entry.setUpdated(new Date(media.getSource().getLastModified()));
+                        entry.setUpdated(toAtomDate(media.getSource().getLastModified()));
                     }
                     else
                     {
-                        entry.setUpdated(new Date());
+                        entry.setUpdated(atomDate);
                     }
 
-                    entry.setPublished(new Date());
+                    entry.setPublished(atomDate);
 
-                    final URIContainer id = new URIContainer();
+                    final Id id = new Id();
                     final StringBuilder sb = new StringBuilder();
                     sb.append("urn:uuid:");
                     final String tmpId = Integer.toHexString(System.identityHashCode(entry));
@@ -228,10 +252,10 @@ public class AtomProvider extends AbstractPlaylistProvider
                     }
                     sb.append(tmpId);
                     sb.append("-d399-11d9-b93C-0003939e0af6");
-                    id.setURIString(sb.toString());
+                    id.setContent(sb.toString());
                     entry.setId(id);
 
-                    feed.addEntry(entry);
+                    feed.getEntry().add(entry);
                 }
             }
         }
