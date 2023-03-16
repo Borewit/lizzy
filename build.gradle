@@ -156,4 +156,8 @@ task checkJavaSources(type: SourceTask) {
 // Prevent generated Java sources are checked
 tasks.checkstyleMain.source = fileTree(dir: 'src/main/java').include('**/*.java')
 
+xjc {
+    extraArgs.add '-extension'
+}
+
 

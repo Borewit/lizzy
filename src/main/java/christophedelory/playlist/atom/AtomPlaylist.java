@@ -24,67 +24,48 @@
  */
 package christophedelory.playlist.atom;
 
-import christophedelory.atom.Entry;
-import christophedelory.atom.Feed;
-import christophedelory.atom.Link;
 import christophedelory.content.Content;
-import christophedelory.playlist.Media;
-import christophedelory.playlist.Playlist;
-import christophedelory.playlist.SpecificPlaylist;
-import christophedelory.playlist.SpecificPlaylistProvider;
-import christophedelory.xml.XmlSerializer;
+import christophedelory.playlist.*;
+import io.github.borewit.playlist.atom.EntryType;
+import io.github.borewit.playlist.atom.FeedType;
+import io.github.borewit.playlist.atom.Link;
+import io.github.borewit.playlist.atom.ObjectFactory;
+
 import java.io.OutputStream;
-import java.io.StringWriter;
 
 /**
- * An Atom {@link Feed} document wrapper.
- * @version $Revision: 92 $
+ * An Atom Feed document wrapper.
+ * @author Borewit
  * @author Christophe Delory
  */
 public class AtomPlaylist implements SpecificPlaylist
 {
     /**
-     * The provider of this specific playlist.
+     * The Atom playlist provider
      */
-    private transient SpecificPlaylistProvider _provider = null;
+    private final AtomProvider provider;
 
     /**
      * The feed document itself.
      */
-    private Feed _feed = new Feed();
+    private final FeedType feed;
 
-    public AtomPlaylist(final SpecificPlaylistProvider provider)
+    public AtomPlaylist(final AtomProvider provider, FeedType feed)
     {
-        _provider = provider;
+        this.provider = provider;
+        this.feed = feed;
     }
 
     @Override
-    public SpecificPlaylistProvider getProvider()
+    public AtomProvider getProvider()
     {
-        return _provider;
+        return provider;
     }
 
     @Override
     public void writeTo(final OutputStream out, final String encoding) throws Exception
     {
-        // Marshal the document.
-        final StringWriter writer = new StringWriter();
-        final XmlSerializer serializer = XmlSerializer.getMapping("christophedelory/atom"); // May throw Exception.
-        // Specifies whether XML documents (as generated at marshalling) should use indentation or not. Default is false.
-        serializer.getMarshaller().setProperty("org.exolab.castor.indent", "true");
-        //serializer.getMarshaller().setNamespaceMapping("", "http://www.w3.org/2005/Atom");
-        serializer.marshal(_feed, writer, false); // May throw Exception.
-
-        String enc = encoding;
-
-        if (enc == null)
-        {
-            enc = "UTF-8";
-        }
-
-        final byte[] bytes = writer.toString().getBytes(enc); // May throw UnsupportedEncodingException.
-        out.write(bytes); // Throws NullPointerException if out is null. May throw IOException.
-        out.flush(); // May throw IOException.
+        this.provider.writeTo(new ObjectFactory().createFeed(this.feed), out, encoding);
     }
 
     @Override
@@ -92,9 +73,9 @@ public class AtomPlaylist implements SpecificPlaylist
     {
         final Playlist ret = new Playlist();
 
-        for (Entry entry : _feed.getEntries())
+        for (EntryType entry : feed.getEntry())
         {
-            for (Link link : entry.getLinks())
+            for (Link link : entry.getLink())
             {
                 if ((link.getHref() != null) && "enclosure".equals(link.getRel()))
                 {
@@ -117,31 +98,5 @@ public class AtomPlaylist implements SpecificPlaylist
         ret.normalize();
 
         return ret;
-    }
-
-    /**
-     * Returns the Atom feed document itself.
-     * @return a feed element. Shall not be <code>null</code>.
-     * @see #setFeed
-     */
-    public Feed getFeed()
-    {
-        return _feed;
-    }
-
-    /**
-     * Initializes the Atom feed document itself.
-     * @param feed a feed element. Shall not be <code>null</code>.
-     * @throws NullPointerException if <code>feed</code> is <code>null</code>.
-     * @see #getFeed
-     */
-    public void setFeed(final Feed feed)
-    {
-        if (feed == null)
-        {
-            throw new NullPointerException("No Atom Feed Document");
-        }
-
-        _feed = feed;
     }
 }
