@@ -6,8 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import javax.activation.FileTypeMap;
-import javax.activation.MimetypesFileTypeMap;
+import jakarta.activation.FileTypeMap;
+import jakarta.activation.MimetypesFileTypeMap;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;

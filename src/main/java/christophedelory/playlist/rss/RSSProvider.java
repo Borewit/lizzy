@@ -34,7 +34,7 @@ import io.github.borewit.playlist.rss20.Item;
 import io.github.borewit.playlist.rss20.Rss;
 import io.github.borewit.playlist.rss20.media.MediaContent;
 
-import javax.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBElement;
 import java.io.InputStream;
 import java.util.Date;
 

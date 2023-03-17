@@ -1,6 +1,6 @@
 package christophedelory.playlist;
 
-import javax.xml.bind.*;
+import jakarta.xml.bind.*;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;

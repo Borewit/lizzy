@@ -30,7 +30,7 @@ import christophedelory.playlist.*;
 import christophedelory.xml.Version;
 import io.github.borewit.playlist.rmp.RmpPackage;
 
-import javax.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBElement;
 import java.io.InputStream;
 import java.util.List;
 
