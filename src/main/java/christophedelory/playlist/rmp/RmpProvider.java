@@ -129,14 +129,9 @@ public class RmpProvider extends JaxbPlaylistProvider<RmpPackage>
                 throw new IllegalArgumentException("A RMP playlist cannot handle a sequence repeated indefinitely");
             }
 
-            final AbstractPlaylistComponent[] components = sequence.getComponents();
-
             for (int iter = 0; iter < sequence.getRepeatCount(); iter++)
             {
-                for (AbstractPlaylistComponent c : components)
-                {
-                    addToPlaylist(trackList, c); // May throw Exception.
-                }
+                sequence.getComponents().forEach(c -> addToPlaylist(trackList, c));
             }
         }
         else if (component instanceof Parallel)

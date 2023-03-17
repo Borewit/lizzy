@@ -113,14 +113,9 @@ public class B4sProvider extends JaxbPlaylistProvider<WinampXML>
                 throw new IllegalArgumentException("A B4S playlist cannot handle a sequence repeated indefinitely");
             }
 
-            final AbstractPlaylistComponent[] components = sequence.getComponents();
-
             for (int iter = 0; iter < sequence.getRepeatCount(); iter++)
             {
-                for (AbstractPlaylistComponent c : components)
-                {
-                    addToPlaylist(playlist, c); // May throw Exception.
-                }
+                sequence.getComponents().forEach(c -> addToPlaylist(playlist, c));
             }
         }
         else if (component instanceof Parallel)

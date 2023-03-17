@@ -33,7 +33,6 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.util.StreamReaderDelegate;
 import java.io.InputStream;
-import java.util.Arrays;
 
 /**
  * The W3C SMIL playlist XML format.
@@ -133,7 +132,7 @@ public class SmilProvider extends JaxbPlaylistProvider<Smil>
             timingElement.getSeqOrParOrExl().add(smilTimeContainer);
 
             // Recursion
-            Arrays.stream(timeContainer.getComponents()).forEach(c -> addToPlaylist(smilTimeContainer, c));
+            timeContainer.getComponents().forEach(c -> addToPlaylist(smilTimeContainer, c));
         }
         else if (component instanceof Media)
         {

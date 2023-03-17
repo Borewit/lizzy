@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  * The base definition of time containers.
- * @version $Revision: 92 $
+ * @author Borewit
  * @author Christophe Delory
  */
 public abstract class AbstractTimeContainer extends AbstractPlaylistComponent
@@ -37,7 +37,7 @@ public abstract class AbstractTimeContainer extends AbstractPlaylistComponent
     /**
      * The list of components of this time container.
      */
-    private final List<AbstractPlaylistComponent> _components = new ArrayList<AbstractPlaylistComponent>();
+    private final List<AbstractPlaylistComponent> components = new ArrayList<AbstractPlaylistComponent>();
 
     /**
      * Returns an ordered array of playlist components present in this container.
@@ -46,12 +46,14 @@ public abstract class AbstractTimeContainer extends AbstractPlaylistComponent
      * @see #removeComponent
      * @see #getComponentsNumber
      */
-    public AbstractPlaylistComponent[] getComponents()
+    public List<AbstractPlaylistComponent> getComponents()
     {
-        final AbstractPlaylistComponent[] ret = new AbstractPlaylistComponent[_components.size()];
-        _components.toArray(ret); // Shall not throw NullPointerException, ArrayStoreException.
+        return components;
+    }
 
-        return ret;
+    public AbstractPlaylistComponent[] getComponentsAsArray()
+    {
+        return components.toArray(new AbstractPlaylistComponent[]{});
     }
 
     /**
@@ -65,7 +67,7 @@ public abstract class AbstractTimeContainer extends AbstractPlaylistComponent
     public void addComponent(final AbstractPlaylistComponent component)
     {
         component.setParent(this); // Throws NullPointerException if component is null.
-        _components.add(component);
+        components.add(component);
     }
 
     /**
@@ -82,7 +84,7 @@ public abstract class AbstractTimeContainer extends AbstractPlaylistComponent
     public void addComponent(final int index, final AbstractPlaylistComponent component)
     {
         component.setParent(this); // Throws NullPointerException if component is null.
-        _components.add(index, component); // May throw IndexOutOfBoundsException.
+        components.add(index, component); // May throw IndexOutOfBoundsException.
     }
 
     /**
@@ -99,7 +101,7 @@ public abstract class AbstractTimeContainer extends AbstractPlaylistComponent
     {
         component.setParent(null); // Throws NullPointerException if component is null.
 
-        return _components.remove(component);
+        return components.remove(component);
     }
 
     /**
@@ -114,7 +116,7 @@ public abstract class AbstractTimeContainer extends AbstractPlaylistComponent
      */
     public AbstractPlaylistComponent removeComponent(final int index)
     {
-        final AbstractPlaylistComponent component = _components.remove(index); // May throw IndexOutOfBoundsException.
+        final AbstractPlaylistComponent component = components.remove(index); // May throw IndexOutOfBoundsException.
         component.setParent(null);
 
         return component;
@@ -127,16 +129,14 @@ public abstract class AbstractTimeContainer extends AbstractPlaylistComponent
      */
     public int getComponentsNumber()
     {
-        return _components.size();
+        return components.size();
     }
 
     @Override
     public void acceptDown(final PlaylistVisitor visitor) throws Exception
     {
         // Copy the list in an intermediate array, in order to allow the visitor to handle safely the list itself.
-        final AbstractPlaylistComponent[] components = getComponents();
-
-        for (AbstractPlaylistComponent component : components)
+        for (AbstractPlaylistComponent component : new ArrayList<>(this.components))
         {
             component.acceptDown(visitor); // May throw Exception.
         }

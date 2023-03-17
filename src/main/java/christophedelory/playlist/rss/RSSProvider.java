@@ -36,6 +36,8 @@ import io.github.borewit.playlist.rss20.media.MediaContent;
 
 import jakarta.xml.bind.JAXBElement;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.util.Date;
 
 /**
@@ -124,7 +126,7 @@ public class RSSProvider extends JaxbPlaylistProvider<Rss>
      * @throws Exception            if this service provider is unable to represent the input playlist.
      */
     @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
-    private void addToPlaylist(final Channel channel, final AbstractPlaylistComponent component) throws Exception
+    private void addToPlaylist(final Channel channel, final AbstractPlaylistComponent component)
     {
         if (component instanceof Sequence)
         {
@@ -135,14 +137,9 @@ public class RSSProvider extends JaxbPlaylistProvider<Rss>
                 throw new IllegalArgumentException("A RSS playlist cannot handle a sequence repeated indefinitely");
             }
 
-            final AbstractPlaylistComponent[] components = sequence.getComponents();
-
             for (int iter = 0; iter < sequence.getRepeatCount(); iter++)
             {
-                for (AbstractPlaylistComponent c : components)
-                {
-                    addToPlaylist(channel, c); // May throw Exception.
-                }
+                sequence.getComponents().forEach(c -> addToPlaylist(channel, c));
             }
         }
         else if (component instanceof Parallel)
@@ -173,7 +170,14 @@ public class RSSProvider extends JaxbPlaylistProvider<Rss>
                     if (_useRSSMedia)
                     {
                         final MediaContent content = new MediaContent();
-                        content.setUrl(media.getSource().getURL().toString()); // May throw SecurityException, URISyntaxException.
+                        try
+                        {
+                            content.setUrl(media.getSource().getURL().toString()); // May throw SecurityException, URISyntaxException.
+                        }
+                        catch (MalformedURLException e)
+                        {
+                            throw new RuntimeException(e);
+                        }
                         url = content.getUrl();
                         content.setFileSize(media.getSource().getLength());
                         content.setType(media.getSource().getType());
@@ -199,7 +203,14 @@ public class RSSProvider extends JaxbPlaylistProvider<Rss>
                     else
                     {
                         final Enclosure enclosure = new Enclosure();
-                        enclosure.setUrl(media.getSource().getURI().toString()); // May throw SecurityException, URISyntaxException.
+                        try
+                        {
+                            enclosure.setUrl(media.getSource().getURI().toString()); // May throw SecurityException, URISyntaxException.
+                        }
+                        catch (URISyntaxException e)
+                        {
+                            throw new RuntimeException(e);
+                        }
                         url = enclosure.getUrl();
                         enclosure.setLength(media.getSource().getLength());
 
