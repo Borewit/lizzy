@@ -7,6 +7,7 @@ import christophedelory.playlist.SpecificPlaylistProvider;
 import christophedelory.test.json.playlist.JsonPlaylist;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.io.input.BOMInputStream;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,7 +37,7 @@ public class TestUtil
         try (Stream<Path> files = Files.list(sampleFolderPath))
         {
             return files
-                .filter(file -> !skipSamples.contains(file.getFileName().toString()))
+                .filter(file -> Files.isRegularFile(file) && !skipSamples.contains(file.getFileName().toString()))
                 .collect(Collectors.toList());
         }
     }
@@ -92,4 +93,17 @@ public class TestUtil
         assertNotNull(media.getSource(), "Media source");
         assertEquals(expectedUri, media.getSource().toString(), "Media source URL");
     }
+
+    public static boolean hasBom(Path path) throws IOException
+    {
+        try (InputStream fis = Files.newInputStream(path))
+        {
+            try (BOMInputStream bomIn = new BOMInputStream(fis))
+            {
+                // has a UTF-8 BOM
+                return bomIn.hasBOM();
+            }
+        }
+    }
+
 }

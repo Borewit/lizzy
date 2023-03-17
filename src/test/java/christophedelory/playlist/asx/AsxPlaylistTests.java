@@ -39,7 +39,7 @@ public class AsxPlaylistTests
 
     @Test
     @DisplayName("Read ASX ANSI")
-    public void readLiveStreamASx() throws Exception
+    public void readLiveStreamAsx() throws Exception
     {
         Playlist playlist = TestUtil.readPlaylistFrom("test03.asx");
         assertNotNull(playlist, "playlist");
