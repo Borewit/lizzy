@@ -36,6 +36,7 @@ import javax.xml.datatype.DatatypeFactory;
 import java.io.File;
 import java.io.InputStream;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -157,7 +158,7 @@ public class AtomProvider extends JaxbPlaylistProvider<FeedType>
      * @throws Exception            if this service provider is unable to represent the input playlist.
      */
     @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
-    private void addToPlaylist(final FeedType feed, final AbstractPlaylistComponent component) throws Exception
+    private void addToPlaylist(final FeedType feed, final AbstractPlaylistComponent component)
     {
         if (component instanceof Sequence)
         {
@@ -168,14 +169,9 @@ public class AtomProvider extends JaxbPlaylistProvider<FeedType>
                 throw new IllegalArgumentException("An Atom playlist cannot handle a sequence repeated indefinitely");
             }
 
-            final AbstractPlaylistComponent[] components = sequence.getComponents();
-
             for (int iter = 0; iter < sequence.getRepeatCount(); iter++)
             {
-                for (AbstractPlaylistComponent c : components)
-                {
-                    addToPlaylist(feed, c); // May throw Exception.
-                }
+                sequence.getComponents().forEach(c -> addToPlaylist(feed, c));
             }
         }
         else if (component instanceof Parallel)
@@ -203,7 +199,15 @@ public class AtomProvider extends JaxbPlaylistProvider<FeedType>
                 {
                     final EntryType entry = new EntryType();
                     final Link link = new Link();
-                    final URI uri = media.getSource().getURI(); // May throw SecurityException, URISyntaxException.
+                    final URI uri; // May throw SecurityException, URISyntaxException.
+                    try
+                    {
+                        uri = media.getSource().getURI();
+                    }
+                    catch (URISyntaxException e)
+                    {
+                        throw new RuntimeException(e);
+                    }
                     link.setHref(uri.toString());
                     link.setRel("enclosure");
                     link.setType(media.getSource().getType());

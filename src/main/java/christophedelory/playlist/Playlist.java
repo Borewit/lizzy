@@ -120,7 +120,7 @@ public class Playlist
             // Multiply their repeat count if needed.
             if ((target.getParent() == null) && (target.getComponentsNumber() == 1))
             {
-                final AbstractPlaylistComponent[] targetComponents = target.getComponents();
+                final AbstractPlaylistComponent[] targetComponents = target.getComponentsAsArray();
 
                 if (targetComponents[0] instanceof Sequence)
                 {
@@ -128,7 +128,7 @@ public class Playlist
 
                     logger.info("Merging root sequence " + target + " with its single child sequence " + sequence);
                     target.setRepeatCount(target.getRepeatCount() * sequence.getRepeatCount());
-                    final AbstractPlaylistComponent[] components = sequence.getComponents();
+                    final AbstractPlaylistComponent[] components = sequence.getComponentsAsArray();
                     target.removeComponent(sequence);
 
                     for (AbstractPlaylistComponent component : components)
@@ -168,7 +168,7 @@ public class Playlist
                 else if (componentsNumber == 1)
                 {
                     // Suppress a time container with a single media in it (in fact put it one level up), and multiply their repeat count if needed.
-                    final AbstractPlaylistComponent[] targetComponents = target.getComponents();
+                    final AbstractPlaylistComponent[] targetComponents = target.getComponentsAsArray();
                     logger.info("Replacing time container " + target + " with its single child component " + targetComponents[0]);
                     targetComponents[0].setRepeatCount(targetComponents[0].getRepeatCount() * target.getRepeatCount());
                     target.removeComponent(targetComponents[0]);
@@ -188,7 +188,7 @@ public class Playlist
          */
         private void mergeConsecutiveIdenticalMedia(final Sequence target)
         {
-            final AbstractPlaylistComponent[] targetComponents = target.getComponents(); // Throws NullPointerException if target is null.
+            final AbstractPlaylistComponent[] targetComponents = target.getComponentsAsArray(); // Throws NullPointerException if target is null.
 
             for (int i = 0; i < (targetComponents.length - 1); i++)
             {
@@ -252,7 +252,7 @@ public class Playlist
          */
         private void mergeConsecutiveSequences(final Sequence target)
         {
-            final AbstractPlaylistComponent[] targetComponents = target.getComponents();
+            final AbstractPlaylistComponent[] targetComponents = target.getComponentsAsArray();
 
             // Iterate from last to second.
             for (int i = (targetComponents.length - 1); i > 0; i--)
@@ -266,12 +266,8 @@ public class Playlist
                     {
                         // Append the components of the last (second) sequence to the first one.
                         logger.info("Merging sequence " + seq2 + " in sequence " + seq1);
-                        final AbstractPlaylistComponent[] components = seq2.getComponents();
 
-                        for (AbstractPlaylistComponent component : components)
-                        {
-                            seq1.addComponent(component);
-                        }
+                        seq2.getComponents().forEach(seq1::addComponent);
 
                         // Then finally remove the dead sequence.
                         target.removeComponent(seq2);

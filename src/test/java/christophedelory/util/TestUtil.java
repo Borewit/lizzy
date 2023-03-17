@@ -10,8 +10,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -86,9 +84,9 @@ public class TestUtil
         return new ObjectMapper().readValue(jsonTestDataPath.toFile(), typeRef);
     }
 
-    public static void checkPlaylistItemSource(final Playlist playlist, final int itemIndex, final String expectedUri) throws MalformedURLException, URISyntaxException
+    public static void checkPlaylistItemSource(final Playlist playlist, final int itemIndex, final String expectedUri)
     {
-        Object entry = playlist.getRootSequence().getComponents()[itemIndex];
+        Object entry = playlist.getRootSequence().getComponents().get(itemIndex);
         assertTrue(entry instanceof Media, "Expect playlist media entry");
         Media media = (Media) entry;
         assertNotNull(media.getSource(), "Media source");

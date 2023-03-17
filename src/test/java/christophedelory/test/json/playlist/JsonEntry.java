@@ -5,7 +5,6 @@ import christophedelory.playlist.Media;
 import christophedelory.playlist.Parallel;
 import christophedelory.playlist.Sequence;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,8 +39,8 @@ public class JsonEntry
         return jsonEntry;
     }
 
-    public static List<JsonEntry> toJson(AbstractPlaylistComponent[] components)
+    public static List<JsonEntry> toJson(List<AbstractPlaylistComponent> components)
     {
-        return Arrays.stream(components).map(JsonEntry::toJson).collect(Collectors.toList());
+        return components.stream().map(JsonEntry::toJson).collect(Collectors.toList());
     }
 }

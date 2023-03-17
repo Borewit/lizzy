@@ -131,14 +131,9 @@ public class PlistProvider extends AbstractPlaylistProvider
                 throw new IllegalArgumentException("A PLIST playlist cannot handle a sequence repeated indefinitely");
             }
 
-            final AbstractPlaylistComponent[] components = sequence.getComponents();
-
             for (int iter = 0; iter < sequence.getRepeatCount(); iter++)
             {
-                for (AbstractPlaylistComponent c : components)
-                {
-                    addToPlaylist(tracks, playlist, c); // May throw Exception.
-                }
+                sequence.getComponents().forEach(c -> addToPlaylist(tracks, playlist, c));
             }
         }
         else if (component instanceof Parallel)

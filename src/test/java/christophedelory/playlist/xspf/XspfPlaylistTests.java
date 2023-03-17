@@ -23,7 +23,7 @@ public class XspfPlaylistTests
 
         Playlist playlist = TestUtil.readPlaylistFrom("test02.xspf");
         assertNotNull(playlist, "playlist");
-        assertEquals(3, playlist.getRootSequence().getComponents().length);
+        assertEquals(3, playlist.getRootSequence().getComponents().size());
         checkPlaylistItemSource(playlist, 0, "http://example.net/song_1.ogg");
         checkPlaylistItemSource(playlist, 1, "http://example.net/song_2.flac");
         checkPlaylistItemSource(playlist, 2, "http://example.com/song_3.mp3");
@@ -35,15 +35,10 @@ public class XspfPlaylistTests
     {
         Playlist playlist = TestUtil.makeAbstractPlaylist();
         XspfProvider plistProvider = new XspfProvider();
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        try
+        try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream())
         {
             SpecificPlaylist specificPlaylist = plistProvider.toSpecificPlaylist(playlist);
             specificPlaylist.writeTo(byteArrayOutputStream, null);
-        }
-        finally
-        {
-            byteArrayOutputStream.close();
         }
     }
 }

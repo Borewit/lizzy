@@ -1,6 +1,5 @@
 package christophedelory.playlist.asx;
 
-import christophedelory.playlist.Media;
 import christophedelory.playlist.Playlist;
 import christophedelory.playlist.SpecificPlaylist;
 import christophedelory.util.TestUtil;
@@ -24,13 +23,8 @@ public class AsxPlaylistTests
     {
         Playlist playlist = TestUtil.readPlaylistFrom("test02.asx");
         assertNotNull(playlist, "playlist");
-        assertEquals(1, playlist.getRootSequence().getComponents().length);
-        Object entry = playlist.getRootSequence().getComponents()[0];
-        assertTrue(entry instanceof Media, "Expect playlist media entry");
-        Media media = (Media) entry;
-        assertNotNull(media.getSource(), "Media source");
-        assertNotNull(media.getSource().getURL(), "Media source URL");
-        assertEquals("mms://windowsmediaserver/path/yourfile.asf", media.getSource().toString(), "Media source URL");
+        assertEquals(1, playlist.getRootSequence().getComponents().size());
+        checkPlaylistItemSource(playlist, 0, "mms://windowsmediaserver/path/yourfile.asf");
     }
 
     @Test
@@ -39,7 +33,7 @@ public class AsxPlaylistTests
     {
         Playlist playlist = TestUtil.readPlaylistFrom("test01.asx");
         assertNotNull(playlist, "playlist");
-        assertEquals(1, playlist.getRootSequence().getComponents().length);
+        assertEquals(1, playlist.getRootSequence().getComponents().size());
         checkPlaylistItemSource(playlist, 0, "http://www.johnsmith.com/media/Raging_Tango.mp3");
     }
 
@@ -49,7 +43,7 @@ public class AsxPlaylistTests
     {
         Playlist playlist = TestUtil.readPlaylistFrom("test03.asx");
         assertNotNull(playlist, "playlist");
-        assertEquals(2, playlist.getRootSequence().getComponents().length);
+        assertEquals(2, playlist.getRootSequence().getComponents().size());
         checkPlaylistItemSource(playlist, 0, "http://example.com/announcement.wma");
         checkPlaylistItemSource(playlist, 1, "http://example.com:8080");
     }
@@ -60,7 +54,7 @@ public class AsxPlaylistTests
     {
         Playlist playlist = TestUtil.readPlaylistFrom("test05.asx");
         assertNotNull(playlist, "playlist");
-        assertEquals(1, playlist.getRootSequence().getComponents().length);
+        assertEquals(1, playlist.getRootSequence().getComponents().size());
         checkPlaylistItemSource(playlist, 0, "http://sample.microsoft.com/metafile.asx");
     }
 

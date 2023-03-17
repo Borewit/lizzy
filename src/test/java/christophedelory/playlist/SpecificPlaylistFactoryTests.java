@@ -55,15 +55,15 @@ public class SpecificPlaylistFactoryTests
         }
     }
 
-    private static void compare(String name, List<JsonEntry> references, AbstractPlaylistComponent[] components)
+    private static void compare(String name, List<JsonEntry> references, List<AbstractPlaylistComponent> components)
     {
         assertNotNull(components, String.format("Components %s", name));
 
-        assertEquals(references.size(), components.length, String.format("Number of root components in %s", name));
+        assertEquals(references.size(), components.size(), String.format("Number of root components in %s", name));
         int n = 0;
         for (JsonEntry jsonEntry : references)
         {
-            compare(name, n, jsonEntry, components[n]);
+            compare(name, n, jsonEntry, components.get(n));
             ++n;
         }
     }

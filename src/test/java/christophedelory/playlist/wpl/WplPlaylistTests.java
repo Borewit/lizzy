@@ -23,7 +23,7 @@ public class WplPlaylistTests
     {
         Playlist playlist = TestUtil.readPlaylistFrom("test01.wpl");
         assertNotNull(playlist, "playlist");
-        assertEquals(10, playlist.getRootSequence().getComponents().length);
+        assertEquals(10, playlist.getRootSequence().getComponents().size());
         checkPlaylistItemSource(playlist, 0, "expo2008\\edyoh_def.wmv");
         checkPlaylistItemSource(playlist, 1, "expo2008\\le loup est revenu_0001.wmv");
         checkPlaylistItemSource(playlist, 2, "expo2008\\franzyn_def.wmv");
@@ -36,7 +36,7 @@ public class WplPlaylistTests
     {
         Playlist playlist = TestUtil.readPlaylistFrom("test03.wpl");
         assertNotNull(playlist, "playlist");
-        assertEquals(1, playlist.getRootSequence().getComponents().length);
+        assertEquals(1, playlist.getRootSequence().getComponents().size());
         checkPlaylistItemSource(playlist, 0, "laure.wma");
     }
 
@@ -60,7 +60,7 @@ public class WplPlaylistTests
         }
         try(ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(smilData)) {
             Playlist writtenPlaylist = smilProvider.readFrom(byteArrayInputStream).toPlaylist();
-            assertEquals(1, writtenPlaylist.getRootSequence().getComponents().length);
+            assertEquals(1, writtenPlaylist.getRootSequence().getComponents().size());
             checkPlaylistItemSource(writtenPlaylist, 0, "http://www.johnsmith.com/media/Raging_Tango.mp3");
         }
     }

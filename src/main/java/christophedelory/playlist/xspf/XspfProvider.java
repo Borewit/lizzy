@@ -115,14 +115,9 @@ public class XspfProvider extends JaxbPlaylistProvider<XspfPlaylist>
                 throw new IllegalArgumentException("An XSPF playlist cannot handle a sequence repeated indefinitely");
             }
 
-            final AbstractPlaylistComponent[] components = sequence.getComponents();
-
             for (int iter = 0; iter < sequence.getRepeatCount(); iter++)
             {
-                for (AbstractPlaylistComponent c : components)
-                {
-                    addToPlaylist(xspfTrackList, c); // May throw Exception.
-                }
+                sequence.getComponents().forEach(c -> addToPlaylist(xspfTrackList, c));
             }
         }
         else if (component instanceof Parallel)

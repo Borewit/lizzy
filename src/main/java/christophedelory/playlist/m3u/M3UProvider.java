@@ -203,14 +203,9 @@ public class M3UProvider extends AbstractPlaylistProvider
                 throw new IllegalArgumentException("A M3U playlist cannot handle a sequence repeated indefinitely");
             }
 
-            final AbstractPlaylistComponent[] components = seq.getComponents();
-
             for (int iter = 0; iter < seq.getRepeatCount(); iter++)
             {
-                for (AbstractPlaylistComponent c : components)
-                {
-                    addToPlaylist(resources, c); // May throw Exception.
-                }
+                seq.getComponents().forEach(c -> addToPlaylist(resources, c));
             }
         }
         else if (component instanceof Parallel)
