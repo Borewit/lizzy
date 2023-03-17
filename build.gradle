@@ -42,6 +42,11 @@ dependencies {
     // PLIST implementation
     implementation 'com.googlecode.plist:dd-plist:1.26'
 
+    // Required to read InputStream with BOM-field
+    // https://mvnrepository.com/artifact/commons-io/commons-io
+    implementation 'commons-io:commons-io:2.11.0'
+
+
     // Used to load MIME-types from JSON
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
     testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.14.2'
