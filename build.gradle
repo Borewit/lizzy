@@ -29,11 +29,9 @@ dependencies {
     implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
 
     // JAXB API only
-    api 'javax.xml.bind:jaxb-api:2.2.12'
-    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.3'
-
-    //JAXB RI, Jakarta XML Binding
-    runtimeOnly 'com.sun.xml.bind:jaxb-impl:2.3.8'
+    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:3.0.0'
+    // JAXB RI, Jakarta XML Binding
+    runtimeOnly 'com.sun.xml.bind:jaxb-impl:3.0.0'
 
     // JUnit Jupiter using Gradle's native JUnit Platform
     testImplementation platform('org.junit:junit-bom:5.9.2')
@@ -153,6 +151,7 @@ tasks.checkstyleMain.source = fileTree(dir: 'src/main/java').include('**/*.java'
 
 xjc {
     extraArgs.add '-extension'
+    xjcVersion = '3.0'
 }
 
 

@@ -28,9 +28,7 @@ import java.io.Serializable;
 
 /**
  * A generic version information, composed of a version number, a revision number and a step number.
- * @version $Revision: 92 $
  * @author Christophe Delory
- * @castor.class xml="version" verify-constructable="false"
  */
 public class Version implements Cloneable, Serializable
 {

@@ -34,9 +34,9 @@ import java.io.OutputStream;
  * A Windows Media metafile.
  * Defines a file as an Advanced Stream Redirector (ASX) file.
  *
+ * @author Borewit
  * @author Christophe Delory
- * @version $Revision: 92 $
- * @castor.class xml="asx"
+
  */
 public class AsxPlaylistAdapter implements SpecificPlaylist
 {

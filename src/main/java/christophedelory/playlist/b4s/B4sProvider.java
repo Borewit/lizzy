@@ -29,7 +29,7 @@ import christophedelory.player.PlayerSupport;
 import christophedelory.playlist.*;
 import io.github.borewit.playlist.b4s.WinampXML;
 
-import javax.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBElement;
 import java.io.InputStream;
 import java.util.List;
 

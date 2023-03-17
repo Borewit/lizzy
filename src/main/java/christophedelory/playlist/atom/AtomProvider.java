@@ -30,7 +30,7 @@ import christophedelory.playlist.*;
 import christophedelory.xml.Version;
 import io.github.borewit.playlist.atom.*;
 
-import javax.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBElement;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import java.io.File;

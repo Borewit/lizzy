@@ -31,7 +31,7 @@ import io.github.borewit.playlist.xspf.XspfPlaylist;
 import io.github.borewit.playlist.xspf.XspfTrack;
 import io.github.borewit.playlist.xspf.XspfTrackList;
 
-import javax.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBElement;
 import java.io.InputStream;
 import java.math.BigInteger;
 import java.util.List;

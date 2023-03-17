@@ -24,8 +24,8 @@
  */
 package christophedelory.content.type;
 
-import javax.activation.FileTypeMap;
-import javax.activation.MimetypesFileTypeMap;
+import jakarta.activation.FileTypeMap;
+import jakarta.activation.MimetypesFileTypeMap;
 import java.net.URI;
 
 /**
