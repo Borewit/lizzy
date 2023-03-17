@@ -36,7 +36,6 @@ public interface SpecificPlaylist
     /**
      * Returns the provider of this specific playlist.
      * @return the provider of this playlist. May be <code>null</code>.
-     * @see #setProvider
      */
     SpecificPlaylistProvider getProvider();
 
