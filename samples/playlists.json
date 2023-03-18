@@ -93,7 +93,34 @@
       "source" : "http://198.81.31.133:80/stream/1"
     } ]
   },
+  "m3u/playlist-utf16be-bom.m3u" : {
+    "rootSequence" : [ {
+      "repeatCount" : 1.0,
+      "source" : "C:\\Music\\SampleMusic.mp3"
+    }, {
+      "repeatCount" : 1.0,
+      "source" : "C:\\Music\\ExampleMusic.mp3"
+    } ]
+  },
+  "m3u/playlist-utf16le-bom.m3u" : {
+    "rootSequence" : [ {
+      "repeatCount" : 1.0,
+      "source" : "C:\\Music\\SampleMusic.mp3"
+    }, {
+      "repeatCount" : 1.0,
+      "source" : "C:\\Music\\ExampleMusic.mp3"
+    } ]
+  },
   "m3u/playlist-utf8-bom.m3u" : {
+    "rootSequence" : [ {
+      "repeatCount" : 1.0,
+      "source" : "C:\\Music\\SampleMusic.mp3"
+    }, {
+      "repeatCount" : 1.0,
+      "source" : "C:\\Music\\ExampleMusic.mp3"
+    } ]
+  },
+  "m3u/playlist-utf8.m3u" : {
     "rootSequence" : [ {
       "repeatCount" : 1.0,
       "source" : "C:\\Music\\SampleMusic.mp3"

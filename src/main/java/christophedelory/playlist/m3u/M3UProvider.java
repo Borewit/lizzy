@@ -27,6 +27,7 @@ package christophedelory.playlist.m3u;
 import christophedelory.content.type.ContentType;
 import christophedelory.player.PlayerSupport;
 import christophedelory.playlist.*;
+import org.apache.commons.io.ByteOrderMark;
 import org.apache.commons.io.input.BOMInputStream;
 
 import java.io.BufferedReader;
@@ -109,75 +110,81 @@ public class M3UProvider extends AbstractPlaylistProvider
             enc = "UTF-8"; // For the M3U8 case. FIXME US-ASCII?
         }
 
-        try(BOMInputStream bomInputStream = new BOMInputStream(in))
+
+        BOMInputStream bomInputStream = wrapInBomStream(in);
+
+        if (bomInputStream.hasBOM())
         {
-            final BufferedReader reader = new BufferedReader(new InputStreamReader(bomInputStream, enc)); // Throws NullPointerException if in is null. May throw UnsupportedEncodingException, IOException.
+            ByteOrderMark bom = bomInputStream.getBOM();
+            enc = bom.getCharsetName();
+        }
+        final BufferedReader reader = new BufferedReader(new InputStreamReader(bomInputStream, enc)); // Throws NullPointerException if in is null. May throw UnsupportedEncodingException, IOException.
 
-            final M3U ret = new M3U();
-            ret.setProvider(this);
+        final M3U ret = new M3U();
+        ret.setProvider(this);
 
-            String line;
-            String songName = null;
-            String songLength = null;
+        String line;
+        String songName = null;
+        String songLength = null;
 
-            while ((line = reader.readLine()) != null) // May throw IOException.
+        while ((line = reader.readLine()) != null) // May throw IOException.
+        {
+            line = line.trim();
+
+            if (line.length() > 0)
             {
-                line = line.trim();
+                final char firstChar = line.charAt(0); // Shall not throw IndexOutOfBoundsException.
 
-                if (line.length() > 0)
+                // Exclude what looks like an XML file, or a Windows .ini file.
+                // Files or URLs "usually" don't begin with such characters.
+                if ((firstChar == '<') || (firstChar == '['))
                 {
-                    final char firstChar = line.charAt(0); // Shall not throw IndexOutOfBoundsException.
+                    throw new IllegalArgumentException("Doesn't seem to be a M3U playlist (and related ones)");
+                }
+                else if (firstChar == '#')
+                {
+                    if (line.toUpperCase(Locale.ENGLISH).startsWith("#EXTINF"))
+                    {
+                        final int indA = line.indexOf(',', 0);
 
-                    // Exclude what looks like an XML file, or a Windows .ini file.
-                    // Files or URLs "usually" don't begin with such characters.
-                    if ((firstChar == '<') || (firstChar == '['))
-                    {
-                        throw new IllegalArgumentException("Doesn't seem to be a M3U playlist (and related ones)");
-                    }
-                    else if (firstChar == '#')
-                    {
-                        if (line.toUpperCase(Locale.ENGLISH).startsWith("#EXTINF"))
+                        if (indA >= 0) // NOPMD Deeply nested if then statement
                         {
-                            final int indA = line.indexOf(',', 0);
-
-                            if (indA >= 0) // NOPMD Deeply nested if then statement
-                            {
-                                songName = line.substring(indA + 1, line.length());
-                            }
-
-                            final int indB = line.indexOf(':', 0);
-
-                            if ((indB >= 0) && (indB < indA)) // NOPMD Deeply nested if then statement
-                            {
-                                songLength = line.substring(indB + 1, indA).trim();
-                            }
-                        }
-                        // Otherwise ignore the comment.
-                        // In particular VLC directives "EXTVLCOPT:<param>=<value>" are ignored.
-                        // The same applies to #EXTART for album artist and #EXTALB for album title.
-                    }
-                    else
-                    {
-                        final Resource resource = new Resource(); // NOPMD Avoid instantiating new objects inside loops
-                        resource.setLocation(line);
-                        resource.setName(songName); // songName may be null.
-
-                        if (songLength != null)
-                        {
-                            resource.setLength(Long.parseLong(songLength)); // May throw NumberFormatException.
+                            songName = line.substring(indA + 1, line.length());
                         }
 
-                        ret.getResources().add(resource);
+                        final int indB = line.indexOf(':', 0);
 
-                        songName = null;
-                        songLength = null;
+                        if ((indB >= 0) && (indB < indA)) // NOPMD Deeply nested if then statement
+                        {
+                            songLength = line.substring(indB + 1, indA).trim();
+                        }
                     }
+                    // Otherwise ignore the comment.
+                    // In particular VLC directives "EXTVLCOPT:<param>=<value>" are ignored.
+                    // The same applies to #EXTART for album artist and #EXTALB for album title.
+                }
+                else
+                {
+                    final Resource resource = new Resource(); // NOPMD Avoid instantiating new objects inside loops
+                    resource.setLocation(line);
+                    resource.setName(songName); // songName may be null.
+
+                    if (songLength != null)
+                    {
+                        resource.setLength(Long.parseLong(songLength)); // May throw NumberFormatException.
+                    }
+
+                    ret.getResources().add(resource);
+
+                    songName = null;
+                    songLength = null;
                 }
             }
-
-            return ret;
         }
+
+        return ret;
     }
+
 
     @Override
     public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws Exception
