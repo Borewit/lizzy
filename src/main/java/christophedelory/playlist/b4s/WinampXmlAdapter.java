@@ -38,20 +38,16 @@ import io.github.borewit.playlist.b4s.WinampXML;
  * @author Borewit
  * @author Christophe Delory
  */
-public class WinampXMLAdapter implements SpecificPlaylist
+public class WinampXmlAdapter implements SpecificPlaylist
 {
     private final WinampXML winampXML;
 
     /**
      * The provider of this specific playlist.
      */
-    private final B4sProvider provider;
+    private final WinampXmlProvider provider;
 
-    public WinampXMLAdapter(B4sProvider provider) {
-        this(provider, new WinampXML());
-    }
-
-    public WinampXMLAdapter(B4sProvider provider, WinampXML winampXML) {
+    public WinampXmlAdapter(WinampXmlProvider provider, WinampXML winampXML) {
         this.provider = provider;
         this.winampXML = winampXML;
     }

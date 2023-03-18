@@ -40,7 +40,7 @@ import java.util.List;
  * @author Borewit
  * @author Christophe Delory
  */
-public class B4sProvider extends JaxbPlaylistProvider<WinampXML>
+public class WinampXmlProvider extends JaxbPlaylistProvider<WinampXML>
 {
     /**
      * A list of compatible content types.
@@ -57,7 +57,7 @@ public class B4sProvider extends JaxbPlaylistProvider<WinampXML>
                 "Winamp 3+ Playlist"),
         };
 
-    public B4sProvider()
+    public WinampXmlProvider()
     {
         super(WinampXML.class);
     }
@@ -81,7 +81,7 @@ public class B4sProvider extends JaxbPlaylistProvider<WinampXML>
         String rootElementName = winampXMLJAXBElement.getName().getLocalPart();
 
         return rootElementName != null && rootElementName.equalsIgnoreCase("WinampXML") ?
-            new WinampXMLAdapter(this, winampXMLJAXBElement.getValue()) : null;
+            new WinampXmlAdapter(this, winampXMLJAXBElement.getValue()) : null;
     }
 
     @Override
@@ -93,7 +93,7 @@ public class B4sProvider extends JaxbPlaylistProvider<WinampXML>
 
         addToPlaylist(xmlPlaylist.getEntry(), playlist.getRootSequence()); // May throw Exception.
 
-        return new WinampXMLAdapter(this, winampXML);
+        return new WinampXmlAdapter(this, winampXML);
     }
 
     /**
