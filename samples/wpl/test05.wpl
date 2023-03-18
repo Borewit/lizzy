@@ -1,0 +1,33 @@
+<?wpl version = "1.0"?>
+<smil>
+    <body>
+    <seq>
+<smartPlaylist version = "1.0.0.0">
+<querySet>
+    <sourceFilter 
+        type = "smartFilterObject" 
+        id = "{4202947A-A563-4B05-A754-A1B4B5989849}"
+        name = "Windows Media Local Music Library Filter">
+            <fragment name = "Genre">
+                <argument name = "Condition">Equals</argument>
+                <argument name = "Value">Rock</argument>
+            </fragment>
+            <fragment name = "Artist">
+                <argument name = "Condition">Does Not Equal</argument>
+                <argument name = "Value">Brenda Diaz</argument>
+            </fragment>
+    </sourceFilter>
+</querySet>
+<filter 
+    type = "smartFilterObject" 
+    id = "{BC5E21B0-504C-46F6-82BF-FB975C911AD6}" 
+    name = "Microsoft Auto Playlist Filter -- Limits auto playlists by count,size or duration">
+        <fragment name = "Limit Number of Items">
+            <argument name = "number">25</argument>
+        </fragment>
+</filter>
+</smartPlaylist>
+    </seq>
+    </body>
+</smil>
+

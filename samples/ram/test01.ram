@@ -1,0 +1,12 @@
+# This is a real audio streaming resource served by a proprietary real-time protocol
+rtsp://ra2.panix.com/tutorial/sample.ra
+
+# This is a static resource
+http://www.panix.com/web/faq/multimedia/sample.ra
+
+# This opens a SMIL resource in full-screen mode:
+rtsp://realserver.example.com/media/sample1.smil?screensize="full"
+
+# This opens a file on the client.
+file:///Users/lgonze/Music/mp3/misc/wtf.mp3
+

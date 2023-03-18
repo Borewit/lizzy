@@ -20,7 +20,7 @@ public class M3uPlaylistTests
     @DisplayName("Read M3U playlist file")
     public void readReferenceM3u() throws Exception
     {
-        Playlist playlist = TestUtil.readPlaylistFrom("test01.m3u");
+        Playlist playlist = TestUtil.readPlaylistFrom("m3u/test01.m3u");
         assertNotNull(playlist, "playlist");
         assertEquals(3, playlist.getRootSequence().getComponents().size());
         checkPlaylistItemSource(playlist, 0, "c:/music/foo.mp3");

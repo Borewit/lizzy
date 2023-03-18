@@ -1,0 +1,14 @@
+<smil>
+<head>
+<layout>
+<root-layout width="640" height="480" />
+</layout>
+</head>
+<body>
+<switch>
+<video src="flvs/a0a0a0a2.flv" system-bitrate="128000" />
+<video src="flvs/a0a0a0a0.flv" system-bitrate="56000" />
+<video src="flvs/a0a0a0a1.flv" />
+</switch>
+</body>
+</smil>

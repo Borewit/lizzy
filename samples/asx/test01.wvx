@@ -1,0 +1,28 @@
+<ASX version = "3.0">
+<TITLE>Simple WVX Demo</TITLE>
+
+    <ENTRY>
+	<TITLE>An ASF Entry in a Simple WVX</TITLE>
+	<AUTHOR>Microsoft Corporation</AUTHOR>
+	<COPYRIGHT>(c)2003 Microsoft Corporation</COPYRIGHT>
+	<!-- This is a comment.  Change the following path to point to your ASF -->
+        <REF HREF = "mms://windowsmediaserver/path/yourfile.asf" />
+    </ENTRY>
+
+    <ENTRY>
+	<TITLE>A WMA Entry in a Simple WVX</TITLE>
+	<AUTHOR>Microsoft Corporation</AUTHOR>
+	<COPYRIGHT>(c)2003 Microsoft Corporation</COPYRIGHT>
+	<!-- This is a comment.  Change the following path to point to your WMA -->
+        <REF HREF = "mms://windowsmediaserver/path/yourfile.wma" />
+    </ENTRY>
+
+    <ENTRY>
+	<TITLE>A WMV Entry in a Simple WVX</TITLE>
+	<AUTHOR>Microsoft Corporation</AUTHOR>
+	<COPYRIGHT>(c)2003 Microsoft Corporation</COPYRIGHT>
+	<!-- This is a comment.  Change the following path to point to your WMV -->
+        <REF HREF = "mms://windowsmediaserver/path/yourfile.wmv" />
+    </ENTRY>
+
+</ASX>

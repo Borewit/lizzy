@@ -22,7 +22,7 @@ public class SmilPlaylistTests
     @DisplayName("Read SMIL playlist file")
     public void readSmilPlaylist() throws Exception
     {
-        Playlist playlist = TestUtil.readPlaylistFrom("test01.smil");
+        Playlist playlist = TestUtil.readPlaylistFrom("smil/test01.smil");
         assertNotNull(playlist, "playlist");
         assertEquals(2, playlist.getRootSequence().getComponents().size());
         checkPlaylistItemSource(playlist, 0, "http://example.com/foo.mp3");
@@ -33,7 +33,7 @@ public class SmilPlaylistTests
     @DisplayName("Read SMIL video playlist file")
     public void readVideoSmilPlaylist() throws Exception
     {
-        Playlist playlist = TestUtil.readPlaylistFrom("test06.smil");
+        Playlist playlist = TestUtil.readPlaylistFrom("smil/test06.smil");
         assertNotNull(playlist, "playlist");
         assertEquals(1, playlist.getRootSequence().getComponents().size());
         checkPlaylistItemSource(playlist, 0, "myvideo.flv");
@@ -43,7 +43,7 @@ public class SmilPlaylistTests
     @DisplayName("Read SMIL 2.0 playlist qualified XML")
     public void readQualifiedSmil20Playlist() throws Exception
     {
-        Playlist playlist = TestUtil.readPlaylistFrom("smil-2.0-example.smil");
+        Playlist playlist = TestUtil.readPlaylistFrom("smil/smil-2.0-example.smil");
         assertNotNull(playlist, "playlist");
         assertEquals(4, playlist.getRootSequence().getComponents().size());
         checkPlaylistItemSource(playlist, 0, "http://storage/ads/origin/origin08_x264.mp4");
@@ -56,7 +56,7 @@ public class SmilPlaylistTests
     @DisplayName("Write to SMIL playlist file")
     public void writeSmil() throws Exception
     {
-        writeSmil("test01.asx");
+        writeSmil("asx/test01.asx");
     }
 
     private static void writeSmil(String testFile) throws Exception

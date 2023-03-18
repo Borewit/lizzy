@@ -15,7 +15,7 @@ public class B4sPlaylistTests
     @DisplayName("Read b4s playlist file")
     public void readB4s() throws Exception
     {
-        Playlist playlist = TestUtil.readPlaylistFrom("test01.b4s");
+        Playlist playlist = TestUtil.readPlaylistFrom("b4s/test01.b4s");
         assertNotNull(playlist, "playlist");
         assertEquals(2, playlist.getRootSequence().getComponents().size());
         checkPlaylistItemSource(playlist, 0, "file:E:\\fresh dls\\Modern Rock - March 2003\\(modern rock march 2003)-08-system of a down-i-e-a-i-a-i-o.mp3");

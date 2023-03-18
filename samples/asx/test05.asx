@@ -1,0 +1,4 @@
+<ASX VERSION="3.0">
+   <TITLE>Example of Using EntryRef</TITLE>
+   <ENTRYREF HREF="http://sample.microsoft.com/metafile.asx" />
+</ASX>

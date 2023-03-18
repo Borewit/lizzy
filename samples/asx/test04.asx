@@ -1,0 +1,12 @@
+<ASX version = "3.0">
+    <TITLE>A Skin Element</TITLE>
+    <SKIN HREF = "YourTest.wmz" />
+
+    <ENTRY>
+        <PARAM name="YourAlbumTitle" value="YourTitle.jpg"/>
+        <PARAM name="link" value="http://www.proseware.com"/>
+        <TITLE>(The Artist)-YourTitle</TITLE>
+        <REF HREF="(The Artist)-YourSongTitle.wma"/>
+    </ENTRY>
+
+</ASX>

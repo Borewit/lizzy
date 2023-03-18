@@ -37,24 +37,23 @@ Lizzy has been forked from [sourceforge.net/projects/lizzy](https://sourceforge.
 
 ## Supported Playlist Formats
 
-| Extension        | Playlist type                                                                                                                                                            | 
-|------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `.pla`           | iRiver iQuickList File                                                                                                                                                   |
-| `.asx`           | [Advanced Stream Redirector (ASX)](https://en.wikipedia.org/wiki/Advanced_Stream_Redirector)                                                                             |
-| `.wmx`, `.wax`   | Windows Media Redirector (WMX)                                                                                                                                           |
-| `.wpl`           | [Windows Media Player Playlist (WPL)](https://en.wikipedia.org/wiki/Windows_Media_Player_Playlist)                                                                       |
-| `.smil`          | [Synchronized Multimedia Integration Language (SMIL)](https://en.wikipedia.org/wiki/Synchronized_Multimedia_Integration_Language), [W3C](https://www.w3.org/AudioVideo/) |                                           |
-| `.rss`           | [RSS Document](https://en.wikipedia.org/wiki/RSS)                                                                                                                        |
-| `.atom`          | [Atom Document](https://en.wikipedia.org/wiki/Atom_(web_standard)), [RFC4287](https://www.ietf.org/rfc/rfc4287.txt)                                                      |
-| `.xspf`          | [XML Shareable Playlist Format (XSPF)](https://xspf.org/)                                                                      |
-| `.plist`, `.xml` | [Property list](https://en.wikipedia.org/wiki/Property_list), [iTunes Library File](https://www.xml.com/pub/a/2004/11/03/itunes.html)                                    |
-| `.pls`           | [Winamp PLSv2 Playlist](https://en.wikipedia.org/wiki/PLS_(file_format))                                                                                                 |
-| `.mpcpl`         | [Media Player Classic](https://en.wikipedia.org/wiki/Media_Player_Classic) Playlist                                                                                      |
-| `.plp`           | Sansa Playlist File                                                                                                                                                      |
-| `.m3u`, `.m3u8`  | [Winamp M3U](https://en.wikipedia.org/wiki/M3U)                                                                                                                          |
-| `.m4u`           | M4U Playlist                                                                                                                                                             |
-| `.ram`           | [Real Audio Metadata (RAM)](https://en.wikipedia.org/wiki/RealAudio#File_extensions)                                                                                     |
-| `.rmp`           | [Real Metadata Package (RMP)](https://extension.informer.com/rmp/)                                                                                                       |
+| Extension                | Playlist type                                                                                                                                                            | 
+|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `.asx`,`.wmx`, `.wax`    | [Advanced Stream Redirector (ASX)](https://en.wikipedia.org/wiki/Advanced_Stream_Redirector)                                                                             |
+| `.atom`                  | [Atom Document](https://en.wikipedia.org/wiki/Atom_(web_standard)), [RFC4287](https://www.ietf.org/rfc/rfc4287.txt)                                                      |
+| `.b4s`                   | Winamp playlist versions 3 and later                                                                                                                                     |
+| `.m3u`, `.m3u8`, `.m4u`  | [Winamp M3U](https://en.wikipedia.org/wiki/M3U)                                                                                                                          |
+| `.mpcpl`                 | [Media Player Classic](https://en.wikipedia.org/wiki/Media_Player_Classic) Playlist                                                                                      |
+| `.pla`                   | iRiver iQuickList File                                                                                                                                                   |
+| `.plist`, `.xml`         | [Property list](https://en.wikipedia.org/wiki/Property_list), [iTunes Library File](https://www.xml.com/pub/a/2004/11/03/itunes.html)                                    |
+| `.plp`                   | Sansa Playlist File                                                                                                                                                      |
+| `.pls`                   | [Winamp PLSv2 Playlist](https://en.wikipedia.org/wiki/PLS_(file_format))                                                                                                 |
+| `.ram`                   | [Real Audio Metadata (RAM)](https://en.wikipedia.org/wiki/RealAudio#File_extensions)                                                                                     |
+| `.rmp`                   | [Real Metadata Package (RMP)](https://extension.informer.com/rmp/)                                                                                                       |
+| `.rss`                   | [RSS Document](https://en.wikipedia.org/wiki/RSS)                                                                                                                        |
+| `.smil`                  | [Synchronized Multimedia Integration Language (SMIL)](https://en.wikipedia.org/wiki/Synchronized_Multimedia_Integration_Language), [W3C](https://www.w3.org/AudioVideo/) |                                           |
+| `.wpl`                   | [Windows Media Player Playlist (WPL)](https://en.wikipedia.org/wiki/Windows_Media_Player_Playlist)                                                                       |
+| `.xspf`                  | [XML Shareable Playlist Format (XSPF)](https://xspf.org/)                                                                                                                |
 
 ## License
 
