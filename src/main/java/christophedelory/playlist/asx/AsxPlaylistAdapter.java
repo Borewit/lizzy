@@ -141,7 +141,7 @@ public class AsxPlaylistAdapter implements SpecificPlaylist
     private void addToSequence(final RepeatElement repeat, final Sequence currentSequence)
     {
         final Sequence seq = new Sequence();
-        seq.setRepeatCount((repeat.getCOUNT() == null) ? -1 : (repeat.getCOUNT().intValue() + 1));
+        seq.setRepeatCount((repeat.getCOUNT() == null) ? 1.0f : (repeat.getCOUNT() + 1));
         currentSequence.addComponent(seq);
 
         for (Object asxElem : repeat.getENTRYOrENTRYREF())

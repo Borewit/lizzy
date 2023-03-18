@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <jaxb:bindings version="1.0"
-               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+               xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
 >
 
-    <jaxb:bindings schemaLocation="smil20.xsd" node="/xs:schema">
+    <jaxb:bindings schemaLocation="smil20.xsd" node="/xsd:schema">
         <jaxb:schemaBindings>
             <jaxb:package name="io.github.borewit.playlist.smil20"/>
             <jaxb:nameXmlTransform>
                 <jaxb:typeName prefix="Smil"/>
             </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
+        <jaxb:bindings node="//xsd:simpleType[@name='RepeatValue']">
+            <xjc:javaType name="java.lang.Float" adapter="christophedelory.playlist.smil20.RepeatValueXmlAdapter" />
+        </jaxb:bindings>
+        <jaxb:bindings node="//xsd:simpleType[@name='DurationValue']">
+            <xjc:javaType name="java.lang.Long" adapter="christophedelory.playlist.smil20.DurationValueXmlAdapter" />
+        </jaxb:bindings>
     </jaxb:bindings>
 </jaxb:bindings>

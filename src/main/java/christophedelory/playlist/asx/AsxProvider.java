@@ -34,7 +34,6 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.util.StreamReaderDelegate;
 import java.io.InputStream;
-import java.math.BigDecimal;
 
 /**
  * The Windows Media ASX playlist XML format.
@@ -150,7 +149,7 @@ public class AsxProvider extends JaxbPlaylistProvider<Asx>
                 else if (sequence.getRepeatCount() > 1)
                 {
                     final RepeatElement repeat = new RepeatElement();
-                    repeat.setCOUNT(BigDecimal.valueOf(sequence.getRepeatCount() - 1));
+                    repeat.setCOUNT((int) (sequence.getRepeatCount() - 1));
                     asx.getREPEAT().add(repeat);
                 }
             }
@@ -173,7 +172,7 @@ public class AsxProvider extends JaxbPlaylistProvider<Asx>
                 else if (media.getRepeatCount() > 1)
                 {
                     final RepeatElement repeat = new RepeatElement();
-                    repeat.setCOUNT(BigDecimal.valueOf(media.getRepeatCount() - 1));
+                    repeat.setCOUNT((int)(media.getRepeatCount() - 1));
                     asx.getREPEAT().add(repeat);
                 }
 

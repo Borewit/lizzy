@@ -1,12 +1,14 @@
-package christophedelory.playlist.smil;
+package christophedelory.playlist.smil20;
 
 import christophedelory.lang.StringUtils;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
-public class Duration
+public class DurationValueXmlAdapter extends XmlAdapter<String, Long>
 {
   private static String INDEFINITE = "indefinite";
 
-  public static String toString(Long _duration)
+  @Override
+  public String marshal(Long _duration)
   {
     String ret = null;
 
@@ -79,14 +81,15 @@ public class Duration
   /**
    * Convert from SMIL duration to timestamp
    *
-   * @param duration a duration. May be <code>null</code>.
+   * @param xmlValue a duration. May be <code>null</code>.
    * @throws IllegalArgumentException if the given string is malformed.
    * @throws IllegalArgumentException if the specified duration is negative.
    * @throws NumberFormatException    if the string does not contain parsable values.
    */
-  public static Long fromString(final String duration)
+  @Override
+  public Long unmarshal(String xmlValue)
   {
-    final String str = duration.trim();
+    final String str = xmlValue.trim();
 
     if (str.equalsIgnoreCase("media"))
     {

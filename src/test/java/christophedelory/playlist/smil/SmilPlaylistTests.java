@@ -4,6 +4,7 @@ import christophedelory.playlist.Playlist;
 
 import christophedelory.playlist.SpecificPlaylist;
 
+import christophedelory.playlist.smil20.SmilProvider;
 import christophedelory.util.TestUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,6 +28,20 @@ public class SmilPlaylistTests
         assertEquals(2, playlist.getRootSequence().getComponents().size());
         checkPlaylistItemSource(playlist, 0, "http://example.com/foo.mp3");
         checkPlaylistItemSource(playlist, 1, "http://example.com/bar.mp3");
+    }
+
+    @Test
+    @DisplayName("Read SMIL playlist with \"indefinite\" repeat count")
+    public void readSmilPlaylistWithIndefiniteRepeatValue() throws Exception
+    {
+        Playlist playlist = TestUtil.readPlaylistFrom("smil/test02.smil");
+        assertNotNull(playlist, "playlist");
+        assertEquals(7, playlist.getRootSequence().getComponents().size());
+        checkPlaylistItemSource(playlist, 0, "image1.jpg");
+        checkPlaylistItemSource(playlist, 1, "image2.jpg");
+        checkPlaylistItemSource(playlist, 2, "http://example.com/foo.mp3");
+        checkPlaylistItemSource(playlist, 3, "http://example.com/bar.mp3");
+        checkPlaylistItemSource(playlist, 4, "liar.wav");
     }
 
     @Test

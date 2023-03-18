@@ -4,7 +4,7 @@ christophedelory.playlist.asx.AsxProvider
 christophedelory.playlist.b4s.B4sProvider
 # BEFORE SMIL (same root element).
 christophedelory.playlist.wpl.WplProvider
-christophedelory.playlist.smil.SmilProvider
+christophedelory.playlist.smil20.SmilProvider
 christophedelory.playlist.rss.RSSProvider
 christophedelory.playlist.atom.AtomProvider
 # Before XSPF, because this format is very close to XSPF,

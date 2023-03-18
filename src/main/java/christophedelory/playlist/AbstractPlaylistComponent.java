@@ -34,7 +34,7 @@ public abstract class AbstractPlaylistComponent
     /**
      * The number of iterations of this playlist component.
      */
-    private int _repeatCount = 1;
+    private float _repeatCount = 1.0f;
 
     /**
      * The parent container of this playlist component.
@@ -68,7 +68,7 @@ public abstract class AbstractPlaylistComponent
      * @return the element's repeat count.
      * @see #setRepeatCount
      */
-    public int getRepeatCount()
+    public float getRepeatCount()
     {
         return _repeatCount;
     }
@@ -78,17 +78,9 @@ public abstract class AbstractPlaylistComponent
      * @param repeatCount a repeat count.
      * @see #getRepeatCount
      */
-    public void setRepeatCount(final int repeatCount)
+    public void setRepeatCount(final Float repeatCount)
     {
-        // Enforce a value of -1.
-        if (repeatCount < 0)
-        {
-            _repeatCount = -1;
-        }
-        else
-        {
-            _repeatCount = repeatCount;
-        }
+        this._repeatCount = repeatCount == null ? 1.0f : repeatCount;
     }
 
     /**

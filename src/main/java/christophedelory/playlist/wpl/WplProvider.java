@@ -26,7 +26,7 @@ package christophedelory.playlist.wpl;
 
 import christophedelory.content.type.ContentType;
 import christophedelory.player.PlayerSupport;
-import christophedelory.playlist.smil.SmilProvider;
+import christophedelory.playlist.smil20.SmilProvider;
 
 /**
  * WPL (Windows Media Player Playlist) is a proprietary XML file format used in Microsoft Windows Media Player versions 9-11.

@@ -227,7 +227,7 @@ public class Playlist
                     if (upTo > i)
                     {
                         final Sequence newSequence = new Sequence(); // NOPMD Avoid instantiating new objects inside loops
-                        newSequence.setRepeatCount(1 + upTo - i);
+                        newSequence.setRepeatCount((float) (1 + upTo - i));
                         logger.info("Merging " + newSequence.getRepeatCount() + " identical media in a new sequence");
                         target.addComponent(i, newSequence); // Shall not throw IndexOutOfBoundsException.
 
