@@ -13,10 +13,12 @@
             </jaxb:nameXmlTransform>
         </jaxb:schemaBindings>
         <jaxb:bindings node="//xsd:simpleType[@name='RepeatValue']">
-            <xjc:javaType name="java.lang.Float" adapter="christophedelory.playlist.smil20.RepeatValueXmlAdapter" />
+            <xjc:javaType name="java.lang.Float"
+                          adapter="io.github.borewit.lizzy.playlist.smil20.RepeatValueXmlAdapter"/>
         </jaxb:bindings>
         <jaxb:bindings node="//xsd:simpleType[@name='DurationValue']">
-            <xjc:javaType name="java.lang.Long" adapter="christophedelory.playlist.smil20.DurationValueXmlAdapter" />
+            <xjc:javaType name="java.lang.Long"
+                          adapter="io.github.borewit.lizzy.playlist.smil20.DurationValueXmlAdapter"/>
         </jaxb:bindings>
     </jaxb:bindings>
 </jaxb:bindings>

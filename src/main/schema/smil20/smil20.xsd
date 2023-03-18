@@ -25,9 +25,9 @@
             <xs:sequence>
                 <xs:element name="meta" minOccurs="0" maxOccurs="unbounded">
                     <xs:complexType>
-                        <xs:attribute name="name" type="xs:string" />
-                        <xs:attribute name="base" type="xs:string" />
-                        <xs:attribute name="content" type="xs:string" />
+                        <xs:attribute name="name" type="xs:string"/>
+                        <xs:attribute name="base" type="xs:string"/>
+                        <xs:attribute name="content" type="xs:string"/>
                     </xs:complexType>
                 </xs:element>
                 <xs:element name="layout" minOccurs="0">
@@ -35,8 +35,8 @@
                         <xs:sequence>
                             <xs:element name="root-layout">
                                 <xs:complexType>
-                                    <xs:attribute name="width" type="xs:unsignedByte" use="required" />
-                                    <xs:attribute name="height" type="xs:unsignedByte" use="required" />
+                                    <xs:attribute name="width" type="xs:unsignedByte" use="required"/>
+                                    <xs:attribute name="height" type="xs:unsignedByte" use="required"/>
                                 </xs:complexType>
                             </xs:element>
                         </xs:sequence>
@@ -57,7 +57,7 @@
                     <xs:element name="media" type="smil:Media"/>
                     <xs:element name="video" type="smil:Video"/>
                 </xs:choice>
-                <xs:attribute name="repeatCount" type="smil:RepeatValue" />
+                <xs:attribute name="repeatCount" type="smil:RepeatValue"/>
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
@@ -110,8 +110,8 @@
     <xs:complexType name="Video">
         <xs:complexContent>
             <xs:extension base="smil:Reference">
-                <xs:attribute name="clipBegin" type="xs:string" />
-                <xs:attribute name="clipEnd" type="xs:string" />
+                <xs:attribute name="clipBegin" type="xs:string"/>
+                <xs:attribute name="clipEnd" type="xs:string"/>
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
@@ -121,16 +121,16 @@
             <xs:extension base="smil:Reference">
                 <xs:attribute name="cid" type="xs:string"/>
                 <!-- Tracking ID -->
-                <xs:attribute name="tid" type="xs:string" />
+                <xs:attribute name="tid" type="xs:string"/>
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
 
     <xs:complexType name="Reference">
-        <xs:attribute name="src" type="xs:string" use="required" />
-        <xs:attribute name="dur" type="smil:DurationValue" />
-        <xs:attribute name="repeatCount" type="smil:RepeatValue" />
-        <xs:attribute name="type" type="xs:string" />
+        <xs:attribute name="src" type="xs:string" use="required"/>
+        <xs:attribute name="dur" type="smil:DurationValue"/>
+        <xs:attribute name="repeatCount" type="smil:RepeatValue"/>
+        <xs:attribute name="type" type="xs:string"/>
     </xs:complexType>
 
     <!-- ================== SimpleTypes =============================== -->

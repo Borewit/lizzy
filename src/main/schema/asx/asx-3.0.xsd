@@ -23,10 +23,10 @@
             <xs:complexContent>
                 <xs:extension base="asx:BaseElement">
                     <xs:sequence>
-                        <xs:element name="ENTRY" type="asx:EntryElement" minOccurs="0" maxOccurs="unbounded" />
-                        <xs:element name="REPEAT" type="asx:RepeatElement" minOccurs="0" maxOccurs="unbounded" />
-                        <xs:element name="ENTRYREF" type="asx:EntryrefElement" minOccurs="0" maxOccurs="unbounded" />
-                        <xs:element name="SKIN" type="asx:RefElement" minOccurs="0" maxOccurs="unbounded" />
+                        <xs:element name="ENTRY" type="asx:EntryElement" minOccurs="0" maxOccurs="unbounded"/>
+                        <xs:element name="REPEAT" type="asx:RepeatElement" minOccurs="0" maxOccurs="unbounded"/>
+                        <xs:element name="ENTRYREF" type="asx:EntryrefElement" minOccurs="0" maxOccurs="unbounded"/>
+                        <xs:element name="SKIN" type="asx:RefElement" minOccurs="0" maxOccurs="unbounded"/>
                     </xs:sequence>
 
                     <!-- Decimal number representing the version number of the syntax for the metafile. Set to 3 or 3.0. -->

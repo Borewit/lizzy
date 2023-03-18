@@ -1,0 +1,4 @@
+io.github.borewit.lizzy.content.SoundMetadataProvider
+io.github.borewit.lizzy.content.ImageMetadataProvider
+# Commented: unable to make it work at the moment...
+#christophedelory.content.VLCMetadataProvider

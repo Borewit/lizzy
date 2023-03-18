@@ -33,14 +33,16 @@
     <xsd:attribute name="base" type="xsd:anyURI">
         <xsd:annotation>
             <xsd:documentation>See http://www.w3.org/TR/xmlbase/ for
-                information about this attribute.</xsd:documentation>
+                information about this attribute.
+            </xsd:documentation>
         </xsd:annotation>
     </xsd:attribute>
 
     <xsd:attribute name="id" type="xsd:ID">
         <xsd:annotation>
             <xsd:documentation>See http://www.w3.org/TR/xml-id/ for
-                information about this attribute.</xsd:documentation>
+                information about this attribute.
+            </xsd:documentation>
         </xsd:annotation>
     </xsd:attribute>
 
