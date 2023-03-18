@@ -32,6 +32,7 @@ import io.github.borewit.playlist.rmp.RmpPackage;
 
 import jakarta.xml.bind.JAXBElement;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
@@ -77,7 +78,8 @@ public class RmpProvider extends JaxbPlaylistProvider<RmpPackage>
     @Override
     public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws Exception
     {
-        final JAXBElement<RmpPackage> rmp = this.unmarshal(in, encoding);
+        final String rmpEncoding = encoding == null ? StandardCharsets.US_ASCII.toString() : encoding;
+        final JAXBElement<RmpPackage> rmp = this.unmarshal(in, rmpEncoding);
         String rootElementName = rmp.getName().getLocalPart();
 
         return rootElementName != null && rootElementName.equalsIgnoreCase("PACKAGE") ?

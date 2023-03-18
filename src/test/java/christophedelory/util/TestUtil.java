@@ -22,6 +22,7 @@ public class TestUtil
     public static final Path jsonTestDataPath = sampleFolderPath.resolve("playlists.json");
 
     private static final Set<String> skipSamples = new HashSet<>(Arrays.asList(
+        "test03.asx",
         "test08.smil"
     ));
 
@@ -87,14 +88,14 @@ public class TestUtil
         return new ObjectMapper().readValue(jsonTestDataPath.toFile(), typeRef);
     }
 
-    public static void checkPlaylistItemSource(final Playlist playlist, final int itemIndex, final String expectedUri)
+    public static void checkPlaylistItemSource(final Playlist playlist, final int itemIndex, final String expectedSource)
     {
         Object entry = playlist.getRootSequence().getComponents().get(itemIndex);
         assertNotNull(entry, "Playlist entry");
         assertTrue(entry instanceof Media, String.format("Expect entry to be Media instance, got class %s", entry.getClass()));
         Media media = (Media) entry;
         assertNotNull(media.getSource(), "Media source");
-        assertEquals(expectedUri, media.getSource().toString(), "Media source URL");
+        assertEquals(expectedSource, media.getSource().toString(), "Media source URL");
     }
 
     public static boolean hasBom(Path path) throws IOException

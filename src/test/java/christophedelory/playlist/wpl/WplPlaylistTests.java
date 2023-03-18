@@ -47,6 +47,25 @@ public class WplPlaylistTests
         writeWpl("asx/test01.asx");
     }
 
+    @Test
+    @DisplayName("Read WPL Playlist: 2seq.wpl")
+    public void read_2seq() throws Exception
+    {
+        Playlist wplPlaylist = TestUtil.readPlaylistFrom("wpl/2seq.wpl");
+        assertNotNull(wplPlaylist, "PlaylistFactory should read and construct M3U playlist");
+        assertEquals(4, wplPlaylist.getRootSequence().getComponents().size(), "M3U playlist contains 2 tracks");
+        checkPlaylistItemSource(wplPlaylist, 1, "D:\\Tak to By\u0142o\\29-05-2010\\ABBA - Waterloo.wav");
+    }
+
+    @Test
+    @DisplayName("Read WPL Playlist: playlist.wpl")
+    public void read_playlist() throws Exception
+    {
+        Playlist wplPlaylist = TestUtil.readPlaylistFrom("wpl/playlist.wpl");
+        assertNotNull(wplPlaylist, "PlaylistFactory should read and construct M3U playlist");
+        assertEquals(2, wplPlaylist.getRootSequence().getComponents().size(), "M3U playlist contains 2 tracks");
+    }
+
     private static void writeWpl(String testFile) throws Exception
     {
         Playlist playlist = TestUtil.readPlaylistFrom(testFile);
