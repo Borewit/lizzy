@@ -36,7 +36,7 @@ public abstract class JaxbPlaylistProvider<T> extends AbstractPlaylistProvider
 
     protected JAXBElement<T> unmarshal(final InputStream in, final String encoding) throws Exception
     {
-        String applyEncoding = encoding == null ? StandardCharsets.US_ASCII.name() : encoding;
+        String applyEncoding = encoding == null ? StandardCharsets.UTF_8.toString() : encoding;
         Unmarshaller unmarshaller = this.getJaxbContext().createUnmarshaller();
         XMLStreamReader xmlStreamReader = this.getXmlStreamReader(in, applyEncoding);
         return unmarshaller.unmarshal(xmlStreamReader, this.getXmlCLass());

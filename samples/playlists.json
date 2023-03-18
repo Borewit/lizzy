@@ -38,15 +38,6 @@
       "source" : "mms://windowsmediaserver/path/yourfile.asf"
     } ]
   },
-  "asx/test03.asx" : {
-    "rootSequence" : [ {
-      "repeatCount" : 1.0,
-      "source" : "http://example.com/announcement.wma"
-    }, {
-      "repeatCount" : 1.0,
-      "source" : "http://example.com:8080"
-    } ]
-  },
   "asx/test04.asx" : {
     "rootSequence" : [ {
       "repeatCount" : 1.0,
@@ -789,6 +780,24 @@
       "source" : "System/MUSIC/Like a Breath of Air.wma"
     } ]
   },
+  "pls/playlist.pls" : {
+    "rootSequence" : [ {
+      "repeatCount" : 1.0,
+      "source" : "Alternative\\everclear - SMFTA.mp3"
+    }, {
+      "repeatCount" : 1.0,
+      "source" : "Comedy\\Weird Al - Everything You Know Is Wrong.mp3"
+    }, {
+      "repeatCount" : 1.0,
+      "source" : "Weird Al - This Is The Life.mp3"
+    }, {
+      "repeatCount" : 1.0,
+      "source" : "http://www.site.com/~user/gump.mp3"
+    }, {
+      "repeatCount" : 1.0,
+      "source" : "http://www.site.com:8000/listen.pls"
+    } ]
+  },
   "pls/test01.pls" : {
     "rootSequence" : [ {
       "repeatCount" : 1.0,
@@ -1026,6 +1035,30 @@
     } ]
   },
   "smil/test07.smil" : { },
+  "wpl/2seq.wpl" : {
+    "rootSequence" : [ {
+      "repeatCount" : 1.0,
+      "source" : "D:\\Tak to Było\\22-05-2010\\Allisons - Are You Sure.wav"
+    }, {
+      "repeatCount" : 1.0,
+      "source" : "D:\\Tak to Było\\29-05-2010\\ABBA - Waterloo.wav"
+    }, {
+      "repeatCount" : 1.0,
+      "source" : "D:\\Tak to Było\\29-05-2010\\Bobbysocks - La Det Swinge.wav"
+    }, {
+      "repeatCount" : 1.0,
+      "source" : "D:\\Tak to Było\\29-05-2010\\Brotherhood of Man - Save Your Kisses For Me.wav"
+    } ]
+  },
+  "wpl/playlist.wpl" : {
+    "rootSequence" : [ {
+      "repeatCount" : 1.0,
+      "source" : "D:\\Muzyka\\Eurowizja\\Eurowizja 2014\\Can-linn & Kasey Smith - Heartbeat(Irlandia).mp3"
+    }, {
+      "repeatCount" : 1.0,
+      "source" : "D:\\Muzyka\\Eurowizja\\Eurowizja 2014\\Elaiza - Is It Right.mp3"
+    } ]
+  },
   "wpl/test01.wpl" : {
     "rootSequence" : [ {
       "repeatCount" : 1.0,
