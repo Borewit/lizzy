@@ -1,1 +1,4 @@
+playlist-utf8.m3u		    text working-tree-encoding=UTF-8
 playlist-utf8-bom.m3u		text working-tree-encoding=UTF-8-BOM
+playlist-utf16be-bom.m3u    text working-tree-encoding=UTF-16BE-BOM
+playlist-utf16le-bom.m3u    text working-tree-encoding=UTF-16LE-BOM
