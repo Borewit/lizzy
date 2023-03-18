@@ -26,6 +26,15 @@ public class PlistPlaylistTests
         checkPlaylistItemSource(playlist, 0, "file://localhost/Users/niel/Music/iTunes/iTunes%20Music/Count%20Basie%20&%20His%20Orchestra/Prime%20Time/03%20Sweet%20Georgia%20Brown.m4p");
     }
 
+    @Test
+    @DisplayName("Read iTunesMusicLibrary.xml")
+    public void readITunesMusicLibrary() throws Exception
+    {
+        Playlist playlist = TestUtil.readPlaylistFrom("plist/iTunesMusicLibrary.xml");
+        assertNotNull(playlist, "playlist");
+        assertEquals(4, playlist.getRootSequence().getComponents().size());
+        checkPlaylistItemSource(playlist, 1, "file://localhost/Users/z/Music/iTunes/iTunes%20Media/TV%20Shows/Onion%20News%20Network/Season%201/101%20Interview%20With%20the%20Onion%20News%20Network%20(HD).m4v");
+    }
 
     @Test
     @DisplayName("Write to p-list playlist file")

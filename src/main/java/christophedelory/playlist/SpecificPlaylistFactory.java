@@ -29,10 +29,7 @@ import java.io.InputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.ServiceLoader;
+import java.util.*;
 
 import christophedelory.content.type.ContentType;
 import org.apache.logging.log4j.LogManager;
@@ -170,7 +167,7 @@ public final class SpecificPlaylistFactory
      * @param id the unique string identifying a type of specific playlists. Not case sensitive. Shall not be <code>null</code>.
      * @return a provider, or <code>null</code> if none was found.
      * @throws NullPointerException if <code>id</code> is <code>null</code>.
-     * @see #findProviderByExtension
+     * @see #findProvidersByExtension(String) 
      */
     public SpecificPlaylistProvider findProviderById(final String id)
     {
@@ -189,16 +186,18 @@ public final class SpecificPlaylistFactory
     }
 
     /**
-     * Searches for a provider handling the specific playlist files with the given extension string.
+     * Searches for providers handling the specific playlist files with the given extension string.
      * @param filename a playlist file name, or a simple extension string (with the leading '.' character, if appropriate). Not case sensitive. Shall not be <code>null</code>.
      * @return a provider, or <code>null</code> if none was found.
      * @throws NullPointerException if <code>filename</code> is <code>null</code>.
      * @see #findProviderById
      */
-    public SpecificPlaylistProvider findProviderByExtension(final String filename)
+    public List<SpecificPlaylistProvider> findProvidersByExtension(final String filename)
     {
-        SpecificPlaylistProvider ret = null;
+        List<SpecificPlaylistProvider> specificPlaylistProviders = new LinkedList<>();
         final String name = filename.toLowerCase(Locale.ENGLISH); // Throws NullPointerException if filename is null.
+
+
 
         for (SpecificPlaylistProvider service : _serviceLoader)
         {
@@ -208,25 +207,19 @@ public final class SpecificPlaylistFactory
             {
                 if (type.matchExtension(name))
                 {
-                    ret = service;
-                    break;
+                    specificPlaylistProviders.add(service);
                 }
-            }
-
-            if (ret != null)
-            {
-                break;
             }
         }
 
-        return ret;
+        return specificPlaylistProviders;
     }
 
     /**
      * Lists all currently installed playlist providers.
      * @return a list of specific playlist providers. May be empty but not <code>null</code>.
      * @since 0.2.0
-     * @see #findProviderByExtension
+     * @see #findProvidersByExtension
      * @see #findProviderById
      */
     public List<SpecificPlaylistProvider> getProviders()

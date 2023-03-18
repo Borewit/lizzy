@@ -65,6 +65,7 @@ import christophedelory.xml.Version;
 @SuppressWarnings("PMD.SystemPrintln")
 public final class AddToPlaylist
 {
+
     /**
      * Adds a given list of URLs, files and/or directories to a single playlist.
      * <br>
@@ -329,13 +330,18 @@ public final class AddToPlaylist
                 outputPath = _output;
             }
 
-            provider = SpecificPlaylistFactory.getInstance().findProviderByExtension(outputPath);
-
-            if (provider == null)
+            List<SpecificPlaylistProvider> providers = SpecificPlaylistFactory.getInstance().findProvidersByExtension(outputPath);
+            if (providers.isEmpty())
             {
-                System.err.println("Unknown type of specific playlist <" + _output + '>');
+                System.err.printf("Failed to resolve provider for playlist \"%s\"",  _output);
                 System.exit(1);
             }
+            if (providers.size() > 1)
+            {
+                System.err.printf("Multiple providers found for \"%s\"",  _output);
+                System.exit(1);
+            }
+            provider = providers.get(0);
         }
 
         Playlist playlist = new Playlist();

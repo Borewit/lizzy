@@ -24,14 +24,17 @@
  */
 package christophedelory.content.type;
 
-import java.util.Locale;
-
 import christophedelory.playlist.SpecificPlaylistFactory;
 import christophedelory.playlist.SpecificPlaylistProvider;
 
+import java.util.Arrays;
+import java.util.Locale;
+import java.util.Optional;
+
 /**
  * A content type provider taking its input from the {@link SpecificPlaylistProvider specific playlist providers}.
- * @version $Revision: 90 $
+ *
+ * @author Borewit
  * @author Christophe Delory
  */
 public class SpecificPlaylistTypeProvider implements IContentTypeProvider
@@ -41,24 +44,15 @@ public class SpecificPlaylistTypeProvider implements IContentTypeProvider
     {
         final String name = contentName.toLowerCase(Locale.ENGLISH); // Throws NullPointerException if contentName is null.
 
-        ContentType ret = null;
-        final SpecificPlaylistProvider provider = SpecificPlaylistFactory.getInstance().findProviderByExtension(name);
-
-        if (provider != null)
-        {
-            // If a provider is returned, one of its content types must match.
-            final ContentType[] contentTypes = provider.getContentTypes();
-
-            for (ContentType contentType : contentTypes)
-            {
-                if (contentType.matchExtension(name))
-                {
-                    ret = contentType;
-                    break;
-                }
-            }
-        }
-
-        return ret;
+        return SpecificPlaylistFactory.getInstance().findProvidersByExtension(name).stream()
+            .map(SpecificPlaylistProvider::getContentTypes)
+            .map(contentTypes -> Arrays.stream(contentTypes)
+                .filter(ct -> ct.matchExtension(name))
+                .findFirst()
+            )
+            .filter(Optional::isPresent)
+            .map(Optional::get)
+            .findFirst()
+            .orElse(null);
     }
 }

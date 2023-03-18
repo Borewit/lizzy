@@ -42,6 +42,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.List;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -262,13 +263,20 @@ public final class Transcode
                     path = _output;
                 }
 
-                provider = SpecificPlaylistFactory.getInstance().findProviderByExtension(path);
+                List<SpecificPlaylistProvider> providers = SpecificPlaylistFactory.getInstance().findProvidersByExtension(path);
 
-                if (provider == null) // NOPMD Deeply nested if..then statements are hard to read
+                if (providers.isEmpty()) // NOPMD Deeply nested if..then statements are hard to read
                 {
                     System.err.println("Unknown type of specific playlist <" + _output + '>');
                     System.exit(1);
                 }
+
+                if (providers.size() > 1) // NOPMD Deeply nested if..then statements are hard to read
+                {
+                    System.err.printf("Warning, multiple providers found for <%s>%n", _output);
+                }
+                provider = providers.get(0);
+
             }
         }
 
