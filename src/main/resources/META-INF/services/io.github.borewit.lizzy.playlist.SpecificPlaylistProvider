@@ -1,0 +1,19 @@
+# First one, as it is a binary format that can easily be recognized.
+io.github.borewit.lizzy.playlist.pla.PLAProvider
+io.github.borewit.lizzy.playlist.asx.AsxProvider
+io.github.borewit.lizzy.playlist.b4s.WinampXmlProvider
+# BEFORE SMIL (same root element).
+io.github.borewit.lizzy.playlist.wpl.WplProvider
+io.github.borewit.lizzy.playlist.smil20.SmilProvider
+io.github.borewit.lizzy.playlist.rss.RSSProvider
+io.github.borewit.lizzy.playlist.atom.AtomProvider
+# Before XSPF, because this format is very close to XSPF,
+# but its XML format is strictly checked (and XSPF's format is not)
+io.github.borewit.lizzy.playlist.xspf.XspfProvider
+io.github.borewit.lizzy.playlist.rmp.RmpProvider
+io.github.borewit.lizzy.playlist.plist.PlistProvider
+io.github.borewit.lizzy.playlist.pls.PLSProvider
+io.github.borewit.lizzy.playlist.mpcpl.MPCPLProvider
+io.github.borewit.lizzy.playlist.plp.PLPProvider
+# Shall be last, at the M3U format can match almost everything.
+io.github.borewit.lizzy.playlist.m3u.M3UProvider

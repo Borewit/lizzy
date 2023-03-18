@@ -2,22 +2,22 @@
 <!-- Unofficial and immature bindings, designed for JAXB generation -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             xmlns:media="http://search.yahoo.com/mrss/">
-    <xsd:import schemaLocation="mrss.xsd" namespace="http://search.yahoo.com/mrss/" />
-    <xsd:element name="rss" type="rss" />
+    <xsd:import schemaLocation="mrss.xsd" namespace="http://search.yahoo.com/mrss/"/>
+    <xsd:element name="rss" type="rss"/>
 
     <xsd:complexType name="rss">
         <xsd:sequence>
             <xsd:element name="channel" type="channel" maxOccurs="1"
-                         minOccurs="1" />
+                         minOccurs="1"/>
 
         </xsd:sequence>
-        <xsd:attribute name="version" type="version" />
+        <xsd:attribute name="version" type="version"/>
 
     </xsd:complexType>
 
     <xsd:simpleType name="version">
         <xsd:restriction base="xsd:string">
-            <xsd:enumeration value="2.0" />
+            <xsd:enumeration value="2.0"/>
         </xsd:restriction>
     </xsd:simpleType>
 
@@ -227,56 +227,56 @@
     </xsd:complexType>
 
     <xsd:complexType name="cloud">
-        <xsd:attribute name="domain" type="xsd:string" />
+        <xsd:attribute name="domain" type="xsd:string"/>
         <xsd:attribute name="port">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:int">
-                    <xsd:maxInclusive value="65536" />
-                    <xsd:minInclusive value="0" />
+                    <xsd:maxInclusive value="65536"/>
+                    <xsd:minInclusive value="0"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
-        <xsd:attribute name="path" type="xsd:string" />
-        <xsd:attribute name="registerProcedure" type="xsd:string" />
-        <xsd:attribute name="protocol" type="xsd:string" />
+        <xsd:attribute name="path" type="xsd:string"/>
+        <xsd:attribute name="registerProcedure" type="xsd:string"/>
+        <xsd:attribute name="protocol" type="xsd:string"/>
     </xsd:complexType>
 
     <xsd:complexType name="image">
         <xsd:sequence>
-            <xsd:element name="url" type="xsd:string" maxOccurs="1" minOccurs="1" />
+            <xsd:element name="url" type="xsd:string" maxOccurs="1" minOccurs="1"/>
 
-            <xsd:element name="title" type="xsd:string" maxOccurs="1" minOccurs="1" />
+            <xsd:element name="title" type="xsd:string" maxOccurs="1" minOccurs="1"/>
 
-            <xsd:element name="link" type="xsd:string" maxOccurs="1" minOccurs="1" />
+            <xsd:element name="link" type="xsd:string" maxOccurs="1" minOccurs="1"/>
 
             <xsd:element name="width" default="88" maxOccurs="1" minOccurs="0">
                 <xsd:simpleType>
                     <xsd:restriction base="xsd:int">
-                        <xsd:minExclusive value="0" />
-                        <xsd:maxInclusive value="144" />
+                        <xsd:minExclusive value="0"/>
+                        <xsd:maxInclusive value="144"/>
                     </xsd:restriction>
                 </xsd:simpleType>
             </xsd:element>
             <xsd:element name="height" default="31" maxOccurs="1" minOccurs="0">
                 <xsd:simpleType>
                     <xsd:restriction base="xsd:int">
-                        <xsd:minExclusive value="0" />
-                        <xsd:maxInclusive value="400" />
+                        <xsd:minExclusive value="0"/>
+                        <xsd:maxInclusive value="400"/>
                     </xsd:restriction>
                 </xsd:simpleType>
             </xsd:element>
             <xsd:element name="description" type="xsd:string" maxOccurs="1"
-                         minOccurs="0" />
+                         minOccurs="0"/>
         </xsd:sequence>
     </xsd:complexType>
 
     <xsd:complexType name="textInput">
         <xsd:sequence>
-            <xsd:element name="title" type="xsd:string" maxOccurs="1" minOccurs="1" />
+            <xsd:element name="title" type="xsd:string" maxOccurs="1" minOccurs="1"/>
             <xsd:element name="description" type="xsd:string" maxOccurs="1"
-                         minOccurs="1" />
-            <xsd:element name="name" type="xsd:string" maxOccurs="1" minOccurs="1" />
-            <xsd:element name="link" type="xsd:string" maxOccurs="1" minOccurs="1" />
+                         minOccurs="1"/>
+            <xsd:element name="name" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+            <xsd:element name="link" type="xsd:string" maxOccurs="1" minOccurs="1"/>
         </xsd:sequence>
     </xsd:complexType>
 
@@ -285,8 +285,8 @@
             <xsd:element name="hour" minOccurs="1" maxOccurs="24">
                 <xsd:simpleType>
                     <xsd:restriction base="xsd:int">
-                        <xsd:maxInclusive value="23" />
-                        <xsd:minInclusive value="0" />
+                        <xsd:maxInclusive value="23"/>
+                        <xsd:minInclusive value="0"/>
                     </xsd:restriction>
                 </xsd:simpleType>
             </xsd:element>
@@ -298,13 +298,13 @@
             <xsd:element name="day" maxOccurs="7">
                 <xsd:simpleType>
                     <xsd:restriction base="xsd:string">
-                        <xsd:enumeration value="Monday" />
-                        <xsd:enumeration value="Tuesday" />
-                        <xsd:enumeration value="Wednesday" />
-                        <xsd:enumeration value="Thursday" />
-                        <xsd:enumeration value="Friday" />
-                        <xsd:enumeration value="Saturday" />
-                        <xsd:enumeration value="Sunday" />
+                        <xsd:enumeration value="Monday"/>
+                        <xsd:enumeration value="Tuesday"/>
+                        <xsd:enumeration value="Wednesday"/>
+                        <xsd:enumeration value="Thursday"/>
+                        <xsd:enumeration value="Friday"/>
+                        <xsd:enumeration value="Saturday"/>
+                        <xsd:enumeration value="Sunday"/>
                     </xsd:restriction>
                 </xsd:simpleType>
             </xsd:element>
@@ -388,8 +388,8 @@
                 </xsd:annotation>
             </xsd:element>
 
-            <xsd:element maxOccurs="unbounded" ref="media:content" />
-            <xsd:element maxOccurs="unbounded" ref="media:group" />
+            <xsd:element maxOccurs="unbounded" ref="media:content"/>
+            <xsd:element maxOccurs="unbounded" ref="media:group"/>
 
         </xsd:sequence>
 
@@ -398,28 +398,28 @@
     <xsd:complexType name="category">
         <xsd:simpleContent>
             <xsd:extension base="xsd:string">
-                <xsd:attribute name="domain" type="xsd:string" />
+                <xsd:attribute name="domain" type="xsd:string"/>
             </xsd:extension>
         </xsd:simpleContent>
     </xsd:complexType>
 
     <xsd:complexType name="enclosure">
-        <xsd:attribute name="url" type="xsd:string" use="required" />
+        <xsd:attribute name="url" type="xsd:string" use="required"/>
         <xsd:attribute name="length" use="required">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:long">
-                    <xsd:minExclusive value="0" />
+                    <xsd:minExclusive value="0"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
-        <xsd:attribute name="type" type="xsd:string" use="required" />
+        <xsd:attribute name="type" type="xsd:string" use="required"/>
     </xsd:complexType>
 
 
     <xsd:complexType name="guid">
         <xsd:simpleContent>
             <xsd:extension base="xsd:string">
-                <xsd:attribute name="isPermaLink" type="xsd:boolean" />
+                <xsd:attribute name="isPermaLink" type="xsd:boolean"/>
             </xsd:extension>
         </xsd:simpleContent>
     </xsd:complexType>
@@ -428,7 +428,7 @@
         <xsd:simpleContent>
             <xsd:extension base="xsd:string">
                 <xsd:attribute name="url" type="xsd:string"
-                               use="required" />
+                               use="required"/>
             </xsd:extension>
         </xsd:simpleContent>
     </xsd:complexType>
