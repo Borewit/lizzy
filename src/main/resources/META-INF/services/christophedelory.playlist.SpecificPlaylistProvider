@@ -1,7 +1,7 @@
 # First one, as it is a binary format that can easily be recognized.
 christophedelory.playlist.pla.PLAProvider
 christophedelory.playlist.asx.AsxProvider
-christophedelory.playlist.b4s.B4sProvider
+christophedelory.playlist.b4s.WinampXmlProvider
 # BEFORE SMIL (same root element).
 christophedelory.playlist.wpl.WplProvider
 christophedelory.playlist.smil.SmilProvider

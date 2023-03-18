@@ -16,18 +16,47 @@
                             <xs:element maxOccurs="unbounded" name="entry">
                                 <xs:complexType>
                                     <xs:sequence>
-                                        <xs:element name="Name" type="xs:string" />
-                                        <xs:element minOccurs="0" name="Length" type="xs:unsignedInt" />
+                                        <xs:element name="Name" type="xs:string"/>
+                                        <xs:element minOccurs="0" name="Length" type="xs:long"/>
                                     </xs:sequence>
-                                    <xs:attribute name="Playstring" type="xs:string" use="required" />
+                                    <xs:attribute name="Playstring" type="xs:string" use="required"/>
                                 </xs:complexType>
                             </xs:element>
                         </xs:sequence>
-                        <xs:attribute name="num_entries" type="xs:unsignedByte" use="required" />
-                        <xs:attribute name="label" type="xs:string" use="required" />
+                        <xs:attribute name="num_entries" type="xs:int"/>
+                        <xs:attribute name="label" type="xs:string" use="required"/>
+                        <xs:attribute name="title" use="required">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string"/>
+                            </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="songs">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:int"/>
+                            </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="seconds">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:int"/>
+                            </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="id">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string"/>
+                            </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="filename">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string"/>
+                            </xs:simpleType>
+                        </xs:attribute>
                     </xs:complexType>
                 </xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 </xs:schema>
+
+
+
+
