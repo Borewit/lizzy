@@ -1,9 +1,7 @@
 package christophedelory;
 
 import christophedelory.lizzy.Transcode;
-import christophedelory.util.TestUtil;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -35,20 +33,6 @@ public class CommandLineTranscodeTests
             {
                 throw new Exception(String.format("Transcoding of \"%s\" failed", samplePath.getFileName()), e);
             }
-        }
-    }
-
-    @Test
-    public void transcodeb4Playlist() throws Exception
-    {
-        Path path = TestUtil.sampleFolderPath.resolve("test01.b4s");
-        try
-        {
-            transcode(path);
-        }
-        catch (Exception e)
-        {
-            throw new Exception(String.format("Transcoding of \"%s\" failed", path.getFileName()), e);
         }
     }
 

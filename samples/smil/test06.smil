@@ -1,0 +1,12 @@
+<smil>
+        <head>
+            <layout>
+                <root-layout width="240" height="180" />
+            </layout>
+        </head>
+        <body>
+            <seq>
+                <video src="myvideo.flv" />
+            </seq>
+        </body>
+</smil>

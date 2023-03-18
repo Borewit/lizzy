@@ -4,6 +4,7 @@ import christophedelory.test.json.playlist.*;
 import christophedelory.util.TestUtil;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.io.FilenameUtils;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,10 +23,12 @@ public class WriteToJson
     {
         final Map<String, JsonPlaylist> playlistMap = new TreeMap<>();
 
-       for (Path sample : TestUtil.getSamplePaths())
+       for (Path samplePath : TestUtil.getSamplePaths())
         {
-            Playlist playlist = TestUtil.readPlaylistFrom(sample.toString());
-            playlistMap.put(sample.getFileName().toString(), JsonPlaylist.toJson(playlist));
+            Playlist playlist = TestUtil.readPlaylistFrom(samplePath.toString());
+            Path relativeSamplePath = TestUtil.sampleFolderPath.relativize(samplePath);
+            String normalizedPath = FilenameUtils.separatorsToUnix(relativeSamplePath.toString());
+            playlistMap.put(normalizedPath, JsonPlaylist.toJson(playlist));
         }
 
         final File jsonFile = TestUtil.jsonTestDataPath.toFile();

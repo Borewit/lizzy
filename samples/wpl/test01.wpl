@@ -1,0 +1,29 @@
+<?wpl version="1.0"?>
+<smil>
+    <head>
+        <meta name="Generator" content="Microsoft Windows Media Player -- 11.0.5721.5230"/>
+        <meta name="AverageRating" content="0"/>
+        <meta name="TotalDuration" content="1474"/>
+        <meta name="ItemCount" content="10"/>
+        <meta name="ContentPartnerListID"/>
+        <meta name="ContentPartnerNameType"/>
+        <meta name="ContentPartnerName"/>
+        <meta name="Subtitle"/>
+        <author/>
+        <title>expo</title>
+    </head>
+    <body>
+        <seq>
+            <media src="expo2008\edyoh_def.wmv"/>
+            <media src="expo2008\le loup est revenu_0001.wmv"/>
+            <media src="expo2008\franzyn_def.wmv"/>
+            <media src="expo2008\chorale.wmv"/>
+            <media src="expo2008\Soukam_def.wmv"/>
+            <media src="expo2008\Tina,  Antoine et le talisman_0001bis.wmv"/>
+            <media src="expo2008\mariamaena_def.wmv"/>
+            <media src="expo2008\cirque.wmv"/>
+            <media src="expo2008\yanmax_def.wmv"/>
+            <media src="expo2008\kemsab_def.wmv"/>
+        </seq>
+    </body>
+</smil>

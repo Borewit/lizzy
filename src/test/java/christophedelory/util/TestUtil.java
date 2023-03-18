@@ -16,37 +16,37 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestUtil
 {
-    public static final Path testFolderPath = Paths.get(System.getProperty("user.dir"), "test");
-    public static final Path sampleFolderPath = testFolderPath.resolve("samples");
-    public static final Path jsonTestDataPath = testFolderPath.resolve("playlists.json");
+    public static final Path sampleFolderPath = Paths.get(System.getProperty("user.dir"), "samples");
+    public static final Path jsonTestDataPath = sampleFolderPath.resolve("playlists.json");
+
+    private static final Set<String> skipSamples = new HashSet<>(Arrays.asList(
+        "test02.smil",
+        "test03.smil",
+        "test08.smil",
+        "repeat.asx"
+    ));
 
     public static List<Path> getSamplePaths() throws IOException
     {
-        Set<String> skipSamples = new HashSet<>(Arrays.asList(
-            "test02.smil",
-            "test03.smil",
-            "test08.smil",
-            "repeat.asx"
-        ));
-        try (Stream<Path> files = Files.list(sampleFolderPath))
-        {
-            return files
-                .filter(file -> Files.isRegularFile(file) && !skipSamples.contains(file.getFileName().toString()))
-                .collect(Collectors.toList());
-        }
+        return Files.walk(sampleFolderPath)
+            .filter(file -> Files.isRegularFile(file)
+                && !file.getFileName().toString().startsWith(".")
+                && !skipSamples.contains(file.getFileName().toString())
+                && !file.equals(jsonTestDataPath)
+            )
+            .collect(Collectors.toList());
     }
 
     public static Playlist makeAbstractPlaylist()
     {
         try
         {
-            return readPlaylistFrom("test01.m3u");
+            return readPlaylistFrom("m3u/test01.m3u");
         }
         catch (Exception e)
         {
@@ -62,9 +62,10 @@ public class TestUtil
 
     public static Playlist readPlaylistFrom(Path playlistPath) throws Exception
     {
-        SpecificPlaylistProvider specificPlaylistProvider = SpecificPlaylistFactory.getInstance().findProviderByExtension(playlistPath.toString());
-        assertNotNull(specificPlaylistProvider, String.format("Provider by extension %s", playlistPath));
-        try (InputStream is = Files.newInputStream(playlistPath))
+        Path absPlaylistPath = playlistPath.isAbsolute() ? playlistPath : sampleFolderPath.resolve(playlistPath);
+        SpecificPlaylistProvider specificPlaylistProvider = SpecificPlaylistFactory.getInstance().findProviderByExtension(absPlaylistPath.toString());
+        assertNotNull(specificPlaylistProvider, String.format("Provider by extension %s", absPlaylistPath));
+        try (InputStream is = Files.newInputStream(absPlaylistPath))
         {
             try
             {
@@ -72,7 +73,7 @@ public class TestUtil
             }
             catch (Exception e)
             {
-                throw new Exception(String.format("Failed to read from %s", playlistPath.getFileName()), e);
+                throw new Exception(String.format("Failed to read from %s", absPlaylistPath.getFileName()), e);
             }
         }
     }

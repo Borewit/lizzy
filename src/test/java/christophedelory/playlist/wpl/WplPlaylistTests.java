@@ -21,7 +21,7 @@ public class WplPlaylistTests
     @DisplayName("Read WPL playlist file")
     public void readWplPlaylist() throws Exception
     {
-        Playlist playlist = TestUtil.readPlaylistFrom("test01.wpl");
+        Playlist playlist = TestUtil.readPlaylistFrom("wpl/test01.wpl");
         assertNotNull(playlist, "playlist");
         assertEquals(10, playlist.getRootSequence().getComponents().size());
         checkPlaylistItemSource(playlist, 0, "expo2008\\edyoh_def.wmv");
@@ -34,7 +34,7 @@ public class WplPlaylistTests
     @DisplayName("Read WPL playlist with media having cid & tid attributes")
     public void readWplPlaylistWithCidAndTid() throws Exception
     {
-        Playlist playlist = TestUtil.readPlaylistFrom("test03.wpl");
+        Playlist playlist = TestUtil.readPlaylistFrom("wpl/test03.wpl");
         assertNotNull(playlist, "playlist");
         assertEquals(1, playlist.getRootSequence().getComponents().size());
         checkPlaylistItemSource(playlist, 0, "laure.wma");
@@ -44,7 +44,7 @@ public class WplPlaylistTests
     @DisplayName("Write to WPL playlist file")
     public void writeWpl() throws Exception
     {
-        writeWpl("test01.asx");
+        writeWpl("asx/test01.asx");
     }
 
     private static void writeWpl(String testFile) throws Exception

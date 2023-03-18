@@ -21,7 +21,7 @@ public class XspfPlaylistTests
     public void readPlist() throws Exception
     {
 
-        Playlist playlist = TestUtil.readPlaylistFrom("test02.xspf");
+        Playlist playlist = TestUtil.readPlaylistFrom("xspf/test02.xspf");
         assertNotNull(playlist, "playlist");
         assertEquals(3, playlist.getRootSequence().getComponents().size());
         checkPlaylistItemSource(playlist, 0, "http://example.net/song_1.ogg");

@@ -1,9 +1,0 @@
-# This is an absolute filesystem path
-c:/music/foo.mp3
-
-# This is a relative filesystem path
-foo/fighters.mp3
-
-# This is a URL
-http://foofighters.com/somesong.mp3
-
