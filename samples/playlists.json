@@ -1,468 +1,474 @@
 {
+  "asx/repeat.asx" : {
+    "rootSequence" : [ {
+      "repeatCount" : 1.0,
+      "source" : "Butterfly.wmv"
+    } ]
+  },
   "asx/test01.asx" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://www.johnsmith.com/media/Raging_Tango.mp3"
     } ]
   },
   "asx/test01.wax" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "mms://windowsmediaserver/path/yourfile.asf"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "mms://windowsmediaserver/path/yourfile.wma"
     } ]
   },
   "asx/test01.wvx" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "mms://windowsmediaserver/path/yourfile.asf"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "mms://windowsmediaserver/path/yourfile.wma"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "mms://windowsmediaserver/path/yourfile.wmv"
     } ]
   },
   "asx/test02.asx" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "mms://windowsmediaserver/path/yourfile.asf"
     } ]
   },
   "asx/test03.asx" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://example.com/announcement.wma"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://example.com:8080"
     } ]
   },
   "asx/test04.asx" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "(The Artist)-YourSongTitle.wma"
     } ]
   },
   "asx/test05.asx" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://sample.microsoft.com/metafile.asx"
     } ]
   },
   "asx/test06.asx" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "mms://ucast.proseware.com/Media1.asf"
     } ]
   },
   "asx/test07.asx" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "mms://example.microsoft.com/media.asf"
     } ]
   },
   "atom/test01.atom" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://example.org/audio/ph34r_my_podcast.mp3"
     } ]
   },
   "atom/test02.atom" : { },
   "b4s/test01.b4s" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "file:E:\\fresh dls\\Modern Rock - March 2003\\(modern rock march 2003)-08-system of a down-i-e-a-i-a-i-o.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "file:\\CARDS\\Albums\\normal\\Led Zeppelin - Houses Of The Holy\\Led Zeppelin - Houses Of The Holy - 03 - Over The Hills And Far Away.mp3"
     } ]
   },
   "b4s/test02.b4s" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "file:C:\\Music\\mp3\\Mixes\\Chuck & Roll - Soul Factory.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "file:C:\\Music\\mp3\\Mixes\\Cardian - 24 Hour Party People.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "file:C:\\Music\\mp3\\Mixes\\Spesh - Digweed Kiss100FM (04-05-2002).mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://198.81.31.133:80/stream/1"
     } ]
   },
   "m3u/playlist-utf8-bom.m3u" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "C:\\Music\\SampleMusic.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "C:\\Music\\ExampleMusic.mp3"
     } ]
   },
   "m3u/test01.m3u" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "c:/music/foo.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "foo/fighters.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://foofighters.com/somesong.mp3"
     } ]
   },
   "m3u/test01.m3u8" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "rock.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "classical.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "OTHER\\new.mp3"
     } ]
   },
   "m3u/test02.m3u" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "Alternative\\Song.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "Classical\\New_Song.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "crap.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "F:\\more music\\foo_bar.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://www.site.com:8000/listen.pls"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://www.site.com/~user/mine.mp3"
     } ]
   },
   "m3u/test03.m3u" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "Alternative\\everclear_SMFTA.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "Comedy\\Weird_Al_Everything_You_Know_Is_Wrong.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "Weird_Al_This_Is_The_Life.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://www.site.com/~user/gump.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://www.site.com:8000/listen.pls"
     } ]
   },
   "m3u/test04.m3u" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "mp3/3rd Bass/3rd bass - Al z A-B-Cee z.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "mp3/Apoptygma Berzerk/Apoptygma Berzerk - Kathy's Song (Victoria Mix by VNV Nation).mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "mp3/Apoptygma Berzerk/Apoptygma Berzerk - Kathy's Song.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "mp3/Apoptygma Berzerk/Apoptygma Berzerk - Starsign.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "mp3/Butthole_Surfers-They_Came_In.mp3"
     } ]
   },
   "m3u/test05.m3u" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "C:\\Documents and Settings\\I\\My Music\\Sample.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "C:\\Documents and Settings\\I\\My Music\\Greatest Hits\\Example.ogg"
     } ]
   },
   "m3u/test06.m3u" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "/music/opeth/white cluster.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "/music/moonlapse vertigo.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://ccmixter.org/a/song.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "/video/mononoke.avi"
     } ]
   },
   "mpcpl/test01.mpcpl" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "c:\\videos\\clip1.avi"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "c:\\videos\\clip2.avi"
     } ]
   },
   "mpcpl/test02.mpcpl" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "rtsp://media.cbc.ca/cbc.ca/thering/real/remixes/Rhyme of the Nibelung - david-t-cheong.rm"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "rtsp://media.cbc.ca/cbc.ca/thering/real/remixes/You Bring The Cheese Ring - simon-wood.rm"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "rtsp://media.cbc.ca/cbc.ca/thering/real/remixes/Ride Of The Valkries (Weird Nothing Remix) - andrew-skrypnyk.rm"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "rtsp://media.cbc.ca/cbc.ca/thering/real/remixes/the Drowning of Siegfried - kenji-fuse.rm"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "rtsp://media.cbc.ca/cbc.ca/thering/real/remixes/Volsunga Remix Wagner - christian-von-ompteda.rm"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "rtsp://media.cbc.ca/cbc.ca/thering/real/remixes/Valkyries (Non-Local Remix) - drew-thomas.rm"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "rtsp://media.cbc.ca/cbc.ca/thering/real/remixes/The Valkyrie Are - myra-davies.rm"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "rtsp://media.cbc.ca/cbc.ca/thering/real/remixes/The Last Ride for the Valkyries - Mr Harper - grant-mckeown.rm"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "rtsp://media.cbc.ca/cbc.ca/thering/real/remixes/cbc - adam-hastings.rm"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "rtsp://media.cbc.ca/cbc.ca/thering/real/remixes/Ride of the Valkeries (peacful dub remix) - shane-wilson.rm"
     } ]
   },
   "mpcpl/test03.mpcpl" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "D:\\Damn\\Bloodhound Gang - Along Comes Mary.mpg"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "D:\\Damn\\50 Cent - Candy Shop.vob"
     } ]
   },
   "mpcpl/test04.mpcpl" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "1.avi"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "2.avi"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "3.avi"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "4.avi"
     } ]
   },
   "pla/test01.pla" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "/Music/pet_shop_boys/fundamental/01-psychological.ogg"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "/Music/wish you were here/01 - shine on you crazy diamond part one.ogg"
     } ]
   },
   "plist/test01.plist" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "file://localhost/Users/niel/Music/iTunes/iTunes%20Music/Count%20Basie%20&%20His%20Orchestra/Prime%20Time/03%20Sweet%20Georgia%20Brown.m4p"
     } ]
   },
   "plist/test02.plist" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://gonze.com/blog/music/Madonna-WTF.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://www.epitonic.com/files/reg/songs/mp3/Bad_Brains-Pay_To_Cum.mp3"
     } ]
   },
   "plist/test03.plist" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://foofighters.com/somesong.mp3"
     } ]
   },
   "plp/test01.plp" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "MUSIC/Afro Celt Sound System/Volume 2 - Release/Afro Celt Sound System Feat Sinead O'connor - Release.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "MUSIC/Alicia Keys/Songs In A Minor/Alicia Keys - Butterflyz.wma"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "MUSIC/Alirio Diaz/Unknown Album/Alirio Diaz - Spanish Guitar.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "MUSIC/Anita Kelsey/Unknown Album/Anita Kelsey - Sway.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "MUSIC/Annie Lennox/Diva/Annie Lennox - Why.wma"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "MUSIC/Annie Lennox/Nuevo ttulo (129)/Annie Lennox - Cold.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "MUSIC/Boston Pops/Unknown Album/Somewhere In My Memory - Children's Choir.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "MUSIC/Goo Goo Dolls-Let Love In-01-Stay With You.mp3"
     } ]
   },
   "plp/test02.plp" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "System/MUSIC/After the Hunt.wma"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "System/MUSIC/Beating Drums.wma"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "System/MUSIC/Like a Breath of Air.wma"
     } ]
   },
   "pls/test01.pls" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "Alternative\\everclear - SMFTA.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "Comedy\\Weird Al - Everything You Know Is Wrong.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "Weird Al - This Is The Life.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://www.site.com/~user/gump.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://www.site.com:8000/listen.pls"
     } ]
   },
   "pls/test02.pls" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://www.panix.com/web/faq/multimedia/sample.mp3"
     } ]
   },
   "pls/test03.pls" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://streamexample.com:80"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://example.com/song.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "/home/myaccount/album.flac"
     } ]
   },
   "pls/test04.pls" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://itsreggae.com:8004/"
     } ]
   },
   "pls/test05.pls" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "/fs/My Music/Eloy/02 Journey into 1358.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://some.website.com/music.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "any url to file"
     } ]
   },
   "ram/test01.ram" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "rtsp://ra2.panix.com/tutorial/sample.ra"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://www.panix.com/web/faq/multimedia/sample.ra"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "rtsp://realserver.example.com/media/sample1.smil?screensize=\"full\""
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "file:///Users/lgonze/Music/mp3/misc/wtf.mp3"
     } ]
   },
   "ram/test02.ram" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "pnm://server.address.here:1234/realmedia.rm?title=My Song&author=My Artist&copyright=2004 My Company&abstract=Under the (i) button!"
     } ]
   },
   "rmp/test01.rmp" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://ton_adresse:port"
     } ]
   },
   "rmp/test02.rmp" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://docs.real.com/docs/rmpdemo/track1.mp3"
     } ]
   },
   "rmp/test03.rmp" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "C:\\Users\\Christophe\\Desktop\\Sounds\\demo.mp3"
     } ]
   },
   "rmp/test04.rmp" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://www.panix.com/web/faq/multimedia/sample.mp3"
     } ]
   },
   "rss/rss15options.rss" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://www.foo.com/file.mov"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://www.foo.com/song64kbps.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://www.foo.com/video.mov"
     }, {
-      "repeatCount" : 2,
+      "repeatCount" : 2.0,
       "sequence" : [ {
-        "repeatCount" : 2,
+        "repeatCount" : 2.0,
         "sequence" : [ {
-          "repeatCount" : 1,
+          "repeatCount" : 1.0,
           "source" : "http://www.foo.com/movie.mov"
         }, {
-          "repeatCount" : 1,
+          "repeatCount" : 1.0,
           "source" : "http://www.foo.com/movie.mov"
         } ]
       } ]
@@ -470,130 +476,166 @@
   },
   "rss/test01.rss" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://www.scripting.com/mp3s/touchOfGrey.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://www.scripting.com/mp3s/weatherReportSuite.mp3"
     } ]
   },
   "rss/test02.rss" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://www.foo.com/file.mov"
     } ]
   },
   "rss/test03.rss" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://www.foo.com/trailer.mov"
     } ]
   },
   "rss/test04.rss" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://www.foo.com/movie.mov"
     } ]
   },
   "rss/test05.rss" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://www.foo.com/band1-song1.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://www.foo.com/band2-song1.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://www.foo.com/band3-song1.mp3"
     } ]
   },
   "rss/test06.rss" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://www.foo.com/song64kbps.mp3"
     } ]
   },
   "smil/smil-2.0-example.smil" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://storage/ads/origin/origin08_x264.mp4"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://storage/main/sintel/sintel_dref.mp4"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://storage/ads/capture/capture10_x264.mp4"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://storage/main/sintel/sintel_dref.mp4"
     } ]
   },
   "smil/test01.smil" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://example.com/foo.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://example.com/bar.mp3"
+    } ]
+  },
+  "smil/test02.smil" : {
+    "rootSequence" : [ {
+      "repeatCount" : 1.0,
+      "source" : "image1.jpg"
+    }, {
+      "repeatCount" : 1.0,
+      "source" : "image2.jpg"
+    }, {
+      "repeatCount" : 1.0,
+      "source" : "http://example.com/foo.mp3"
+    }, {
+      "repeatCount" : 1.0,
+      "source" : "http://example.com/bar.mp3"
+    }, {
+      "repeatCount" : 1.0,
+      "source" : "liar.wav"
+    }, {
+      "repeatCount" : 1.0,
+      "source" : "image1.jpg"
+    }, {
+      "repeatCount" : 1.0,
+      "source" : "image2.jpg"
+    } ]
+  },
+  "smil/test03.smil" : {
+    "rootSequence" : [ {
+      "repeatCount" : 1.0,
+      "source" : "liar.wav"
+    }, {
+      "repeatCount" : 1.0,
+      "source" : "image1.jpg"
+    }, {
+      "repeatCount" : 1.0,
+      "source" : "image2.jpg"
     } ]
   },
   "smil/test04.smil" : { },
   "smil/test05.smil" : { },
   "smil/test06.smil" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "myvideo.flv"
     } ]
   },
   "smil/test07.smil" : { },
   "wpl/test01.wpl" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "expo2008\\edyoh_def.wmv"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "expo2008\\le loup est revenu_0001.wmv"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "expo2008\\franzyn_def.wmv"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "expo2008\\chorale.wmv"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "expo2008\\Soukam_def.wmv"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "expo2008\\Tina,  Antoine et le talisman_0001bis.wmv"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "expo2008\\mariamaena_def.wmv"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "expo2008\\cirque.wmv"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "expo2008\\yanmax_def.wmv"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "expo2008\\kemsab_def.wmv"
     } ]
   },
   "wpl/test02.wpl" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "\\\\server\\vol\\music\\Classical\\Bach\\OrganWorks\\cd03\\track01.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "\\\\server\\vol\\music\\Classical\\Bach\\OrganWorks\\cd03\\track02.mp3"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "\\\\server\\vol\\music\\Classical\\Bach\\OrganWorks\\cd03\\track03.mp3"
     } ]
   },
   "wpl/test03.wpl" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "laure.wma"
     } ]
   },
@@ -601,13 +643,13 @@
   "wpl/test05.wpl" : { },
   "xspf/test02.xspf" : {
     "rootSequence" : [ {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://example.net/song_1.ogg"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://example.net/song_2.flac"
     }, {
-      "repeatCount" : 1,
+      "repeatCount" : 1.0,
       "source" : "http://example.com/song_3.mp3"
     } ]
   }

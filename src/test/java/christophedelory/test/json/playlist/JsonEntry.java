@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class JsonEntry
 {
-    public int repeatCount;
+    public float repeatCount;
     public String source;
     public Long duration;
     public List<JsonEntry> sequence;

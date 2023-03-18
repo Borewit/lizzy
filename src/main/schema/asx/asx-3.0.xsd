@@ -173,7 +173,7 @@
             <xs:element name="ENTRY" type="asx:EntryElement" minOccurs="0" maxOccurs="unbounded"/>
             <xs:element name="ENTRYREF" type="asx:EntryrefElement" minOccurs="0" maxOccurs="unbounded"/>
         </xs:choice>
-        <xs:attribute name="COUNT" type="xs:decimal" use="required"/>
+        <xs:attribute name="COUNT" type="xs:int"/>
     </xs:complexType>
 
     <!--

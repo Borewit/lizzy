@@ -22,7 +22,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package christophedelory.playlist.smil;
+package christophedelory.playlist.smil20;
 
 import java.io.OutputStream;
 
@@ -118,12 +118,7 @@ public class SmilAdapter implements SpecificPlaylist
         }
         else return;
 
-        final Integer repeatCount = timeContainer.getRepeatCount();
-
-        if (repeatCount != null)
-        {
-            abstractTimeContainer.setRepeatCount(repeatCount);
-        }
+        abstractTimeContainer.setRepeatCount(timeContainer.getRepeatCount());
         currentContainer.addComponent(abstractTimeContainer);
 
         // Recursion

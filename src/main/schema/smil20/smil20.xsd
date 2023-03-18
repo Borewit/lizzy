@@ -57,7 +57,7 @@
                     <xs:element name="media" type="smil:Media"/>
                     <xs:element name="video" type="smil:Video"/>
                 </xs:choice>
-                <xs:attribute name="repeatCount" type="xs:int" use="optional" />
+                <xs:attribute name="repeatCount" type="smil:RepeatValue" />
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
@@ -128,9 +128,44 @@
 
     <xs:complexType name="Reference">
         <xs:attribute name="src" type="xs:string" use="required" />
-        <xs:attribute name="dur" type="xs:string" />
-        <xs:attribute name="repeatCount" type="xs:int" />
+        <xs:attribute name="dur" type="smil:DurationValue" />
+        <xs:attribute name="repeatCount" type="smil:RepeatValue" />
         <xs:attribute name="type" type="xs:string" />
     </xs:complexType>
+
+    <!-- ================== SimpleTypes =============================== -->
+
+    <!--
+        https://www.w3.org/TR/SMIL20/smil-timing.html#Timing-RepeatValueSyntax
+    -->
+    <xs:simpleType name="RepeatValue">
+        <xs:union>
+            <xs:simpleType>
+                <xs:restriction base="xs:float">
+                    <xs:minExclusive value="0"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="indefinite"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:union>
+    </xs:simpleType>
+
+    <xs:simpleType name="DurationValue">
+        <xs:union>
+            <xs:simpleType>
+                <xs:restriction base="xs:long">
+                    <xs:minExclusive value="0"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="indefinite"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:union>
+    </xs:simpleType>
 
 </xs:schema>

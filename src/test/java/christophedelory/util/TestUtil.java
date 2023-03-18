@@ -25,10 +25,7 @@ public class TestUtil
     public static final Path jsonTestDataPath = sampleFolderPath.resolve("playlists.json");
 
     private static final Set<String> skipSamples = new HashSet<>(Arrays.asList(
-        "test02.smil",
-        "test03.smil",
-        "test08.smil",
-        "repeat.asx"
+        "test08.smil"
     ));
 
     public static List<Path> getSamplePaths() throws IOException

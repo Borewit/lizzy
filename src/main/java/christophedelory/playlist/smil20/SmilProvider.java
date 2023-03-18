@@ -22,7 +22,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package christophedelory.playlist.smil;
+package christophedelory.playlist.smil20;
 
 import christophedelory.content.type.ContentType;
 import christophedelory.player.PlayerSupport;
@@ -145,7 +145,7 @@ public class SmilProvider extends JaxbPlaylistProvider<Smil>
                 ref.setType(media.getSource().getType()); // May be null.
             }
 
-            ref.setDur(Duration.toString(media.getDuration()));
+            ref.setDur(media.getDuration());
             ref.setRepeatCount(media.getRepeatCount());
             timingElement.getAudioOrImgOrRef().add(ref);
         }
