@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 import static christophedelory.util.TestUtil.checkPlaylistItemSource;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,7 +19,7 @@ public class PlistPlaylistTests
 
     @Test
     @DisplayName("Read from p-list playlist file")
-    public void readPlist() throws Exception
+    public void readPlist() throws IOException
     {
         Playlist playlist = TestUtil.readPlaylistFrom("plist/test01.plist");
         assertNotNull(playlist, "playlist");
@@ -28,7 +29,7 @@ public class PlistPlaylistTests
 
     @Test
     @DisplayName("Read iTunesMusicLibrary.xml")
-    public void readITunesMusicLibrary() throws Exception
+    public void readITunesMusicLibrary() throws IOException
     {
         Playlist playlist = TestUtil.readPlaylistFrom("plist/iTunesMusicLibrary.xml");
         assertNotNull(playlist, "playlist");
@@ -38,7 +39,7 @@ public class PlistPlaylistTests
 
     @Test
     @DisplayName("Write to p-list playlist file")
-    public void writePlist() throws Exception
+    public void writePlist() throws IOException
     {
         Playlist playlist = TestUtil.readPlaylistFrom("plist/test01.plist");
         PlistProvider plistProvider = new PlistProvider();

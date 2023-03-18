@@ -24,6 +24,7 @@
  */
 package christophedelory.playlist.pla;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -71,7 +72,7 @@ public class PLAProvider extends AbstractPlaylistProvider
     }
 
     @Override
-    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws Exception
+    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws IOException
     {
         PLA ret = new PLA();
         ret.setProvider(this);
@@ -134,7 +135,7 @@ public class PLAProvider extends AbstractPlaylistProvider
     }
 
     @Override
-    public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws Exception
+    public SpecificPlaylist toSpecificPlaylist(final Playlist playlist)
     {
         final PLA ret = new PLA();
         ret.setProvider(this);

@@ -28,6 +28,7 @@ import christophedelory.content.Content;
 import christophedelory.playlist.*;
 import com.dd.plist.*;
 
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Date;
 
@@ -63,7 +64,7 @@ public class PlistPlaylist implements SpecificPlaylist
   }
 
   @Override
-  public void writeTo(final OutputStream out, final String encoding) throws Exception
+  public void writeTo(final OutputStream out, final String encoding) throws IOException
   {
     XMLPropertyListWriter.write(_plist, out);
     out.flush(); // May throw IOException.

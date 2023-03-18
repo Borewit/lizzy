@@ -25,6 +25,7 @@
 package christophedelory.playlist.mpcpl;
 
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
@@ -66,7 +67,7 @@ public class MPCPL implements SpecificPlaylist
     }
 
     @Override
-    public void writeTo(final OutputStream out, final String encoding) throws Exception
+    public void writeTo(final OutputStream out, final String encoding) throws IOException
     {
         String enc = encoding;
 

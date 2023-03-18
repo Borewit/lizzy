@@ -7,6 +7,7 @@ import christophedelory.playlist.Playlist;
     import org.junit.jupiter.api.Test;
 
     import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 import static christophedelory.util.TestUtil.checkPlaylistItemSource;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,7 +19,7 @@ public class XspfPlaylistTests
 
     @Test
     @DisplayName("Read from XSPF Playlist")
-    public void readPlist() throws Exception
+    public void readPlist() throws IOException
     {
 
         Playlist playlist = TestUtil.readPlaylistFrom("xspf/test02.xspf");
@@ -31,7 +32,7 @@ public class XspfPlaylistTests
 
     @Test
     @DisplayName("Write to XSPF Playlist")
-    public void writePlist() throws Exception
+    public void writePlist() throws IOException
     {
         Playlist playlist = TestUtil.makeAbstractPlaylist();
         XspfProvider plistProvider = new XspfProvider();

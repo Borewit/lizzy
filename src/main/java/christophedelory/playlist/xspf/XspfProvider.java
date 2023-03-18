@@ -30,8 +30,11 @@ import christophedelory.playlist.*;
 import io.github.borewit.playlist.xspf.XspfPlaylist;
 import io.github.borewit.playlist.xspf.XspfTrack;
 import io.github.borewit.playlist.xspf.XspfTrackList;
-
 import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBException;
+
+import javax.xml.stream.XMLStreamException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
 import java.util.List;
@@ -79,16 +82,23 @@ public class XspfProvider extends JaxbPlaylistProvider<XspfPlaylist>
     }
 
     @Override
-    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws Exception
+    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws IOException
     {
-        final JAXBElement<XspfPlaylist> xspfPlaylist = this.unmarshal(in, encoding);
-        String rootElementName = xspfPlaylist.getName().getLocalPart();
-        return rootElementName != null && rootElementName.equals("playlist") ?
-            new XspfPlaylistAdapter(this, xspfPlaylist.getValue()) : null;
+        try
+        {
+            final JAXBElement<XspfPlaylist> xspfPlaylist = this.unmarshal(in, encoding);
+            String rootElementName = xspfPlaylist.getName().getLocalPart();
+            return rootElementName != null && rootElementName.equals("playlist") ?
+                new XspfPlaylistAdapter(this, xspfPlaylist.getValue()) : null;
+        }
+        catch (JAXBException | XMLStreamException exception)
+        {
+            throw new IOException(exception);
+        }
     }
 
     @Override
-    public SpecificPlaylist toSpecificPlaylist(final christophedelory.playlist.Playlist playlist) throws Exception
+    public SpecificPlaylist toSpecificPlaylist(final christophedelory.playlist.Playlist playlist) throws IOException
     {
         XspfTrackList xspfTrackList = new XspfTrackList();
         addToPlaylist(xspfTrackList.getTrack(), playlist.getRootSequence()); // May throw Exception.
@@ -96,7 +106,7 @@ public class XspfProvider extends JaxbPlaylistProvider<XspfPlaylist>
         xspfPlaylist.setTrackList(xspfTrackList);
 
         return new XspfPlaylistAdapter(this, xspfPlaylist);
-    }
+   }
 
     /**
      * Adds the specified generic playlist component, and all its childs if any, to the input track list.

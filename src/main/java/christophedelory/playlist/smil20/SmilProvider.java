@@ -29,9 +29,12 @@ import christophedelory.player.PlayerSupport;
 import christophedelory.playlist.*;
 import io.github.borewit.playlist.smil20.*;
 import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBException;
+
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.util.StreamReaderDelegate;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -79,13 +82,22 @@ public class SmilProvider extends JaxbPlaylistProvider<Smil>
     }
 
     @Override
-    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws Exception
+    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws IOException
     {
-        final JAXBElement<Smil> smil = this.unmarshal(in, encoding);
-        String rootElementName = smil.getName().getLocalPart();
+        try
+        {
+            final JAXBElement<Smil> smil = this.unmarshal(in, encoding);
+            String rootElementName = smil.getName().getLocalPart();
 
-        return rootElementName != null && rootElementName.equalsIgnoreCase("smil") ?
-            new SmilAdapter(this, smil.getValue()) : null;
+            return rootElementName != null && rootElementName.equalsIgnoreCase("smil") ?
+                new SmilAdapter(this, smil.getValue()) : null;
+        }
+        catch (JAXBException |
+               XMLStreamException exception)
+
+        {
+            throw new IOException(exception);
+        }
     }
 
     @Override

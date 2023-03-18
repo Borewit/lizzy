@@ -24,6 +24,8 @@
  */
 package christophedelory.playlist;
 
+import java.io.IOException;
+
 /**
  * A playlist sequence: the media contents play one after the other.
  * @version $Revision: 90 $
@@ -32,7 +34,7 @@ package christophedelory.playlist;
 public class Sequence extends AbstractTimeContainer
 {
     @Override
-    public void acceptDown(final PlaylistVisitor visitor) throws Exception
+    public void acceptDown(final PlaylistVisitor visitor) throws IOException
     {
         visitor.beginVisitSequence(this); // Throws NullPointerException if visitor is null. May throw Exception.
 
@@ -42,7 +44,7 @@ public class Sequence extends AbstractTimeContainer
     }
 
     @Override
-    public void acceptUp(final PlaylistVisitor visitor) throws Exception
+    public void acceptUp(final PlaylistVisitor visitor) throws IOException
     {
         visitor.beginVisitSequence(this); // Throws NullPointerException if visitor is null. May throw Exception.
 

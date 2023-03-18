@@ -8,6 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -21,7 +22,7 @@ public class AsxPlaylistTests
 
     @Test
     @DisplayName("Read ASX playlist file: Microsoft example")
-    public void readReferenceAsx() throws Exception
+    public void readReferenceAsx() throws IOException
     {
         Playlist playlist = TestUtil.readPlaylistFrom("asx/test02.asx");
         assertNotNull(playlist, "playlist");
@@ -31,7 +32,7 @@ public class AsxPlaylistTests
 
     @Test
     @DisplayName("Be able to read ASX playlist case insensitive")
-    public void readLowerCaseAsx() throws Exception
+    public void readLowerCaseAsx() throws IOException
     {
         Playlist playlist = TestUtil.readPlaylistFrom("asx/test01.asx");
         assertNotNull(playlist, "playlist");
@@ -41,8 +42,8 @@ public class AsxPlaylistTests
 
     @Test
     @DisplayName("Read ASX ANSI")
-    @Disabled // Current default is UTF-8
-    public void readLiveStreamAsx() throws Exception
+    @Disabled
+    public void readLiveStreamAsx() throws IOException
     {
         Playlist playlist = TestUtil.readPlaylistFrom("asx/test03.asx");
         assertNotNull(playlist, "playlist");
@@ -53,7 +54,7 @@ public class AsxPlaylistTests
 
     @Test
     @DisplayName("Read ASX with ENTRYREF element")
-    public void readAsxWithEntryrefElement() throws Exception
+    public void readAsxWithEntryrefElement() throws IOException
     {
         Playlist playlist = TestUtil.readPlaylistFrom("asx/test05.asx");
         assertNotNull(playlist, "playlist");
@@ -63,14 +64,14 @@ public class AsxPlaylistTests
 
     @Test
     @DisplayName("Write to ASX playlist file")
-    public void writeAsx() throws Exception
+    public void writeAsx() throws IOException
     {
         writeAsx("asx/test01.asx");
     }
 
     @Test
     @DisplayName("Handle a non ASX XML playlist")
-    public void parseNonAsxXmlPlaylist() throws Exception
+    public void parseNonAsxXmlPlaylist() throws IOException
     {
         Path playlistPath = TestUtil.sampleFolderPath.resolve("xspf/test02.xspf");
 
@@ -82,13 +83,14 @@ public class AsxPlaylistTests
                 SpecificPlaylist specificPlaylist = asxProvider.readFrom(in, null);
                 assertNull(specificPlaylist, "ASX provider should return null reading a different XML Type");
             }
-            catch (Exception exception) {
+            catch (Exception exception)
+            {
                 // May reject playlist by throwing an exception
             }
         }
     }
 
-    private static void writeAsx(String testFile) throws Exception
+    private static void writeAsx(String testFile) throws IOException
     {
         Playlist playlist = TestUtil.readPlaylistFrom(testFile);
         AsxProvider asxProvider = new AsxProvider();

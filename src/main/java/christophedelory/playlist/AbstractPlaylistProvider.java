@@ -15,18 +15,18 @@ public abstract class AbstractPlaylistProvider implements SpecificPlaylistProvid
 {
     private final Logger logger = LogManager.getLogger(AbstractPlaylistProvider.class);
 
-    public SpecificPlaylist readFrom(final InputStream in) throws Exception
+    public SpecificPlaylist readFrom(final InputStream in) throws IOException
     {
         return this.readFrom(in, null);
     }
 
     @Override
-    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws Exception
+    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws IOException
     {
         return this.readFrom(in, encoding);
     }
 
-    protected final InputStreamReader preProcessXml(final InputStream in, final String encoding) throws IOException
+    protected final InputStreamReader preProcessXml(final InputStream in, final String encoding)
     {
         final Charset charset = encoding == null ? StandardCharsets.UTF_8 : Charset.forName(encoding);
         logger.debug(String.format("Decoding with charset %s", charset));

@@ -24,6 +24,7 @@
  */
 package christophedelory.playlist.xspf;
 
+import java.io.IOException;
 import java.io.OutputStream;
 
 import christophedelory.content.Content;
@@ -63,7 +64,7 @@ public class XspfPlaylistAdapter implements SpecificPlaylist
     }
 
     @Override
-    public void writeTo(final OutputStream out, final String encoding) throws Exception
+    public void writeTo(final OutputStream out, final String encoding) throws IOException
     {
         this.provider.writeTo(new ObjectFactory().createPlaylist(xspfPlaylist), out, encoding);
     }

@@ -30,6 +30,7 @@ import christophedelory.playlist.*;
 import christophedelory.xml.Version;
 import com.dd.plist.*;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
@@ -70,9 +71,17 @@ public class PlistProvider extends AbstractPlaylistProvider
     }
 
     @Override
-    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws Exception
+    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws IOException
     {
-        NSDictionary plist = (NSDictionary) PropertyListParser.parse(in);
+        NSDictionary plist;
+        try
+        {
+            plist = (NSDictionary) PropertyListParser.parse(in);
+        }
+        catch (Exception e)
+        {
+            throw new IOException(e);
+        }
         final PlistPlaylist ret = new PlistPlaylist(this);
         ret.setPlist(plist);
 
@@ -80,7 +89,7 @@ public class PlistProvider extends AbstractPlaylistProvider
     }
 
     @Override
-    public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws Exception
+    public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws IOException
     {
         final PlistPlaylist ret = new PlistPlaylist(this);
 

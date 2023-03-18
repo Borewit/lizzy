@@ -49,13 +49,13 @@ public class TestUtil
         }
     }
 
-    public static Playlist readPlaylistFrom(String filename) throws Exception
+    public static Playlist readPlaylistFrom(String filename) throws IOException
     {
         Path playlistPath = sampleFolderPath.resolve(filename);
         return readPlaylistFrom(playlistPath);
     }
 
-    public static Playlist readPlaylistFrom(Path playlistPath) throws Exception
+    public static Playlist readPlaylistFrom(Path playlistPath) throws IOException
     {
         Path absPlaylistPath = playlistPath.isAbsolute() ? playlistPath : sampleFolderPath.resolve(playlistPath);
         List<SpecificPlaylistProvider> playlistProviders = SpecificPlaylistFactory.getInstance().findProvidersByExtension(absPlaylistPath.toString());
@@ -70,9 +70,9 @@ public class TestUtil
                     if (specificPlaylist != null)
                         return specificPlaylist.toPlaylist();
                 }
-                catch (Exception e)
+                catch (IOException e)
                 {
-                    throw new Exception(String.format("Failed to read from %s", absPlaylistPath.getFileName()), e);
+                    throw new IOException(String.format("Failed to read from %s", absPlaylistPath.getFileName()), e);
                 }
             }
         }

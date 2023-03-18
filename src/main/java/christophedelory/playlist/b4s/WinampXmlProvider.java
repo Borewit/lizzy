@@ -28,8 +28,11 @@ import christophedelory.content.type.ContentType;
 import christophedelory.player.PlayerSupport;
 import christophedelory.playlist.*;
 import io.github.borewit.playlist.b4s.WinampXML;
-
 import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBException;
+
+import javax.xml.stream.XMLStreamException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
@@ -75,17 +78,25 @@ public class WinampXmlProvider extends JaxbPlaylistProvider<WinampXML>
     }
 
     @Override
-    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws Exception
+    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws IOException
     {
-        final JAXBElement<WinampXML> winampXMLJAXBElement = this.unmarshal(in, encoding);
-        String rootElementName = winampXMLJAXBElement.getName().getLocalPart();
+        try
+        {
+            final JAXBElement<WinampXML> winampXMLJAXBElement = this.unmarshal(in, encoding);
+            String rootElementName = winampXMLJAXBElement.getName().getLocalPart();
 
-        return rootElementName != null && rootElementName.equalsIgnoreCase("WinampXML") ?
-            new WinampXmlAdapter(this, winampXMLJAXBElement.getValue()) : null;
+            return rootElementName != null && rootElementName.equalsIgnoreCase("WinampXML") ?
+                new WinampXmlAdapter(this, winampXMLJAXBElement.getValue()) : null;
+        }
+        catch (XMLStreamException | JAXBException exception)
+        {
+            throw new IOException(exception);
+        }
+
     }
 
     @Override
-    public SpecificPlaylist toSpecificPlaylist(final christophedelory.playlist.Playlist playlist) throws Exception
+    public SpecificPlaylist toSpecificPlaylist(final christophedelory.playlist.Playlist playlist)
     {
         final WinampXML winampXML = new WinampXML();
         final WinampXML.Playlist xmlPlaylist = new WinampXML.Playlist();

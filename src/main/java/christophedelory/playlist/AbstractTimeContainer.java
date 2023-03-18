@@ -24,6 +24,7 @@
  */
 package christophedelory.playlist;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -133,7 +134,7 @@ public abstract class AbstractTimeContainer extends AbstractPlaylistComponent
     }
 
     @Override
-    public void acceptDown(final PlaylistVisitor visitor) throws Exception
+    public void acceptDown(final PlaylistVisitor visitor) throws IOException
     {
         // Copy the list in an intermediate array, in order to allow the visitor to handle safely the list itself.
         for (AbstractPlaylistComponent component : new ArrayList<>(this.components))

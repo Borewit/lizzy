@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 import static christophedelory.util.TestUtil.checkPlaylistItemSource;
 import static christophedelory.util.TestUtil.sampleFolderPath;
@@ -18,7 +19,7 @@ public class M3uPlaylistTests
 {
     @Test
     @DisplayName("Read M3U playlist file")
-    public void readReferenceM3u() throws Exception
+    public void readReferenceM3u() throws IOException
     {
         Playlist playlist = TestUtil.readPlaylistFrom("m3u/test01.m3u");
         assertNotNull(playlist, "playlist");
@@ -30,7 +31,7 @@ public class M3uPlaylistTests
 
     @Test
     @DisplayName("Read M3U8 playlist with BOM")
-    public void readReferenceM3u8WithBom() throws Exception
+    public void readReferenceM3u8WithBom() throws IOException
     {
         assertTrue(TestUtil.hasBom(sampleFolderPath.resolve("m3u/playlist-utf8-bom.m3u")), "M3U8 is prefixed with a BOM");
 
@@ -43,12 +44,12 @@ public class M3uPlaylistTests
 
     @Test
     @DisplayName("Write as M3U playlist file")
-    public void writeM3u() throws Exception
+    public void writeM3u() throws IOException
     {
         writeM3u("asx/test01.asx");
     }
 
-    private static void writeM3u(String testFile) throws Exception
+    private static void writeM3u(String testFile) throws IOException
     {
         Playlist playlist = TestUtil.readPlaylistFrom(testFile);
         M3UProvider m3uProvider = new M3UProvider();
@@ -72,7 +73,7 @@ public class M3uPlaylistTests
 
     @Test
     @DisplayName("Read MP3U Playlist UTF-8 no BOM")
-    public void readPlaylistM3uUtf8NoBom() throws Exception
+    public void readPlaylistM3uUtf8NoBom() throws IOException
     {
         Playlist m3uPlaylist = TestUtil.readPlaylistFrom("m3u/playlist-utf8.m3u");
         assertNotNull(m3uPlaylist, "PlaylistFactory should read and construct M3U playlist");
@@ -83,7 +84,7 @@ public class M3uPlaylistTests
 
     @Test
     @DisplayName("Read MP3U Playlist UTF-16-BE with BOM")
-    public void readPlaylistM3uUtf16BeWithBom() throws Exception
+    public void readPlaylistM3uUtf16BeWithBom() throws IOException
     {
         Playlist m3uPlaylist = TestUtil.readPlaylistFrom("m3u/playlist-utf16be-bom.m3u");
         assertNotNull(m3uPlaylist, "PlaylistFactory should read and construct M3U playlist");
@@ -94,7 +95,7 @@ public class M3uPlaylistTests
 
     @Test
     @DisplayName("Read MP3U Playlist UTF-16-LE with BOM")
-    public void readPlaylistM3uUtf16LeWithBom() throws Exception
+    public void readPlaylistM3uUtf16LeWithBom() throws IOException
     {
         Playlist m3uPlaylist = TestUtil.readPlaylistFrom("m3u/playlist-utf16le-bom.m3u");
         assertNotNull(m3uPlaylist, "PlaylistFactory should read and construct M3U playlist");

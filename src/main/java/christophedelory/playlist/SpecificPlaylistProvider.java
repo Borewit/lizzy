@@ -26,6 +26,7 @@ package christophedelory.playlist;
 
 import christophedelory.content.type.ContentType;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -64,7 +65,7 @@ public interface SpecificPlaylistProvider
      * @see SpecificPlaylist#writeTo
      * @see SpecificPlaylistFactory#readFrom
      */
-    SpecificPlaylist readFrom(InputStream in) throws Exception;
+    SpecificPlaylist readFrom(InputStream in) throws IOException;
 
     /**
      * Reads a playlist from the specified input stream.
@@ -75,12 +76,12 @@ public interface SpecificPlaylistProvider
      * @return a new playlist instance, or <code>null</code> if the format has been recognized, but the playlist is malformed.
      * @throws NullPointerException if <code>in</code> is <code>null</code>.
      * @throws NullPointerException if <code>logger</code> is <code>null</code>.
-     * @throws Exception            if any error occurs during the unmarshalling process.
+     * @throws IOException            if any error occurs during the unmarshalling process.
      * @see #readFrom(InputStream, String)
      * @see SpecificPlaylistFactory#readFrom
      * @see SpecificPlaylist#writeTo
      */
-    SpecificPlaylist readFrom(InputStream in, String encoding) throws Exception;
+    SpecificPlaylist readFrom(InputStream in, String encoding) throws IOException;
 
     /**
      * Builds a specific representation of the given generic playlist.
@@ -88,8 +89,8 @@ public interface SpecificPlaylistProvider
      * @param playlist a generic playlist. Shall not be <code>null</code>.
      * @return a specific service playlist. Shall not be <code>null</code>.
      * @throws NullPointerException if <code>playlist</code> is <code>null</code>.
-     * @throws Exception            if this service provider is unable to represent the input playlist.
+     * @throws IOException            if this service provider is unable to represent the input playlist.
      * @see SpecificPlaylist#toPlaylist
      */
-    SpecificPlaylist toSpecificPlaylist(Playlist playlist) throws Exception;
+    SpecificPlaylist toSpecificPlaylist(Playlist playlist) throws IOException;
 }

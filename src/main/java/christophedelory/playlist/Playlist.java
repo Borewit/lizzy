@@ -27,6 +27,8 @@ package christophedelory.playlist;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
+
 /**
  * The definition of the top-level element: the playlist.
  * @version $Revision: 92 $
@@ -283,7 +285,7 @@ public class Playlist
      * @throws NullPointerException if <code>visitor</code> is <code>null</code>.
      * @throws Exception if any error occurs during the visit.
      */
-    public void acceptDown(final PlaylistVisitor visitor) throws Exception
+    public void acceptDown(final PlaylistVisitor visitor) throws IOException
     {
         visitor.beginVisitPlaylist(this); // Throws NullPointerException if visitor is null. May throw Exception.
 
@@ -298,7 +300,7 @@ public class Playlist
      * @throws NullPointerException if <code>visitor</code> is <code>null</code>.
      * @throws Exception if any error occurs during the visit.
      */
-    public void acceptUp(final PlaylistVisitor visitor) throws Exception
+    public void acceptUp(final PlaylistVisitor visitor) throws IOException
     {
         visitor.beginVisitPlaylist(this); // Throws NullPointerException if visitor is null. May throw Exception.
 

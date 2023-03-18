@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 import static christophedelory.util.TestUtil.checkPlaylistItemSource;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,7 +20,7 @@ public class WplPlaylistTests
 
     @Test
     @DisplayName("Read WPL playlist file")
-    public void readWplPlaylist() throws Exception
+    public void readWplPlaylist() throws IOException
     {
         Playlist playlist = TestUtil.readPlaylistFrom("wpl/test01.wpl");
         assertNotNull(playlist, "playlist");
@@ -32,7 +33,7 @@ public class WplPlaylistTests
 
     @Test
     @DisplayName("Read WPL playlist with media having cid & tid attributes")
-    public void readWplPlaylistWithCidAndTid() throws Exception
+    public void readWplPlaylistWithCidAndTid() throws IOException
     {
         Playlist playlist = TestUtil.readPlaylistFrom("wpl/test03.wpl");
         assertNotNull(playlist, "playlist");
@@ -42,7 +43,7 @@ public class WplPlaylistTests
 
     @Test
     @DisplayName("Write to WPL playlist file")
-    public void writeWpl() throws Exception
+    public void writeWpl() throws IOException
     {
         writeWpl("asx/test01.asx");
     }
@@ -66,7 +67,7 @@ public class WplPlaylistTests
         assertEquals(2, wplPlaylist.getRootSequence().getComponents().size(), "M3U playlist contains 2 tracks");
     }
 
-    private static void writeWpl(String testFile) throws Exception
+    private static void writeWpl(String testFile) throws IOException
     {
         Playlist playlist = TestUtil.readPlaylistFrom(testFile);
         final WplProvider smilProvider = new WplProvider();

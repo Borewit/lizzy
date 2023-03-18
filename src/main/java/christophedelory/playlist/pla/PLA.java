@@ -24,6 +24,7 @@
  */
 package christophedelory.playlist.pla;
 
+import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
@@ -66,7 +67,7 @@ public class PLA implements SpecificPlaylist
     }
 
     @Override
-    public void writeTo(final OutputStream out, final String encoding) throws Exception
+    public void writeTo(final OutputStream out, final String encoding) throws IOException
     {
         byte[] array = new byte[512];
         Arrays.fill(array, (byte) 0);

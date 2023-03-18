@@ -30,9 +30,12 @@ import christophedelory.playlist.*;
 import io.github.borewit.playlist.asx.*;
 
 import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBException;
+
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.util.StreamReaderDelegate;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -105,17 +108,22 @@ public class AsxProvider extends JaxbPlaylistProvider<Asx>
     }
 
     @Override
-    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws Exception
+    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws IOException
     {
-        final JAXBElement<Asx> asx = this.unmarshal(in, encoding);
-        String rootElementName = asx.getName().getLocalPart();
+        try {
+            final JAXBElement<Asx> asx = this.unmarshal(in, encoding);
+            String rootElementName = asx.getName().getLocalPart();
 
-        return rootElementName != null && rootElementName.equalsIgnoreCase("ASX") ?
-            new AsxPlaylistAdapter(this, asx.getValue()) : null;
+            return rootElementName != null && rootElementName.equalsIgnoreCase("ASX") ?
+                new AsxPlaylistAdapter(this, asx.getValue()) : null;
+        } catch (JAXBException | XMLStreamException exception) {
+            throw new IOException(exception.getMessage(), exception);
+        }
+
     }
 
     @Override
-    public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws Exception
+    public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws IOException
     {
         final AsxPlaylistAdapter asxPlaylist = new AsxPlaylistAdapter(this);
 

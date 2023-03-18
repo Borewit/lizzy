@@ -10,6 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.*;
 
@@ -19,7 +20,7 @@ public class WriteToJson
     @DisplayName("Write playlists to JSON")
     @Test
     @Disabled // Only used to seed the test reference data
-    void writeJson() throws Exception
+    void writeJson() throws IOException
     {
         final Map<String, JsonPlaylist> playlistMap = new TreeMap<>();
 

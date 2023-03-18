@@ -29,8 +29,11 @@ import christophedelory.player.PlayerSupport;
 import christophedelory.playlist.*;
 import christophedelory.xml.Version;
 import io.github.borewit.playlist.rmp.RmpPackage;
-
 import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBException;
+
+import javax.xml.stream.XMLStreamException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -76,18 +79,27 @@ public class RmpProvider extends JaxbPlaylistProvider<RmpPackage>
     }
 
     @Override
-    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws Exception
+    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws IOException
     {
-        final String rmpEncoding = encoding == null ? StandardCharsets.US_ASCII.toString() : encoding;
-        final JAXBElement<RmpPackage> rmp = this.unmarshal(in, rmpEncoding);
-        String rootElementName = rmp.getName().getLocalPart();
+        try
+        {
+            final String rmpEncoding = encoding == null ? StandardCharsets.US_ASCII.toString() : encoding;
+            final JAXBElement<RmpPackage> rmp = this.unmarshal(in, rmpEncoding);
+            String rootElementName = rmp.getName().getLocalPart();
 
-        return rootElementName != null && rootElementName.equalsIgnoreCase("PACKAGE") ?
-            new RmpPlaylistAdapter(this, rmp.getValue()) : null;
+            return rootElementName != null && rootElementName.equalsIgnoreCase("PACKAGE") ?
+                new RmpPlaylistAdapter(this, rmp.getValue()) : null;
+
+        }
+        catch (JAXBException | XMLStreamException exception)
+        {
+            throw new IOException(exception);
+        }
+
     }
 
     @Override
-    public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws Exception
+    public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws IOException
     {
         final RmpPackage rmpPackage = new RmpPackage();
 
