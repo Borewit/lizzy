@@ -291,6 +291,444 @@
       "source" : "/Music/wish you were here/01 - shine on you crazy diamond part one.ogg"
     } ]
   },
+  "plist/iTunesMusicLibrary.xml" : {
+    "rootSequence" : [ {
+      "repeatCount" : 1.0,
+      "sequence" : [ {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/iTunes%20U/WWDC%202010%20Session%20Videos%20-%20SD/Session%20512%20-%20Using%20HTML5%20Offline%20Storage.mov"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-01%20Everything%20Zen.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-02%20Swim.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-03%20Bomb.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-04%20Little%20Things.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-05%20Comedown.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-06%20Body.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-07%20Machinehead.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-08%20Testosterone.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-09%20Monkey.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-10%20Glycerine.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-11%20Alien.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-12%20X-Girlfriend.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/iTunes%20U/Course%20-%20Group/Malcolm%20Gladwell%20&%20Dan%20Ariely_%20A%20Conversation.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Girl%20Talk/Feed%20The%20Animals/01%20Play%20Your%20Part%20(Pt.%201).mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Girl%20Talk/Feed%20The%20Animals/02%20Shut%20The%20Club%20Down.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Girl%20Talk/Feed%20The%20Animals/03%20Still%20Here.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Girl%20Talk/Feed%20The%20Animals/04%20What%20It's%20All%20About.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Girl%20Talk/Feed%20The%20Animals/05%20Set%20It%20Off.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Girl%20Talk/Feed%20The%20Animals/06%20No%20Pause.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Girl%20Talk/Feed%20The%20Animals/07%20Like%20This.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Girl%20Talk/Feed%20The%20Animals/08%20Give%20Me%20A%20Beat.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Girl%20Talk/Feed%20The%20Animals/09%20Hands%20In%20The%20Air.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Girl%20Talk/Feed%20The%20Animals/10%20In%20Step.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Girl%20Talk/Feed%20The%20Animals/11%20Let%20Me%20See%20You.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Girl%20Talk/Feed%20The%20Animals/12%20Here's%20The%20Thing.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Girl%20Talk/Feed%20The%20Animals/13%20Don't%20Stop.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Girl%20Talk/Feed%20The%20Animals/14%20Play%20Your%20Part%20(Pt.%202).mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/01%20Smells%20Like%20Teen%20Spirit.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/02%20In%20Bloom.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/03%20Come%20As%20You%20Are.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/04%20Breed.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/05%20Lithium.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/06%20Polly.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/07%20Territorial%20Pissings.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/08%20Drain%20You.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/09%20Lounge%20Act.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/10%20Stay%20Away.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/11%20On%20A%20Plain.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/12%20Something%20In%20The%20Way.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/TV%20Shows/Onion%20News%20Network/Season%201/101%20Interview%20With%20the%20Onion%20News%20Network%20(HD).m4v"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Podcasts/Railscasts/Episode%20252_%20Metrics%20Metrics%20Metrics.mov"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Podcasts/Railscasts/Episode%20254_%20Pagination%20with%20Kaminari.mov"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Audiobooks/Steve%20Martin/01%20Born%20Standing%20Up_%20A%20Comic's%20Life%20(Unabridged).m4b"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Podcasts/Tech%20News%20Today/Tech%20News%20Today%20187_%20To%20Xoom%20Or%20Not%20To%20Xoom.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Podcasts/Tech%20News%20Today/186%20Tech%20News%20Today%20186_%20Who%20Are%20Yooodle_.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Movies/V%20for%20Vendetta/V%20for%20Vendetta.m4v"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Movies/Zombieland/Zombieland.m4v"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-01%20Everything%20Zen.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-02%20Swim.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-03%20Bomb.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-04%20Little%20Things.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-05%20Comedown.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-06%20Body.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-07%20Machinehead.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-08%20Testosterone.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-09%20Monkey.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-10%20Glycerine.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-11%20Alien.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-12%20X-Girlfriend.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Girl%20Talk/Feed%20The%20Animals/01%20Play%20Your%20Part%20(Pt.%201).mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Girl%20Talk/Feed%20The%20Animals/02%20Shut%20The%20Club%20Down.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Girl%20Talk/Feed%20The%20Animals/03%20Still%20Here.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Girl%20Talk/Feed%20The%20Animals/04%20What%20It's%20All%20About.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Girl%20Talk/Feed%20The%20Animals/05%20Set%20It%20Off.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Girl%20Talk/Feed%20The%20Animals/06%20No%20Pause.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Girl%20Talk/Feed%20The%20Animals/07%20Like%20This.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Girl%20Talk/Feed%20The%20Animals/08%20Give%20Me%20A%20Beat.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Girl%20Talk/Feed%20The%20Animals/09%20Hands%20In%20The%20Air.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Girl%20Talk/Feed%20The%20Animals/10%20In%20Step.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Girl%20Talk/Feed%20The%20Animals/11%20Let%20Me%20See%20You.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Girl%20Talk/Feed%20The%20Animals/12%20Here's%20The%20Thing.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Girl%20Talk/Feed%20The%20Animals/13%20Don't%20Stop.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Girl%20Talk/Feed%20The%20Animals/14%20Play%20Your%20Part%20(Pt.%202).mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/01%20Smells%20Like%20Teen%20Spirit.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/02%20In%20Bloom.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/03%20Come%20As%20You%20Are.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/04%20Breed.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/05%20Lithium.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/06%20Polly.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/07%20Territorial%20Pissings.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/08%20Drain%20You.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/09%20Lounge%20Act.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/10%20Stay%20Away.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/11%20On%20A%20Plain.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/12%20Something%20In%20The%20Way.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Movies/V%20for%20Vendetta/V%20for%20Vendetta.m4v"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Movies/Zombieland/Zombieland.m4v"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Podcasts/Tech%20News%20Today/Tech%20News%20Today%20187_%20To%20Xoom%20Or%20Not%20To%20Xoom.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Podcasts/Tech%20News%20Today/186%20Tech%20News%20Today%20186_%20Who%20Are%20Yooodle_.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Podcasts/Railscasts/Episode%20254_%20Pagination%20with%20Kaminari.mov"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Podcasts/Railscasts/Episode%20252_%20Metrics%20Metrics%20Metrics.mov"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/iTunes%20U/Course%20-%20Group/Malcolm%20Gladwell%20&%20Dan%20Ariely_%20A%20Conversation.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/iTunes%20U/WWDC%202010%20Session%20Videos%20-%20SD/Session%20512%20-%20Using%20HTML5%20Offline%20Storage.mov"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/01%20Smells%20Like%20Teen%20Spirit.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/02%20In%20Bloom.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/03%20Come%20As%20You%20Are.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/04%20Breed.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/05%20Lithium.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/06%20Polly.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/07%20Territorial%20Pissings.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/08%20Drain%20You.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/09%20Lounge%20Act.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/10%20Stay%20Away.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/11%20On%20A%20Plain.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/12%20Something%20In%20The%20Way.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-01%20Everything%20Zen.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-02%20Swim.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-03%20Bomb.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-04%20Little%20Things.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-05%20Comedown.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-06%20Body.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-07%20Machinehead.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-08%20Testosterone.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-09%20Monkey.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-10%20Glycerine.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-11%20Alien.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-12%20X-Girlfriend.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/iTunes%20U/Course%20-%20Group/Malcolm%20Gladwell%20&%20Dan%20Ariely_%20A%20Conversation.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/iTunes%20U/WWDC%202010%20Session%20Videos%20-%20SD/Session%20512%20-%20Using%20HTML5%20Offline%20Storage.mov"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/iTunes%20U/Course%20-%20Group/Malcolm%20Gladwell%20&%20Dan%20Ariely_%20A%20Conversation.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/iTunes%20U/WWDC%202010%20Session%20Videos%20-%20SD/Session%20512%20-%20Using%20HTML5%20Offline%20Storage.mov"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Movies/V%20for%20Vendetta/V%20for%20Vendetta.m4v"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Audiobooks/Steve%20Martin/01%20Born%20Standing%20Up_%20A%20Comic's%20Life%20(Unabridged).m4b"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Girl%20Talk/Feed%20The%20Animals/02%20Shut%20The%20Club%20Down.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Girl%20Talk/Feed%20The%20Animals/01%20Play%20Your%20Part%20(Pt.%201).mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/iTunes%20U/Course%20-%20Group/Malcolm%20Gladwell%20&%20Dan%20Ariely_%20A%20Conversation.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-12%20X-Girlfriend.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-11%20Alien.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-10%20Glycerine.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-09%20Monkey.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-08%20Testosterone.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-07%20Machinehead.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-06%20Body.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-05%20Comedown.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-04%20Little%20Things.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-03%20Bomb.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-02%20Swim.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Bush/Sixteen%20Stone/1-01%20Everything%20Zen.mp3"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/iTunes%20U/WWDC%202010%20Session%20Videos%20-%20SD/Session%20512%20-%20Using%20HTML5%20Offline%20Storage.mov"
+      }, {
+        "repeatCount" : 1.0,
+        "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Music/Nirvana/Nevermind/01%20Smells%20Like%20Teen%20Spirit.mp3"
+      } ]
+    }, {
+      "repeatCount" : 1.0,
+      "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/TV%20Shows/Onion%20News%20Network/Season%201/101%20Interview%20With%20the%20Onion%20News%20Network%20(HD).m4v"
+    }, {
+      "repeatCount" : 1.0,
+      "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/Audiobooks/Steve%20Martin/01%20Born%20Standing%20Up_%20A%20Comic's%20Life%20(Unabridged).m4b"
+    }, {
+      "repeatCount" : 1.0,
+      "source" : "file://localhost/Users/z/Music/iTunes/iTunes%20Media/TV%20Shows/Onion%20News%20Network/Season%201/101%20Interview%20With%20the%20Onion%20News%20Network%20(HD).m4v"
+    } ]
+  },
   "plist/test01.plist" : {
     "rootSequence" : [ {
       "repeatCount" : 1.0,

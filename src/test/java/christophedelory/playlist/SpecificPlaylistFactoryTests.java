@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName("SpecificPlaylistFactory Tests")
 public class SpecificPlaylistFactoryTests
@@ -96,8 +97,9 @@ public class SpecificPlaylistFactoryTests
     void testSerializePlaylist(String extension) throws Exception
     {
         SpecificPlaylistFactory specificPlaylistFactory = SpecificPlaylistFactory.getInstance();
-        SpecificPlaylistProvider specificPlaylistProvider = specificPlaylistFactory.findProviderByExtension("playlist." + extension);
-        SpecificPlaylist playlist = specificPlaylistProvider.toSpecificPlaylist(new Playlist());
+        List<SpecificPlaylistProvider> specificPlaylistProviders = specificPlaylistFactory.findProvidersByExtension("playlist." + extension);
+        assertEquals(1, specificPlaylistProviders.size(), String.format("Expect to find exactly 1 playlist provider for <%s>", extension));
+        SpecificPlaylist playlist = specificPlaylistProviders.get(0).toSpecificPlaylist(new Playlist());
 
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream())
         {

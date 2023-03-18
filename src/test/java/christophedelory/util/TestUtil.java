@@ -1,9 +1,6 @@
 package christophedelory.util;
 
-import christophedelory.playlist.Media;
-import christophedelory.playlist.Playlist;
-import christophedelory.playlist.SpecificPlaylistFactory;
-import christophedelory.playlist.SpecificPlaylistProvider;
+import christophedelory.playlist.*;
 import christophedelory.test.json.playlist.JsonPlaylist;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -60,19 +57,26 @@ public class TestUtil
     public static Playlist readPlaylistFrom(Path playlistPath) throws Exception
     {
         Path absPlaylistPath = playlistPath.isAbsolute() ? playlistPath : sampleFolderPath.resolve(playlistPath);
-        SpecificPlaylistProvider specificPlaylistProvider = SpecificPlaylistFactory.getInstance().findProviderByExtension(absPlaylistPath.toString());
-        assertNotNull(specificPlaylistProvider, String.format("Provider by extension %s", absPlaylistPath));
-        try (InputStream is = Files.newInputStream(absPlaylistPath))
+        List<SpecificPlaylistProvider> playlistProviders = SpecificPlaylistFactory.getInstance().findProvidersByExtension(absPlaylistPath.toString());
+        assertFalse(playlistProviders.isEmpty(), String.format("Expect to find a provider extension of path %s", absPlaylistPath));
+        for (SpecificPlaylistProvider playlistProvider : playlistProviders)
         {
-            try
+            try (InputStream is = Files.newInputStream(absPlaylistPath))
             {
-                return specificPlaylistProvider.readFrom(is, null).toPlaylist();
-            }
-            catch (Exception e)
-            {
-                throw new Exception(String.format("Failed to read from %s", absPlaylistPath.getFileName()), e);
+                try
+                {
+                    SpecificPlaylist specificPlaylist = playlistProvider.readFrom(is, null);
+                    if (specificPlaylist != null)
+                        return specificPlaylist.toPlaylist();
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(String.format("Failed to read from %s", absPlaylistPath.getFileName()), e);
+                }
             }
         }
+        fail(String.format("Failed to find provider which is able to decode playlist path \"%s\"", playlistPath));
+        return null;
     }
 
     public static Map<String, JsonPlaylist> getPlaylistMetadata() throws IOException
@@ -86,7 +90,8 @@ public class TestUtil
     public static void checkPlaylistItemSource(final Playlist playlist, final int itemIndex, final String expectedUri)
     {
         Object entry = playlist.getRootSequence().getComponents().get(itemIndex);
-        assertTrue(entry instanceof Media, "Expect playlist media entry");
+        assertNotNull(entry, "Playlist entry");
+        assertTrue(entry instanceof Media, String.format("Expect entry to be Media instance, got class %s", entry.getClass()));
         Media media = (Media) entry;
         assertNotNull(media.getSource(), "Media source");
         assertEquals(expectedUri, media.getSource().toString(), "Media source URL");
