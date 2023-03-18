@@ -24,6 +24,7 @@
  */
 package christophedelory.playlist;
 
+import java.io.IOException;
 import java.io.OutputStream;
 
 /**
@@ -49,7 +50,7 @@ public interface SpecificPlaylist
      * @see SpecificPlaylistFactory#readFrom
      * @see SpecificPlaylistProvider#readFrom
      */
-    void writeTo(OutputStream out, String encoding) throws Exception;
+    void writeTo(OutputStream out, String encoding) throws IOException;
 
     /**
      * Builds a generic representation from this specific playlist.

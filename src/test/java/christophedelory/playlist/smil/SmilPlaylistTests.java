@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 import static christophedelory.util.TestUtil.checkPlaylistItemSource;
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,7 +22,7 @@ public class SmilPlaylistTests
 
     @Test
     @DisplayName("Read SMIL playlist file")
-    public void readSmilPlaylist() throws Exception
+    public void readSmilPlaylist() throws IOException
     {
         Playlist playlist = TestUtil.readPlaylistFrom("smil/test01.smil");
         assertNotNull(playlist, "playlist");
@@ -32,7 +33,7 @@ public class SmilPlaylistTests
 
     @Test
     @DisplayName("Read SMIL playlist with \"indefinite\" repeat count")
-    public void readSmilPlaylistWithIndefiniteRepeatValue() throws Exception
+    public void readSmilPlaylistWithIndefiniteRepeatValue() throws IOException
     {
         Playlist playlist = TestUtil.readPlaylistFrom("smil/test02.smil");
         assertNotNull(playlist, "playlist");
@@ -46,7 +47,7 @@ public class SmilPlaylistTests
 
     @Test
     @DisplayName("Read SMIL video playlist file")
-    public void readVideoSmilPlaylist() throws Exception
+    public void readVideoSmilPlaylist() throws IOException
     {
         Playlist playlist = TestUtil.readPlaylistFrom("smil/test06.smil");
         assertNotNull(playlist, "playlist");
@@ -56,7 +57,7 @@ public class SmilPlaylistTests
 
     @Test
     @DisplayName("Read SMIL 2.0 playlist qualified XML")
-    public void readQualifiedSmil20Playlist() throws Exception
+    public void readQualifiedSmil20Playlist() throws IOException
     {
         Playlist playlist = TestUtil.readPlaylistFrom("smil/smil-2.0-example.smil");
         assertNotNull(playlist, "playlist");
@@ -69,12 +70,12 @@ public class SmilPlaylistTests
 
     @Test
     @DisplayName("Write to SMIL playlist file")
-    public void writeSmil() throws Exception
+    public void writeSmil() throws IOException
     {
         writeSmil("asx/test01.asx");
     }
 
-    private static void writeSmil(String testFile) throws Exception
+    private static void writeSmil(String testFile) throws IOException
     {
         Playlist playlist = TestUtil.readPlaylistFrom(testFile);
         final SmilProvider smilProvider = new SmilProvider();

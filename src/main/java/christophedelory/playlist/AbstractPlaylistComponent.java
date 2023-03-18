@@ -24,6 +24,8 @@
  */
 package christophedelory.playlist;
 
+import java.io.IOException;
+
 /**
  * The base component of a playlist.
  * @version $Revision: 92 $
@@ -87,17 +89,17 @@ public abstract class AbstractPlaylistComponent
      * Accepts the specified playlist visitor.
      * @param visitor a visitor. Shall not be <code>null</code>.
      * @throws NullPointerException if <code>visitor</code> is <code>null</code>.
-     * @throws Exception if any error occurs during the visit.
+     * @throws IOException if any error occurs during the visit.
      */
-    public abstract void acceptDown(PlaylistVisitor visitor) throws Exception;
+    public abstract void acceptDown(PlaylistVisitor visitor) throws IOException;
 
     /**
      * Accepts the specified playlist visitor.
      * @param visitor a visitor. Shall not be <code>null</code>.
      * @throws NullPointerException if <code>visitor</code> is <code>null</code>.
-     * @throws Exception if any error occurs during the visit.
+     * @throws IOException if any error occurs during the visit.
      */
-    public void acceptUp(PlaylistVisitor visitor) throws Exception
+    public void acceptUp(PlaylistVisitor visitor) throws IOException
     {
         if (_parent != null)
         {

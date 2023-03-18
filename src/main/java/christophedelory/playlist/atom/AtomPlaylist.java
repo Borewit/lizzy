@@ -31,6 +31,7 @@ import io.github.borewit.playlist.atom.FeedType;
 import io.github.borewit.playlist.atom.Link;
 import io.github.borewit.playlist.atom.ObjectFactory;
 
+import java.io.IOException;
 import java.io.OutputStream;
 
 /**
@@ -63,7 +64,7 @@ public class AtomPlaylist implements SpecificPlaylist
     }
 
     @Override
-    public void writeTo(final OutputStream out, final String encoding) throws Exception
+    public void writeTo(final OutputStream out, final String encoding) throws IOException
     {
         this.provider.writeTo(new ObjectFactory().createFeed(this.feed), out, encoding);
     }

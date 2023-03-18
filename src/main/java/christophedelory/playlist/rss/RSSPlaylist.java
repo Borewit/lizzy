@@ -24,6 +24,7 @@
  */
 package christophedelory.playlist.rss;
 
+import java.io.IOException;
 import java.io.OutputStream;
 
 import christophedelory.playlist.*;
@@ -63,7 +64,7 @@ public class RSSPlaylist implements SpecificPlaylist
     }
 
     @Override
-    public void writeTo(final OutputStream out, final String encoding) throws Exception
+    public void writeTo(final OutputStream out, final String encoding) throws IOException
     {
         this.provider.writeTo(new ObjectFactory().createRss(this.rss), out, encoding);
     }

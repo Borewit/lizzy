@@ -40,7 +40,7 @@ public class TranscodeTests
         }
     }
 
-    private void transcode(Path samplePath) throws Exception
+    private void transcode(Path samplePath) throws IOException
     {
         final String[] targetPlaylistFormats = {"pla", "asx", "b4s", "wpl", "smil", "rss", "atom", "xspf", "rmp", "plist", "pls", "mpcpl", "plp", "m3u"};
 

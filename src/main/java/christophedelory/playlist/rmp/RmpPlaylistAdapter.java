@@ -31,6 +31,7 @@ import christophedelory.playlist.Playlist;
 import christophedelory.playlist.SpecificPlaylist;
 import io.github.borewit.playlist.rmp.RmpPackage;
 
+import java.io.IOException;
 import java.io.OutputStream;
 
 /**
@@ -62,7 +63,7 @@ public class RmpPlaylistAdapter implements SpecificPlaylist
     }
 
     @Override
-    public void writeTo(final OutputStream out, final String encoding) throws Exception
+    public void writeTo(final OutputStream out, final String encoding) throws IOException
     {
         this.provider.writeTo(this.rmpPackage, out, encoding);
     }

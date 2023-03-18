@@ -28,6 +28,7 @@ import christophedelory.content.Content;
 import christophedelory.playlist.*;
 import io.github.borewit.playlist.asx.*;
 
+import java.io.IOException;
 import java.io.OutputStream;
 
 /**
@@ -79,7 +80,7 @@ public class AsxPlaylistAdapter implements SpecificPlaylist
     }
 
     @Override
-    public void writeTo(final OutputStream out, final String encoding) throws Exception
+    public void writeTo(final OutputStream out, final String encoding) throws IOException
     {
         this.provider.writeTo(this.asx, out, encoding);
     }

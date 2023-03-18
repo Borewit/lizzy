@@ -31,6 +31,7 @@ import org.apache.commons.io.ByteOrderMark;
 import org.apache.commons.io.input.BOMInputStream;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
@@ -101,7 +102,7 @@ public class M3UProvider extends AbstractPlaylistProvider
     }
 
     @Override
-    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws Exception
+    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws IOException
     {
         String enc = encoding;
 
@@ -187,7 +188,7 @@ public class M3UProvider extends AbstractPlaylistProvider
 
 
     @Override
-    public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws Exception
+    public SpecificPlaylist toSpecificPlaylist(final Playlist playlist)
     {
         final M3U ret = new M3U();
         ret.setProvider(this);

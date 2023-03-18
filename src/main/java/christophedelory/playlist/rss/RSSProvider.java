@@ -33,8 +33,11 @@ import io.github.borewit.playlist.rss20.Enclosure;
 import io.github.borewit.playlist.rss20.Item;
 import io.github.borewit.playlist.rss20.Rss;
 import io.github.borewit.playlist.rss20.media.MediaContent;
-
 import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBException;
+
+import javax.xml.stream.XMLStreamException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -84,17 +87,24 @@ public class RSSProvider extends JaxbPlaylistProvider<Rss>
     }
 
     @Override
-    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws Exception
+    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws IOException
     {
-        final JAXBElement<Rss> rssJAXBElement = this.unmarshal(in, encoding);
-        String rootElementName = rssJAXBElement.getName().getLocalPart();
+        try
+        {
+            final JAXBElement<Rss> rssJAXBElement = this.unmarshal(in, encoding);
+            String rootElementName = rssJAXBElement.getName().getLocalPart();
 
-        return rootElementName != null && rootElementName.equalsIgnoreCase("RSS") ?
-            new RSSPlaylist(this, rssJAXBElement.getValue()) : null;
+            return rootElementName != null && rootElementName.equalsIgnoreCase("RSS") ?
+                new RSSPlaylist(this, rssJAXBElement.getValue()) : null;
+        }
+        catch (JAXBException | XMLStreamException exception)
+        {
+            throw new IOException(exception);
+        }
     }
 
     @Override
-    public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws Exception
+    public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws IOException
     {
         final Rss rss = new Rss();
 

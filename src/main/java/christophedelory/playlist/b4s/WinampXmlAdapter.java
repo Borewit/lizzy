@@ -24,6 +24,7 @@
  */
 package christophedelory.playlist.b4s;
 
+import java.io.IOException;
 import java.io.OutputStream;
 
 import christophedelory.content.Content;
@@ -59,7 +60,7 @@ public class WinampXmlAdapter implements SpecificPlaylist
     }
 
     @Override
-    public void writeTo(final OutputStream out, final String encoding) throws Exception
+    public void writeTo(final OutputStream out, final String encoding) throws IOException
     {
         this.provider.writeTo(this.winampXML, out, encoding);
     }

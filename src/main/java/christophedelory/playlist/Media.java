@@ -26,6 +26,8 @@ package christophedelory.playlist;
 
 import christophedelory.content.Content;
 
+import java.io.IOException;
+
 /**
  * The definition of a media content.
  * @version $Revision: 92 $
@@ -125,7 +127,7 @@ public class Media extends AbstractPlaylistComponent
     }
 
     @Override
-    public void acceptDown(final PlaylistVisitor visitor) throws Exception
+    public void acceptDown(final PlaylistVisitor visitor) throws IOException
     {
         visitor.beginVisitMedia(this); // Throws NullPointerException if visitor is null. May throw Exception.
 
@@ -133,7 +135,7 @@ public class Media extends AbstractPlaylistComponent
     }
 
     @Override
-    public void acceptUp(final PlaylistVisitor visitor) throws Exception
+    public void acceptUp(final PlaylistVisitor visitor) throws IOException
     {
         visitor.beginVisitMedia(this); // Throws NullPointerException if visitor is null. May throw Exception.
 

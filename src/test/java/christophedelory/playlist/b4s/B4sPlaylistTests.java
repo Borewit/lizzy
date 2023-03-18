@@ -5,6 +5,8 @@ import christophedelory.util.TestUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 import static christophedelory.util.TestUtil.checkPlaylistItemSource;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,7 +15,7 @@ public class B4sPlaylistTests
 {
     @Test
     @DisplayName("Read b4s playlist file")
-    public void readB4s() throws Exception
+    public void readB4s() throws IOException
     {
         Playlist playlist = TestUtil.readPlaylistFrom("b4s/test01.b4s");
         assertNotNull(playlist, "playlist");

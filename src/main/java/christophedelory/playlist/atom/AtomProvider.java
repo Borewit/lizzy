@@ -29,11 +29,14 @@ import christophedelory.player.PlayerSupport;
 import christophedelory.playlist.*;
 import christophedelory.xml.Version;
 import io.github.borewit.playlist.atom.*;
-
 import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBException;
+
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
+import javax.xml.stream.XMLStreamException;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -78,17 +81,25 @@ public class AtomProvider extends JaxbPlaylistProvider<FeedType>
     }
 
     @Override
-    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws Exception
+    public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws IOException
     {
-        final JAXBElement<FeedType> feed = this.unmarshal(in, encoding);
-        String rootElementName = feed.getName().getLocalPart();
+        try
+        {
+            final JAXBElement<FeedType> feed = this.unmarshal(in, encoding);
+            String rootElementName = feed.getName().getLocalPart();
 
-        return rootElementName != null && rootElementName.equalsIgnoreCase("Feed") ?
-            new AtomPlaylist(this, feed.getValue()) : null;
+            return rootElementName != null && rootElementName.equalsIgnoreCase("Feed") ?
+                new AtomPlaylist(this, feed.getValue()) : null;
+        }
+        catch (JAXBException | XMLStreamException exception)
+        {
+            throw new IOException(exception);
+        }
     }
 
+
     @Override
-    public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws Exception
+    public SpecificPlaylist toSpecificPlaylist(final Playlist playlist)
     {
         final FeedType feed = new FeedType();
 

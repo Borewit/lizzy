@@ -1,9 +1,11 @@
 package christophedelory.playlist;
 
 import jakarta.xml.bind.*;
+
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
@@ -25,7 +27,8 @@ public abstract class JaxbPlaylistProvider<T> extends AbstractPlaylistProvider
 
     private JAXBContext getJaxbContext() throws JAXBException
     {
-        synchronized (this) {
+        synchronized (this)
+        {
             if (this.jaxbContext == null)
             {
                 this.jaxbContext = JAXBContext.newInstance(this.getXmlCLass());
@@ -34,7 +37,7 @@ public abstract class JaxbPlaylistProvider<T> extends AbstractPlaylistProvider
         }
     }
 
-    protected JAXBElement<T> unmarshal(final InputStream in, final String encoding) throws Exception
+    protected JAXBElement<T> unmarshal(final InputStream in, final String encoding) throws JAXBException, XMLStreamException
     {
         String applyEncoding = encoding == null ? StandardCharsets.UTF_8.toString() : encoding;
         Unmarshaller unmarshaller = this.getJaxbContext().createUnmarshaller();
@@ -42,13 +45,20 @@ public abstract class JaxbPlaylistProvider<T> extends AbstractPlaylistProvider
         return unmarshaller.unmarshal(xmlStreamReader, this.getXmlCLass());
     }
 
-    public void writeTo(Object xmlPlaylist, final OutputStream out, final String encoding) throws Exception
+    public void writeTo(Object xmlPlaylist, final OutputStream out, final String encoding) throws IOException
     {
-        // Marshal the playlist.
-        Marshaller marshaller = this.getJaxbContext().createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        marshaller.marshal(xmlPlaylist, out);
-        out.flush(); // May throw IOException.
+        try
+        {
+            // Marshal the playlist.
+            Marshaller marshaller = this.getJaxbContext().createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            marshaller.marshal(xmlPlaylist, out);
+            out.flush(); // May throw IOException.
+        }
+        catch (JAXBException exception)
+        {
+            throw new IOException(exception);
+        }
     }
 
     protected XMLStreamReader getXmlStreamReader(final InputStream in, final String encoding) throws XMLStreamException
