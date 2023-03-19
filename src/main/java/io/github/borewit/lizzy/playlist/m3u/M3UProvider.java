@@ -102,7 +102,7 @@ public class M3UProvider extends AbstractPlaylistProvider
   }
 
   @Override
-  public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws IOException
+  public SpecificPlaylist readFrom(final InputStream inputStream, final String encoding) throws IOException
   {
     String enc = encoding;
 
@@ -112,7 +112,7 @@ public class M3UProvider extends AbstractPlaylistProvider
     }
 
 
-    BOMInputStream bomInputStream = wrapInBomStream(in);
+    BOMInputStream bomInputStream = wrapInBomStream(inputStream);
 
     if (bomInputStream.hasBOM())
     {

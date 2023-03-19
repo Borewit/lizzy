@@ -25,10 +25,7 @@
 package io.github.borewit.lizzy.playlist.pla;
 
 import io.github.borewit.lizzy.content.Content;
-import io.github.borewit.lizzy.playlist.Media;
-import io.github.borewit.lizzy.playlist.Playlist;
-import io.github.borewit.lizzy.playlist.SpecificPlaylist;
-import io.github.borewit.lizzy.playlist.SpecificPlaylistProvider;
+import io.github.borewit.lizzy.playlist.*;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -44,7 +41,7 @@ import java.util.List;
  * @version $Revision: 91 $
  * @since 0.2.0
  */
-public class PLA implements SpecificPlaylist
+public class PLA extends AbstractPlaylist
 {
   /**
    * The provider of this specific playlist.

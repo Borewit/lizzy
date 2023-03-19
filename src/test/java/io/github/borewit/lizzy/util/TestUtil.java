@@ -60,26 +60,9 @@ public class TestUtil
   public static Playlist readPlaylistFrom(Path playlistPath) throws IOException
   {
     Path absPlaylistPath = playlistPath.isAbsolute() ? playlistPath : sampleFolderPath.resolve(playlistPath);
-    List<SpecificPlaylistProvider> playlistProviders = SpecificPlaylistFactory.getInstance().findProvidersByExtension(absPlaylistPath.toString());
-    assertFalse(playlistProviders.isEmpty(), String.format("Expect to find a provider extension of path %s", absPlaylistPath));
-    for (SpecificPlaylistProvider playlistProvider : playlistProviders)
-    {
-      try (InputStream is = Files.newInputStream(absPlaylistPath))
-      {
-        try
-        {
-          SpecificPlaylist specificPlaylist = playlistProvider.readFrom(is, null);
-          if (specificPlaylist != null)
-            return specificPlaylist.toPlaylist();
-        }
-        catch (IOException e)
-        {
-          throw new IOException(String.format("Failed to read from %s", absPlaylistPath.getFileName()), e);
-        }
-      }
-    }
-    fail(String.format("Failed to find provider which is able to decode playlist path \"%s\"", playlistPath));
-    return null;
+    SpecificPlaylist specificPlaylist = SpecificPlaylistFactory.getInstance().readFrom(absPlaylistPath);
+    assertNotNull(specificPlaylist, String.format("Reading playlist %s", absPlaylistPath.getFileName()));
+    return specificPlaylist.toPlaylist();
   }
 
   public static Map<String, JsonPlaylist> getPlaylistMetadata() throws IOException

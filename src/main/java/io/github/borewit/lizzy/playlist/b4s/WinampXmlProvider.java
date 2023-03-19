@@ -78,11 +78,11 @@ public class WinampXmlProvider extends JaxbPlaylistProvider<WinampXML>
   }
 
   @Override
-  public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws IOException
+  public SpecificPlaylist readFrom(final InputStream inputStream, final String encoding) throws IOException
   {
     try
     {
-      final JAXBElement<WinampXML> winampXMLJAXBElement = this.unmarshal(in, encoding);
+      final JAXBElement<WinampXML> winampXMLJAXBElement = this.unmarshal(inputStream, encoding);
       String rootElementName = winampXMLJAXBElement.getName().getLocalPart();
 
       return rootElementName != null && rootElementName.equalsIgnoreCase("WinampXML") ?

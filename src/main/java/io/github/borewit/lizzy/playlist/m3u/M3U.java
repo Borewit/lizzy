@@ -25,10 +25,7 @@
 package io.github.borewit.lizzy.playlist.m3u;
 
 import io.github.borewit.lizzy.content.Content;
-import io.github.borewit.lizzy.playlist.Media;
-import io.github.borewit.lizzy.playlist.Playlist;
-import io.github.borewit.lizzy.playlist.SpecificPlaylist;
-import io.github.borewit.lizzy.playlist.SpecificPlaylistProvider;
+import io.github.borewit.lizzy.playlist.*;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -43,7 +40,7 @@ import java.util.List;
  * @author Christophe Delory
  * @version $Revision: 92 $
  */
-public class M3U implements SpecificPlaylist
+public class M3U extends AbstractPlaylist
 {
   /**
    * The provider of this specific playlist.

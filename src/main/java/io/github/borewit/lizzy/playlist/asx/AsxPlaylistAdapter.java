@@ -25,10 +25,7 @@
 package io.github.borewit.lizzy.playlist.asx;
 
 import io.github.borewit.lizzy.content.Content;
-import io.github.borewit.lizzy.playlist.Media;
-import io.github.borewit.lizzy.playlist.Playlist;
-import io.github.borewit.lizzy.playlist.Sequence;
-import io.github.borewit.lizzy.playlist.SpecificPlaylist;
+import io.github.borewit.lizzy.playlist.*;
 import io.github.borewit.playlist.asx.*;
 
 import java.io.IOException;
@@ -41,7 +38,7 @@ import java.io.OutputStream;
  * @author Borewit
  * @author Christophe Delory
  */
-public class AsxPlaylistAdapter implements SpecificPlaylist
+public class AsxPlaylistAdapter extends AbstractPlaylist
 {
   /**
    * The provider of this specific playlist.

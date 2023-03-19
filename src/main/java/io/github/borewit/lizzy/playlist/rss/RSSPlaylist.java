@@ -25,10 +25,7 @@
 package io.github.borewit.lizzy.playlist.rss;
 
 import io.github.borewit.lizzy.content.Content;
-import io.github.borewit.lizzy.playlist.Media;
-import io.github.borewit.lizzy.playlist.Playlist;
-import io.github.borewit.lizzy.playlist.Sequence;
-import io.github.borewit.lizzy.playlist.SpecificPlaylist;
+import io.github.borewit.lizzy.playlist.*;
 import io.github.borewit.playlist.rss20.Enclosure;
 import io.github.borewit.playlist.rss20.Item;
 import io.github.borewit.playlist.rss20.ObjectFactory;
@@ -45,7 +42,7 @@ import java.io.OutputStream;
  * @author Borewit
  * @author Christophe Delory
  */
-public class RSSPlaylist implements SpecificPlaylist
+public class RSSPlaylist extends AbstractPlaylist
 {
   /**
    * The provider of this specific playlist.

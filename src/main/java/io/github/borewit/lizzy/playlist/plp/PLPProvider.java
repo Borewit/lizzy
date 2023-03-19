@@ -73,7 +73,7 @@ public class PLPProvider extends AbstractPlaylistProvider
   }
 
   @Override
-  public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws IOException
+  public SpecificPlaylist readFrom(final InputStream inputStream, final String encoding) throws IOException
   {
     String enc = encoding;
 
@@ -82,7 +82,7 @@ public class PLPProvider extends AbstractPlaylistProvider
       enc = "UTF-16LE";
     }
 
-    final BufferedReader reader = new BufferedReader(new InputStreamReader(in, enc)); // Throws NullPointerException if in is null. May throw UnsupportedEncodingException, IOException.
+    final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, enc)); // Throws NullPointerException if in is null. May throw UnsupportedEncodingException, IOException.
 
     PLP ret = new PLP();
     ret.setProvider(this);

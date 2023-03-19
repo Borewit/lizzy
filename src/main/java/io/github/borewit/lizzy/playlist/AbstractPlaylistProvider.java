@@ -15,15 +15,16 @@ public abstract class AbstractPlaylistProvider implements SpecificPlaylistProvid
 {
   private final Logger logger = LogManager.getLogger(AbstractPlaylistProvider.class);
 
-  public SpecificPlaylist readFrom(final InputStream in) throws IOException
+  @Override
+  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException
   {
-    return this.readFrom(in, null);
+    return this.readFrom(inputStream, null);
   }
 
   @Override
-  public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws IOException
+  public SpecificPlaylist readFrom(final InputStream inputStream, final String encoding) throws IOException
   {
-    return this.readFrom(in, encoding);
+    return this.readFrom(inputStream, encoding);
   }
 
   protected final InputStreamReader preProcessXml(final InputStream in, final String encoding)

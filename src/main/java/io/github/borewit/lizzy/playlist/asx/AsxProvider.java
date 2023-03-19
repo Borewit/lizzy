@@ -107,11 +107,11 @@ public class AsxProvider extends JaxbPlaylistProvider<Asx>
   }
 
   @Override
-  public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws IOException
+  public SpecificPlaylist readFrom(final InputStream inputStream, final String encoding) throws IOException
   {
     try
     {
-      final JAXBElement<Asx> asx = this.unmarshal(in, encoding);
+      final JAXBElement<Asx> asx = this.unmarshal(inputStream, encoding);
       String rootElementName = asx.getName().getLocalPart();
 
       return rootElementName != null && rootElementName.equalsIgnoreCase("ASX") ?

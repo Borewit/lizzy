@@ -72,7 +72,7 @@ public class PLAProvider extends AbstractPlaylistProvider
   }
 
   @Override
-  public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws IOException
+  public SpecificPlaylist readFrom(final InputStream inputStream, final String encoding) throws IOException
   {
     PLA ret = new PLA();
     ret.setProvider(this);
@@ -81,7 +81,7 @@ public class PLAProvider extends AbstractPlaylistProvider
     // A conforming playlist file consists of 1+N null-padded 512-byte frames, where N is the number of songs in the playlist.
     final byte[] array = new byte[512];
 
-    if (in.read(array) != 512) // Throws NullPointerException if in is null. May throw IOException.
+    if (inputStream.read(array) != 512) // Throws NullPointerException if in is null. May throw IOException.
     {
       throw new IllegalArgumentException("Not a PLA playlist format (file too small)");
     }
@@ -105,7 +105,7 @@ public class PLAProvider extends AbstractPlaylistProvider
 
     for (int i = 0; i < nbSongs; i++)
     {
-      if (in.read(array) != 512) // May throw IOException.
+      if (inputStream.read(array) != 512) // May throw IOException.
       {
         logger.error("Malformed PLA playlist (file too small)");
         ret = null;

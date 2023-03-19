@@ -26,10 +26,7 @@ package io.github.borewit.lizzy.playlist.plist;
 
 import com.dd.plist.*;
 import io.github.borewit.lizzy.content.Content;
-import io.github.borewit.lizzy.playlist.Media;
-import io.github.borewit.lizzy.playlist.Playlist;
-import io.github.borewit.lizzy.playlist.Sequence;
-import io.github.borewit.lizzy.playlist.SpecificPlaylist;
+import io.github.borewit.lizzy.playlist.*;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -38,10 +35,11 @@ import java.util.Date;
 /**
  * The definition of an iTunes playlist.
  *
+ * @author Borewit
  * @author Christophe Delory
  * @version $Revision: 92 $
  */
-public class PlistPlaylist implements SpecificPlaylist
+public class PlistPlaylist extends AbstractPlaylist
 {
   /**
    * The provider of this specific playlist.
