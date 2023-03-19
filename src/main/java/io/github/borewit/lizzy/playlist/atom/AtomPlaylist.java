@@ -25,9 +25,9 @@
 package io.github.borewit.lizzy.playlist.atom;
 
 import io.github.borewit.lizzy.content.Content;
+import io.github.borewit.lizzy.playlist.AbstractPlaylist;
 import io.github.borewit.lizzy.playlist.Media;
 import io.github.borewit.lizzy.playlist.Playlist;
-import io.github.borewit.lizzy.playlist.SpecificPlaylist;
 import io.github.borewit.playlist.atom.EntryType;
 import io.github.borewit.playlist.atom.FeedType;
 import io.github.borewit.playlist.atom.Link;
@@ -42,7 +42,7 @@ import java.io.OutputStream;
  * @author Borewit
  * @author Christophe Delory
  */
-public class AtomPlaylist implements SpecificPlaylist
+public class AtomPlaylist extends AbstractPlaylist
 {
   /**
    * The Atom playlist provider

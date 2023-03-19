@@ -25,10 +25,7 @@
 package io.github.borewit.lizzy.playlist.xspf;
 
 import io.github.borewit.lizzy.content.Content;
-import io.github.borewit.lizzy.playlist.JaxbPlaylistProvider;
-import io.github.borewit.lizzy.playlist.Media;
-import io.github.borewit.lizzy.playlist.Playlist;
-import io.github.borewit.lizzy.playlist.SpecificPlaylist;
+import io.github.borewit.lizzy.playlist.*;
 import io.github.borewit.playlist.xspf.ObjectFactory;
 import io.github.borewit.playlist.xspf.XspfPlaylist;
 import io.github.borewit.playlist.xspf.XspfTrack;
@@ -40,10 +37,10 @@ import java.io.OutputStream;
 /**
  * XSPF, an XML format designed to enable playlist sharing.
  *
+ * @author Borewit
  * @author Christophe Delory
- * @version $Revision: 91 $
  */
-public class XspfPlaylistAdapter implements SpecificPlaylist
+public class XspfPlaylistAdapter extends AbstractPlaylist
 {
 
   /**

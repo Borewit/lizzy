@@ -71,12 +71,12 @@ public class PlistProvider extends AbstractPlaylistProvider
   }
 
   @Override
-  public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws IOException
+  public SpecificPlaylist readFrom(final InputStream inputStream, final String encoding) throws IOException
   {
     NSDictionary plist;
     try
     {
-      plist = (NSDictionary) PropertyListParser.parse(in);
+      plist = (NSDictionary) PropertyListParser.parse(inputStream);
     }
     catch (Exception e)
     {

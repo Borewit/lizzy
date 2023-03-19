@@ -79,7 +79,7 @@ public class AsxPlaylistTests
       AsxProvider asxProvider = new AsxProvider();
       try
       {
-        SpecificPlaylist specificPlaylist = asxProvider.readFrom(in, null);
+        SpecificPlaylist specificPlaylist = asxProvider.readFrom(in);
         assertNull(specificPlaylist, "ASX provider should return null reading a different XML Type");
       }
       catch (Exception exception)
@@ -96,7 +96,7 @@ public class AsxPlaylistTests
     try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream())
     {
       SpecificPlaylist specificPlaylist = asxProvider.toSpecificPlaylist(playlist);
-      specificPlaylist.writeTo(byteArrayOutputStream, null);
+      specificPlaylist.writeTo(byteArrayOutputStream);
     }
   }
 }

@@ -37,7 +37,7 @@ import java.io.OutputStream;
  * @author Borewit
  * @author Christophe Delory
  */
-public class SmilAdapter implements SpecificPlaylist
+public class SmilAdapter extends AbstractPlaylist
 {
   /**
    * The provider of this specific playlist.

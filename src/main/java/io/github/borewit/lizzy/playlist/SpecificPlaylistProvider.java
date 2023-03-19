@@ -54,25 +54,25 @@ public interface SpecificPlaylistProvider
   ContentType[] getContentTypes();
 
   /**
-   * Reads a playlist from the specified input stream.
+   * Reads a playlist from the specified input-stream.
    * When done, the stream remains open.
    *
-   * @param in an input stream. Shall not be <code>null</code>.
+   * @param inputStream an input stream. Shall not be <code>null</code>.
    * @return a new playlist instance, or <code>null</code> if the format has been recognized, but the playlist is malformed.
    * @throws NullPointerException if <code>in</code> is <code>null</code>.
    * @throws NullPointerException if <code>logger</code> is <code>null</code>.
-   * @throws Exception            if any error occurs during the unmarshalling process.
+   * @throws IOException          if any error occurs during the unmarshalling process.
    * @see SpecificPlaylist#writeTo
    * @see SpecificPlaylistFactory#readFrom
    */
-  SpecificPlaylist readFrom(InputStream in) throws IOException;
+  SpecificPlaylist readFrom(InputStream inputStream) throws IOException;
 
   /**
    * Reads a playlist from the specified input stream.
    * When done, the stream remains open.
    *
-   * @param in       an input stream. Shall not be <code>null</code>.
-   * @param encoding the content encoding of the input resource, or <code>null</code> if not known.
+   * @param inputStream an input stream. Shall not be <code>null</code>.
+   * @param encoding    the content encoding of the input resource, or <code>null</code> if not known.
    * @return a new playlist instance, or <code>null</code> if the format has been recognized, but the playlist is malformed.
    * @throws NullPointerException if <code>in</code> is <code>null</code>.
    * @throws NullPointerException if <code>logger</code> is <code>null</code>.
@@ -81,7 +81,7 @@ public interface SpecificPlaylistProvider
    * @see SpecificPlaylistFactory#readFrom
    * @see SpecificPlaylist#writeTo
    */
-  SpecificPlaylist readFrom(InputStream in, String encoding) throws IOException;
+  SpecificPlaylist readFrom(InputStream inputStream, String encoding) throws IOException;
 
   /**
    * Builds a specific representation of the given generic playlist.

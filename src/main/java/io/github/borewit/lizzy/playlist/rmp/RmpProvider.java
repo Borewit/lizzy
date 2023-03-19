@@ -79,12 +79,12 @@ public class RmpProvider extends JaxbPlaylistProvider<RmpPackage>
   }
 
   @Override
-  public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws IOException
+  public SpecificPlaylist readFrom(final InputStream inputStream, final String encoding) throws IOException
   {
     try
     {
       final String rmpEncoding = encoding == null ? StandardCharsets.US_ASCII.toString() : encoding;
-      final JAXBElement<RmpPackage> rmp = this.unmarshal(in, rmpEncoding);
+      final JAXBElement<RmpPackage> rmp = this.unmarshal(inputStream, rmpEncoding);
       String rootElementName = rmp.getName().getLocalPart();
 
       return rootElementName != null && rootElementName.equalsIgnoreCase("PACKAGE") ?

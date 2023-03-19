@@ -25,10 +25,7 @@
 package io.github.borewit.lizzy.playlist.pls;
 
 import io.github.borewit.lizzy.content.Content;
-import io.github.borewit.lizzy.playlist.Media;
-import io.github.borewit.lizzy.playlist.Playlist;
-import io.github.borewit.lizzy.playlist.SpecificPlaylist;
-import io.github.borewit.lizzy.playlist.SpecificPlaylistProvider;
+import io.github.borewit.lizzy.playlist.*;
 import io.github.borewit.lizzy.playlist.m3u.Resource;
 
 import java.io.BufferedWriter;
@@ -59,10 +56,11 @@ import java.util.List;
  * </ul>
  * </ul>
  *
+ * @author Borewit
  * @author Christophe Delory
  * @version $Revision: 91 $
  */
-public class PLS implements SpecificPlaylist
+public class PLS extends AbstractPlaylist
 {
   /**
    * The provider of this specific playlist.

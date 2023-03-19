@@ -33,6 +33,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.file.Files;
+import java.nio.file.OpenOption;
+import java.nio.file.Path;
 import java.util.*;
 
 /**
@@ -94,10 +97,44 @@ public final class SpecificPlaylistFactory
   }
 
   /**
+   * Reads a playlist from the specified playlistPath.
+   *
+   * @param playlistPath Path to playlist contents. Shall not be <code>null</code>.
+   * @param options Options passed to java.nio.file.Files.newInputStream()
+   * @return A new playlist instance, or <code>null</code> if the format has been recognized, but the playlist is malformed.
+   * @throws NullPointerException if <code>url</code> is <code>null</code>.
+   * @throws IOException          if an I/O exception occurs.
+   * @see SpecificPlaylistProvider#readFrom
+   * @see #readFrom(File)
+   * @see java.nio.file.Files#newInputStream(Path, OpenOption...)
+   */
+  public SpecificPlaylist readFrom(Path playlistPath, OpenOption... options) throws IOException
+  {
+    List<SpecificPlaylistProvider> playlistProviders = this.findProvidersByExtension(playlistPath);
+    for (SpecificPlaylistProvider playlistProvider : playlistProviders)
+    {
+      try (InputStream is = Files.newInputStream(playlistPath, options))
+      {
+        try
+        {
+          SpecificPlaylist specificPlaylist = playlistProvider.readFrom(is, null);
+          if (specificPlaylist != null)
+            return specificPlaylist;
+        }
+        catch (IOException e)
+        {
+          throw new IOException(String.format("Failed to read playlist using provider-id=%s: \"%s\"", playlistProvider.getId(), playlistPath));
+        }
+      }
+    }
+    return null;
+  }
+
+  /**
    * Reads a playlist from the specified URL.
    *
-   * @param url an URL to playlist contents. Shall not be <code>null</code>.
-   * @return a new playlist instance, or <code>null</code> if the format has been recognized, but the playlist is malformed.
+   * @param url An URL to playlist contents. Shall not be <code>null</code>.
+   * @return A new playlist instance, or <code>null</code> if the format has been recognized, but the playlist is malformed.
    * @throws NullPointerException if <code>url</code> is <code>null</code>.
    * @throws IOException          if an I/O exception occurs.
    * @see SpecificPlaylistProvider#readFrom
@@ -206,7 +243,20 @@ public final class SpecificPlaylistFactory
   /**
    * Searches for providers handling the specific playlist files with the given extension string.
    *
-   * @param filename a playlist file name, or a simple extension string (with the leading '.' character, if appropriate). Not case sensitive. Shall not be <code>null</code>.
+   * @param playlistPath a playlist path, or a simple extension string (with the leading '.' character, if appropriate). Not case sensitive. Shall not be <code>null</code>.
+   * @return a provider, or <code>null</code> if none was found.
+   * @throws NullPointerException if <code>filename</code> is <code>null</code>.
+   * @see #findProviderById
+   */
+  public List<SpecificPlaylistProvider> findProvidersByExtension(final Path playlistPath)
+  {
+    return findProvidersByExtension(playlistPath.getFileName().toString());
+  }
+
+  /**
+   * Searches for providers handling the specific playlist files with the given extension string.
+   *
+   * @param filename a playlist file-name, or a simple extension string (with the leading '.' character, if appropriate). Not case sensitive. Shall not be <code>null</code>.
    * @return a provider, or <code>null</code> if none was found.
    * @throws NullPointerException if <code>filename</code> is <code>null</code>.
    * @see #findProviderById

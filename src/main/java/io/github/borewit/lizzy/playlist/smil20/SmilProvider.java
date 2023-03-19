@@ -82,11 +82,11 @@ public class SmilProvider extends JaxbPlaylistProvider<Smil>
   }
 
   @Override
-  public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws IOException
+  public SpecificPlaylist readFrom(final InputStream inputStream, final String encoding) throws IOException
   {
     try
     {
-      final JAXBElement<Smil> smil = this.unmarshal(in, encoding);
+      final JAXBElement<Smil> smil = this.unmarshal(inputStream, encoding);
       String rootElementName = smil.getName().getLocalPart();
 
       return rootElementName != null && rootElementName.equalsIgnoreCase("smil") ?

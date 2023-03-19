@@ -56,6 +56,18 @@ public interface SpecificPlaylist
   void writeTo(OutputStream out, String encoding) throws IOException;
 
   /**
+   * Writes this specific playlist to the specified output stream, using default encoding
+   * When done, the stream may be flushed, but not closed.
+   *
+   * @param out      an output stream. Shall not be <code>null</code>.
+   * @throws NullPointerException if <code>out</code> is <code>null</code>.
+   * @throws Exception            if any error occurs during the marshalling process.
+   * @see SpecificPlaylistFactory#readFrom
+   * @see SpecificPlaylistProvider#readFrom
+   */
+  void writeTo(OutputStream out) throws IOException;
+
+  /**
    * Builds a generic representation from this specific playlist.
    *
    * @return a generic playlist. Shall not be <code>null</code>.

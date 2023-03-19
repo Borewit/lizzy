@@ -25,10 +25,7 @@
 package io.github.borewit.lizzy.playlist.b4s;
 
 import io.github.borewit.lizzy.content.Content;
-import io.github.borewit.lizzy.playlist.Media;
-import io.github.borewit.lizzy.playlist.Playlist;
-import io.github.borewit.lizzy.playlist.SpecificPlaylist;
-import io.github.borewit.lizzy.playlist.SpecificPlaylistProvider;
+import io.github.borewit.lizzy.playlist.*;
 import io.github.borewit.playlist.b4s.WinampXML;
 
 import java.io.IOException;
@@ -40,7 +37,7 @@ import java.io.OutputStream;
  * @author Borewit
  * @author Christophe Delory
  */
-public class WinampXmlAdapter implements SpecificPlaylist
+public class WinampXmlAdapter extends AbstractPlaylist
 {
   private final WinampXML winampXML;
 

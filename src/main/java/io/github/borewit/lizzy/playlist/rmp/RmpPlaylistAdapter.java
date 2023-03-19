@@ -25,10 +25,7 @@
 package io.github.borewit.lizzy.playlist.rmp;
 
 import io.github.borewit.lizzy.content.Content;
-import io.github.borewit.lizzy.playlist.JaxbPlaylistProvider;
-import io.github.borewit.lizzy.playlist.Media;
-import io.github.borewit.lizzy.playlist.Playlist;
-import io.github.borewit.lizzy.playlist.SpecificPlaylist;
+import io.github.borewit.lizzy.playlist.*;
 import io.github.borewit.playlist.rmp.RmpPackage;
 
 import java.io.IOException;
@@ -41,7 +38,7 @@ import java.io.OutputStream;
  * @author Christophe Delory
  * @since 0.3.0
  */
-public class RmpPlaylistAdapter implements SpecificPlaylist
+public class RmpPlaylistAdapter extends AbstractPlaylist
 {
   private RmpProvider provider;
   private final RmpPackage rmpPackage;

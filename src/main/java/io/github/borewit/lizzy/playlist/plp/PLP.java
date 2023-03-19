@@ -25,10 +25,7 @@
 package io.github.borewit.lizzy.playlist.plp;
 
 import io.github.borewit.lizzy.content.Content;
-import io.github.borewit.lizzy.playlist.Media;
-import io.github.borewit.lizzy.playlist.Playlist;
-import io.github.borewit.lizzy.playlist.SpecificPlaylist;
-import io.github.borewit.lizzy.playlist.SpecificPlaylistProvider;
+import io.github.borewit.lizzy.playlist.*;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -40,11 +37,12 @@ import java.util.List;
 /**
  * Music playlist for a SanDisk Sansa portable media player.
  *
+ * @author Borewit
  * @author Christophe Delory
  * @version $Revision: 92 $
  * @since 0.2.0
  */
-public class PLP implements SpecificPlaylist
+public class PLP extends AbstractPlaylist
 {
   /**
    * The provider of this specific playlist.

@@ -81,11 +81,11 @@ public class AtomProvider extends JaxbPlaylistProvider<FeedType>
   }
 
   @Override
-  public SpecificPlaylist readFrom(final InputStream in, final String encoding) throws IOException
+  public SpecificPlaylist readFrom(final InputStream inputStream, final String encoding) throws IOException
   {
     try
     {
-      final JAXBElement<FeedType> feed = this.unmarshal(in, encoding);
+      final JAXBElement<FeedType> feed = this.unmarshal(inputStream, encoding);
       String rootElementName = feed.getName().getLocalPart();
 
       return rootElementName != null && rootElementName.equalsIgnoreCase("Feed") ?
