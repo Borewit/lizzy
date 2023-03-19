@@ -167,9 +167,22 @@ public final class SpecificPlaylistFactory
   }
 
   /**
+   * Get provider got given playlist-format
+   *
+   * @param playlistFormat the unique string identifying a type of specific playlists.
+   * @return a provider, or <code>null</code> if provided playlistFormat was null.
+   * @throws NullPointerException if <code>id</code> is <code>null</code>.
+   * @see #findProvidersByExtension(String)
+   */
+  public SpecificPlaylistProvider getProvider(final PlaylistFormat playlistFormat)
+  {
+    return playlistFormat == null ? null : findProviderById(playlistFormat.name());
+  }
+
+  /**
    * Searches for a provider handling the type of specific playlists identified by the given string.
    *
-   * @param id the unique string identifying a type of specific playlists. Not case sensitive. Shall not be <code>null</code>.
+   * @param id the unique string identifying a type of specific playlists. Not case-sensitive. Shall not be <code>null</code>.
    * @return a provider, or <code>null</code> if none was found.
    * @throws NullPointerException if <code>id</code> is <code>null</code>.
    * @see #findProvidersByExtension(String)

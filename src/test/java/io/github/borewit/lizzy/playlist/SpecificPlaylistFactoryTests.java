@@ -11,6 +11,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -125,12 +126,24 @@ public class SpecificPlaylistFactoryTests
     }
   }
 
+
   private static List<String> findDuplicates(List<String> list)
   {
     return list.stream()
       .filter(i -> Collections.frequency(list, i) > 1)
       .distinct()
       .collect(Collectors.toList());
+  }
+
+  @Test
+  @DisplayName("All enumerated playlist-formats should resolve a prover")
+  public void supportAllEnumeratedPlaylistFormats()
+  {
+    SpecificPlaylistFactory playlistFactory = SpecificPlaylistFactory.getInstance();
+    Arrays.stream(PlaylistFormat.values()).forEach(format -> {
+      SpecificPlaylistProvider specificPlaylistProvider = playlistFactory.getProvider(format);
+      assertNotNull(specificPlaylistProvider, String.format("Failed to resolve SpecificPlaylistProvider for %s", format));
+    });
   }
 
 }
