@@ -28,7 +28,7 @@ import io.github.borewit.lizzy.content.type.ContentType;
 import io.github.borewit.lizzy.player.PlayerSupport;
 import io.github.borewit.lizzy.playlist.*;
 import io.github.borewit.lizzy.xml.Version;
-import io.github.borewit.playlist.rmp.RmpPackage;
+import io.github.borewit.lizzy.playlist.xml.rmp.RmpPackage;
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.JAXBException;
 

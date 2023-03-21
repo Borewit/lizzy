@@ -27,7 +27,7 @@ package io.github.borewit.lizzy.playlist.smil20;
 import io.github.borewit.lizzy.content.type.ContentType;
 import io.github.borewit.lizzy.player.PlayerSupport;
 import io.github.borewit.lizzy.playlist.*;
-import io.github.borewit.playlist.smil20.*;
+import io.github.borewit.lizzy.playlist.xml.smil20.*;
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.JAXBException;
 

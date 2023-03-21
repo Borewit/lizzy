@@ -25,8 +25,11 @@
 package io.github.borewit.lizzy.playlist.asx;
 
 import io.github.borewit.lizzy.content.Content;
-import io.github.borewit.lizzy.playlist.*;
-import io.github.borewit.playlist.asx.*;
+import io.github.borewit.lizzy.playlist.AbstractPlaylist;
+import io.github.borewit.lizzy.playlist.Media;
+import io.github.borewit.lizzy.playlist.Playlist;
+import io.github.borewit.lizzy.playlist.Sequence;
+import io.github.borewit.lizzy.playlist.xml.asx.*;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -90,9 +93,8 @@ public class AsxPlaylistAdapter extends AbstractPlaylist
   {
     final Playlist ret = new Playlist();
 
-    this.asx.getENTRY().forEach(entry -> addToSequence(entry, ret.getRootSequence()));
-    this.asx.getENTRYREF().forEach(entry -> addToSequence(entry, ret.getRootSequence()));
-    this.asx.getREPEAT().forEach(entry -> addToSequence(entry, ret.getRootSequence()));
+    this.asx.getENTRYOrENTRYREF().forEach(entry -> addToSequence(entry, ret.getRootSequence()));
+    this.asx.getREPEAT().forEach(entry -> addRepeatToSequence(entry, ret.getRootSequence()));
 
     ret.normalize();
     return ret;
@@ -102,33 +104,43 @@ public class AsxPlaylistAdapter extends AbstractPlaylist
   /**
    * Adds the ASX "ENTRY element", to the given sequence.
    *
-   * @param entry           the ASX "ENTRY element" to add. Shall not be <code>null</code>.
+   * @param entryOrEntryRef the ASX "ENTRY or "ENTRYREF" element" to add. Shall not be <code>null</code>.
    * @param currentSequence the parent sequence. Shall not be <code>null</code>.
    * @throws NullPointerException if <code>asxElement</code> is <code>null</code>.
    * @throws NullPointerException if <code>currentSequence</code> is <code>null</code>.
    */
-  private void addToSequence(final EntryElement entry, final Sequence currentSequence)
+  private void addToSequence(final Object entryOrEntryRef, final Sequence currentSequence)
   {
-
-    // We keep only the first valid one.
-    if (entry.getREF() != null && entry.getREF().getHREF() != null)
+    if (entryOrEntryRef instanceof ENTRY)
     {
-      final Media media = new Media(); // NOPMD Avoid instantiating new objects inside loops
-      media.setSource(new Content(entry.getREF().getHREF())); // NOPMD Avoid instantiating new objects inside loops
+      ENTRY entry = (ENTRY) entryOrEntryRef;
 
-      DurationElement duration = entry.getDURATION();
-
-      if (duration == null)
+      // We keep only the first valid one.
+      if (entry.getREF() != null && entry.getREF().getHREF() != null)
       {
-        duration = entry.getDURATION();
+        final Media media = new Media(); // NOPMD Avoid instantiating new objects inside loops
+        media.setSource(new Content(entry.getREF().getHREF())); // NOPMD Avoid instantiating new objects inside loops
+
+        DurationElement duration = entry.getDURATION();
+
+        if (duration == null)
+        {
+          duration = entry.getDURATION();
+        }
+
+        // ToDO process duration
+
+        currentSequence.addComponent(media);
       }
-
-      // ToDO process duration
-
-
+    }
+    else if (entryOrEntryRef instanceof RefElement)
+    {
+      // ASX ENTRYREF element
+      RefElement entryRef = (RefElement) entryOrEntryRef;
+      final Media media = new Media();
+      media.setSource(new Content(entryRef.getHREF()));
       currentSequence.addComponent(media);
     }
-
   }
 
   /**
@@ -139,41 +151,14 @@ public class AsxPlaylistAdapter extends AbstractPlaylist
    * @throws NullPointerException if <code>asxElement</code> is <code>null</code>.
    * @throws NullPointerException if <code>currentSequence</code> is <code>null</code>.
    */
-  private void addToSequence(final RepeatElement repeat, final Sequence currentSequence)
+  private void addRepeatToSequence(final REPEAT repeat, final Sequence currentSequence)
   {
-    final Sequence seq = new Sequence();
-    seq.setRepeatCount((repeat.getCOUNT() == null) ? 1.0f : (repeat.getCOUNT() + 1));
-    currentSequence.addComponent(seq);
-
-    for (Object asxElem : repeat.getENTRYOrENTRYREF())
-    {
-      if (asxElem instanceof EntryElement)
-      {
-        addToSequence((EntryElement) asxElem, seq);
-      }
-
-      if (asxElem instanceof EntryrefElement)
-      {
-        addToSequence((EntryrefElement) asxElem, seq);
-      }
-    }
+    final Sequence repeatSeq = new Sequence();
+    repeatSeq.setRepeatCount((repeat.getCOUNT() == null) ? 1.0f : (repeat.getCOUNT() + 1));
+    currentSequence.addComponent(repeatSeq);
+    repeat.getENTRYOrENTRYREF().forEach(asxElem -> {
+      addToSequence(asxElem, repeatSeq);
+    });
   }
 
-  /**
-   * Adds the ASX "ENTRYREF Element" to the given sequence.
-   *
-   * @param entryRef        the ASX "ENTRYREF Element" to handle. Shall not be <code>null</code>.
-   * @param currentSequence the parent sequence. Shall not be <code>null</code>.
-   * @throws NullPointerException if <code>asxElement</code> is <code>null</code>.
-   * @throws NullPointerException if <code>currentSequence</code> is <code>null</code>.
-   */
-  private void addToSequence(final EntryrefElement entryRef, final Sequence currentSequence)
-  {
-    if (entryRef.getHREF() != null)
-    {
-      final Media media = new Media();
-      media.setSource(new Content(entryRef.getHREF()));
-      currentSequence.addComponent(media);
-    }
-  }
 }

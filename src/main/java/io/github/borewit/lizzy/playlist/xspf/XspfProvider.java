@@ -27,9 +27,9 @@ package io.github.borewit.lizzy.playlist.xspf;
 import io.github.borewit.lizzy.content.type.ContentType;
 import io.github.borewit.lizzy.player.PlayerSupport;
 import io.github.borewit.lizzy.playlist.*;
-import io.github.borewit.playlist.xspf.XspfPlaylist;
-import io.github.borewit.playlist.xspf.XspfTrack;
-import io.github.borewit.playlist.xspf.XspfTrackList;
+import io.github.borewit.lizzy.playlist.xml.xspf.XspfPlaylist;
+import io.github.borewit.lizzy.playlist.xml.xspf.XspfTrack;
+import io.github.borewit.lizzy.playlist.xml.xspf.XspfTrackList;
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.JAXBException;
 

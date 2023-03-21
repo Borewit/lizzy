@@ -26,7 +26,10 @@ package io.github.borewit.lizzy.playlist.plist;
 
 import com.dd.plist.*;
 import io.github.borewit.lizzy.content.Content;
-import io.github.borewit.lizzy.playlist.*;
+import io.github.borewit.lizzy.playlist.AbstractPlaylist;
+import io.github.borewit.lizzy.playlist.Media;
+import io.github.borewit.lizzy.playlist.Playlist;
+import io.github.borewit.lizzy.playlist.Sequence;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -37,36 +40,36 @@ import java.util.Date;
  *
  * @author Borewit
  * @author Christophe Delory
- * @version $Revision: 92 $
  */
 public class PlistPlaylist extends AbstractPlaylist
 {
   /**
    * The provider of this specific playlist.
    */
-  private final PlistProvider _provider;
+  private final PlistProvider provider;
 
   /**
    * The playlist itself.
    */
-  private NSDictionary _plist = new NSDictionary();
+  private final NSDictionary plist;
 
 
-  public PlistPlaylist(final PlistProvider provider)
+  public PlistPlaylist(final PlistProvider provider, final NSDictionary plist)
   {
-    _provider = provider;
+    this.provider = provider;
+    this.plist = plist;
   }
 
   @Override
   public PlistProvider getProvider()
   {
-    return _provider;
+    return provider;
   }
 
   @Override
   public void writeTo(final OutputStream out, final String encoding) throws IOException
   {
-    XMLPropertyListWriter.write(_plist, out);
+    XMLPropertyListWriter.write(plist, out);
     out.flush(); // May throw IOException.
   }
 
@@ -77,7 +80,7 @@ public class PlistPlaylist extends AbstractPlaylist
 
     NSDictionary tracks = null;
 
-    final NSObject tracksObject = _plist.objectForKey("Tracks");
+    final NSObject tracksObject = plist.objectForKey("Tracks");
 
     if (tracksObject instanceof NSDictionary)
     {
@@ -85,7 +88,7 @@ public class PlistPlaylist extends AbstractPlaylist
     }
 
     NSArray playlists = null;
-    final NSObject playlistsObject = _plist.objectForKey("Playlists");
+    final NSObject playlistsObject = plist.objectForKey("Playlists");
 
     if (playlistsObject instanceof NSArray)
     {
@@ -105,9 +108,17 @@ public class PlistPlaylist extends AbstractPlaylist
         if (!(playlistItemsArrayObject instanceof NSArray)) continue;
 
         final NSArray playlistItemsArray = (NSArray) playlistItemsArrayObject;
-        // Each playlist is assigned to a dedicated sequence.
-        final Sequence sequence = new Sequence(); // NOPMD Avoid instantiating new objects inside loops
-        ret.getRootSequence().addComponent(sequence);
+        final Sequence sequence;
+        if (playlists.getArray().length > 1)
+        {
+          // If there are multiple playlists, assigned them to a dedicated sequence.
+          sequence = new Sequence();
+          ret.getRootSequence().addComponent(sequence);
+        }
+        else
+        {
+          sequence = ret.getRootSequence();
+        }
 
         for (NSObject playlistItemsDictObject : playlistItemsArray.getArray())
         {
@@ -197,30 +208,12 @@ public class PlistPlaylist extends AbstractPlaylist
   }
 
   /**
-   * Returns the playlist itself.
+   * Returns the playlist serialization object itself.
    *
    * @return a plist element. Shall not be <code>null</code>.
-   * @see #setPlist
    */
   public NSDictionary getPlist()
   {
-    return _plist;
-  }
-
-  /**
-   * Initializes the playlist itself.
-   *
-   * @param plist a plist element. Shall not be <code>null</code>.
-   * @throws NullPointerException if <code>plist</code> is <code>null</code>.
-   * @see #getPlist
-   */
-  public void setPlist(final NSDictionary plist)
-  {
-    if (plist == null)
-    {
-      throw new NullPointerException("No plist");
-    }
-
-    _plist = plist;
+    return plist;
   }
 }

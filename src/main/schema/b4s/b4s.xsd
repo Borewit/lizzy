@@ -5,8 +5,7 @@
  -->
 <xs:schema attributeFormDefault="unqualified"
            elementFormDefault="unqualified"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           targetNamespace="http://winamp.com/b4s">
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
     <xs:element name="WinampXML">
         <xs:complexType>
             <xs:sequence>

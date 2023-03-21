@@ -28,10 +28,10 @@ import io.github.borewit.lizzy.content.Content;
 import io.github.borewit.lizzy.playlist.AbstractPlaylist;
 import io.github.borewit.lizzy.playlist.Media;
 import io.github.borewit.lizzy.playlist.Playlist;
-import io.github.borewit.playlist.atom.EntryType;
-import io.github.borewit.playlist.atom.FeedType;
-import io.github.borewit.playlist.atom.Link;
-import io.github.borewit.playlist.atom.ObjectFactory;
+import io.github.borewit.lizzy.playlist.xml.atom.EntryType;
+import io.github.borewit.lizzy.playlist.xml.atom.FeedType;
+import io.github.borewit.lizzy.playlist.xml.atom.Link;
+import io.github.borewit.lizzy.playlist.xml.atom.ObjectFactory;
 
 import java.io.IOException;
 import java.io.OutputStream;

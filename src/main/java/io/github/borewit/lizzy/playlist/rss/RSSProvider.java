@@ -28,11 +28,11 @@ import io.github.borewit.lizzy.content.type.ContentType;
 import io.github.borewit.lizzy.player.PlayerSupport;
 import io.github.borewit.lizzy.playlist.*;
 import io.github.borewit.lizzy.xml.Version;
-import io.github.borewit.playlist.rss20.Channel;
-import io.github.borewit.playlist.rss20.Enclosure;
-import io.github.borewit.playlist.rss20.Item;
-import io.github.borewit.playlist.rss20.Rss;
-import io.github.borewit.playlist.rss20.media.MediaContent;
+import io.github.borewit.lizzy.playlist.xml.rss20.Channel;
+import io.github.borewit.lizzy.playlist.xml.rss20.Enclosure;
+import io.github.borewit.lizzy.playlist.xml.rss20.Item;
+import io.github.borewit.lizzy.playlist.xml.rss20.Rss;
+import io.github.borewit.lizzy.playlist.xml.rss20.media.MediaContent;
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.JAXBException;
 

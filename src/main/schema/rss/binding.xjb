@@ -6,12 +6,12 @@
 
     <jaxb:bindings schemaLocation="rss-2.0.xsd" node="/xs:schema">
         <jaxb:schemaBindings>
-            <jaxb:package name="io.github.borewit.playlist.rss20"/>
+            <jaxb:package name="io.github.borewit.lizzy.playlist.xml.rss20"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
     <jaxb:bindings schemaLocation="mrss.xsd" node="/xs:schema">
         <jaxb:schemaBindings>
-            <jaxb:package name="io.github.borewit.playlist.rss20.media"/>
+            <jaxb:package name="io.github.borewit.lizzy.playlist.xml.rss20.media"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
 </jaxb:bindings>

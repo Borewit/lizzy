@@ -6,7 +6,7 @@
 
     <jaxb:bindings schemaLocation="xspf-1_0.2.xsd" node="/xs:schema">
         <jaxb:schemaBindings>
-            <jaxb:package name="io.github.borewit.playlist.xspf"/>
+            <jaxb:package name="io.github.borewit.lizzy.playlist.xml.xspf"/>
         </jaxb:schemaBindings>
 
         <jaxb:bindings node="//xs:complexType[@name='AttributionType']">
