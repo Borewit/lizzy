@@ -6,8 +6,8 @@
            elementFormDefault="qualified" targetNamespace="http://www.w3.org/2005/Atom"
            xmlns:atom="http://www.w3.org/2005/Atom"
            xmlns:xml="http://www.w3.org/XML/1998/namespace"
-           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
-           jaxb:extensionBindingPrefixes="xjc" jaxb:version="2.1" version="0.62d">
+           xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
+           jaxb:version="3.0">
 
     <xs:import namespace="http://www.w3.org/XML/1998/namespace"
                schemaLocation="xml.xsd"/>

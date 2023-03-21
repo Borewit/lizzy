@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -68,6 +69,31 @@ public class AsxPlaylistTests
     writeAsx("asx/test01.asx");
   }
 
+  private static void writeAsx(String testFile) throws IOException
+  {
+    Playlist playlist = TestUtil.readPlaylistFrom(testFile);
+    assertEquals(1, playlist.getRootSequence().getComponents().size());
+    TestUtil.checkPlaylistItemSource(playlist, 0, "http://www.johnsmith.com/media/Raging_Tango.mp3");
+    AsxProvider asxProvider = new AsxProvider();
+    byte[] serializedData;
+    try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream())
+    {
+      SpecificPlaylist specificPlaylist = asxProvider.toSpecificPlaylist(playlist);
+      specificPlaylist.writeTo(byteArrayOutputStream);
+      serializedData = byteArrayOutputStream.toByteArray();
+    }
+    Playlist checkWrittenPlaylist;
+    try (ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(serializedData))
+    {
+      SpecificPlaylist asxPlaylist = asxProvider.readFrom(byteArrayInputStream);
+      assertNotNull(asxPlaylist, "Read written ASX playlist");
+      checkWrittenPlaylist = asxPlaylist.toPlaylist();
+    }
+    assertEquals(1, checkWrittenPlaylist.getRootSequence().getComponents().size());
+    TestUtil.checkPlaylistItemSource(checkWrittenPlaylist, 0, "http://www.johnsmith.com/media/Raging_Tango.mp3");
+  }
+
+
   @Test
   @DisplayName("Handle a non ASX XML playlist")
   public void parseNonAsxXmlPlaylist() throws IOException
@@ -86,17 +112,6 @@ public class AsxPlaylistTests
       {
         // May reject playlist by throwing an exception
       }
-    }
-  }
-
-  private static void writeAsx(String testFile) throws IOException
-  {
-    Playlist playlist = TestUtil.readPlaylistFrom(testFile);
-    AsxProvider asxProvider = new AsxProvider();
-    try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream())
-    {
-      SpecificPlaylist specificPlaylist = asxProvider.toSpecificPlaylist(playlist);
-      specificPlaylist.writeTo(byteArrayOutputStream);
     }
   }
 }

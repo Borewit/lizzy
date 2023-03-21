@@ -26,7 +26,7 @@ package io.github.borewit.lizzy.playlist.rmp;
 
 import io.github.borewit.lizzy.content.Content;
 import io.github.borewit.lizzy.playlist.*;
-import io.github.borewit.playlist.rmp.RmpPackage;
+import io.github.borewit.lizzy.playlist.xml.rmp.RmpPackage;
 
 import java.io.IOException;
 import java.io.OutputStream;

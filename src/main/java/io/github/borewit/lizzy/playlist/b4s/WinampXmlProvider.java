@@ -27,7 +27,7 @@ package io.github.borewit.lizzy.playlist.b4s;
 import io.github.borewit.lizzy.content.type.ContentType;
 import io.github.borewit.lizzy.player.PlayerSupport;
 import io.github.borewit.lizzy.playlist.*;
-import io.github.borewit.playlist.b4s.WinampXML;
+import io.github.borewit.lizzy.playlist.xml.b4s.WinampXML;
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.JAXBException;
 

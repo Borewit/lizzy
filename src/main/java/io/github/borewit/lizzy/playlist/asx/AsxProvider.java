@@ -27,7 +27,7 @@ package io.github.borewit.lizzy.playlist.asx;
 import io.github.borewit.lizzy.content.type.ContentType;
 import io.github.borewit.lizzy.player.PlayerSupport;
 import io.github.borewit.lizzy.playlist.*;
-import io.github.borewit.playlist.asx.*;
+import io.github.borewit.lizzy.playlist.xml.asx.*;
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.JAXBException;
 
@@ -121,7 +121,6 @@ public class AsxProvider extends JaxbPlaylistProvider<Asx>
     {
       throw new IOException(exception.getMessage(), exception);
     }
-
   }
 
   @Override
@@ -137,31 +136,29 @@ public class AsxProvider extends JaxbPlaylistProvider<Asx>
   /**
    * Adds the specified generic playlist component, and all its childs if any, to the input ASX elements container.
    *
-   * @param asx       the parent ASX element. Shall not be <code>null</code>.
+   * @param asxContainer  ASX Container element (ASX or REPEAT element). Shall not be <code>null</code>.
    * @param component the generic playlist component to handle. Shall not be <code>null</code>.
    */
-  private void addToPlaylist(final Asx asx, final AbstractPlaylistComponent component)
+  private void addToPlaylist(final ContainerElement asxContainer, final AbstractPlaylistComponent component)
   {
     if (component instanceof Sequence)
     {
       final Sequence sequence = (Sequence) component;
 
-      if (sequence.getRepeatCount() != 0) // Ignore "empty" sequences.
-      {
-        // EntryElement newContainer = new EntryElement();
+      // EntryElement newContainer = new EntryElement();
 
-        // Do we need a repeat element?
-        if (sequence.getRepeatCount() < 0)
-        {
-          final RepeatElement repeat = new RepeatElement();
-          asx.getREPEAT().add(repeat);
-        }
-        else if (sequence.getRepeatCount() > 1)
-        {
-          final RepeatElement repeat = new RepeatElement();
-          repeat.setCOUNT((int) (sequence.getRepeatCount() - 1));
-          asx.getREPEAT().add(repeat);
-        }
+      // Do we need a repeat element?
+      if (sequence.getRepeatCount() > 1 && asxContainer instanceof Asx)
+      {
+        Asx asx = (Asx)asxContainer;
+        final REPEAT repeat = new REPEAT();
+        repeat.setCOUNT((int) (sequence.getRepeatCount() - 1));
+        asx.getREPEAT().add(repeat);
+        sequence.getComponents().forEach(child -> addToPlaylist(repeat, child));
+      }
+      else {
+        // We cannot handle nested repeats in ASX
+        sequence.getComponents().forEach(child -> addToPlaylist(asxContainer, child));
       }
     }
     else if (component instanceof Parallel)
@@ -172,58 +169,58 @@ public class AsxProvider extends JaxbPlaylistProvider<Asx>
     {
       final Media media = (Media) component;
 
-      if ((media.getRepeatCount() != 0) && (media.getSource() != null)) // Ignore "empty" media.
+      if (media.getSource() != null) // Ignore "empty" media.
+      {
         // Do we need a repeat element?
-        if (media.getRepeatCount() < 0)
+        if (media.getRepeatCount() > 1 && asxContainer instanceof Asx)
         {
-          final RepeatElement repeat = new RepeatElement();
-          asx.getREPEAT().add(repeat);
-        }
-        else if (media.getRepeatCount() > 1)
-        {
-          final RepeatElement repeat = new RepeatElement();
+          Asx asx = (Asx)asxContainer;
+          final REPEAT repeat = new REPEAT();
           repeat.setCOUNT((int) (media.getRepeatCount() - 1));
           asx.getREPEAT().add(repeat);
+          addToPlaylist(repeat, media);
         }
-
-      boolean isPlaylist = false;
-      final String path = media.getSource().toString().toLowerCase();
-
-      for (ContentType type : FILETYPES)
-      {
-        for (String extension : type.getExtensions())
+        else
         {
-          isPlaylist = isPlaylist || path.endsWith(extension);
+          boolean isPlaylist = false;
+          final String path = media.getSource().toString().toLowerCase();
+
+          for (ContentType type : FILETYPES)
+          {
+            for (String extension : type.getExtensions())
+            {
+              isPlaylist = isPlaylist || path.endsWith(extension);
+            }
+          }
+
+          if (isPlaylist)
+          {
+            if (media.getDuration() != null)
+            {
+              throw new IllegalArgumentException("An ASX playlist referenced in another ASX playlist cannot be timed");
+            }
+            final RefElement entryRef = new RefElement();
+            entryRef.setHREF(media.getSource().toString());
+            asxContainer.getENTRYOrENTRYREF().add(entryRef);
+          }
+          else
+          {
+            final ENTRY entry = new ENTRY();
+            final RefElement reference = new RefElement();
+            reference.setHREF(media.getSource().toString());
+
+            if (media.getDuration() != null)
+            {
+              final DurationElement duration = new DurationElement();
+              // ToDo
+              // duration.setValue(media.getDuration().longValue());
+              // reference.setDuration(duration);
+            }
+
+            entry.setREF(reference);
+            asxContainer.getENTRYOrENTRYREF().add(entry);
+          }
         }
-      }
-
-      if (isPlaylist)
-      {
-        if (media.getDuration() != null)
-        {
-          throw new IllegalArgumentException("An ASX playlist referenced in another ASX playlist cannot be timed");
-        }
-
-        final EntryrefElement entryRef = new EntryrefElement();
-        entryRef.setHREF(media.getSource().toString());
-        asx.getENTRYREF().add(entryRef);
-      }
-      else
-      {
-        final EntryElement entry = new EntryElement();
-        final RefElement reference = new RefElement();
-        reference.setHREF(media.getSource().toString());
-
-        if (media.getDuration() != null)
-        {
-          final DurationElement duration = new DurationElement();
-          // ToDo
-          // duration.setValue(media.getDuration().longValue());
-          // reference.setDuration(duration);
-        }
-
-        entry.setREF(reference);
-        asx.getENTRY().add(entry);
       }
     }
   }

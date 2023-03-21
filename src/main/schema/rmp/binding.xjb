@@ -6,7 +6,7 @@
 
     <jaxb:bindings schemaLocation="rmp.xsd" node="/xs:schema">
         <jaxb:schemaBindings>
-            <jaxb:package name="io.github.borewit.playlist.rmp"/>
+            <jaxb:package name="io.github.borewit.lizzy.playlist.xml.rmp"/>
             <jaxb:nameXmlTransform>
                 <jaxb:elementName prefix="Rmp"/>
             </jaxb:nameXmlTransform>

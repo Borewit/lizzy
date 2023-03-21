@@ -26,7 +26,7 @@ package io.github.borewit.lizzy.playlist.smil20;
 
 import io.github.borewit.lizzy.content.Content;
 import io.github.borewit.lizzy.playlist.*;
-import io.github.borewit.playlist.smil20.*;
+import io.github.borewit.lizzy.playlist.xml.smil20.*;
 
 import java.io.IOException;
 import java.io.OutputStream;

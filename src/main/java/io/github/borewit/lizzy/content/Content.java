@@ -39,7 +39,7 @@ public class Content
   /**
    * The content URL, as a string.
    */
-  private final String _urlString;
+  private String _urlString;
 
   /**
    * The content URI.
@@ -99,7 +99,7 @@ public class Content
    */
   public Content(final String url)
   {
-    _urlString = url.trim(); // Throws NullPointerException if url is null.
+    this.setURL(url);
   }
 
   /**
@@ -110,8 +110,7 @@ public class Content
    */
   public Content(final URI uri)
   {
-    _uri = uri.normalize(); // Throws NullPointerException if uri is null.
-    _urlString = uri.toString();
+    this.setURI(uri);
   }
 
   /**
@@ -122,8 +121,12 @@ public class Content
    */
   public Content(final URL url)
   {
-    _urlString = url.toString(); // Throws NullPointerException if url is null.
-    _url = url;
+    this.setURL(url);
+  }
+
+  public void setURI(URI uri) {
+    _uri = uri.normalize(); // Throws NullPointerException if uri is null.
+    _urlString = uri.toString();
   }
 
   /**
@@ -172,6 +175,17 @@ public class Content
   }
 
   /**
+   * Set the specified URL.
+   *
+   * @param url A URL. Shall not be <code>null</code>.
+   * @throws NullPointerException if <code>url</code> is <code>null</code>.
+   */
+  public void setURL(final URL url) {
+    _urlString = url.toString(); // Throws NullPointerException if url is null.
+    _url = url;
+  }
+
+  /**
    * Returns the URL of the content.
    *
    * @return an URL. Shall not be <code>null</code>.
@@ -200,6 +214,17 @@ public class Content
     }
 
     return _url;
+  }
+
+  /**
+   * Builds a new content from the specified URL.
+   *
+   * @param url an URL as a string. Shall not be <code>null</code>.
+   * @throws NullPointerException if <code>url</code> is <code>null</code>.
+   */
+  public void setURL(final String url)
+  {
+    _urlString = url.trim(); // Throws NullPointerException if url is null.
   }
 
   /**

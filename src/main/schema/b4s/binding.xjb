@@ -6,7 +6,7 @@
 
     <jaxb:bindings schemaLocation="b4s.xsd" node="/xs:schema">
         <jaxb:schemaBindings>
-            <jaxb:package name="io.github.borewit.playlist.b4s"/>
+            <jaxb:package name="io.github.borewit.lizzy.playlist.xml.b4s"/>
         </jaxb:schemaBindings>
     </jaxb:bindings>
 </jaxb:bindings>

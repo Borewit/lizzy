@@ -1,4 +1,4 @@
-package io.github.borewit.lizzy.playlist.smil20;
+package io.github.borewit.lizzy.playlist.smil20.xml;
 
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 

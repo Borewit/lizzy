@@ -26,12 +26,12 @@ package io.github.borewit.lizzy.playlist.rss;
 
 import io.github.borewit.lizzy.content.Content;
 import io.github.borewit.lizzy.playlist.*;
-import io.github.borewit.playlist.rss20.Enclosure;
-import io.github.borewit.playlist.rss20.Item;
-import io.github.borewit.playlist.rss20.ObjectFactory;
-import io.github.borewit.playlist.rss20.Rss;
-import io.github.borewit.playlist.rss20.media.Group;
-import io.github.borewit.playlist.rss20.media.MediaContent;
+import io.github.borewit.lizzy.playlist.xml.rss20.Enclosure;
+import io.github.borewit.lizzy.playlist.xml.rss20.Item;
+import io.github.borewit.lizzy.playlist.xml.rss20.ObjectFactory;
+import io.github.borewit.lizzy.playlist.xml.rss20.Rss;
+import io.github.borewit.lizzy.playlist.xml.rss20.media.Group;
+import io.github.borewit.lizzy.playlist.xml.rss20.media.MediaContent;
 
 import java.io.IOException;
 import java.io.OutputStream;

@@ -4,8 +4,6 @@ plugins {
     id 'application'
     id 'signing'
     id 'checkstyle'
-    // https://github.com/unbroken-dome/gradle-xjc-plugin
-    id 'org.unbroken-dome.xjc' version '2.0.0'
 }
 
 apply plugin: 'maven-publish'
@@ -22,7 +20,15 @@ application {
     mainClassName = 'io.github.borewit.lizzy.Transcode'
 }
 
+// JAXB configuration holds classpath for running the JAXB XJC compiler
+configurations {
+    jaxb
+}
+
 dependencies {
+    jaxb "org.glassfish.jaxb:jaxb-xjc:4.0.2"
+    jaxb "org.glassfish.jaxb:jaxb-runtime:4.0.2"
+
     implementation 'args4j:args4j:2.33'
 
     // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
@@ -66,6 +72,13 @@ task sourcesJar(type: Jar) {
 java {
     withSourcesJar()
     withJavadocJar()
+}
+
+def generated_dir = "build/generated/sources/xjc/java"
+sourceSets {
+    main {
+        java.srcDirs += generated_dir
+    }
 }
 
 
@@ -154,9 +167,65 @@ task checkJavaSources(type: SourceTask) {
 // Prevent generated Java sources are checked
 tasks.checkstyleMain.source = fileTree(dir: 'src/main/java').include('**/*.java')
 
-xjc {
-    extraArgs.add '-extension'
-    xjcVersion = '3.0'
+
+// Cookie cutter function for defining multiple XJC tasks
+def addXjcTask(taskName, schema, binding, dest) {
+
+    // If you haven't already, create the generated output dir before running XJC or it will fail
+    file(dest).mkdirs()
+
+    // The main XJC task, calls XJCFacade which is the entry point of the XJC JAR
+    tasks.create(name: taskName, type: JavaExec) {
+        group = 'xjc'
+        classpath configurations.jaxb
+        mainClass = 'com.sun.tools.xjc.XJCFacade'
+
+        // To explore available args, download the XJC JAR and run java -jar jaxb-xjc.jar --help
+        // or see https://docs.oracle.com/javase/8/docs/technotes/tools/unix/xjc.html
+        args "-extension", schema, "-b", binding, "-d", dest, "-no-header"
+
+        tasks.findByName('build').mustRunAfter 'clean'
+    }
 }
 
+addXjcTask("xjc-asx",
+    "src/main/schema/asx/asx-3.0.xsd",
+    "src/main/schema/asx/binding.xjb",
+    "$generated_dir")
 
+addXjcTask("xjc-atom",
+    "src/main/schema/atom/atom.xsd",
+    "src/main/schema/atom/binding.xjb",
+    "$generated_dir")
+
+addXjcTask("xjc-b4s",
+    "src/main/schema/b4s/b4s.xsd",
+    "src/main/schema/b4s/binding.xjb",
+    "$generated_dir")
+
+addXjcTask("xjc-rmp",
+    "src/main/schema/rmp/rmp.xsd",
+    "src/main/schema/rmp/binding.xjb",
+    "$generated_dir")
+
+addXjcTask("xjc-rss",
+    "src/main/schema/rss/rss-2.0.xsd",
+    "src/main/schema/rss/binding.xjb",
+    "$generated_dir")
+
+addXjcTask("xjc-smil",
+    "src/main/schema/smil20/smil20.xsd",
+    "src/main/schema/smil20/binding.xjb",
+    "$generated_dir")
+
+addXjcTask("xjc-xspf",
+    "src/main/schema/xspf/xspf-1_0.2.xsd",
+    "src/main/schema/xspf/binding.xjb",
+    "$generated_dir")
+
+task xjc(type: GradleBuild) {
+    group = 'xjc'
+    tasks = ['xjc-asx', 'xjc-atom', 'xjc-b4s', 'xjc-b4s', 'xjc-rmp', 'xjc-rss', 'xjc-smil', 'xjc-xspf']
+}
+
+tasks.compileJava.dependsOn(tasks.xjc)

@@ -26,9 +26,9 @@ package io.github.borewit.lizzy.playlist.xspf;
 
 import io.github.borewit.lizzy.content.Content;
 import io.github.borewit.lizzy.playlist.*;
-import io.github.borewit.playlist.xspf.ObjectFactory;
-import io.github.borewit.playlist.xspf.XspfPlaylist;
-import io.github.borewit.playlist.xspf.XspfTrack;
+import io.github.borewit.lizzy.playlist.xml.xspf.ObjectFactory;
+import io.github.borewit.lizzy.playlist.xml.xspf.XspfPlaylist;
+import io.github.borewit.lizzy.playlist.xml.xspf.XspfTrack;
 
 import java.io.IOException;
 import java.io.OutputStream;
