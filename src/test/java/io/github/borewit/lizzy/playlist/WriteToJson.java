@@ -18,10 +18,13 @@ import java.util.TreeMap;
 @DisplayName("Utility to write playlist sample data to JSON")
 public class WriteToJson
 {
+
+  /**
+   * Only used to seed the test reference data
+   */
   @DisplayName("Write playlists to JSON")
   @Test
   @Disabled
-    // Only used to seed the test reference data
   void writeJson() throws IOException
   {
     final Map<String, JsonPlaylist> playlistMap = new TreeMap<>();
@@ -41,5 +44,6 @@ public class WriteToJson
       .writerWithDefaultPrettyPrinter()
       .writeValue(jsonFile, playlistMap);
   }
+
 }
 

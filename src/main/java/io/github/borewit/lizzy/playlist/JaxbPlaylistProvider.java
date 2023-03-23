@@ -8,6 +8,7 @@ import javax.xml.stream.XMLStreamReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 public abstract class JaxbPlaylistProvider<T> extends AbstractPlaylistProvider
@@ -37,12 +38,24 @@ public abstract class JaxbPlaylistProvider<T> extends AbstractPlaylistProvider
     }
   }
 
+  protected Charset getDefaultEncoding() {
+    return StandardCharsets.UTF_8;
+  }
+
   protected JAXBElement<T> unmarshal(final InputStream in, final String encoding) throws JAXBException, XMLStreamException
   {
-    String applyEncoding = encoding == null ? StandardCharsets.UTF_8.toString() : encoding;
+    String applyEncoding = encoding == null ? this.getDefaultEncoding().toString() : encoding;
     Unmarshaller unmarshaller = this.getJaxbContext().createUnmarshaller();
     XMLStreamReader xmlStreamReader = this.getXmlStreamReader(in, applyEncoding);
     return unmarshaller.unmarshal(xmlStreamReader, this.getXmlCLass());
+  }
+
+  protected Marshaller makeMarshaller(String encoding) throws JAXBException
+  {
+    Marshaller marshaller = this.getJaxbContext().createMarshaller();
+    marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+    marshaller.setProperty(Marshaller.JAXB_ENCODING, encoding == null ? this.getDefaultEncoding().name() : encoding);
+    return marshaller;
   }
 
   public void writeTo(Object xmlPlaylist, final OutputStream out, final String encoding) throws IOException
@@ -50,8 +63,8 @@ public abstract class JaxbPlaylistProvider<T> extends AbstractPlaylistProvider
     try
     {
       // Marshal the playlist.
-      Marshaller marshaller = this.getJaxbContext().createMarshaller();
-      marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+      Marshaller marshaller = makeMarshaller(encoding);
+
       marshaller.marshal(xmlPlaylist, out);
       out.flush(); // May throw IOException.
     }

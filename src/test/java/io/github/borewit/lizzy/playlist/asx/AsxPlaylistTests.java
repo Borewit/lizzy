@@ -3,14 +3,11 @@ package io.github.borewit.lizzy.playlist.asx;
 import io.github.borewit.lizzy.playlist.Playlist;
 import io.github.borewit.lizzy.playlist.SpecificPlaylist;
 import io.github.borewit.lizzy.util.TestUtil;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -41,8 +38,7 @@ public class AsxPlaylistTests
   }
 
   @Test
-  @DisplayName("Read ASX ANSI")
-  @Disabled
+  @DisplayName("Read ASX ANSI encoded")
   public void readLiveStreamAsx() throws IOException
   {
     Playlist playlist = TestUtil.readPlaylistFrom("asx/test03.asx");
@@ -82,6 +78,13 @@ public class AsxPlaylistTests
       specificPlaylist.writeTo(byteArrayOutputStream);
       serializedData = byteArrayOutputStream.toByteArray();
     }
+    try (ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(serializedData))
+    {
+      BufferedReader reader = new BufferedReader(new InputStreamReader(byteArrayInputStream, StandardCharsets.US_ASCII));
+      String firstLine = reader.readLine();
+      assertEquals("<ASX VERSION=\"3.0\">", firstLine, "First line of ASX should not be <xml....>");
+    }
+
     Playlist checkWrittenPlaylist;
     try (ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(serializedData))
     {
@@ -114,4 +117,6 @@ public class AsxPlaylistTests
       }
     }
   }
+
+
 }

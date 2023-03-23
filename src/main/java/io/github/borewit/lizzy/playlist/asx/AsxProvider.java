@@ -30,12 +30,15 @@ import io.github.borewit.lizzy.playlist.*;
 import io.github.borewit.lizzy.playlist.xml.asx.*;
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.util.StreamReaderDelegate;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 /**
  * The Windows Media ASX playlist XML format.
@@ -106,6 +109,11 @@ public class AsxProvider extends JaxbPlaylistProvider<Asx>
     return FILETYPES.clone();
   }
 
+  protected Charset getDefaultEncoding()
+  {
+    return StandardCharsets.US_ASCII; // Tested with Windows media player
+  }
+
   @Override
   public SpecificPlaylist readFrom(final InputStream inputStream, final String encoding) throws IOException
   {
@@ -123,6 +131,14 @@ public class AsxProvider extends JaxbPlaylistProvider<Asx>
     }
   }
 
+  protected Marshaller makeMarshaller(String encoding) throws JAXBException
+  {
+    Marshaller marshaller = super.makeMarshaller(encoding);
+    // First line should be: "<ASX VERSION="3.0">"
+    marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
+    return marshaller;
+  }
+
   @Override
   public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws IOException
   {
@@ -136,8 +152,8 @@ public class AsxProvider extends JaxbPlaylistProvider<Asx>
   /**
    * Adds the specified generic playlist component, and all its childs if any, to the input ASX elements container.
    *
-   * @param asxContainer  ASX Container element (ASX or REPEAT element). Shall not be <code>null</code>.
-   * @param component the generic playlist component to handle. Shall not be <code>null</code>.
+   * @param asxContainer ASX Container element (ASX or REPEAT element). Shall not be <code>null</code>.
+   * @param component    the generic playlist component to handle. Shall not be <code>null</code>.
    */
   private void addToPlaylist(final ContainerElement asxContainer, final AbstractPlaylistComponent component)
   {
@@ -150,13 +166,14 @@ public class AsxProvider extends JaxbPlaylistProvider<Asx>
       // Do we need a repeat element?
       if (sequence.getRepeatCount() > 1 && asxContainer instanceof Asx)
       {
-        Asx asx = (Asx)asxContainer;
+        Asx asx = (Asx) asxContainer;
         final REPEAT repeat = new REPEAT();
         repeat.setCOUNT((int) (sequence.getRepeatCount() - 1));
         asx.getREPEAT().add(repeat);
         sequence.getComponents().forEach(child -> addToPlaylist(repeat, child));
       }
-      else {
+      else
+      {
         // We cannot handle nested repeats in ASX
         sequence.getComponents().forEach(child -> addToPlaylist(asxContainer, child));
       }
@@ -174,7 +191,7 @@ public class AsxProvider extends JaxbPlaylistProvider<Asx>
         // Do we need a repeat element?
         if (media.getRepeatCount() > 1 && asxContainer instanceof Asx)
         {
-          Asx asx = (Asx)asxContainer;
+          Asx asx = (Asx) asxContainer;
           final REPEAT repeat = new REPEAT();
           repeat.setCOUNT((int) (media.getRepeatCount() - 1));
           asx.getREPEAT().add(repeat);
