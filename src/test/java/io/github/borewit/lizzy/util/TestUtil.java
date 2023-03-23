@@ -24,7 +24,6 @@ public class TestUtil
   public static final Path jsonTestDataPath = sampleFolderPath.resolve("playlists.json");
 
   private static final Set<String> skipSamples = new HashSet<>(Arrays.asList(
-    "test03.asx",
     "test08.smil"
   ));
 

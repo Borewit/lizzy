@@ -38,6 +38,15 @@
       "source" : "mms://windowsmediaserver/path/yourfile.asf"
     } ]
   },
+  "asx/test03.asx" : {
+    "rootSequence" : [ {
+      "repeatCount" : 1.0,
+      "source" : "http://example.com/announcement.wma"
+    }, {
+      "repeatCount" : 1.0,
+      "source" : "http://example.com:8080"
+    } ]
+  },
   "asx/test04.asx" : {
     "rootSequence" : [ {
       "repeatCount" : 1.0,
