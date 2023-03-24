@@ -4,12 +4,9 @@
 # Lizzy
 
 Lizzy is an open source Java library allowing to parse, create, edit,
-convert and save almost any type of [multimedia playlist](https://en.wikipedia.org/wiki/Playlist) multimedia playlist.
+convert and save almost any type of [multimedia playlist](https://en.wikipedia.org/wiki/Playlist).
 
-The currently supported formats are the following: M3U/M3U8/M4U/RAM, ASX/WMX/WVX/WAX, WPL, XSPF, SMIL, RMP, PLS,
-B4S/BPL, RSS/MediaRSS, Atom, PLIST, MPCPL, PLA and PLP (see details <a href="docs/formats.md">here</a>).
-
-Two versatile command-line tools are also available (see the [Getting started](#Getting started) guide).
+Two versatile command-line tools are also available at [Lizzy Transcode](https://github.com/Borewit/lizzy-transcode).
 
 ## Origin
 
@@ -21,7 +18,6 @@ Lizzy has been forked from [sourceforge.net/projects/lizzy](https://sourceforge.
 1. [Supported Playlist Formats](#supported-playlist-formats)
 1. [License](#license)
 1. [Download](#download)
-1. [Documentation](#documentation)
 1. [Getting started](#getting-started)
 1. [Build](#build)
 
@@ -62,14 +58,6 @@ Lizzy is licensed through a BSD-like licensing model: see the text [LICENSE.txt]
 ## Download
 
 Check the [GitHub releases](https://github.com/Borewit/lizzy/releases) page.
-
-## Documentation
-
-* The detailed list of currently supported playlist formats is presented [here](docs/formats.md)
-* The Lizzy library [Java reference documentation](docs/javadoc/index.html) (javadoc)
-* The project version history is <a href="CHANGES">here</a></li>
-* Some <a href="docs/dtd/">DTDs</a> and <a href="docs/schema/">XML Schemas</a> that you may find useful</li>
-* The <a href="docs/licenses/">licences</a> (and binaries) of the third-party libraries used at run-time</li>
 
 ## Getting started
 
