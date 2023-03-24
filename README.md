@@ -53,7 +53,7 @@ Lizzy has been forked from [sourceforge.net/projects/lizzy](https://sourceforge.
 
 ## License
 
-Lizzy is licensed through a BSD-like licensing model: see the text [LICENSE.txt](LICENSE.txt).
+Lizzy is licensed through a MIT licensing model: see the text [LICENSE.txt](LICENSE.txt).
 
 ## Download
 

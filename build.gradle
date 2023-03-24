@@ -91,7 +91,7 @@ publishing {
                 url = 'https://github.com/Borewit/lizzy'
                 licenses {
                     license {
-                        name = 'BSD license'
+                        name = 'MIT'
                         url = 'https://github.com/Borewit/lizzy/blob/main/LICENSE.txt'
                     }
                 }
