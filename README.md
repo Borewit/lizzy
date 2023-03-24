@@ -50,8 +50,9 @@ Lizzy is licensed through a MIT licensing model: see the text [LICENSE.txt](LICE
 
 ## Download
 
-Check the [GitHub releases](https://github.com/Borewit/lizzy/releases) page.
+Lizzy Maven artifacts are published to [mvnrepository.com](https://mvnrepository.com/artifact/io.github.borewit/lizzy).
 
+Check the [GitHub releases](https://github.com/Borewit/lizzy/releases) page.
 
 ## Getting started
 
