@@ -1,7 +1,6 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
-    id 'application'
     id 'signing'
     id 'checkstyle'
 }
@@ -16,10 +15,6 @@ repositories {
     }
 }
 
-application {
-    mainClassName = 'io.github.borewit.lizzy.Transcode'
-}
-
 // JAXB configuration holds classpath for running the JAXB XJC compiler
 configurations {
     jaxb
@@ -28,8 +23,6 @@ configurations {
 dependencies {
     jaxb "org.glassfish.jaxb:jaxb-xjc:4.0.2"
     jaxb "org.glassfish.jaxb:jaxb-runtime:4.0.2"
-
-    implementation 'args4j:args4j:2.33'
 
     // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
     implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
