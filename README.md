@@ -55,7 +55,41 @@ Check the [GitHub releases](https://github.com/Borewit/lizzy/releases) page.
 
 ## Getting started
 
-[//]: # (ToDo)
+Example application, using Lizzy, to read a playlist provided via command line argument, and print the playlist media 
+(track) sources:
+```java
+package io.github.borewit.lizzy.example;
+
+import io.github.borewit.lizzy.playlist.Media;
+import io.github.borewit.lizzy.playlist.SpecificPlaylist;
+import io.github.borewit.lizzy.playlist.SpecificPlaylistFactory;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+public class ReadPlaylistExample
+{
+   public static void main(String[] args) throws IOException
+   {
+      Path playlistPath = Paths.get(System.getProperty("user.dir"), "samples", "asx", "test01.asx");
+      SpecificPlaylist specificPlaylist = SpecificPlaylistFactory.getInstance().readFrom(playlistPath);
+      if (specificPlaylist == null)
+      {
+         System.exit(-1);
+      }
+      specificPlaylist.toPlaylist().getRootSequence().getComponents().forEach(component -> {
+         if (component instanceof Media)
+         {
+            Media media = (Media) component;
+            System.out.printf("Media with content-source=%s\n", media.getSource().toString());
+         }
+      });
+   }
+}
+
+```
+
 
 ## Documentation
 [JavaDoc of released versions](https://javadoc.io/doc/io.github.borewit/lizzy)
