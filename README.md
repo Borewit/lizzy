@@ -1,5 +1,6 @@
 [![CI](https://github.com/Borewit/lizzy/actions/workflows/ci.yml/badge.svg)](https://github.com/Borewit/lizzy/actions/workflows/ci.yml)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.borewit/lizzy/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.borewit/lizzy)
+[![javadoc](https://javadoc.io/badge2/io.github.borewit/lizzy/javadoc.svg)](https://javadoc.io/doc/io.github.borewit/lizzy)
 
 # Lizzy
 
@@ -12,14 +13,6 @@ Two versatile command-line tools are also available at [Lizzy Transcode](https:/
 
 Lizzy has been forked from [sourceforge.net/projects/lizzy](https://sourceforge.net/projects/lizzy/)
 
-## Table of contents
-
-1. [Features](#features)
-1. [Supported Playlist Formats](#supported-playlist-formats)
-1. [License](#license)
-1. [Download](#download)
-1. [Getting started](#getting-started)
-1. [Build](#build)
 
 ## Features
 
@@ -59,9 +52,13 @@ Lizzy is licensed through a MIT licensing model: see the text [LICENSE.txt](LICE
 
 Check the [GitHub releases](https://github.com/Borewit/lizzy/releases) page.
 
+
 ## Getting started
 
 [//]: # (ToDo)
+
+## Documentation
+[JavaDoc of released versions](https://javadoc.io/doc/io.github.borewit/lizzy)
 
 ## Build
 
