@@ -76,7 +76,7 @@ sourceSets {
 
 
 group = 'io.github.borewit'
-version = '2.0.0-SNAPSHOT'
+version = '2.0.0'
 description = 'Lizzy'
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
