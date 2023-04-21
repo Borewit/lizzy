@@ -123,7 +123,7 @@ public final class SpecificPlaylistFactory
         }
         catch (IOException e)
         {
-          throw new IOException(String.format("Failed to read playlist using provider-id=%s: \"%s\"", playlistProvider.getId(), playlistPath));
+          throw new IOException(String.format("Failed to read playlist using provider-id=%s: \"%s\"", playlistProvider.getId(), playlistPath), e);
         }
       }
     }
