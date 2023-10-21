@@ -1,0 +1,7 @@
+#EXTM3U
+
+#EXTINF:111, Sample artist name - Sample track title
+C:\Music\SampleMusic.mp3
+
+#EXTINF:222, Special characters
+C:\Music\ÀÁÂÃäA Ç ÈÉÊË ÌÍÎÏ N ÒÓÔÕö  ÙÚÛü àáâãäa ç èéêë ìíîï n òóôõöo ùúûü.mp3

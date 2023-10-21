@@ -108,7 +108,7 @@
       "source" : "C:\\Music\\SampleMusic.mp3"
     }, {
       "repeatCount" : 1.0,
-      "source" : "C:\\Music\\ExampleMusic.mp3"
+      "source" : "C:\\Music\\ÀÁÂÃäA Ç ÈÉÊË ÌÍÎÏ N ÒÓÔÕö  ÙÚÛü àáâãäa ç èéêë ìíîï n òóôõöo ùúûü.mp3"
     } ]
   },
   "m3u/playlist-utf16le-bom.m3u" : {
@@ -117,7 +117,7 @@
       "source" : "C:\\Music\\SampleMusic.mp3"
     }, {
       "repeatCount" : 1.0,
-      "source" : "C:\\Music\\ExampleMusic.mp3"
+      "source" : "C:\\Music\\ÀÁÂÃäA Ç ÈÉÊË ÌÍÎÏ N ÒÓÔÕö  ÙÚÛü àáâãäa ç èéêë ìíîï n òóôõöo ùúûü.mp3"
     } ]
   },
   "m3u/playlist-utf8-bom.m3u" : {
@@ -126,16 +126,16 @@
       "source" : "C:\\Music\\SampleMusic.mp3"
     }, {
       "repeatCount" : 1.0,
-      "source" : "C:\\Music\\ExampleMusic.mp3"
+      "source" : "C:\\Music\\ÀÁÂÃäA Ç ÈÉÊË ÌÍÎÏ N ÒÓÔÕö  ÙÚÛü àáâãäa ç èéêë ìíîï n òóôõöo ùúûü.mp3"
     } ]
   },
-  "m3u/playlist-utf8.m3u" : {
+  "m3u/playlist-iso-8859-1.m3u" : {
     "rootSequence" : [ {
       "repeatCount" : 1.0,
       "source" : "C:\\Music\\SampleMusic.mp3"
     }, {
       "repeatCount" : 1.0,
-      "source" : "C:\\Music\\ExampleMusic.mp3"
+      "source" : "C:\\Music\\ÀÁÂÃäA Ç ÈÉÊË ÌÍÎÏ N ÒÓÔÕö  ÙÚÛü àáâãäa ç èéêë ìíîï n òóôõöo ùúûü.mp3"
     } ]
   },
   "m3u/test01.m3u" : {
