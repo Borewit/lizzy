@@ -108,7 +108,7 @@ public class M3UProvider extends AbstractPlaylistProvider
 
     if (enc == null)
     {
-      enc = "UTF-8"; // For the M3U8 case. FIXME US-ASCII?
+      enc = M3U.TextEncoding; // For the M3U8 case. FIXME US-ASCII?
     }
 
 

@@ -117,7 +117,8 @@ public final class SpecificPlaylistFactory
       {
         try
         {
-          SpecificPlaylist specificPlaylist = playlistProvider.readFrom(is, null);
+          final String encoding = playlistPath.toString().toLowerCase().endsWith(".m3u8") ? "UTF-8" : null;
+          SpecificPlaylist specificPlaylist = playlistProvider.readFrom(is, encoding);
           if (specificPlaylist != null)
             return specificPlaylist;
         }

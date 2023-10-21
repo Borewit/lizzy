@@ -15,6 +15,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("M3U Playlist Tests")
 public class M3uPlaylistTests
 {
+  public static final String m3uSpecialCharPath = "C:\\Music\\ÀÁÂÃäA Ç ÈÉÊË ÌÍÎÏ N ÒÓÔÕö  ÙÚÛü àáâãäa ç èéêë ìíîï n òóôõöo ùúûü.mp3";
+
   @Test
   @DisplayName("Read M3U playlist file")
   public void readReferenceM3u() throws IOException
@@ -28,6 +30,17 @@ public class M3uPlaylistTests
   }
 
   @Test
+  @DisplayName("Read M3U (ISO-8859-1 encoded) playlist with special character")
+  public void readM3uWithSpecialCharacters() throws IOException
+  {
+    Playlist playlist = TestUtil.readPlaylistFrom("m3u/playlist-iso-8859-1.m3u");
+    assertNotNull(playlist, "playlist");
+    assertEquals(2, playlist.getRootSequence().getComponents().size());
+    TestUtil.checkPlaylistItemSource(playlist, 0, "C:\\Music\\SampleMusic.mp3");
+    TestUtil.checkPlaylistItemSource(playlist, 1, m3uSpecialCharPath);
+  }
+
+  @Test
   @DisplayName("Read M3U8 playlist with BOM")
   public void readReferenceM3u8WithBom() throws IOException
   {
@@ -37,7 +50,7 @@ public class M3uPlaylistTests
     assertNotNull(playlist, "playlist");
     assertEquals(2, playlist.getRootSequence().getComponents().size());
     TestUtil.checkPlaylistItemSource(playlist, 0, "C:\\Music\\SampleMusic.mp3");
-    TestUtil.checkPlaylistItemSource(playlist, 1, "C:\\Music\\ExampleMusic.mp3");
+    TestUtil.checkPlaylistItemSource(playlist, 1, m3uSpecialCharPath);
   }
 
   @Test
@@ -70,14 +83,14 @@ public class M3uPlaylistTests
   }
 
   @Test
-  @DisplayName("Read MP3U Playlist UTF-8 no BOM")
+  @DisplayName("Read MP3U8 Playlist UTF-8 no BOM")
   public void readPlaylistM3uUtf8NoBom() throws IOException
   {
-    Playlist m3uPlaylist = TestUtil.readPlaylistFrom("m3u/playlist-utf8.m3u");
+    Playlist m3uPlaylist = TestUtil.readPlaylistFrom("m3u/playlist-utf8.m3u8");
     assertNotNull(m3uPlaylist, "PlaylistFactory should read and construct M3U playlist");
     assertEquals(2, m3uPlaylist.getRootSequence().getComponents().size(), "M3U playlist contains 2 tracks");
     TestUtil.checkPlaylistItemSource(m3uPlaylist, 0, "C:\\Music\\SampleMusic.mp3");
-    TestUtil.checkPlaylistItemSource(m3uPlaylist, 1, "C:\\Music\\ExampleMusic.mp3");
+    TestUtil.checkPlaylistItemSource(m3uPlaylist, 1, m3uSpecialCharPath);
   }
 
   @Test
@@ -88,7 +101,7 @@ public class M3uPlaylistTests
     assertNotNull(m3uPlaylist, "PlaylistFactory should read and construct M3U playlist");
     assertEquals(2, m3uPlaylist.getRootSequence().getComponents().size(), "M3U playlist contains 2 tracks");
     TestUtil.checkPlaylistItemSource(m3uPlaylist, 0, "C:\\Music\\SampleMusic.mp3");
-    TestUtil.checkPlaylistItemSource(m3uPlaylist, 1, "C:\\Music\\ExampleMusic.mp3");
+    TestUtil.checkPlaylistItemSource(m3uPlaylist, 1, m3uSpecialCharPath);
   }
 
   @Test

@@ -57,6 +57,8 @@ public class M3U extends AbstractPlaylist
    */
   private boolean _extensionM3U = false;
 
+  public static final String TextEncoding = "ISO-8859-1";
+
   public void setProvider(final SpecificPlaylistProvider provider)
   {
     _provider = provider;
@@ -75,7 +77,7 @@ public class M3U extends AbstractPlaylist
 
     if (enc == null)
     {
-      enc = "UTF-8"; // For the M3U8 case. FIXME US-ASCII?
+      enc = TextEncoding;
     }
 
     final BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, enc)); // Throws NullPointerException if out is null. May throw UnsupportedEncodingException.
