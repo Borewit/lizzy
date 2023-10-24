@@ -37,7 +37,7 @@ import java.io.OutputStream;
  * @author Borewit
  * @author Christophe Delory
  */
-public class SmilAdapter extends AbstractPlaylist
+public class SmilAdapter implements SpecificPlaylist
 {
   /**
    * The provider of this specific playlist.
@@ -59,9 +59,9 @@ public class SmilAdapter extends AbstractPlaylist
   }
 
   @Override
-  public void writeTo(final OutputStream out, final String encoding) throws IOException
+  public void writeTo(final OutputStream out) throws IOException
   {
-    this.provider.writeTo(this.smil, out, encoding);
+    this.provider.writeTo(this.smil, out);
   }
 
   @Override

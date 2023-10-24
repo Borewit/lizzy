@@ -42,7 +42,7 @@ import java.util.List;
  * @author Christophe Delory
  * @version $Revision: 90 $
  */
-public class PlistProvider extends AbstractPlaylistProvider
+public class PlistProvider implements SpecificPlaylistProvider
 {
   /**
    * A list of compatible content types.
@@ -71,7 +71,7 @@ public class PlistProvider extends AbstractPlaylistProvider
   }
 
   @Override
-  public SpecificPlaylist readFrom(final InputStream inputStream, final String encoding) throws IOException
+  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException
   {
     NSDictionary plist;
     try

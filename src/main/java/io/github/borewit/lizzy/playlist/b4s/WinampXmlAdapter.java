@@ -37,7 +37,7 @@ import java.io.OutputStream;
  * @author Borewit
  * @author Christophe Delory
  */
-public class WinampXmlAdapter extends AbstractPlaylist
+public class WinampXmlAdapter extends PlaylistWithTextEncoding
 {
   private final WinampXML winampXML;
 
@@ -48,6 +48,7 @@ public class WinampXmlAdapter extends AbstractPlaylist
 
   public WinampXmlAdapter(WinampXmlProvider provider, WinampXML winampXML)
   {
+    super(provider);
     this.provider = provider;
     this.winampXML = winampXML;
   }
@@ -59,9 +60,9 @@ public class WinampXmlAdapter extends AbstractPlaylist
   }
 
   @Override
-  public void writeTo(final OutputStream out, final String encoding) throws IOException
+  public void writeTo(final OutputStream out) throws IOException
   {
-    this.provider.writeTo(this.winampXML, out, encoding);
+    this.provider.writeTo(this.winampXML, out);
   }
 
   @Override

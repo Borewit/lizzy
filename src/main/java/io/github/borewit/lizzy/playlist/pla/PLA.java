@@ -41,7 +41,7 @@ import java.util.List;
  * @version $Revision: 91 $
  * @since 0.2.0
  */
-public class PLA extends AbstractPlaylist
+public class PLA implements SpecificPlaylist
 {
   /**
    * The provider of this specific playlist.
@@ -65,7 +65,7 @@ public class PLA extends AbstractPlaylist
   }
 
   @Override
-  public void writeTo(final OutputStream out, final String encoding) throws IOException
+  public void writeTo(final OutputStream out) throws IOException
   {
     byte[] array = new byte[512];
     Arrays.fill(array, (byte) 0);

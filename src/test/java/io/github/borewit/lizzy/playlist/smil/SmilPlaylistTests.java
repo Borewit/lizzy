@@ -81,7 +81,7 @@ public class SmilPlaylistTests
     try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream())
     {
       SpecificPlaylist specificPlaylist = smilProvider.toSpecificPlaylist(playlist);
-      specificPlaylist.writeTo(byteArrayOutputStream, null);
+      specificPlaylist.writeTo(byteArrayOutputStream);
       smilData = byteArrayOutputStream.toByteArray();
     }
     try (ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(smilData))

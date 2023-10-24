@@ -68,7 +68,7 @@ public class M3uPlaylistTests
     try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream())
     {
       SpecificPlaylist specificPlaylist = m3uProvider.toSpecificPlaylist(playlist);
-      specificPlaylist.writeTo(byteArrayOutputStream, null);
+      specificPlaylist.writeTo(byteArrayOutputStream);
       serializedData = byteArrayOutputStream.toByteArray();
     }
     Playlist checkWrittenPlaylist;

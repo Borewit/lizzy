@@ -117,8 +117,7 @@ public final class SpecificPlaylistFactory
       {
         try
         {
-          final String encoding = playlistPath.toString().toLowerCase().endsWith(".m3u8") ? "UTF-8" : null;
-          SpecificPlaylist specificPlaylist = playlistProvider.readFrom(is, encoding);
+          SpecificPlaylist specificPlaylist = playlistProvider.readFrom(is);
           if (specificPlaylist != null)
             return specificPlaylist;
         }
@@ -164,7 +163,7 @@ public final class SpecificPlaylistFactory
       final InputStream in = urlConnection.getInputStream(); // May throw IOException, UnknownServiceException.
       try
       {
-        ret = service.readFrom(in, contentEncoding); // May throw Exception. Shall not throw NullPointerException because of in.
+        ret = service.readFrom(in); // May throw Exception. Shall not throw NullPointerException because of in.
         if (ret == null) continue;
         break;
       }

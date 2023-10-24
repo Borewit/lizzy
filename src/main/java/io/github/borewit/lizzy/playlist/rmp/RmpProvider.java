@@ -35,6 +35,7 @@ import jakarta.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
@@ -47,6 +48,8 @@ import java.util.List;
  */
 public class RmpProvider extends JaxbPlaylistProvider<RmpPackage>
 {
+  public static Charset TextEncoding = StandardCharsets.US_ASCII;
+
   /**
    * A list of compatible content types.
    */
@@ -64,6 +67,7 @@ public class RmpProvider extends JaxbPlaylistProvider<RmpPackage>
   public RmpProvider()
   {
     super(RmpPackage.class);
+    this.setTextEncoding(TextEncoding);
   }
 
   @Override
@@ -79,12 +83,11 @@ public class RmpProvider extends JaxbPlaylistProvider<RmpPackage>
   }
 
   @Override
-  public SpecificPlaylist readFrom(final InputStream inputStream, final String encoding) throws IOException
+  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException
   {
     try
     {
-      final String rmpEncoding = encoding == null ? StandardCharsets.US_ASCII.toString() : encoding;
-      final JAXBElement<RmpPackage> rmp = this.unmarshal(inputStream, rmpEncoding);
+      final JAXBElement<RmpPackage> rmp = this.unmarshal(inputStream);
       String rootElementName = rmp.getName().getLocalPart();
 
       return rootElementName != null && rootElementName.equalsIgnoreCase("PACKAGE") ?

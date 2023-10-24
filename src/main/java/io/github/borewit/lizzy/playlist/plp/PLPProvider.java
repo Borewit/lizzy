@@ -34,6 +34,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
@@ -43,9 +45,11 @@ import java.util.List;
  * @version $Revision: 91 $
  * @since 0.2.0
  */
-public class PLPProvider extends AbstractPlaylistProvider
+public class PLPProvider implements SpecificPlaylistProvider
 {
   private final Logger logger = LogManager.getLogger(PLPProvider.class);
+
+  public static Charset TextEncoding = StandardCharsets.UTF_16LE;
 
   /**
    * A list of compatible content types.
@@ -73,16 +77,9 @@ public class PLPProvider extends AbstractPlaylistProvider
   }
 
   @Override
-  public SpecificPlaylist readFrom(final InputStream inputStream, final String encoding) throws IOException
+  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException
   {
-    String enc = encoding;
-
-    if (enc == null)
-    {
-      enc = "UTF-16LE";
-    }
-
-    final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, enc)); // Throws NullPointerException if in is null. May throw UnsupportedEncodingException, IOException.
+    final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, TextEncoding)); // Throws NullPointerException if in is null. May throw UnsupportedEncodingException, IOException.
 
     PLP ret = new PLP();
     ret.setProvider(this);

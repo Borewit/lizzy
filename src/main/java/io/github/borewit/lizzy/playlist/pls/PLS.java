@@ -60,7 +60,7 @@ import java.util.List;
  * @author Christophe Delory
  * @version $Revision: 91 $
  */
-public class PLS extends AbstractPlaylist
+public class PLS implements SpecificPlaylist
 {
   /**
    * The provider of this specific playlist.
@@ -84,16 +84,10 @@ public class PLS extends AbstractPlaylist
   }
 
   @Override
-  public void writeTo(final OutputStream out, final String encoding) throws IOException
+  public void writeTo(final OutputStream out) throws IOException
   {
-    String enc = encoding;
 
-    if (enc == null)
-    {
-      enc = "UTF-8"; // FIXME US-ASCII?
-    }
-
-    final BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, enc)); // Throws NullPointerException if out is null. May throw UnsupportedEncodingException.
+    final BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, PLSProvider.TextEncoding)); // Throws NullPointerException if out is null. May throw UnsupportedEncodingException.
 
     writer.write("[Playlist]"); // May throw IOException.
     writer.newLine(); // May throw IOException.

@@ -42,7 +42,7 @@ import java.util.List;
  * @version $Revision: 92 $
  * @since 0.2.0
  */
-public class PLP extends AbstractPlaylist
+public class PLP implements SpecificPlaylist
 {
   /**
    * The provider of this specific playlist.
@@ -71,16 +71,9 @@ public class PLP extends AbstractPlaylist
   }
 
   @Override
-  public void writeTo(final OutputStream out, final String encoding) throws IOException
+  public void writeTo(final OutputStream out) throws IOException
   {
-    String enc = encoding;
-
-    if (enc == null)
-    {
-      enc = "UTF-16LE";
-    }
-
-    final BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, enc)); // Throws NullPointerException if out is null. May throw UnsupportedEncodingException.
+    final BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, PLPProvider.TextEncoding)); // Throws NullPointerException if out is null. May throw UnsupportedEncodingException.
 
     writer.write("PLP PLAYLIST"); // May throw IOException.
     writer.write('\r'); // May throw IOException.

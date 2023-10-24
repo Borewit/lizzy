@@ -66,7 +66,7 @@ public class TestUtil
 
   public static Map<String, JsonPlaylist> getPlaylistMetadata() throws IOException
   {
-    TypeReference<TreeMap<String, JsonPlaylist>> typeRef = new TypeReference<TreeMap<String, JsonPlaylist>>()
+    TypeReference<TreeMap<String, JsonPlaylist>> typeRef = new TypeReference<>()
     {
     };
     return new ObjectMapper().readValue(jsonTestDataPath.toFile(), typeRef);
@@ -86,7 +86,7 @@ public class TestUtil
   {
     try (InputStream fis = Files.newInputStream(path))
     {
-      try (BOMInputStream bomIn = new BOMInputStream(fis))
+      try (BOMInputStream bomIn = BOMInputStream.builder().setInputStream(fis).get())
       {
         // has a UTF-8 BOM
         return bomIn.hasBOM();

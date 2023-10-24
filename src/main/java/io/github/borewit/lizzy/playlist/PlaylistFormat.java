@@ -6,6 +6,7 @@ public enum PlaylistFormat
   atom,
   b4s,
   m3u,
+  m3u8,
   mpcpl,
   pla,
   plist,

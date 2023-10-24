@@ -43,25 +43,12 @@ public interface SpecificPlaylist
   SpecificPlaylistProvider getProvider();
 
   /**
-   * Writes this specific playlist to the specified output stream.
-   * When done, the stream may be flushed, but not closed.
-   *
-   * @param out      an output stream. Shall not be <code>null</code>.
-   * @param encoding the content encoding of the output resource, or <code>null</code> if not known.
-   * @throws NullPointerException if <code>out</code> is <code>null</code>.
-   * @throws Exception            if any error occurs during the marshalling process.
-   * @see SpecificPlaylistFactory#readFrom
-   * @see SpecificPlaylistProvider#readFrom
-   */
-  void writeTo(OutputStream out, String encoding) throws IOException;
-
-  /**
    * Writes this specific playlist to the specified output stream, using default encoding
    * When done, the stream may be flushed, but not closed.
    *
    * @param out      an output stream. Shall not be <code>null</code>.
    * @throws NullPointerException if <code>out</code> is <code>null</code>.
-   * @throws Exception            if any error occurs during the marshalling process.
+   * @throws IOException            if any error occurs during the marshalling process.
    * @see SpecificPlaylistFactory#readFrom
    * @see SpecificPlaylistProvider#readFrom
    */

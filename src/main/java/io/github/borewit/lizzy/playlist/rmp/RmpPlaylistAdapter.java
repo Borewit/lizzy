@@ -38,7 +38,7 @@ import java.io.OutputStream;
  * @author Christophe Delory
  * @since 0.3.0
  */
-public class RmpPlaylistAdapter extends AbstractPlaylist
+public class RmpPlaylistAdapter implements SpecificPlaylist
 {
   private RmpProvider provider;
   private final RmpPackage rmpPackage;
@@ -60,9 +60,9 @@ public class RmpPlaylistAdapter extends AbstractPlaylist
   }
 
   @Override
-  public void writeTo(final OutputStream out, final String encoding) throws IOException
+  public void writeTo(final OutputStream out) throws IOException
   {
-    this.provider.writeTo(this.rmpPackage, out, encoding);
+    this.provider.writeTo(this.rmpPackage, out);
   }
 
   @Override

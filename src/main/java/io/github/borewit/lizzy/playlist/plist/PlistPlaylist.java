@@ -26,10 +26,10 @@ package io.github.borewit.lizzy.playlist.plist;
 
 import com.dd.plist.*;
 import io.github.borewit.lizzy.content.Content;
-import io.github.borewit.lizzy.playlist.AbstractPlaylist;
 import io.github.borewit.lizzy.playlist.Media;
 import io.github.borewit.lizzy.playlist.Playlist;
 import io.github.borewit.lizzy.playlist.Sequence;
+import io.github.borewit.lizzy.playlist.SpecificPlaylist;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -41,7 +41,7 @@ import java.util.Date;
  * @author Borewit
  * @author Christophe Delory
  */
-public class PlistPlaylist extends AbstractPlaylist
+public class PlistPlaylist implements SpecificPlaylist
 {
   /**
    * The provider of this specific playlist.
@@ -67,7 +67,7 @@ public class PlistPlaylist extends AbstractPlaylist
   }
 
   @Override
-  public void writeTo(final OutputStream out, final String encoding) throws IOException
+  public void writeTo(final OutputStream out) throws IOException
   {
     XMLPropertyListWriter.write(plist, out);
     out.flush(); // May throw IOException.

@@ -42,12 +42,12 @@ import java.io.OutputStream;
  * @author Borewit
  * @author Christophe Delory
  */
-public class RSSPlaylist extends AbstractPlaylist
+public class RSSPlaylist extends PlaylistWithTextEncoding
 {
   /**
    * The provider of this specific playlist.
    */
-  private transient RSSProvider provider = null;
+  private final transient RSSProvider provider;
 
   /**
    * The RSS document itself.
@@ -56,6 +56,7 @@ public class RSSPlaylist extends AbstractPlaylist
 
   public RSSPlaylist(final RSSProvider provider, Rss rss)
   {
+    super(provider);
     this.provider = provider;
     this.rss = rss;
   }
@@ -67,9 +68,9 @@ public class RSSPlaylist extends AbstractPlaylist
   }
 
   @Override
-  public void writeTo(final OutputStream out, final String encoding) throws IOException
+  public void writeTo(final OutputStream out) throws IOException
   {
-    this.provider.writeTo(new ObjectFactory().createRss(this.rss), out, encoding);
+    this.provider.writeTo(new ObjectFactory().createRss(this.rss), out);
   }
 
   @Override

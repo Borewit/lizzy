@@ -25,14 +25,16 @@
 package io.github.borewit.lizzy.playlist.asx;
 
 import io.github.borewit.lizzy.content.Content;
-import io.github.borewit.lizzy.playlist.AbstractPlaylist;
 import io.github.borewit.lizzy.playlist.Media;
 import io.github.borewit.lizzy.playlist.Playlist;
 import io.github.borewit.lizzy.playlist.Sequence;
+import io.github.borewit.lizzy.playlist.SpecificPlaylist;
 import io.github.borewit.lizzy.playlist.xml.asx.*;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 /**
  * A Windows Media metafile.
@@ -41,7 +43,7 @@ import java.io.OutputStream;
  * @author Borewit
  * @author Christophe Delory
  */
-public class AsxPlaylistAdapter extends AbstractPlaylist
+public class AsxPlaylistAdapter implements SpecificPlaylist
 {
   /**
    * The provider of this specific playlist.
@@ -52,6 +54,8 @@ public class AsxPlaylistAdapter extends AbstractPlaylist
    * JAXB component
    */
   private final Asx asx;
+
+  public final Charset textEncoding = StandardCharsets.UTF_8;
 
   private static Asx makeAsx()
   {
@@ -83,9 +87,9 @@ public class AsxPlaylistAdapter extends AbstractPlaylist
   }
 
   @Override
-  public void writeTo(final OutputStream out, final String encoding) throws IOException
+  public void writeTo(final OutputStream out) throws IOException
   {
-    this.provider.writeTo(this.asx, out, encoding);
+    this.provider.writeTo(this.asx, out);
   }
 
   @Override

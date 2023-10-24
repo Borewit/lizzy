@@ -11,13 +11,16 @@ import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-public abstract class JaxbPlaylistProvider<T> extends AbstractPlaylistProvider
+public abstract class JaxbPlaylistProvider<T> extends ProviderWithTextEncoding
 {
   private final Class<T> xmlClass;
   private JAXBContext jaxbContext = null;
 
+  public static final Charset defaultXmlTextEncoding = StandardCharsets.UTF_8;
+
   public JaxbPlaylistProvider(Class<T> xmlClass)
   {
+    super(defaultXmlTextEncoding);
     this.xmlClass = xmlClass;
   }
 
@@ -38,15 +41,10 @@ public abstract class JaxbPlaylistProvider<T> extends AbstractPlaylistProvider
     }
   }
 
-  protected Charset getDefaultEncoding() {
-    return StandardCharsets.UTF_8;
-  }
-
-  protected JAXBElement<T> unmarshal(final InputStream in, final String encoding) throws JAXBException, XMLStreamException
+  protected JAXBElement<T> unmarshal(final InputStream in) throws JAXBException, XMLStreamException
   {
-    String applyEncoding = encoding == null ? this.getDefaultEncoding().toString() : encoding;
     Unmarshaller unmarshaller = this.getJaxbContext().createUnmarshaller();
-    XMLStreamReader xmlStreamReader = this.getXmlStreamReader(in, applyEncoding);
+    XMLStreamReader xmlStreamReader = this.getXmlStreamReader(in, this.textEncoding.name());
     return unmarshaller.unmarshal(xmlStreamReader, this.getXmlCLass());
   }
 
@@ -54,16 +52,16 @@ public abstract class JaxbPlaylistProvider<T> extends AbstractPlaylistProvider
   {
     Marshaller marshaller = this.getJaxbContext().createMarshaller();
     marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-    marshaller.setProperty(Marshaller.JAXB_ENCODING, encoding == null ? this.getDefaultEncoding().name() : encoding);
+    marshaller.setProperty(Marshaller.JAXB_ENCODING, this.textEncoding.name());
     return marshaller;
   }
 
-  public void writeTo(Object xmlPlaylist, final OutputStream out, final String encoding) throws IOException
+  public void writeTo(Object xmlPlaylist, final OutputStream out) throws IOException
   {
     try
     {
       // Marshal the playlist.
-      Marshaller marshaller = makeMarshaller(encoding);
+      Marshaller marshaller = makeMarshaller(this.textEncoding.name());
 
       marshaller.marshal(xmlPlaylist, out);
       out.flush(); // May throw IOException.
