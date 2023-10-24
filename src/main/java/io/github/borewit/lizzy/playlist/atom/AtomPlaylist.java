@@ -25,13 +25,14 @@
 package io.github.borewit.lizzy.playlist.atom;
 
 import io.github.borewit.lizzy.content.Content;
-import io.github.borewit.lizzy.playlist.AbstractPlaylist;
 import io.github.borewit.lizzy.playlist.Media;
 import io.github.borewit.lizzy.playlist.Playlist;
+import io.github.borewit.lizzy.playlist.PlaylistWithTextEncoding;
 import io.github.borewit.lizzy.playlist.xml.atom.EntryType;
 import io.github.borewit.lizzy.playlist.xml.atom.FeedType;
 import io.github.borewit.lizzy.playlist.xml.atom.Link;
 import io.github.borewit.lizzy.playlist.xml.atom.ObjectFactory;
+
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -42,7 +43,7 @@ import java.io.OutputStream;
  * @author Borewit
  * @author Christophe Delory
  */
-public class AtomPlaylist extends AbstractPlaylist
+public class AtomPlaylist extends PlaylistWithTextEncoding
 {
   /**
    * The Atom playlist provider
@@ -56,6 +57,7 @@ public class AtomPlaylist extends AbstractPlaylist
 
   public AtomPlaylist(final AtomProvider provider, FeedType feed)
   {
+    super(provider);
     this.provider = provider;
     this.feed = feed;
   }
@@ -67,9 +69,9 @@ public class AtomPlaylist extends AbstractPlaylist
   }
 
   @Override
-  public void writeTo(final OutputStream out, final String encoding) throws IOException
+  public void writeTo(final OutputStream out) throws IOException
   {
-    this.provider.writeTo(new ObjectFactory().createFeed(this.feed), out, encoding);
+    this.provider.writeTo(new ObjectFactory().createFeed(this.feed), out);
   }
 
   @Override

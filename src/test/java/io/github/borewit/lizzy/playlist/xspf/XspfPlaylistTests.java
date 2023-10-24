@@ -38,7 +38,7 @@ public class XspfPlaylistTests
     try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream())
     {
       SpecificPlaylist specificPlaylist = plistProvider.toSpecificPlaylist(playlist);
-      specificPlaylist.writeTo(byteArrayOutputStream, null);
+      specificPlaylist.writeTo(byteArrayOutputStream);
     }
   }
 }

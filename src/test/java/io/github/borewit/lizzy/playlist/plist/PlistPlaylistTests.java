@@ -51,7 +51,7 @@ public class PlistPlaylistTests
     try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream())
     {
       SpecificPlaylist specificPlaylist = plistProvider.toSpecificPlaylist(playlist);
-      specificPlaylist.writeTo(byteArrayOutputStream, null);
+      specificPlaylist.writeTo(byteArrayOutputStream);
       plistData = byteArrayOutputStream.toByteArray();
     }
     System.out.println(new String(plistData));

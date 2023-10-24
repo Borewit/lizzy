@@ -37,7 +37,6 @@ import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.util.StreamReaderDelegate;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -95,6 +94,7 @@ public class AsxProvider extends JaxbPlaylistProvider<Asx>
   public AsxProvider()
   {
     super(Asx.class);
+    super.setTextEncoding(StandardCharsets.US_ASCII); // Tested with Windows media player
   }
 
   @Override
@@ -109,17 +109,12 @@ public class AsxProvider extends JaxbPlaylistProvider<Asx>
     return FILETYPES.clone();
   }
 
-  protected Charset getDefaultEncoding()
-  {
-    return StandardCharsets.US_ASCII; // Tested with Windows media player
-  }
-
   @Override
-  public SpecificPlaylist readFrom(final InputStream inputStream, final String encoding) throws IOException
+  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException
   {
     try
     {
-      final JAXBElement<Asx> asx = this.unmarshal(inputStream, encoding);
+      final JAXBElement<Asx> asx = this.unmarshal(inputStream);
       String rootElementName = asx.getName().getLocalPart();
 
       return rootElementName != null && rootElementName.equalsIgnoreCase("ASX") ?

@@ -87,11 +87,11 @@ public class RSSProvider extends JaxbPlaylistProvider<Rss>
   }
 
   @Override
-  public SpecificPlaylist readFrom(final InputStream inputStream, final String encoding) throws IOException
+  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException
   {
     try
     {
-      final JAXBElement<Rss> rssJAXBElement = this.unmarshal(inputStream, encoding);
+      final JAXBElement<Rss> rssJAXBElement = this.unmarshal(inputStream);
       String rootElementName = rssJAXBElement.getName().getLocalPart();
 
       return rootElementName != null && rootElementName.equalsIgnoreCase("RSS") ?

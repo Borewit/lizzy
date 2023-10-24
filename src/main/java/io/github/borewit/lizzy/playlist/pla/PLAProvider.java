@@ -42,7 +42,7 @@ import java.util.List;
  * @version $Revision: 91 $
  * @since 0.2.0
  */
-public class PLAProvider extends AbstractPlaylistProvider
+public class PLAProvider implements SpecificPlaylistProvider
 {
   private final Logger logger = LogManager.getLogger(PLAProvider.class);
 
@@ -72,7 +72,7 @@ public class PLAProvider extends AbstractPlaylistProvider
   }
 
   @Override
-  public SpecificPlaylist readFrom(final InputStream inputStream, final String encoding) throws IOException
+  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException
   {
     PLA ret = new PLA();
     ret.setProvider(this);

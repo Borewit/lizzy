@@ -50,7 +50,8 @@ module io.github.borewit.lizzy {
     io.github.borewit.lizzy.playlist.pls.PLSProvider,
     io.github.borewit.lizzy.playlist.mpcpl.MPCPLProvider,
     io.github.borewit.lizzy.playlist.plp.PLPProvider,
-    io.github.borewit.lizzy.playlist.m3u.M3UProvider;
+    io.github.borewit.lizzy.playlist.m3u.M3UProvider,
+    io.github.borewit.lizzy.playlist.m3u.M3U8Provider;
 
   uses io.github.borewit.lizzy.playlist.SpecificPlaylistProvider;
 

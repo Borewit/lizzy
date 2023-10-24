@@ -22,7 +22,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package io.github.borewit.lizzy.playlist.mpcpl;
+package io.github.borewit.lizzy.playlist.m3u;
 
 import io.github.borewit.lizzy.content.Content;
 import io.github.borewit.lizzy.playlist.*;
@@ -31,17 +31,17 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The Media Player Classic Playlist (MPCPL) format.
+ * A M3U, M4U, or Real Audio Metadata playlist.
  *
  * @author Christophe Delory
- * @version $Revision: 91 $
- * @since 0.3.0
+ * @version $Revision: 92 $
  */
-public class MPCPL implements SpecificPlaylist
+abstract class AbstractM3U implements SpecificPlaylist
 {
   /**
    * The provider of this specific playlist.
@@ -52,6 +52,11 @@ public class MPCPL implements SpecificPlaylist
    * The list of child resources.
    */
   private final List<Resource> _resources = new ArrayList<Resource>();
+
+  /**
+   * <code>true</code> if the marshalled playlist must be an Extension M3U, <code>false</code> otherwise.
+   */
+  private boolean _extensionM3U = false;
 
   public void setProvider(final SpecificPlaylistProvider provider)
   {
@@ -64,37 +69,38 @@ public class MPCPL implements SpecificPlaylist
     return _provider;
   }
 
-  @Override
-  public void writeTo(final OutputStream out) throws IOException
+  protected void writeTo(final OutputStream out, final Charset encoding) throws IOException
   {
-    final BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, MPCPLProvider.TextEncoding)); // Throws NullPointerException if out is null. May throw UnsupportedEncodingException.
+    final BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, encoding)); // Throws NullPointerException if out is null. May throw UnsupportedEncodingException.
 
-    writer.write("MPCPLAYLIST"); // May throw IOException.
-    writer.newLine(); // May throw IOException.
-
-    int i = 1;
+    if (_extensionM3U)
+    {
+      writer.write("#EXTM3U"); // May throw IOException.
+      writer.newLine(); // May throw IOException.
+    }
 
     for (Resource resource : _resources)
     {
-      writer.write(Integer.toString(i)); // May throw IOException.
-      writer.write(",type,"); // May throw IOException.
-      writer.write(resource.getType()); // May throw IOException.
-      writer.newLine(); // May throw IOException.
-
-      writer.write(Integer.toString(i)); // May throw IOException.
-      writer.write(",filename,"); // May throw IOException.
-      writer.write(resource.getFilename()); // May throw NullPointerException, IOException.
-      writer.newLine(); // May throw IOException.
-
-      if (resource.getSubtitle() != null)
+      if (_extensionM3U)
       {
-        writer.write(Integer.toString(i)); // May throw IOException.
-        writer.write(",subtitle,"); // May throw IOException.
-        writer.write(resource.getSubtitle()); // May throw IOException.
+        writer.write("#EXTINF:"); // May throw IOException.
+        writer.write(Long.toString(resource.getLength())); // May throw IOException.
+        writer.write(","); // May throw IOException.
+
+        if (resource.getName() == null)
+        {
+          writer.write(resource.getLocation()); // May throw NullPointerException, IOException.
+        }
+        else
+        {
+          writer.write(resource.getName()); // May throw IOException.
+        }
+
         writer.newLine(); // May throw IOException.
       }
 
-      i++;
+      writer.write(resource.getLocation()); // May throw NullPointerException, IOException.
+      writer.newLine(); // May throw IOException.
     }
 
     writer.flush(); // May throw IOException.
@@ -107,11 +113,12 @@ public class MPCPL implements SpecificPlaylist
 
     for (Resource resource : _resources)
     {
-      if (resource.getFilename() != null)
+      if (resource.getLocation() != null)
       {
         final Media media = new Media(); // NOPMD Avoid instantiating new objects inside loops
-        final Content content = new Content(resource.getFilename()); // NOPMD Avoid instantiating new objects inside loops
+        final Content content = new Content(resource.getLocation()); // NOPMD Avoid instantiating new objects inside loops
         media.setSource(content);
+        content.setDuration(resource.getLength() * 1000L);
         ret.getRootSequence().addComponent(media);
       }
     }
@@ -119,6 +126,29 @@ public class MPCPL implements SpecificPlaylist
     ret.normalize();
 
     return ret;
+  }
+
+  /**
+   * Specifies if the marshalled playlist must have the Extension M3U format or not.
+   *
+   * @param extensionM3U <code>true</code> if the marshalled playlist must be an Extension M3U, <code>false</code> otherwise.
+   * @see #isExtensionM3U
+   */
+  public void setExtensionM3U(final boolean extensionM3U)
+  {
+    _extensionM3U = extensionM3U;
+  }
+
+  /**
+   * Specifies if the marshalled playlist must have the Extension M3U format or not.
+   * Defaults to <code>false</code>.
+   *
+   * @return <code>true</code> if the marshalled playlist must be an Extension M3U, <code>false</code> otherwise.
+   * @see #setExtensionM3U
+   */
+  public boolean isExtensionM3U()
+  {
+    return _extensionM3U;
   }
 
   /**

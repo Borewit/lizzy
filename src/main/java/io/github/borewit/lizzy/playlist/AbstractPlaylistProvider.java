@@ -11,7 +11,7 @@ public abstract class AbstractPlaylistProvider implements SpecificPlaylistProvid
   @Override
   public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException
   {
-    return this.readFrom(inputStream, null);
+    return this.readFrom(inputStream);
   }
 
   public static BOMInputStream wrapInBomStream(InputStream inputStream)

@@ -40,7 +40,7 @@ import java.io.OutputStream;
  * @author Borewit
  * @author Christophe Delory
  */
-public class XspfPlaylistAdapter extends AbstractPlaylist
+public class XspfPlaylistAdapter implements SpecificPlaylist
 {
 
   /**
@@ -63,9 +63,9 @@ public class XspfPlaylistAdapter extends AbstractPlaylist
   }
 
   @Override
-  public void writeTo(final OutputStream out, final String encoding) throws IOException
+  public void writeTo(final OutputStream out) throws IOException
   {
-    this.provider.writeTo(new ObjectFactory().createPlaylist(xspfPlaylist), out, encoding);
+    this.provider.writeTo(new ObjectFactory().createPlaylist(xspfPlaylist), out);
   }
 
   @Override

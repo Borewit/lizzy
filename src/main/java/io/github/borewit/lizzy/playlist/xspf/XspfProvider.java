@@ -82,11 +82,11 @@ public class XspfProvider extends JaxbPlaylistProvider<XspfPlaylist>
   }
 
   @Override
-  public SpecificPlaylist readFrom(final InputStream inputStream, final String encoding) throws IOException
+  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException
   {
     try
     {
-      final JAXBElement<XspfPlaylist> xspfPlaylist = this.unmarshal(inputStream, encoding);
+      final JAXBElement<XspfPlaylist> xspfPlaylist = this.unmarshal(inputStream);
       String rootElementName = xspfPlaylist.getName().getLocalPart();
       return rootElementName != null && rootElementName.equals("playlist") ?
         new XspfPlaylistAdapter(this, xspfPlaylist.getValue()) : null;

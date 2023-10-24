@@ -107,7 +107,7 @@ public class SpecificPlaylistFactoryTests
 
     try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream())
     {
-      playlist.writeTo(outputStream, "UTF-8");
+      playlist.writeTo(outputStream);
     }
   }
 
