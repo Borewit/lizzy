@@ -22,7 +22,7 @@ configurations {
 }
 
 dependencies {
-    jaxb "org.glassfish.jaxb:jaxb-xjc:4.0.3"
+    jaxb "org.glassfish.jaxb:jaxb-xjc:4.0.4"
     jaxb "org.glassfish.jaxb:jaxb-runtime:4.0.4"
 
     // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
