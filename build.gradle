@@ -40,7 +40,7 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-reporting'
 
     // PLIST implementation
-    implementation 'com.googlecode.plist:dd-plist:1.27'
+    implementation 'com.googlecode.plist:dd-plist:1.28'
 
     // Required to read InputStream with BOM-field
     // https://mvnrepository.com/artifact/commons-io/commons-io
