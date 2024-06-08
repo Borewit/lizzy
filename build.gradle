@@ -49,7 +49,7 @@ dependencies {
 
     // Used to load MIME-types from JSON
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
-    testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.15.3'
+    testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.17.1'
 }
 
 // Convert legacy dependency to named Java module
