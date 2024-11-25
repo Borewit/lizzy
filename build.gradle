@@ -44,7 +44,7 @@ dependencies {
 
     // Required to read InputStream with BOM-field
     // https://mvnrepository.com/artifact/commons-io/commons-io
-    implementation 'commons-io:commons-io:2.16.1'
+    implementation 'commons-io:commons-io:2.18.0'
 
     implementation 'commons-io:commons-io:2.16.1'
 
