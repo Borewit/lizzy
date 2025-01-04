@@ -34,8 +34,7 @@ import java.util.List;
  * @author Borewit
  * @author Christophe Delory
  */
-public abstract class AbstractTimeContainer extends AbstractPlaylistComponent
-{
+public abstract class AbstractTimeContainer extends AbstractPlaylistComponent {
   /**
    * The list of components of this time container.
    */
@@ -49,13 +48,11 @@ public abstract class AbstractTimeContainer extends AbstractPlaylistComponent
    * @see #removeComponent
    * @see #getComponentsNumber
    */
-  public List<AbstractPlaylistComponent> getComponents()
-  {
+  public List<AbstractPlaylistComponent> getComponents() {
     return components;
   }
 
-  public AbstractPlaylistComponent[] getComponentsAsArray()
-  {
+  public AbstractPlaylistComponent[] getComponentsAsArray() {
     return components.toArray(new AbstractPlaylistComponent[]{});
   }
 
@@ -68,8 +65,7 @@ public abstract class AbstractTimeContainer extends AbstractPlaylistComponent
    * @see #removeComponent
    * @see #addComponent(int, AbstractPlaylistComponent)
    */
-  public void addComponent(final AbstractPlaylistComponent component)
-  {
+  public void addComponent(final AbstractPlaylistComponent component) {
     component.setParent(this); // Throws NullPointerException if component is null.
     components.add(component);
   }
@@ -86,8 +82,7 @@ public abstract class AbstractTimeContainer extends AbstractPlaylistComponent
    * @see #addComponent
    * @see #removeComponent
    */
-  public void addComponent(final int index, final AbstractPlaylistComponent component)
-  {
+  public void addComponent(final int index, final AbstractPlaylistComponent component) {
     component.setParent(this); // Throws NullPointerException if component is null.
     components.add(index, component); // May throw IndexOutOfBoundsException.
   }
@@ -103,8 +98,7 @@ public abstract class AbstractTimeContainer extends AbstractPlaylistComponent
    * @see #getComponents
    * @see #removeComponent(int)
    */
-  public boolean removeComponent(final AbstractPlaylistComponent component)
-  {
+  public boolean removeComponent(final AbstractPlaylistComponent component) {
     component.setParent(null); // Throws NullPointerException if component is null.
 
     return components.remove(component);
@@ -121,8 +115,7 @@ public abstract class AbstractTimeContainer extends AbstractPlaylistComponent
    * @see #getComponents
    * @see #removeComponent(AbstractPlaylistComponent)
    */
-  public AbstractPlaylistComponent removeComponent(final int index)
-  {
+  public AbstractPlaylistComponent removeComponent(final int index) {
     final AbstractPlaylistComponent component = components.remove(index); // May throw IndexOutOfBoundsException.
     component.setParent(null);
 
@@ -135,17 +128,14 @@ public abstract class AbstractTimeContainer extends AbstractPlaylistComponent
    * @return the number of playlist components in this container.
    * @see #getComponents
    */
-  public int getComponentsNumber()
-  {
+  public int getComponentsNumber() {
     return components.size();
   }
 
   @Override
-  public void acceptDown(final PlaylistVisitor visitor) throws IOException
-  {
+  public void acceptDown(final PlaylistVisitor visitor) throws IOException {
     // Copy the list in an intermediate array, in order to allow the visitor to handle safely the list itself.
-    for (AbstractPlaylistComponent component : new ArrayList<>(this.components))
-    {
+    for (AbstractPlaylistComponent component : new ArrayList<>(this.components)) {
       component.acceptDown(visitor); // May throw Exception.
     }
   }

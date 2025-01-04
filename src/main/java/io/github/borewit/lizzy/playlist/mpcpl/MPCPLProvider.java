@@ -45,8 +45,7 @@ import java.util.List;
  * @version $Revision: 91 $
  * @since 0.3.0
  */
-public class MPCPLProvider implements SpecificPlaylistProvider
-{
+public class MPCPLProvider implements SpecificPlaylistProvider {
   private final Logger logger = LogManager.getLogger(MPCPLProvider.class);
 
   public static Charset TextEncoding = StandardCharsets.UTF_8;
@@ -66,20 +65,17 @@ public class MPCPLProvider implements SpecificPlaylistProvider
     };
 
   @Override
-  public String getId()
-  {
+  public String getId() {
     return "mpcpl";
   }
 
   @Override
-  public ContentType[] getContentTypes()
-  {
+  public ContentType[] getContentTypes() {
     return FILETYPES.clone();
   }
 
   @Override
-  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException
-  {
+  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException {
     final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, TextEncoding)); // Throws NullPointerException if in is null. May throw UnsupportedEncodingException, IOException.
 
     MPCPL ret = new MPCPL();
@@ -92,11 +88,9 @@ public class MPCPLProvider implements SpecificPlaylistProvider
     {
       line = line.trim();
 
-      if (line.length() > 0)
-      {
+      if (line.length() > 0) {
         // First the MPCPL marker string.
-        if (!magicFound)
-        {
+        if (!magicFound) {
           if (!line.equalsIgnoreCase("MPCPLAYLIST")) // NOPMD Deeply nested if then statement
           {
             throw new IllegalArgumentException("Not a MPCPL playlist format");
@@ -108,8 +102,7 @@ public class MPCPLProvider implements SpecificPlaylistProvider
 
         int idx = line.indexOf(',');
 
-        if (idx <= 0)
-        {
+        if (idx <= 0) {
           logger.error("Malformed MPCPL playlist entry " + line);
           ret = null;
           break;
@@ -120,8 +113,7 @@ public class MPCPLProvider implements SpecificPlaylistProvider
 
         idx = line.indexOf(',');
 
-        if (idx <= 0)
-        {
+        if (idx <= 0) {
           logger.error("Malformed MPCPL playlist entry " + line);
           ret = null;
           break;
@@ -132,39 +124,28 @@ public class MPCPLProvider implements SpecificPlaylistProvider
 
         int resourceIndex;
 
-        try
-        {
+        try {
           resourceIndex = Integer.parseInt(resourceIndexString) - 1; // May throw NumberFormatException.
-        }
-        catch (NumberFormatException e)
-        {
+        } catch (NumberFormatException e) {
           logger.error(e.toString());
           ret = null;
           break;
         }
 
         // Ensure that the resource list has enough slots.
-        for (int i = ret.getResources().size(); i < (resourceIndex + 1); i++)
-        {
+        for (int i = ret.getResources().size(); i < (resourceIndex + 1); i++) {
           ret.getResources().add(new Resource()); // NOPMD Avoid instantiating new objects inside loops
         }
 
         final Resource resource = ret.getResources().get(resourceIndex); // Shall not throw ArrayIndexOutOfBoundsException.
 
-        if ("filename".equals(key))
-        {
+        if ("filename".equals(key)) {
           resource.setFilename(value);
-        }
-        else if ("type".equals(key))
-        {
+        } else if ("type".equals(key)) {
           resource.setType(value);
-        }
-        else if ("subtitle".equals(key))
-        {
+        } else if ("subtitle".equals(key)) {
           resource.setSubtitle(value);
-        }
-        else
-        {
+        } else {
           logger.warn("Unknown MPCPL keyword " + key);
         }
       }
@@ -174,8 +155,7 @@ public class MPCPLProvider implements SpecificPlaylistProvider
   }
 
   @Override
-  public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws IOException
-  {
+  public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws IOException {
     final MPCPL ret = new MPCPL();
     ret.setProvider(this);
 
@@ -190,44 +170,32 @@ public class MPCPLProvider implements SpecificPlaylistProvider
    * @param resources the resulting list of resources. Shall not be <code>null</code>.
    * @param component the generic playlist component to handle. Shall not be <code>null</code>.
    */
-  private void addToPlaylist(final List<Resource> resources, final AbstractPlaylistComponent component)
-  {
-    if (component instanceof Sequence)
-    {
+  private void addToPlaylist(final List<Resource> resources, final AbstractPlaylistComponent component) {
+    if (component instanceof Sequence) {
       final Sequence seq = (Sequence) component;
 
-      if (seq.getRepeatCount() < 0)
-      {
+      if (seq.getRepeatCount() < 0) {
         throw new IllegalArgumentException("A MPCPL playlist cannot handle a sequence repeated indefinitely");
       }
 
-      for (int iter = 0; iter < seq.getRepeatCount(); iter++)
-      {
+      for (int iter = 0; iter < seq.getRepeatCount(); iter++) {
         seq.getComponents().forEach(c -> addToPlaylist(resources, c));
       }
-    }
-    else if (component instanceof Parallel)
-    {
+    } else if (component instanceof Parallel) {
       throw new IllegalArgumentException("A parallel time container is incompatible with a MPCPL playlist");
-    }
-    else if (component instanceof Media)
-    {
+    } else if (component instanceof Media) {
       final Media media = (Media) component;
 
-      if (media.getDuration() != null)
-      {
+      if (media.getDuration() != null) {
         throw new IllegalArgumentException("A MPCPL playlist cannot handle a timed media");
       }
 
-      if (media.getRepeatCount() < 0)
-      {
+      if (media.getRepeatCount() < 0) {
         throw new IllegalArgumentException("A MPCPL playlist cannot handle a media repeated indefinitely");
       }
 
-      if (media.getSource() != null)
-      {
-        for (int iter = 0; iter < media.getRepeatCount(); iter++)
-        {
+      if (media.getSource() != null) {
+        for (int iter = 0; iter < media.getRepeatCount(); iter++) {
           final Resource resource = new Resource(); // NOPMD Avoid instantiating new objects inside loops
           resource.setFilename(media.getSource().toString());
           resources.add(resource); // Shall not throw UnsupportedOperationException, ClassCastException, NullPointerException, IllegalArgumentException.

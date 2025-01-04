@@ -3,204 +3,204 @@
 <xs:schema xmlns:media="http://search.yahoo.com/mrss/" attributeFormDefault="unqualified"
            elementFormDefault="qualified" targetNamespace="http://search.yahoo.com/mrss/"
            xmlns:xs="http://www.w3.org/2001/XMLSchema">
-    <xs:element name="group">
-        <xs:complexType>
-            <xs:complexContent>
-                <xs:extension base="media:BaseMedia">
-                    <xs:sequence>
-                        <xs:element name="content" type="media:MediaContent" minOccurs="0" maxOccurs="unbounded"/>
-                    </xs:sequence>
-                </xs:extension>
-            </xs:complexContent>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="content" type="media:MediaContent"/>
-    <xs:element name="community">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="starRating">
-                    <xs:complexType>
-                        <xs:attribute name="average" type="xs:decimal"/>
-                        <xs:attribute name="count" type="xs:unsignedByte"/>
-                        <xs:attribute name="min" type="xs:unsignedByte"/>
-                        <xs:attribute name="max" type="xs:unsignedByte"/>
-                    </xs:complexType>
-                </xs:element>
-                <xs:element name="statistics">
-                    <xs:complexType>
-                        <xs:attribute name="views" type="xs:unsignedByte"/>
-                        <xs:attribute name="favorites" type="xs:unsignedByte"/>
-                    </xs:complexType>
-                </xs:element>
-                <xs:element name="tags" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="comments">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element maxOccurs="unbounded" name="comment" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="embed">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element maxOccurs="unbounded" name="param">
-                    <xs:complexType>
-                        <xs:simpleContent>
-                            <xs:extension base="xs:string">
-                                <xs:attribute name="name" type="xs:string"/>
-                            </xs:extension>
-                        </xs:simpleContent>
-                    </xs:complexType>
-                </xs:element>
-            </xs:sequence>
-            <xs:attribute name="url" type="xs:string"/>
-            <xs:attribute name="width" type="xs:unsignedShort"/>
-            <xs:attribute name="height" type="xs:unsignedShort"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="responses">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element maxOccurs="unbounded" name="response" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="backLinks">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element maxOccurs="unbounded" name="backLink" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="status">
-        <xs:complexType>
-            <xs:attribute name="state" type="xs:string"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="price">
-        <xs:complexType>
-            <xs:attribute name="type" type="xs:string"/>
-            <xs:attribute name="price" type="xs:decimal"/>
-            <xs:attribute name="currency" type="xs:string"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="license">
-        <xs:complexType>
+  <xs:element name="group">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="media:BaseMedia">
+          <xs:sequence>
+            <xs:element name="content" type="media:MediaContent" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="content" type="media:MediaContent"/>
+  <xs:element name="community">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="starRating">
+          <xs:complexType>
+            <xs:attribute name="average" type="xs:decimal"/>
+            <xs:attribute name="count" type="xs:unsignedByte"/>
+            <xs:attribute name="min" type="xs:unsignedByte"/>
+            <xs:attribute name="max" type="xs:unsignedByte"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="statistics">
+          <xs:complexType>
+            <xs:attribute name="views" type="xs:unsignedByte"/>
+            <xs:attribute name="favorites" type="xs:unsignedByte"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tags" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="comments">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="comment" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="embed">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="param">
+          <xs:complexType>
             <xs:simpleContent>
-                <xs:extension base="xs:string">
-                    <xs:attribute name="type" type="xs:string"/>
-                    <xs:attribute name="href" type="xs:string"/>
-                </xs:extension>
+              <xs:extension base="xs:string">
+                <xs:attribute name="name" type="xs:string"/>
+              </xs:extension>
             </xs:simpleContent>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="subTitle">
-        <xs:complexType>
-            <xs:attribute name="type" type="xs:string"/>
-            <xs:attribute name="lang" type="xs:string"/>
-            <xs:attribute name="href" type="xs:string"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="peerLink">
-        <xs:complexType>
-            <xs:attribute name="type" type="xs:string"/>
-            <xs:attribute name="href" type="xs:string"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="location">
-        <xs:complexType>
-            <xs:attribute name="description" type="xs:string"/>
-            <xs:attribute name="start" type="xs:string"/>
-            <xs:attribute name="end" type="xs:string"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="restriction">
-        <xs:complexType>
-            <xs:attribute name="type" type="xs:string"/>
-            <xs:attribute name="relationship" type="xs:string"/>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:complexType name="MediaContent">
-        <xs:complexContent>
-            <xs:extension base="media:BaseMedia">
-                <xs:attribute name="url" type="xs:string"/>
-                <xs:attribute name="fileSize" type="xs:long"/>
-                <xs:attribute name="bitrate" type="xs:int"/>
-                <xs:attribute name="type" type="xs:string"/>
-                <xs:attribute name="isDefault" type="xs:boolean"/>
-                <xs:attribute name="expression" type="xs:string"/>
-                <xs:attribute name="medium" type="xs:string"/>
-                <xs:attribute name="framerate" type="xs:int"/>
-                <xs:attribute name="samplingrate" type="xs:float"/>
-                <xs:attribute name="channels" type="xs:int"/>
-                <xs:attribute name="duration" type="xs:long"/>
-                <xs:attribute name="height" type="xs:int"/>
-                <xs:attribute name="width" type="xs:int"/>
-                <xs:attribute name="lang" type="xs:string"/>
-            </xs:extension>
-        </xs:complexContent>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="url" type="xs:string"/>
+      <xs:attribute name="width" type="xs:unsignedShort"/>
+      <xs:attribute name="height" type="xs:unsignedShort"/>
     </xs:complexType>
-
-    <xs:complexType name="Credit">
-        <xs:simpleContent>
-            <xs:extension base="xs:string">
-                <xs:attribute name="role" type="xs:string"/>
-            </xs:extension>
-        </xs:simpleContent>
+  </xs:element>
+  <xs:element name="responses">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="response" type="xs:string"/>
+      </xs:sequence>
     </xs:complexType>
-
-    <xs:complexType name="BaseMedia">
-        <xs:sequence>
-            <xs:element name="Title" type="media:TextOrHtml"/>
-            <xs:element name="player" type="media:Player"/>
-            <xs:element maxOccurs="unbounded" name="credit" type="media:Credit"/>
-            <xs:element name="category">
-                <xs:complexType>
-                    <xs:simpleContent>
-                        <xs:extension base="xs:string">
-                            <xs:attribute name="scheme" type="xs:string"/>
-                        </xs:extension>
-                    </xs:simpleContent>
-                </xs:complexType>
-            </xs:element>
-            <xs:element name="text" type="media:TextOrHtml" maxOccurs="unbounded"/>
-
-            <xs:element name="hash">
-                <xs:complexType>
-                    <xs:simpleContent>
-                        <xs:extension base="xs:string">
-                            <xs:attribute name="algo" type="xs:string"/>
-                        </xs:extension>
-                    </xs:simpleContent>
-                </xs:complexType>
-            </xs:element>
-
-            <xs:element name="rating" type="xs:string"/>
-
-        </xs:sequence>
-
+  </xs:element>
+  <xs:element name="backLinks">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="backLink" type="xs:string"/>
+      </xs:sequence>
     </xs:complexType>
-
-    <xs:complexType name="TextOrHtml">
-        <xs:attribute name="type">
-            <xs:simpleType>
-                <xs:restriction base="xs:string">
-                    <xs:enumeration value="plain"/>
-                    <xs:enumeration value="html"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
+  </xs:element>
+  <xs:element name="status">
+    <xs:complexType>
+      <xs:attribute name="state" type="xs:string"/>
     </xs:complexType>
+  </xs:element>
+  <xs:element name="price">
+    <xs:complexType>
+      <xs:attribute name="type" type="xs:string"/>
+      <xs:attribute name="price" type="xs:decimal"/>
+      <xs:attribute name="currency" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="license">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="type" type="xs:string"/>
+          <xs:attribute name="href" type="xs:string"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="subTitle">
+    <xs:complexType>
+      <xs:attribute name="type" type="xs:string"/>
+      <xs:attribute name="lang" type="xs:string"/>
+      <xs:attribute name="href" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="peerLink">
+    <xs:complexType>
+      <xs:attribute name="type" type="xs:string"/>
+      <xs:attribute name="href" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="location">
+    <xs:complexType>
+      <xs:attribute name="description" type="xs:string"/>
+      <xs:attribute name="start" type="xs:string"/>
+      <xs:attribute name="end" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="restriction">
+    <xs:complexType>
+      <xs:attribute name="type" type="xs:string"/>
+      <xs:attribute name="relationship" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
 
-    <xs:complexType name="Player">
+  <xs:complexType name="MediaContent">
+    <xs:complexContent>
+      <xs:extension base="media:BaseMedia">
         <xs:attribute name="url" type="xs:string"/>
-        <xs:attribute name="height" type="xs:unsignedByte"/>
-        <xs:attribute name="width" type="xs:unsignedShort"/>
-    </xs:complexType>
+        <xs:attribute name="fileSize" type="xs:long"/>
+        <xs:attribute name="bitrate" type="xs:int"/>
+        <xs:attribute name="type" type="xs:string"/>
+        <xs:attribute name="isDefault" type="xs:boolean"/>
+        <xs:attribute name="expression" type="xs:string"/>
+        <xs:attribute name="medium" type="xs:string"/>
+        <xs:attribute name="framerate" type="xs:int"/>
+        <xs:attribute name="samplingrate" type="xs:float"/>
+        <xs:attribute name="channels" type="xs:int"/>
+        <xs:attribute name="duration" type="xs:long"/>
+        <xs:attribute name="height" type="xs:int"/>
+        <xs:attribute name="width" type="xs:int"/>
+        <xs:attribute name="lang" type="xs:string"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Credit">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="role" type="xs:string"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="BaseMedia">
+    <xs:sequence>
+      <xs:element name="Title" type="media:TextOrHtml"/>
+      <xs:element name="player" type="media:Player"/>
+      <xs:element maxOccurs="unbounded" name="credit" type="media:Credit"/>
+      <xs:element name="category">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attribute name="scheme" type="xs:string"/>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="text" type="media:TextOrHtml" maxOccurs="unbounded"/>
+
+      <xs:element name="hash">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attribute name="algo" type="xs:string"/>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="rating" type="xs:string"/>
+
+    </xs:sequence>
+
+  </xs:complexType>
+
+  <xs:complexType name="TextOrHtml">
+    <xs:attribute name="type">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="plain"/>
+          <xs:enumeration value="html"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="Player">
+    <xs:attribute name="url" type="xs:string"/>
+    <xs:attribute name="height" type="xs:unsignedByte"/>
+    <xs:attribute name="width" type="xs:unsignedShort"/>
+  </xs:complexType>
 
 
 </xs:schema>

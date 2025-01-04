@@ -33,8 +33,7 @@ import io.github.borewit.lizzy.playlist.*;
  * @author Christophe Delory
  * @version $Revision: 92 $
  */
-public class PlaylistToString extends BasePlaylistVisitor
-{
+public class PlaylistToString extends BasePlaylistVisitor {
   /**
    * The string in construction.
    */
@@ -53,8 +52,7 @@ public class PlaylistToString extends BasePlaylistVisitor
   /**
    * Builds a new playlist visitor.
    */
-  public PlaylistToString()
-  {
+  public PlaylistToString() {
     _sb = new StringBuilder();
     _indent = 0;
     _debug = false;
@@ -67,26 +65,22 @@ public class PlaylistToString extends BasePlaylistVisitor
    *
    * @param debug the debug mode.
    */
-  public void setDebug(final boolean debug)
-  {
+  public void setDebug(final boolean debug) {
     _debug = debug;
   }
 
   @Override
-  public String toString()
-  {
+  public String toString() {
     return _sb.toString();
   }
 
   @Override
-  public void beginVisitParallel(final Parallel target)
-  {
+  public void beginVisitParallel(final Parallel target) {
     addIndent();
     _sb.append("PARALLEL(x");
     _sb.append(target.getRepeatCount());
 
-    if (_debug)
-    {
+    if (_debug) {
       _sb.append(", parent=");
       _sb.append(target.getParent() != null);
     }
@@ -97,20 +91,17 @@ public class PlaylistToString extends BasePlaylistVisitor
   }
 
   @Override
-  public void endVisitParallel(final Parallel target)
-  {
+  public void endVisitParallel(final Parallel target) {
     _indent -= 2;
   }
 
   @Override
-  public void beginVisitSequence(final Sequence target)
-  {
+  public void beginVisitSequence(final Sequence target) {
     addIndent();
     _sb.append("SEQUENCE(x");
     _sb.append(target.getRepeatCount());
 
-    if (_debug)
-    {
+    if (_debug) {
       _sb.append(", parent=");
       _sb.append(target.getParent() != null);
     }
@@ -121,27 +112,23 @@ public class PlaylistToString extends BasePlaylistVisitor
   }
 
   @Override
-  public void endVisitSequence(final Sequence target)
-  {
+  public void endVisitSequence(final Sequence target) {
     _indent -= 2;
   }
 
   @Override
-  public void beginVisitMedia(final Media target)
-  {
+  public void beginVisitMedia(final Media target) {
     addIndent();
     _sb.append("MEDIA(x");
     _sb.append(target.getRepeatCount());
 
-    if (target.getDuration() != null)
-    {
+    if (target.getDuration() != null) {
       _sb.append(", ");
       _sb.append(target.getDuration());
       _sb.append("ms");
     }
 
-    if (_debug)
-    {
+    if (_debug) {
       _sb.append(", parent=");
       _sb.append(target.getParent() != null);
     }
@@ -150,37 +137,32 @@ public class PlaylistToString extends BasePlaylistVisitor
 
     final Content content = target.getSource();
 
-    if (content != null)
-    {
+    if (content != null) {
       _sb.append(": ");
       _sb.append(content);
       _sb.append(" [length=");
       _sb.append(content.getLength());
       _sb.append(" bytes");
 
-      if (content.getDuration() >= 0L)
-      {
+      if (content.getDuration() >= 0L) {
         _sb.append(", duration=");
         _sb.append(content.getDuration());
         _sb.append("ms");
       }
 
-      if ((content.getWidth() >= 0) && (content.getHeight() >= 0))
-      {
+      if ((content.getWidth() >= 0) && (content.getHeight() >= 0)) {
         _sb.append(", ");
         _sb.append(content.getWidth());
         _sb.append('x');
         _sb.append(content.getHeight());
       }
 
-      if (content.getType() != null)
-      {
+      if (content.getType() != null) {
         _sb.append(", type=");
         _sb.append(content.getType());
       }
 
-      if (content.getEncoding() != null)
-      {
+      if (content.getEncoding() != null) {
         _sb.append(", encoding=");
         _sb.append(content.getEncoding());
       }
@@ -197,10 +179,8 @@ public class PlaylistToString extends BasePlaylistVisitor
    * @see #_indent
    * @see #_sb
    */
-  private void addIndent()
-  {
-    for (int i = 0; i < _indent; i++)
-    {
+  private void addIndent() {
+    for (int i = 0; i < _indent; i++) {
       _sb.append(' ');
     }
   }

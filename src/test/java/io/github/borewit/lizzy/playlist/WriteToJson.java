@@ -16,8 +16,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 @DisplayName("Utility to write playlist sample data to JSON")
-public class WriteToJson
-{
+public class WriteToJson {
 
   /**
    * Only used to seed the test reference data
@@ -25,12 +24,10 @@ public class WriteToJson
   @DisplayName("Write playlists to JSON")
   @Test
   @Disabled
-  void writeJson() throws IOException
-  {
+  void writeJson() throws IOException {
     final Map<String, JsonPlaylist> playlistMap = new TreeMap<>();
 
-    for (Path samplePath : TestUtil.getSamplePaths())
-    {
+    for (Path samplePath : TestUtil.getSamplePaths()) {
       Playlist playlist = TestUtil.readPlaylistFrom(samplePath.toString());
       Path relativeSamplePath = TestUtil.sampleFolderPath.relativize(samplePath);
       String normalizedPath = FilenameUtils.separatorsToUnix(relativeSamplePath.toString());

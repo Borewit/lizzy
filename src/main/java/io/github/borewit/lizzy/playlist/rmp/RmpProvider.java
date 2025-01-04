@@ -46,8 +46,7 @@ import java.util.List;
  * @author Christophe Delory
  * @since 0.3.0
  */
-public class RmpProvider extends JaxbPlaylistProvider<RmpPackage>
-{
+public class RmpProvider extends JaxbPlaylistProvider<RmpPackage> {
   public static Charset TextEncoding = StandardCharsets.US_ASCII;
 
   /**
@@ -64,46 +63,38 @@ public class RmpProvider extends JaxbPlaylistProvider<RmpPackage>
         "Real Metadata Package (RMP)"),
     };
 
-  public RmpProvider()
-  {
+  public RmpProvider() {
     super(RmpPackage.class);
     this.setTextEncoding(TextEncoding);
   }
 
   @Override
-  public String getId()
-  {
+  public String getId() {
     return "rmp";
   }
 
   @Override
-  public ContentType[] getContentTypes()
-  {
+  public ContentType[] getContentTypes() {
     return FILETYPES.clone();
   }
 
   @Override
-  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException
-  {
-    try
-    {
+  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException {
+    try {
       final JAXBElement<RmpPackage> rmp = this.unmarshal(inputStream);
       String rootElementName = rmp.getName().getLocalPart();
 
       return rootElementName != null && rootElementName.equalsIgnoreCase("PACKAGE") ?
         new RmpPlaylistAdapter(this, rmp.getValue()) : null;
 
-    }
-    catch (JAXBException | XMLStreamException exception)
-    {
+    } catch (JAXBException | XMLStreamException exception) {
       throw new IOException(exception);
     }
 
   }
 
   @Override
-  public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws IOException
-  {
+  public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws IOException {
     final RmpPackage rmpPackage = new RmpPackage();
 
     rmpPackage.setTITLE("Lizzy v" + Version.CURRENT + " RMP playlist");
@@ -135,44 +126,32 @@ public class RmpProvider extends JaxbPlaylistProvider<RmpPackage>
    * @param trackList the parent track list. Shall not be <code>null</code>.
    * @param component the generic playlist component to handle. Shall not be <code>null</code>.
    */
-  private void addToPlaylist(final List<RmpPackage.TRACKLIST.TRACK> trackList, final AbstractPlaylistComponent component)
-  {
-    if (component instanceof Sequence)
-    {
+  private void addToPlaylist(final List<RmpPackage.TRACKLIST.TRACK> trackList, final AbstractPlaylistComponent component) {
+    if (component instanceof Sequence) {
       final Sequence sequence = (Sequence) component;
 
-      if (sequence.getRepeatCount() < 0)
-      {
+      if (sequence.getRepeatCount() < 0) {
         throw new IllegalArgumentException("A RMP playlist cannot handle a sequence repeated indefinitely");
       }
 
-      for (int iter = 0; iter < sequence.getRepeatCount(); iter++)
-      {
+      for (int iter = 0; iter < sequence.getRepeatCount(); iter++) {
         sequence.getComponents().forEach(c -> addToPlaylist(trackList, c));
       }
-    }
-    else if (component instanceof Parallel)
-    {
+    } else if (component instanceof Parallel) {
       throw new IllegalArgumentException("A RMP playlist cannot play different media at the same time");
-    }
-    else if (component instanceof Media)
-    {
+    } else if (component instanceof Media) {
       final Media media = (Media) component;
 
-      if (media.getDuration() != null)
-      {
+      if (media.getDuration() != null) {
         throw new IllegalArgumentException("A RMP playlist cannot handle a timed media");
       }
 
-      if (media.getRepeatCount() < 0)
-      {
+      if (media.getRepeatCount() < 0) {
         throw new IllegalArgumentException("A RMP playlist cannot handle a media repeated indefinitely");
       }
 
-      if (media.getSource() != null)
-      {
-        for (int iter = 0; iter < media.getRepeatCount(); iter++)
-        {
+      if (media.getSource() != null) {
+        for (int iter = 0; iter < media.getRepeatCount(); iter++) {
           final RmpPackage.TRACKLIST.TRACK track = new RmpPackage.TRACKLIST.TRACK(); // NOPMD Avoid instantiating new objects inside loops
           track.setTRACKID(Integer.toString(System.identityHashCode(track))); // FIXME Why not media.getSource() as id?
           track.setTITLE(media.getSource().toString());

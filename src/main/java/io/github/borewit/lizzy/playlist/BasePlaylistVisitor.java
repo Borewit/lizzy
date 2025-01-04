@@ -30,53 +30,44 @@ package io.github.borewit.lizzy.playlist;
  * @author Christophe Delory
  * @version $Revision: 90 $
  */
-public class BasePlaylistVisitor implements PlaylistVisitor
-{
+public class BasePlaylistVisitor implements PlaylistVisitor {
   @Override
-  public void beginVisitPlaylist(final Playlist target)
-  {
+  public void beginVisitPlaylist(final Playlist target) {
     // No-op.
   }
 
   @Override
-  public void endVisitPlaylist(final Playlist target)
-  {
+  public void endVisitPlaylist(final Playlist target) {
     // No-op.
   }
 
   @Override
-  public void beginVisitParallel(final Parallel target)
-  {
+  public void beginVisitParallel(final Parallel target) {
     // No-op.
   }
 
   @Override
-  public void endVisitParallel(final Parallel target)
-  {
+  public void endVisitParallel(final Parallel target) {
     // No-op.
   }
 
   @Override
-  public void beginVisitSequence(final Sequence target)
-  {
+  public void beginVisitSequence(final Sequence target) {
     // No-op.
   }
 
   @Override
-  public void endVisitSequence(final Sequence target)
-  {
+  public void endVisitSequence(final Sequence target) {
     // No-op.
   }
 
   @Override
-  public void beginVisitMedia(final Media target)
-  {
+  public void beginVisitMedia(final Media target) {
     // No-op.
   }
 
   @Override
-  public void endVisitMedia(final Media target)
-  {
+  public void endVisitMedia(final Media target) {
     // No-op.
   }
 }

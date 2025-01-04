@@ -8,19 +8,15 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class ReadPlaylistExample
-{
-  public static void main(String[] args) throws IOException
-  {
+public class ReadPlaylistExample {
+  public static void main(String[] args) throws IOException {
     Path playlistPath = Paths.get(System.getProperty("user.dir"), "samples", "asx", "test01.asx");
     SpecificPlaylist specificPlaylist = SpecificPlaylistFactory.getInstance().readFrom(playlistPath);
-    if (specificPlaylist == null)
-    {
+    if (specificPlaylist == null) {
       System.exit(-1);
     }
     specificPlaylist.toPlaylist().getRootSequence().getComponents().forEach(component -> {
-      if (component instanceof Media)
-      {
+      if (component instanceof Media) {
         Media media = (Media) component;
         System.out.printf("Media with content-source=%s\n", media.getSource().toString());
       }

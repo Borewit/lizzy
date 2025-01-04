@@ -49,8 +49,7 @@ import java.util.List;
  * @author Christophe Delory
  * @version $Revision: 91 $
  */
-public class PLSProvider implements SpecificPlaylistProvider
-{
+public class PLSProvider implements SpecificPlaylistProvider {
   private final Logger logger = LogManager.getLogger(PLSProvider.class);
 
   public static Charset TextEncoding = StandardCharsets.UTF_8;
@@ -77,20 +76,17 @@ public class PLSProvider implements SpecificPlaylistProvider
     };
 
   @Override
-  public String getId()
-  {
+  public String getId() {
     return "pls";
   }
 
   @Override
-  public ContentType[] getContentTypes()
-  {
+  public ContentType[] getContentTypes() {
     return FILETYPES.clone();
   }
 
   @Override
-  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException
-  {
+  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException {
     final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, TextEncoding)); // Throws NullPointerException if in is null. May throw UnsupportedEncodingException, IOException.
 
     PLS ret = new PLS();
@@ -104,11 +100,9 @@ public class PLSProvider implements SpecificPlaylistProvider
     {
       line = line.trim();
 
-      if (line.length() > 0)
-      {
+      if (line.length() > 0) {
         // First the PLS marker string.
-        if (!magicFound)
-        {
+        if (!magicFound) {
           if (!line.equalsIgnoreCase("[playlist]")) // NOPMD Deeply nested if..then statements are hard to read
           {
             throw new IllegalArgumentException("Not a PLS playlist format");
@@ -120,8 +114,7 @@ public class PLSProvider implements SpecificPlaylistProvider
 
         final int idx = line.indexOf('=');
 
-        if (idx <= 0)
-        {
+        if (idx <= 0) {
           logger.error("Malformed PLS playlist");
           ret = null;
           break;
@@ -130,160 +123,123 @@ public class PLSProvider implements SpecificPlaylistProvider
         String key = line.substring(0, idx).trim().toLowerCase(); // Shall not throw IndexOutOfBoundsException.
         final String value = line.substring(idx + 1).trim(); // Shall not throw IndexOutOfBoundsException.
 
-        if ("numberofentries".equals(key))
-        {
+        if ("numberofentries".equals(key)) {
           int tmpValue;
 
-          try
-          {
+          try {
             tmpValue = Integer.parseInt(value); // May throw NumberFormatException.
-          }
-          catch (NumberFormatException e)
-          {
+          } catch (NumberFormatException e) {
             logger.error(e.toString());
             ret = null;
             break;
           }
 
-          if (tmpValue < 0)
-          {
+          if (tmpValue < 0) {
             logger.warn("Invalid NumberOfEntries in PLS playlist: " + tmpValue);
             ret = null;
             break;
           }
 
           // Test if already found.
-          if ((numberOfEntries >= 0) && (numberOfEntries != tmpValue))
-          {
+          if ((numberOfEntries >= 0) && (numberOfEntries != tmpValue)) {
             logger.error("PLS playlist number of entries already specified with a different value");
             ret = null;
             break;
           }
 
           numberOfEntries = tmpValue;
-        }
-        else if (key.startsWith("file"))
-        {
+        } else if (key.startsWith("file")) {
           key = key.substring(4); // Shall not throw IndexOutOfBoundsException.
           int resourceIndex;
 
-          try
-          {
+          try {
             resourceIndex = Integer.parseInt(key) - 1; // May throw NumberFormatException.
-          }
-          catch (NumberFormatException e)
-          {
+          } catch (NumberFormatException e) {
             logger.error(e.toString());
             ret = null;
             break;
           }
 
           // Ensure that the resource list has enough slots.
-          for (int i = ret.getResources().size(); i < (resourceIndex + 1); i++)
-          {
+          for (int i = ret.getResources().size(); i < (resourceIndex + 1); i++) {
             ret.getResources().add(new Resource()); // NOPMD Avoid instantiating new objects inside loops
           }
 
           final Resource resource = ret.getResources().get(resourceIndex); // Shall not throw ArrayIndexOutOfBoundsException.
           resource.setLocation(value);
-        }
-        // The Title field is optional.
-        else if (key.startsWith("title"))
-        {
+        } else if (key.startsWith("title")) {
+          // The Title field is optional.
           key = key.substring(5); // Shall not throw IndexOutOfBoundsException.
           int resourceIndex;
 
-          try
-          {
+          try {
             resourceIndex = Integer.parseInt(key) - 1; // May throw NumberFormatException.
-          }
-          catch (NumberFormatException e)
-          {
+          } catch (NumberFormatException e) {
             logger.error(e.toString());
             ret = null;
             break;
           }
 
           // Ensure that the resource list has enough slots.
-          for (int i = ret.getResources().size(); i < (resourceIndex + 1); i++)
-          {
+          for (int i = ret.getResources().size(); i < (resourceIndex + 1); i++) {
             ret.getResources().add(new Resource()); // NOPMD Avoid instantiating new objects inside loops
           }
 
           final Resource resource = ret.getResources().get(resourceIndex); // Shall not throw ArrayIndexOutOfBoundsException.
           resource.setName(value);
-        }
-        // The Length field is either the length of the recording in seconds or -1 (unspecified or live stream).
-        else if (key.startsWith("length"))
-        {
+        } else if (key.startsWith("length")) {
+          // The Length field is either the length of the recording in seconds or -1 (unspecified or live stream).
           key = key.substring(6); // Shall not throw IndexOutOfBoundsException.
           int resourceIndex;
 
-          try
-          {
+          try {
             resourceIndex = Integer.parseInt(key) - 1; // May throw NumberFormatException.
-          }
-          catch (NumberFormatException e)
-          {
+          } catch (NumberFormatException e) {
             logger.error(e.toString());
             ret = null;
             break;
           }
 
           // Ensure that the resource list has enough slots.
-          for (int i = ret.getResources().size(); i < (resourceIndex + 1); i++)
-          {
+          for (int i = ret.getResources().size(); i < (resourceIndex + 1); i++) {
             ret.getResources().add(new Resource()); // NOPMD Avoid instantiating new objects inside loops
           }
 
           final Resource resource = ret.getResources().get(resourceIndex); // Shall not throw ArrayIndexOutOfBoundsException.
 
-          try
-          {
+          try {
             resource.setLength(Long.parseLong(value)); // May throw NumberFormatException.
-          }
-          catch (NumberFormatException e)
-          {
+          } catch (NumberFormatException e) {
             logger.error(e.toString());
             ret = null;
             break;
           }
-        }
-        else if ("version".equals(key))
-        {
+        } else if ("version".equals(key)) {
           // If present, shall be "2".
-          if (!"2".equals(value))
-          {
+          if (!"2".equals(value)) {
             logger.error("Unknown PLS version " + value);
             ret = null;
             break;
           }
-        }
-        else // FIXME "PlaylistName" ???
+        } else // FIXME "PlaylistName" ???
         {
           logger.warn("Unknown PLS keyword " + key);
         }
       }
     }
 
-    if (ret != null)
-    {
-      if (numberOfEntries < 0)
-      {
+    if (ret != null) {
+      if (numberOfEntries < 0) {
         logger.warn("No number of entries in PLS playlist");
-      }
-      else
-      {
+      } else {
         // Ignore any extra resource, if the number of entries has been specified so far.
         final int extras = ret.getResources().size() - numberOfEntries;
 
-        if (extras > 0)
-        {
+        if (extras > 0) {
           logger.warn("Ignoring " + extras + " extra resources according to the specified number of entries " + numberOfEntries);
         }
 
-        for (int i = 0; i < extras; i++)
-        {
+        for (int i = 0; i < extras; i++) {
           ret.getResources().remove(numberOfEntries); // Shall not throw UnsupportedOperationException, IndexOutOfBoundsException.
         }
       }
@@ -293,8 +249,7 @@ public class PLSProvider implements SpecificPlaylistProvider
   }
 
   @Override
-  public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws IOException
-  {
+  public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws IOException {
     final PLS ret = new PLS();
     ret.setProvider(this);
 
@@ -309,49 +264,36 @@ public class PLSProvider implements SpecificPlaylistProvider
    * @param resources the resulting list of resources. Shall not be <code>null</code>.
    * @param component the generic playlist component to handle. Shall not be <code>null</code>.
    */
-  private void addToPlaylist(final List<Resource> resources, final AbstractPlaylistComponent component)
-  {
-    if (component instanceof Sequence)
-    {
+  private void addToPlaylist(final List<Resource> resources, final AbstractPlaylistComponent component) {
+    if (component instanceof Sequence) {
       final Sequence seq = (Sequence) component;
 
-      if (seq.getRepeatCount() < 0)
-      {
+      if (seq.getRepeatCount() < 0) {
         throw new IllegalArgumentException("A PLS playlist cannot handle a sequence repeated indefinitely");
       }
 
-      for (int iter = 0; iter < seq.getRepeatCount(); iter++)
-      {
+      for (int iter = 0; iter < seq.getRepeatCount(); iter++) {
         seq.getComponents().forEach(c -> addToPlaylist(resources, c));
       }
-    }
-    else if (component instanceof Parallel)
-    {
+    } else if (component instanceof Parallel) {
       throw new IllegalArgumentException("A parallel time container is incompatible with a PLS playlist");
-    }
-    else if (component instanceof Media)
-    {
+    } else if (component instanceof Media) {
       final Media media = (Media) component;
 
-      if (media.getDuration() != null)
-      {
+      if (media.getDuration() != null) {
         throw new IllegalArgumentException("A PLS playlist cannot handle a timed media");
       }
 
-      if (media.getRepeatCount() < 0)
-      {
+      if (media.getRepeatCount() < 0) {
         throw new IllegalArgumentException("A PLS playlist cannot handle a media repeated indefinitely");
       }
 
-      if (media.getSource() != null)
-      {
-        for (int iter = 0; iter < media.getRepeatCount(); iter++)
-        {
+      if (media.getSource() != null) {
+        for (int iter = 0; iter < media.getRepeatCount(); iter++) {
           final Resource resource = new Resource(); // NOPMD Avoid instantiating new objects inside loops
           resource.setLocation(media.getSource().toString());
 
-          if (media.getSource().getDuration() >= 0L)
-          {
+          if (media.getSource().getDuration() >= 0L) {
             resource.setLength((media.getSource().getDuration() + 999L) / 1000L);
           }
 

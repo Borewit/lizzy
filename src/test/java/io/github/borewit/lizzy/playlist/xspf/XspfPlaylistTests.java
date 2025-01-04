@@ -13,13 +13,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DisplayName("XSPF Playlist Tests")
-public class XspfPlaylistTests
-{
+public class XspfPlaylistTests {
 
   @Test
   @DisplayName("Read from XSPF Playlist")
-  public void readPlist() throws IOException
-  {
+  public void readPlist() throws IOException {
 
     Playlist playlist = TestUtil.readPlaylistFrom("xspf/test02.xspf");
     assertNotNull(playlist, "playlist");
@@ -31,12 +29,10 @@ public class XspfPlaylistTests
 
   @Test
   @DisplayName("Write to XSPF Playlist")
-  public void writePlist() throws IOException
-  {
+  public void writePlist() throws IOException {
     Playlist playlist = TestUtil.makeAbstractPlaylist();
     XspfProvider plistProvider = new XspfProvider();
-    try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream())
-    {
+    try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
       SpecificPlaylist specificPlaylist = plistProvider.toSpecificPlaylist(playlist);
       specificPlaylist.writeTo(byteArrayOutputStream);
     }

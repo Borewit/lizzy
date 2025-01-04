@@ -32,8 +32,7 @@ import io.github.borewit.lizzy.lang.StringUtils;
  * @author Christophe Delory
  * @version $Revision: 92 $
  */
-public class Resource
-{
+public class Resource {
   /**
    * The title or name of the resource.
    */
@@ -56,8 +55,7 @@ public class Resource
    * @return the resource name. May be <code>null</code>.
    * @see #setName
    */
-  public String getName()
-  {
+  public String getName() {
     return _name;
   }
 
@@ -67,8 +65,7 @@ public class Resource
    * @param name a resource name. May be <code>null</code>.
    * @see #getName
    */
-  public void setName(final String name)
-  {
+  public void setName(final String name) {
     _name = StringUtils.normalize(name);
   }
 
@@ -78,8 +75,7 @@ public class Resource
    * @return the resource location. May be <code>null</code> if not yet initialized.
    * @see #setLocation
    */
-  public String getLocation()
-  {
+  public String getLocation() {
     return _location;
   }
 
@@ -91,8 +87,7 @@ public class Resource
    * @throws NullPointerException if <code>location</code> is <code>null</code>.
    * @see #getLocation
    */
-  public void setLocation(final String location)
-  {
+  public void setLocation(final String location) {
     _location = location.trim(); // Throws NullPointerException if location is null.
   }
 
@@ -103,8 +98,7 @@ public class Resource
    * @return a time length in seconds.
    * @see #setLength
    */
-  public long getLength()
-  {
+  public long getLength() {
     return _seconds;
   }
 
@@ -114,15 +108,11 @@ public class Resource
    * @param seconds a time length in seconds.
    * @see #getLength
    */
-  public void setLength(final long seconds)
-  {
+  public void setLength(final long seconds) {
     // Enforce the value of -1.
-    if (seconds < 0L)
-    {
+    if (seconds < 0L) {
       _seconds = -1L;
-    }
-    else
-    {
+    } else {
       _seconds = seconds;
     }
   }

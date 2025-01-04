@@ -44,8 +44,7 @@ import java.util.*;
  * @author Christophe Delory
  * @version $Revision: 92 $
  */
-public final class SpecificPlaylistFactory
-{
+public final class SpecificPlaylistFactory {
   /**
    * The singleton instance.
    */
@@ -56,12 +55,9 @@ public final class SpecificPlaylistFactory
    *
    * @return an instance of this class. Shall not be <code>null</code>.
    */
-  public static SpecificPlaylistFactory getInstance()
-  {
-    synchronized (SpecificPlaylistFactory.class)
-    {
-      if (_instance == null)
-      {
+  public static SpecificPlaylistFactory getInstance() {
+    synchronized (SpecificPlaylistFactory.class) {
+      if (_instance == null) {
         _instance = new SpecificPlaylistFactory();
       }
     }
@@ -82,8 +78,7 @@ public final class SpecificPlaylistFactory
   /**
    * Builds a new specific playlist factory.
    */
-  private SpecificPlaylistFactory()
-  {
+  private SpecificPlaylistFactory() {
     _serviceLoader = ServiceLoader.load(SpecificPlaylistProvider.class);
   }
 
@@ -91,8 +86,7 @@ public final class SpecificPlaylistFactory
    * Refreshes the list of playlist providers managed by this factory.
    * If new providers are added after the instantiation of this factory, you will need to call this method manually.
    */
-  public void reloadProviders()
-  {
+  public void reloadProviders() {
     _serviceLoader.reload();
   }
 
@@ -100,7 +94,7 @@ public final class SpecificPlaylistFactory
    * Reads a playlist from the specified playlistPath.
    *
    * @param playlistPath Path to playlist contents. Shall not be <code>null</code>.
-   * @param options Options passed to java.nio.file.Files.newInputStream()
+   * @param options      Options passed to java.nio.file.Files.newInputStream()
    * @return A new playlist instance, or <code>null</code> if the format has been recognized, but the playlist is malformed.
    * @throws NullPointerException if <code>url</code> is <code>null</code>.
    * @throws IOException          if an I/O exception occurs.
@@ -108,21 +102,15 @@ public final class SpecificPlaylistFactory
    * @see #readFrom(File)
    * @see java.nio.file.Files#newInputStream(Path, OpenOption...)
    */
-  public SpecificPlaylist readFrom(Path playlistPath, OpenOption... options) throws IOException
-  {
+  public SpecificPlaylist readFrom(Path playlistPath, OpenOption... options) throws IOException {
     List<SpecificPlaylistProvider> playlistProviders = this.findProvidersByExtension(playlistPath);
-    for (SpecificPlaylistProvider playlistProvider : playlistProviders)
-    {
-      try (InputStream is = Files.newInputStream(playlistPath, options))
-      {
-        try
-        {
+    for (SpecificPlaylistProvider playlistProvider : playlistProviders) {
+      try (InputStream is = Files.newInputStream(playlistPath, options)) {
+        try {
           SpecificPlaylist specificPlaylist = playlistProvider.readFrom(is);
           if (specificPlaylist != null)
             return specificPlaylist;
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
           throw new IOException(String.format("Failed to read playlist using provider-id=%s: \"%s\"", playlistProvider.getId(), playlistPath), e);
         }
       }
@@ -140,12 +128,10 @@ public final class SpecificPlaylistFactory
    * @see SpecificPlaylistProvider#readFrom
    * @see #readFrom(File)
    */
-  public SpecificPlaylist readFrom(final URL url) throws IOException
-  {
+  public SpecificPlaylist readFrom(final URL url) throws IOException {
     SpecificPlaylist ret = null;
 
-    for (SpecificPlaylistProvider service : _serviceLoader)
-    {
+    for (SpecificPlaylistProvider service : _serviceLoader) {
       final URLConnection urlConnection = url.openConnection(); //  Throws NullPointerException if url is null. May throw IOException.
       urlConnection.setAllowUserInteraction(false); // Shall not throw IllegalStateException.
       urlConnection.setConnectTimeout(10000); // Shall not throw IllegalArgumentException.
@@ -161,26 +147,18 @@ public final class SpecificPlaylistFactory
       //final String contentType = urlConnection.getContentType(); // May be null.
 
       final InputStream in = urlConnection.getInputStream(); // May throw IOException, UnknownServiceException.
-      try
-      {
+      try {
         ret = service.readFrom(in); // May throw Exception. Shall not throw NullPointerException because of in.
         if (ret == null) continue;
         break;
-      }
-      catch (Exception e)
-      {
+      } catch (Exception e) {
         // Ignore it.
-        if (logger.isTraceEnabled())
-        {
+        if (logger.isTraceEnabled()) {
           logger.trace("Playlist provider " + service.getId() + " cannot unmarshal <" + url + ">", e);
-        }
-        else if (logger.isDebugEnabled())
-        {
+        } else if (logger.isDebugEnabled()) {
           logger.debug("Playlist provider " + service.getId() + " cannot unmarshal <" + url + ">: " + e);
         }
-      }
-      finally
-      {
+      } finally {
         in.close(); // May throw IOException.
       }
     }
@@ -198,8 +176,7 @@ public final class SpecificPlaylistFactory
    * @throws IOException          if an I/O exception occurs.
    * @see #readFrom(URL)
    */
-  public SpecificPlaylist readFrom(final File file) throws IOException
-  {
+  public SpecificPlaylist readFrom(final File file) throws IOException {
     return readFrom(file.toURI().toURL()); // Throws NullPointerException if file is null. May throw SecurityException, IOException. Shall not throw IllegalArgumentException.
   }
 
@@ -211,8 +188,7 @@ public final class SpecificPlaylistFactory
    * @throws NullPointerException if <code>id</code> is <code>null</code>.
    * @see #findProvidersByExtension(String)
    */
-  public SpecificPlaylistProvider getProvider(final PlaylistFormat playlistFormat)
-  {
+  public SpecificPlaylistProvider getProvider(final PlaylistFormat playlistFormat) {
     return playlistFormat == null ? null : findProviderById(playlistFormat.name());
   }
 
@@ -224,12 +200,10 @@ public final class SpecificPlaylistFactory
    * @throws NullPointerException if <code>id</code> is <code>null</code>.
    * @see #findProvidersByExtension(String)
    */
-  public SpecificPlaylistProvider findProviderById(final String id)
-  {
+  public SpecificPlaylistProvider findProviderById(final String id) {
     SpecificPlaylistProvider ret = null;
 
-    for (SpecificPlaylistProvider service : _serviceLoader)
-    {
+    for (SpecificPlaylistProvider service : _serviceLoader) {
       if (id.equalsIgnoreCase(service.getId())) // Throws NullPointerException if id is null.
       {
         ret = service;
@@ -248,8 +222,7 @@ public final class SpecificPlaylistFactory
    * @throws NullPointerException if <code>filename</code> is <code>null</code>.
    * @see #findProviderById
    */
-  public List<SpecificPlaylistProvider> findProvidersByExtension(final Path playlistPath)
-  {
+  public List<SpecificPlaylistProvider> findProvidersByExtension(final Path playlistPath) {
     return findProvidersByExtension(playlistPath.getFileName().toString());
   }
 
@@ -261,20 +234,16 @@ public final class SpecificPlaylistFactory
    * @throws NullPointerException if <code>filename</code> is <code>null</code>.
    * @see #findProviderById
    */
-  public List<SpecificPlaylistProvider> findProvidersByExtension(final String filename)
-  {
+  public List<SpecificPlaylistProvider> findProvidersByExtension(final String filename) {
     List<SpecificPlaylistProvider> specificPlaylistProviders = new LinkedList<>();
     final String name = filename.toLowerCase(Locale.ENGLISH); // Throws NullPointerException if filename is null.
 
 
-    for (SpecificPlaylistProvider service : _serviceLoader)
-    {
+    for (SpecificPlaylistProvider service : _serviceLoader) {
       final ContentType[] types = service.getContentTypes();
 
-      for (ContentType type : types)
-      {
-        if (type.matchExtension(name))
-        {
+      for (ContentType type : types) {
+        if (type.matchExtension(name)) {
           specificPlaylistProviders.add(service);
         }
       }
@@ -291,12 +260,10 @@ public final class SpecificPlaylistFactory
    * @see #findProviderById
    * @since 0.2.0
    */
-  public List<SpecificPlaylistProvider> getProviders()
-  {
+  public List<SpecificPlaylistProvider> getProviders() {
     final ArrayList<SpecificPlaylistProvider> ret = new ArrayList<SpecificPlaylistProvider>();
 
-    for (SpecificPlaylistProvider service : _serviceLoader)
-    {
+    for (SpecificPlaylistProvider service : _serviceLoader) {
       ret.add(service);
     }
 

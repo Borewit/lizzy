@@ -10,8 +10,7 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-public class M3U8Provider extends AbstractM3UProvider
-{
+public class M3U8Provider extends AbstractM3UProvider {
 
   public static final Charset M3u8TextEncoding = StandardCharsets.UTF_8;
 
@@ -31,20 +30,17 @@ public class M3U8Provider extends AbstractM3UProvider
     };
 
   @Override
-  public String getId()
-  {
+  public String getId() {
     return "m3u8";
   }
 
   @Override
-  public ContentType[] getContentTypes()
-  {
+  public ContentType[] getContentTypes() {
     return FILETYPES.clone();
   }
 
   @Override
-  public SpecificPlaylist toSpecificPlaylist(final Playlist playlist)
-  {
+  public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) {
     final M3U8 ret = new M3U8();
     ret.setProvider(this);
 
@@ -53,8 +49,7 @@ public class M3U8Provider extends AbstractM3UProvider
     return ret;
   }
 
-  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException
-  {
+  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException {
     return super.readPlaylist(new M3U8(), inputStream, M3u8TextEncoding);
   }
 }

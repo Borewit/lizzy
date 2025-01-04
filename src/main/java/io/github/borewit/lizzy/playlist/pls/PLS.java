@@ -60,8 +60,7 @@ import java.util.List;
  * @author Christophe Delory
  * @version $Revision: 91 $
  */
-public class PLS implements SpecificPlaylist
-{
+public class PLS implements SpecificPlaylist {
   /**
    * The provider of this specific playlist.
    */
@@ -72,20 +71,17 @@ public class PLS implements SpecificPlaylist
    */
   private final List<Resource> _resources = new ArrayList<Resource>();
 
-  public void setProvider(final SpecificPlaylistProvider provider)
-  {
+  public void setProvider(final SpecificPlaylistProvider provider) {
     _provider = provider;
   }
 
   @Override
-  public SpecificPlaylistProvider getProvider()
-  {
+  public SpecificPlaylistProvider getProvider() {
     return _provider;
   }
 
   @Override
-  public void writeTo(final OutputStream out) throws IOException
-  {
+  public void writeTo(final OutputStream out) throws IOException {
 
     final BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, PLSProvider.TextEncoding)); // Throws NullPointerException if out is null. May throw UnsupportedEncodingException.
 
@@ -99,16 +95,14 @@ public class PLS implements SpecificPlaylist
 
     int i = 1;
 
-    for (Resource resource : _resources)
-    {
+    for (Resource resource : _resources) {
       writer.write("File"); // May throw IOException.
       writer.write(Integer.toString(i)); // May throw IOException.
       writer.write("="); // May throw IOException.
       writer.write(resource.getLocation()); // May throw NullPointerException, IOException.
       writer.newLine(); // May throw IOException.
 
-      if (resource.getName() != null)
-      {
+      if (resource.getName() != null) {
         writer.write("Title"); // May throw IOException.
         writer.write(Integer.toString(i)); // May throw IOException.
         writer.write("="); // May throw IOException.
@@ -116,8 +110,7 @@ public class PLS implements SpecificPlaylist
         writer.newLine(); // May throw IOException.
       }
 
-      if (resource.getLength() >= 0L)
-      {
+      if (resource.getLength() >= 0L) {
         writer.write("Length"); // May throw IOException.
         writer.write(Integer.toString(i)); // May throw IOException.
         writer.write("="); // May throw IOException.
@@ -135,14 +128,11 @@ public class PLS implements SpecificPlaylist
   }
 
   @Override
-  public Playlist toPlaylist()
-  {
+  public Playlist toPlaylist() {
     final Playlist ret = new Playlist();
 
-    for (Resource resource : _resources)
-    {
-      if (resource.getLocation() != null)
-      {
+    for (Resource resource : _resources) {
+      if (resource.getLocation() != null) {
         final Media media = new Media(); // NOPMD Avoid instantiating new objects inside loops
         final Content content = new Content(resource.getLocation()); // NOPMD Avoid instantiating new objects inside loops
         media.setSource(content);
@@ -161,8 +151,7 @@ public class PLS implements SpecificPlaylist
    *
    * @return a list of child resources. May be empty but not <code>null</code>.
    */
-  public List<Resource> getResources()
-  {
+  public List<Resource> getResources() {
     return _resources;
   }
 }

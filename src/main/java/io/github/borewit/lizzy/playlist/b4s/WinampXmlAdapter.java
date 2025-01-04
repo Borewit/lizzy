@@ -37,8 +37,7 @@ import java.io.OutputStream;
  * @author Borewit
  * @author Christophe Delory
  */
-public class WinampXmlAdapter extends PlaylistWithTextEncoding
-{
+public class WinampXmlAdapter extends PlaylistWithTextEncoding {
   private final WinampXML winampXML;
 
   /**
@@ -46,41 +45,33 @@ public class WinampXmlAdapter extends PlaylistWithTextEncoding
    */
   private final WinampXmlProvider provider;
 
-  public WinampXmlAdapter(WinampXmlProvider provider, WinampXML winampXML)
-  {
+  public WinampXmlAdapter(WinampXmlProvider provider, WinampXML winampXML) {
     super(provider);
     this.provider = provider;
     this.winampXML = winampXML;
   }
 
   @Override
-  public SpecificPlaylistProvider getProvider()
-  {
+  public SpecificPlaylistProvider getProvider() {
     return provider;
   }
 
   @Override
-  public void writeTo(final OutputStream out) throws IOException
-  {
+  public void writeTo(final OutputStream out) throws IOException {
     this.provider.writeTo(this.winampXML, out);
   }
 
   @Override
-  public Playlist toPlaylist()
-  {
+  public Playlist toPlaylist() {
     final Playlist ret = new Playlist();
 
-    if (this.winampXML.getPlaylist() != null)
-    {
-      for (WinampXML.Playlist.Entry entry : this.winampXML.getPlaylist().getEntry())
-      {
-        if (entry.getPlaystring() != null)
-        {
+    if (this.winampXML.getPlaylist() != null) {
+      for (WinampXML.Playlist.Entry entry : this.winampXML.getPlaylist().getEntry()) {
+        if (entry.getPlaystring() != null) {
           final Media media = new Media(); // NOPMD Avoid instantiating new objects inside loops
           final Content content = new Content(entry.getPlaystring()); // NOPMD Avoid instantiating new objects inside loops
 
-          if (entry.getLength() != null)
-          {
+          if (entry.getLength() != null) {
             content.setLength(entry.getLength());
           }
 

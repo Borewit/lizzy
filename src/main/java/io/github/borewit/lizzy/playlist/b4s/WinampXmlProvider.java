@@ -43,8 +43,7 @@ import java.util.List;
  * @author Borewit
  * @author Christophe Delory
  */
-public class WinampXmlProvider extends JaxbPlaylistProvider<WinampXML>
-{
+public class WinampXmlProvider extends JaxbPlaylistProvider<WinampXML> {
   /**
    * A list of compatible content types.
    */
@@ -60,44 +59,36 @@ public class WinampXmlProvider extends JaxbPlaylistProvider<WinampXML>
         "Winamp 3+ Playlist"),
     };
 
-  public WinampXmlProvider()
-  {
+  public WinampXmlProvider() {
     super(WinampXML.class);
   }
 
   @Override
-  public String getId()
-  {
+  public String getId() {
     return "b4s";
   }
 
   @Override
-  public ContentType[] getContentTypes()
-  {
+  public ContentType[] getContentTypes() {
     return FILETYPES.clone();
   }
 
   @Override
-  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException
-  {
-    try
-    {
+  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException {
+    try {
       final JAXBElement<WinampXML> winampXMLJAXBElement = this.unmarshal(inputStream);
       String rootElementName = winampXMLJAXBElement.getName().getLocalPart();
 
       return rootElementName != null && rootElementName.equalsIgnoreCase("WinampXML") ?
         new WinampXmlAdapter(this, winampXMLJAXBElement.getValue()) : null;
-    }
-    catch (XMLStreamException | JAXBException exception)
-    {
+    } catch (XMLStreamException | JAXBException exception) {
       throw new IOException(exception);
     }
 
   }
 
   @Override
-  public SpecificPlaylist toSpecificPlaylist(final Playlist playlist)
-  {
+  public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) {
     final WinampXML winampXML = new WinampXML();
     final WinampXML.Playlist xmlPlaylist = new WinampXML.Playlist();
     winampXML.setPlaylist(xmlPlaylist);
@@ -113,44 +104,32 @@ public class WinampXmlProvider extends JaxbPlaylistProvider<WinampXML>
    * @param playlist  the parent playlist. Shall not be <code>null</code>.
    * @param component the generic playlist component to handle. Shall not be <code>null</code>.
    */
-  private void addToPlaylist(final List<WinampXML.Playlist.Entry> playlist, final AbstractPlaylistComponent component)
-  {
-    if (component instanceof Sequence)
-    {
+  private void addToPlaylist(final List<WinampXML.Playlist.Entry> playlist, final AbstractPlaylistComponent component) {
+    if (component instanceof Sequence) {
       final Sequence sequence = (Sequence) component;
 
-      if (sequence.getRepeatCount() < 0)
-      {
+      if (sequence.getRepeatCount() < 0) {
         throw new IllegalArgumentException("A B4S playlist cannot handle a sequence repeated indefinitely");
       }
 
-      for (int iter = 0; iter < sequence.getRepeatCount(); iter++)
-      {
+      for (int iter = 0; iter < sequence.getRepeatCount(); iter++) {
         sequence.getComponents().forEach(c -> addToPlaylist(playlist, c));
       }
-    }
-    else if (component instanceof Parallel)
-    {
+    } else if (component instanceof Parallel) {
       throw new IllegalArgumentException("A B4S playlist cannot play different media at the same time");
-    }
-    else if (component instanceof Media)
-    {
+    } else if (component instanceof Media) {
       final Media media = (Media) component;
 
-      if (media.getDuration() != null)
-      {
+      if (media.getDuration() != null) {
         throw new IllegalArgumentException("A B4S playlist cannot handle a timed media");
       }
 
-      if (media.getRepeatCount() < 0)
-      {
+      if (media.getRepeatCount() < 0) {
         throw new IllegalArgumentException("A B4S playlist cannot handle a media repeated indefinitely");
       }
 
-      if (media.getSource() != null)
-      {
-        for (int iter = 0; iter < media.getRepeatCount(); iter++)
-        {
+      if (media.getSource() != null) {
+        for (int iter = 0; iter < media.getRepeatCount(); iter++) {
           final WinampXML.Playlist.Entry entry = new WinampXML.Playlist.Entry(); // NOPMD Avoid instantiating new objects inside loops
           entry.setPlaystring(media.getSource().toString());
 

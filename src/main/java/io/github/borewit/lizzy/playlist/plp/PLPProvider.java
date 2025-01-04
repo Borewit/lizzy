@@ -45,8 +45,7 @@ import java.util.List;
  * @version $Revision: 91 $
  * @since 0.2.0
  */
-public class PLPProvider implements SpecificPlaylistProvider
-{
+public class PLPProvider implements SpecificPlaylistProvider {
   private final Logger logger = LogManager.getLogger(PLPProvider.class);
 
   public static Charset TextEncoding = StandardCharsets.UTF_16LE;
@@ -65,20 +64,17 @@ public class PLPProvider implements SpecificPlaylistProvider
     };
 
   @Override
-  public String getId()
-  {
+  public String getId() {
     return "plp";
   }
 
   @Override
-  public ContentType[] getContentTypes()
-  {
+  public ContentType[] getContentTypes() {
     return FILETYPES.clone();
   }
 
   @Override
-  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException
-  {
+  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException {
     final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, TextEncoding)); // Throws NullPointerException if in is null. May throw UnsupportedEncodingException, IOException.
 
     PLP ret = new PLP();
@@ -93,11 +89,9 @@ public class PLPProvider implements SpecificPlaylistProvider
     {
       line = line.trim();
 
-      if (line.length() > 0)
-      {
+      if (line.length() > 0) {
         // First the PLP marker string.
-        if (!magic1Found)
-        {
+        if (!magic1Found) {
           if (!"PLP PLAYLIST".equals(line)) // NOPMD Deeply nested if then statement
           {
             throw new IllegalArgumentException("Not a PLP playlist format");
@@ -108,8 +102,7 @@ public class PLPProvider implements SpecificPlaylistProvider
         }
 
         // Then the version marker string.
-        if (!magic2Found)
-        {
+        if (!magic2Found) {
           if (!"VERSION 1.20".equals(line)) // NOPMD Deeply nested if then statement
           {
             logger.error("Malformed PLP playlist (no version information)");
@@ -123,8 +116,7 @@ public class PLPProvider implements SpecificPlaylistProvider
 
         final int idx = line.indexOf(',');
 
-        if (idx <= 0)
-        {
+        if (idx <= 0) {
           logger.error("Malformed PLP playlist (playlist entry line format)");
           ret = null;
           break;
@@ -132,12 +124,9 @@ public class PLPProvider implements SpecificPlaylistProvider
 
         final String tmpDisk = line.substring(0, idx).trim(); // Shall not throw IndexOutOfBoundsException.
 
-        if (disk == null)
-        {
+        if (disk == null) {
           disk = tmpDisk;
-        }
-        else if (!disk.equals(tmpDisk))
-        {
+        } else if (!disk.equals(tmpDisk)) {
           logger.error("Malformed PLP playlist (inconsistent disk specifier)");
           ret = null;
           break;
@@ -147,8 +136,7 @@ public class PLPProvider implements SpecificPlaylistProvider
       }
     }
 
-    if ((ret != null) && (disk != null))
-    {
+    if ((ret != null) && (disk != null)) {
       ret.setDiskSpecifier(disk);
     }
 
@@ -156,8 +144,7 @@ public class PLPProvider implements SpecificPlaylistProvider
   }
 
   @Override
-  public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws IOException
-  {
+  public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws IOException {
     final PLP ret = new PLP();
     ret.setProvider(this);
 
@@ -172,44 +159,32 @@ public class PLPProvider implements SpecificPlaylistProvider
    * @param filenames the resulting list of file names. Shall not be <code>null</code>.
    * @param component the generic playlist component to handle. Shall not be <code>null</code>.
    */
-  private void addToPlaylist(final List<String> filenames, final AbstractPlaylistComponent component)
-  {
-    if (component instanceof Sequence)
-    {
+  private void addToPlaylist(final List<String> filenames, final AbstractPlaylistComponent component) {
+    if (component instanceof Sequence) {
       final Sequence seq = (Sequence) component;
 
-      if (seq.getRepeatCount() < 0)
-      {
+      if (seq.getRepeatCount() < 0) {
         throw new IllegalArgumentException("A PLP playlist cannot handle a sequence repeated indefinitely");
       }
 
-      for (int iter = 0; iter < seq.getRepeatCount(); iter++)
-      {
+      for (int iter = 0; iter < seq.getRepeatCount(); iter++) {
         seq.getComponents().forEach(c -> addToPlaylist(filenames, c));
       }
-    }
-    else if (component instanceof Parallel)
-    {
+    } else if (component instanceof Parallel) {
       throw new IllegalArgumentException("A parallel time container is incompatible with a PLP playlist");
-    }
-    else if (component instanceof Media)
-    {
+    } else if (component instanceof Media) {
       final Media media = (Media) component;
 
-      if (media.getDuration() != null)
-      {
+      if (media.getDuration() != null) {
         throw new IllegalArgumentException("A PLP playlist cannot handle a timed media");
       }
 
-      if (media.getRepeatCount() < 0)
-      {
+      if (media.getRepeatCount() < 0) {
         throw new IllegalArgumentException("A PLP playlist cannot handle a media repeated indefinitely");
       }
 
-      if (media.getSource() != null)
-      {
-        for (int iter = 0; iter < media.getRepeatCount(); iter++)
-        {
+      if (media.getSource() != null) {
+        for (int iter = 0; iter < media.getRepeatCount(); iter++) {
           filenames.add(media.getSource().toString()); // Shall not throw UnsupportedOperationException, ClassCastException, NullPointerException, IllegalArgumentException.
         }
       }

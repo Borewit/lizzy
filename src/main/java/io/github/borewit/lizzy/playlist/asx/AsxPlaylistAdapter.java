@@ -43,8 +43,7 @@ import java.nio.charset.StandardCharsets;
  * @author Borewit
  * @author Christophe Delory
  */
-public class AsxPlaylistAdapter implements SpecificPlaylist
-{
+public class AsxPlaylistAdapter implements SpecificPlaylist {
   /**
    * The provider of this specific playlist.
    */
@@ -57,44 +56,37 @@ public class AsxPlaylistAdapter implements SpecificPlaylist
 
   public final Charset textEncoding = StandardCharsets.UTF_8;
 
-  private static Asx makeAsx()
-  {
+  private static Asx makeAsx() {
     Asx asx = new Asx();
     asx.setVERSION("3.0");
     return asx;
   }
 
-  public AsxPlaylistAdapter(AsxProvider provider)
-  {
+  public AsxPlaylistAdapter(AsxProvider provider) {
     this(provider, makeAsx());
   }
 
-  public AsxPlaylistAdapter(AsxProvider provider, Asx asx)
-  {
+  public AsxPlaylistAdapter(AsxProvider provider, Asx asx) {
     this.provider = provider;
     this.asx = asx;
   }
 
-  public Asx getAsx()
-  {
+  public Asx getAsx() {
     return this.asx;
   }
 
   @Override
-  public AsxProvider getProvider()
-  {
+  public AsxProvider getProvider() {
     return provider;
   }
 
   @Override
-  public void writeTo(final OutputStream out) throws IOException
-  {
+  public void writeTo(final OutputStream out) throws IOException {
     this.provider.writeTo(this.asx, out);
   }
 
   @Override
-  public Playlist toPlaylist()
-  {
+  public Playlist toPlaylist() {
     final Playlist ret = new Playlist();
 
     this.asx.getENTRYOrENTRYREF().forEach(entry -> addToSequence(entry, ret.getRootSequence()));
@@ -113,22 +105,18 @@ public class AsxPlaylistAdapter implements SpecificPlaylist
    * @throws NullPointerException if <code>asxElement</code> is <code>null</code>.
    * @throws NullPointerException if <code>currentSequence</code> is <code>null</code>.
    */
-  private void addToSequence(final Object entryOrEntryRef, final Sequence currentSequence)
-  {
-    if (entryOrEntryRef instanceof ENTRY)
-    {
+  private void addToSequence(final Object entryOrEntryRef, final Sequence currentSequence) {
+    if (entryOrEntryRef instanceof ENTRY) {
       ENTRY entry = (ENTRY) entryOrEntryRef;
 
       // We keep only the first valid one.
-      if (entry.getREF() != null && entry.getREF().getHREF() != null)
-      {
+      if (entry.getREF() != null && entry.getREF().getHREF() != null) {
         final Media media = new Media(); // NOPMD Avoid instantiating new objects inside loops
         media.setSource(new Content(entry.getREF().getHREF())); // NOPMD Avoid instantiating new objects inside loops
 
         DurationElement duration = entry.getDURATION();
 
-        if (duration == null)
-        {
+        if (duration == null) {
           duration = entry.getDURATION();
         }
 
@@ -136,9 +124,7 @@ public class AsxPlaylistAdapter implements SpecificPlaylist
 
         currentSequence.addComponent(media);
       }
-    }
-    else if (entryOrEntryRef instanceof RefElement)
-    {
+    } else if (entryOrEntryRef instanceof RefElement) {
       // ASX ENTRYREF element
       RefElement entryRef = (RefElement) entryOrEntryRef;
       final Media media = new Media();
@@ -155,8 +141,7 @@ public class AsxPlaylistAdapter implements SpecificPlaylist
    * @throws NullPointerException if <code>asxElement</code> is <code>null</code>.
    * @throws NullPointerException if <code>currentSequence</code> is <code>null</code>.
    */
-  private void addRepeatToSequence(final REPEAT repeat, final Sequence currentSequence)
-  {
+  private void addRepeatToSequence(final REPEAT repeat, final Sequence currentSequence) {
     final Sequence repeatSeq = new Sequence();
     repeatSeq.setRepeatCount((repeat.getCOUNT() == null) ? 1.0f : (repeat.getCOUNT() + 1));
     currentSequence.addComponent(repeatSeq);

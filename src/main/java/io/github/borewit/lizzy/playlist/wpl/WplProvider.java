@@ -34,8 +34,7 @@ import io.github.borewit.lizzy.playlist.smil20.SmilProvider;
  * @author Christophe Delory
  * @version $Revision: 91 $
  */
-public class WplProvider extends SmilProvider
-{
+public class WplProvider extends SmilProvider {
   /**
    * A list of compatible content types.
    */
@@ -52,14 +51,12 @@ public class WplProvider extends SmilProvider
     };
 
   @Override
-  public String getId()
-  {
+  public String getId() {
     return "wpl";
   }
 
   @Override
-  public ContentType[] getContentTypes()
-  {
+  public ContentType[] getContentTypes() {
     return FILETYPES.clone();
   }
 

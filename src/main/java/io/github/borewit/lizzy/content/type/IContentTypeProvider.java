@@ -31,8 +31,7 @@ package io.github.borewit.lizzy.content.type;
  * @author Christophe Delory
  * @version $Revision: 55 $
  */
-public interface IContentTypeProvider
-{
+public interface IContentTypeProvider {
   /**
    * Returns a content type representing the given content name (file or URL).
    *

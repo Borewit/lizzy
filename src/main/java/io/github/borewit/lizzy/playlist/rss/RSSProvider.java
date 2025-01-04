@@ -49,8 +49,7 @@ import java.util.Date;
  * @author Christophe Delory
  * @version $Revision: 92 $
  */
-public class RSSProvider extends JaxbPlaylistProvider<Rss>
-{
+public class RSSProvider extends JaxbPlaylistProvider<Rss> {
   /**
    * A list of compatible content types.
    */
@@ -69,43 +68,35 @@ public class RSSProvider extends JaxbPlaylistProvider<Rss>
    */
   private boolean _useRSSMedia = false;
 
-  public RSSProvider()
-  {
+  public RSSProvider() {
     super(Rss.class);
   }
 
   @Override
-  public String getId()
-  {
+  public String getId() {
     return "rss";
   }
 
   @Override
-  public ContentType[] getContentTypes()
-  {
+  public ContentType[] getContentTypes() {
     return FILETYPES.clone();
   }
 
   @Override
-  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException
-  {
-    try
-    {
+  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException {
+    try {
       final JAXBElement<Rss> rssJAXBElement = this.unmarshal(inputStream);
       String rootElementName = rssJAXBElement.getName().getLocalPart();
 
       return rootElementName != null && rootElementName.equalsIgnoreCase("RSS") ?
         new RSSPlaylist(this, rssJAXBElement.getValue()) : null;
-    }
-    catch (JAXBException | XMLStreamException exception)
-    {
+    } catch (JAXBException | XMLStreamException exception) {
       throw new IOException(exception);
     }
   }
 
   @Override
-  public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws IOException
-  {
+  public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws IOException {
     final Rss rss = new Rss();
 
     final Channel channel = new Channel();
@@ -136,56 +127,40 @@ public class RSSProvider extends JaxbPlaylistProvider<Rss>
    * @throws Exception            if this service provider is unable to represent the input playlist.
    */
   @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
-  private void addToPlaylist(final Channel channel, final AbstractPlaylistComponent component)
-  {
-    if (component instanceof Sequence)
-    {
+  private void addToPlaylist(final Channel channel, final AbstractPlaylistComponent component) {
+    if (component instanceof Sequence) {
       final Sequence sequence = (Sequence) component;
 
-      if (sequence.getRepeatCount() < 0)
-      {
+      if (sequence.getRepeatCount() < 0) {
         throw new IllegalArgumentException("A RSS playlist cannot handle a sequence repeated indefinitely");
       }
 
-      for (int iter = 0; iter < sequence.getRepeatCount(); iter++)
-      {
+      for (int iter = 0; iter < sequence.getRepeatCount(); iter++) {
         sequence.getComponents().forEach(c -> addToPlaylist(channel, c));
       }
-    }
-    else if (component instanceof Parallel)
-    {
+    } else if (component instanceof Parallel) {
       throw new IllegalArgumentException("A RSS playlist doesn't support concurrent media");
-    }
-    else if (component instanceof Media)
-    {
+    } else if (component instanceof Media) {
       final Media media = (Media) component;
 
-      if (media.getDuration() != null)
-      {
+      if (media.getDuration() != null) {
         throw new IllegalArgumentException("A RSS playlist cannot handle a timed media");
       }
 
-      if (media.getRepeatCount() < 0)
-      {
+      if (media.getRepeatCount() < 0) {
         throw new IllegalArgumentException("A RSS playlist cannot handle a media repeated indefinitely");
       }
 
-      if (media.getSource() != null)
-      {
-        for (int iter = 0; iter < media.getRepeatCount(); iter++)
-        {
+      if (media.getSource() != null) {
+        for (int iter = 0; iter < media.getRepeatCount(); iter++) {
           final Item item = new Item();
           String url;
 
-          if (_useRSSMedia)
-          {
+          if (_useRSSMedia) {
             final MediaContent content = new MediaContent();
-            try
-            {
+            try {
               content.setUrl(media.getSource().getURL().toString()); // May throw SecurityException, URISyntaxException.
-            }
-            catch (MalformedURLException e)
-            {
+            } catch (MalformedURLException e) {
               throw new RuntimeException(e);
             }
             url = content.getUrl();
@@ -209,16 +184,11 @@ public class RSSProvider extends JaxbPlaylistProvider<Rss>
             }
 
             item.getContent().add(content);
-          }
-          else
-          {
+          } else {
             final Enclosure enclosure = new Enclosure();
-            try
-            {
+            try {
               enclosure.setUrl(media.getSource().getURI().toString()); // May throw SecurityException, URISyntaxException.
-            }
-            catch (URISyntaxException e)
-            {
+            } catch (URISyntaxException e) {
               throw new RuntimeException(e);
             }
             url = enclosure.getUrl();
@@ -247,8 +217,7 @@ public class RSSProvider extends JaxbPlaylistProvider<Rss>
    * @param useRSSMedia the associated boolean.
    * @see #toSpecificPlaylist
    */
-  public void setUseRSSMedia(final boolean useRSSMedia)
-  {
+  public void setUseRSSMedia(final boolean useRSSMedia) {
     _useRSSMedia = useRSSMedia;
   }
 }

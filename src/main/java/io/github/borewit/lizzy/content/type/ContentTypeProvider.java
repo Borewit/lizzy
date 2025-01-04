@@ -35,8 +35,7 @@ import java.net.URI;
  * @author Christophe Delory
  * @version $Revision: 92 $
  */
-public final class ContentTypeProvider implements IContentTypeProvider
-{
+public final class ContentTypeProvider implements IContentTypeProvider {
   /**
    * The singleton instance.
    */
@@ -48,12 +47,9 @@ public final class ContentTypeProvider implements IContentTypeProvider
    *
    * @return an instance of this class. Shall not be <code>null</code>.
    */
-  public static ContentTypeProvider getInstance()
-  {
-    synchronized (ContentTypeProvider.class)
-    {
-      if (_instance == null)
-      {
+  public static ContentTypeProvider getInstance() {
+    synchronized (ContentTypeProvider.class) {
+      if (_instance == null) {
         _instance = new ContentTypeProvider();
       }
     }
@@ -70,20 +66,17 @@ public final class ContentTypeProvider implements IContentTypeProvider
    * @throws SecurityException    if a required system property value cannot be accessed.
    * @see #getContentType
    */
-  public ContentType getContentType(final String contentName)
-  {
+  public ContentType getContentType(final String contentName) {
     ContentType ret = null;
     final int idx = contentName.lastIndexOf('.');
 
-    if (idx >= 0)
-    {
+    if (idx >= 0) {
       final String ext = contentName.substring(idx); // Shall not throw IndexOutOfBoundsException.
 
       final FileTypeMap map = fileTypeMap;
       final String contentType = map.getContentType(contentName);
 
-      if (contentType != null)
-      {
+      if (contentType != null) {
         ret = new ContentType(new String[]{ext}, new String[]{contentType}, null, null);
       }
     }
@@ -98,8 +91,7 @@ public final class ContentTypeProvider implements IContentTypeProvider
    * @throws NullPointerException if <code>uri</code> is <code>null</code>.
    * @see IContentTypeProvider#getContentType
    */
-  public ContentType getContentType(final URI uri)
-  {
+  public ContentType getContentType(final URI uri) {
     final String path = uri.getPath(); // Throws NullPointerException if uri is null.
     return path == null ? null : getContentType(path);
   }

@@ -48,8 +48,7 @@ import java.util.List;
  * @author Christophe Delory
  * @version $Revision: 91 $
  */
-public class XspfProvider extends JaxbPlaylistProvider<XspfPlaylist>
-{
+public class XspfProvider extends JaxbPlaylistProvider<XspfPlaylist> {
   /**
    * A list of compatible content types.
    */
@@ -64,42 +63,34 @@ public class XspfProvider extends JaxbPlaylistProvider<XspfPlaylist>
         "XML Shareable Playlist Format (XSPF)"),
     };
 
-  public XspfProvider()
-  {
+  public XspfProvider() {
     super(XspfPlaylist.class);
   }
 
   @Override
-  public String getId()
-  {
+  public String getId() {
     return "xspf";
   }
 
   @Override
-  public ContentType[] getContentTypes()
-  {
+  public ContentType[] getContentTypes() {
     return FILETYPES.clone();
   }
 
   @Override
-  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException
-  {
-    try
-    {
+  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException {
+    try {
       final JAXBElement<XspfPlaylist> xspfPlaylist = this.unmarshal(inputStream);
       String rootElementName = xspfPlaylist.getName().getLocalPart();
       return rootElementName != null && rootElementName.equals("playlist") ?
         new XspfPlaylistAdapter(this, xspfPlaylist.getValue()) : null;
-    }
-    catch (JAXBException | XMLStreamException exception)
-    {
+    } catch (JAXBException | XMLStreamException exception) {
       throw new IOException(exception);
     }
   }
 
   @Override
-  public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws IOException
-  {
+  public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws IOException {
     XspfTrackList xspfTrackList = new XspfTrackList();
     addToPlaylist(xspfTrackList.getTrack(), playlist.getRootSequence()); // May throw Exception.
     XspfPlaylist xspfPlaylist = new XspfPlaylist();
@@ -114,44 +105,32 @@ public class XspfProvider extends JaxbPlaylistProvider<XspfPlaylist>
    * @param xspfTrackList the parent playlist. Shall not be <code>null</code>.
    * @param component     the generic playlist component to handle. Shall not be <code>null</code>.
    */
-  private void addToPlaylist(List<XspfTrack> xspfTrackList, final AbstractPlaylistComponent component)
-  {
-    if (component instanceof Sequence)
-    {
+  private void addToPlaylist(List<XspfTrack> xspfTrackList, final AbstractPlaylistComponent component) {
+    if (component instanceof Sequence) {
       final Sequence sequence = (Sequence) component;
 
-      if (sequence.getRepeatCount() < 0)
-      {
+      if (sequence.getRepeatCount() < 0) {
         throw new IllegalArgumentException("An XSPF playlist cannot handle a sequence repeated indefinitely");
       }
 
-      for (int iter = 0; iter < sequence.getRepeatCount(); iter++)
-      {
+      for (int iter = 0; iter < sequence.getRepeatCount(); iter++) {
         sequence.getComponents().forEach(c -> addToPlaylist(xspfTrackList, c));
       }
-    }
-    else if (component instanceof Parallel)
-    {
+    } else if (component instanceof Parallel) {
       throw new IllegalArgumentException("An XSPF playlist cannot play different media at the same time");
-    }
-    else if (component instanceof Media)
-    {
+    } else if (component instanceof Media) {
       final Media media = (Media) component;
 
-      if (media.getDuration() != null)
-      {
+      if (media.getDuration() != null) {
         throw new IllegalArgumentException("An XSPF playlist cannot handle a timed media");
       }
 
-      if (media.getRepeatCount() < 0)
-      {
+      if (media.getRepeatCount() < 0) {
         throw new IllegalArgumentException("An XSPF playlist cannot handle a media repeated indefinitely");
       }
 
-      if (media.getSource() != null)
-      {
-        for (int iter = 0; iter < media.getRepeatCount(); iter++)
-        {
+      if (media.getSource() != null) {
+        for (int iter = 0; iter < media.getRepeatCount(); iter++) {
           final XspfTrack track = new XspfTrack(); // NOPMD Avoid instantiating new objects inside loops
           track.getLocation().add(media.getSource().toString());
 

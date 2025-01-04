@@ -38,50 +38,43 @@ import java.io.OutputStream;
  * @author Christophe Delory
  * @since 0.3.0
  */
-public class RmpPlaylistAdapter implements SpecificPlaylist
-{
+public class RmpPlaylistAdapter implements SpecificPlaylist {
   private RmpProvider provider;
   private final RmpPackage rmpPackage;
 
   /**
    * Builds a new and empty Real Metadata Package.
    */
-  public RmpPlaylistAdapter(RmpProvider provider, RmpPackage rmpPackage)
-  {
+  public RmpPlaylistAdapter(RmpProvider provider, RmpPackage rmpPackage) {
     this.provider = provider;
     this.rmpPackage = rmpPackage;
   }
 
 
   @Override
-  public JaxbPlaylistProvider getProvider()
-  {
+  public JaxbPlaylistProvider getProvider() {
     return this.provider;
   }
 
   @Override
-  public void writeTo(final OutputStream out) throws IOException
-  {
+  public void writeTo(final OutputStream out) throws IOException {
     this.provider.writeTo(this.rmpPackage, out);
   }
 
   @Override
-  public Playlist toPlaylist()
-  {
+  public Playlist toPlaylist() {
     final Playlist ret = new Playlist();
 
     String location = rmpPackage.getSERVER().getLOCATION();
     location = location.replace("%lid", (rmpPackage.getTRACKLIST().getLISTID() == null) ? "" : rmpPackage.getTRACKLIST().getLISTID());
     location = location.replace("%pid", (rmpPackage.getTARGET() == null) ? "" : rmpPackage.getTARGET());
 
-    for (RmpPackage.TRACKLIST.TRACK track : rmpPackage.getTRACKLIST().getTRACK())
-    {
+    for (RmpPackage.TRACKLIST.TRACK track : rmpPackage.getTRACKLIST().getTRACK()) {
       String url = location.replace("%fid", (track.getTRACKID() == null) ? "" : track.getTRACKID());
       // AFTER %fid replacement
       url = url.replace("%f", (track.getFILENAME() == null) ? "" : track.getFILENAME());
 
-      if (rmpPackage.getSERVER().getNETNAME() != null)
-      {
+      if (rmpPackage.getSERVER().getNETNAME() != null) {
         final StringBuilder sb = new StringBuilder("http://"); // NOPMD Avoid instantiating new objects inside loops
         sb.append(rmpPackage.getSERVER().getNETNAME());
         sb.append(url);
@@ -91,13 +84,11 @@ public class RmpPlaylistAdapter implements SpecificPlaylist
       final Media media = new Media(); // NOPMD Avoid instantiating new objects inside loops
       final Content content = new Content(url); // NOPMD Avoid instantiating new objects inside loops
 
-      if (track.getSIZE() != null)
-      {
+      if (track.getSIZE() != null) {
         content.setLength(track.getSIZE().longValue());
       }
 
-      if (track.getDURATION() != null)
-      {
+      if (track.getDURATION() != null) {
         content.setDuration(track.getDURATION().longValue() * 1000L);
       }
 

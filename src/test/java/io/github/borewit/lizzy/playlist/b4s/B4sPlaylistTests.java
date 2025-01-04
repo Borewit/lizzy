@@ -11,12 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DisplayName("Winamp .b4s Playlist Tests")
-public class B4sPlaylistTests
-{
+public class B4sPlaylistTests {
   @Test
   @DisplayName("Read b4s playlist file")
-  public void readB4s() throws IOException
-  {
+  public void readB4s() throws IOException {
     Playlist playlist = TestUtil.readPlaylistFrom("b4s/test01.b4s");
     assertNotNull(playlist, "playlist");
     assertEquals(2, playlist.getRootSequence().getComponents().size());

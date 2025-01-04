@@ -37,11 +37,9 @@ import java.util.Optional;
  * @author Borewit
  * @author Christophe Delory
  */
-public class SpecificPlaylistTypeProvider implements IContentTypeProvider
-{
+public class SpecificPlaylistTypeProvider implements IContentTypeProvider {
   @Override
-  public ContentType getContentType(final String contentName)
-  {
+  public ContentType getContentType(final String contentName) {
     final String name = contentName.toLowerCase(Locale.ENGLISH); // Throws NullPointerException if contentName is null.
 
     return SpecificPlaylistFactory.getInstance().findProvidersByExtension(name).stream()

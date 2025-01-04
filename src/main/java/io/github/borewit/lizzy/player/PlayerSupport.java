@@ -39,13 +39,11 @@ package io.github.borewit.lizzy.player;
  * @version $Revision: 92 $
  * @since 0.2.0
  */
-public class PlayerSupport implements Cloneable
-{
+public class PlayerSupport implements Cloneable {
   /**
    * The player type.
    */
-  public enum Player
-  {
+  public enum Player {
     FOOBAR2000,
     ITUNES,
     MEDIA_PLAYER_CLASSIC,
@@ -65,8 +63,7 @@ public class PlayerSupport implements Cloneable
    * @return a string representing the given player. Shall not be <code>null</code>.
    * @throws NullPointerException if <code>player</code> is <code>null</code>.
    */
-  public static String toString(final Player player)
-  {
+  public static String toString(final Player player) {
     final String ret;
 
     switch (player) // Throws NullPointerException if player is null.
@@ -133,10 +130,8 @@ public class PlayerSupport implements Cloneable
    * @param comment any comment on this player support. May be <code>null</code>.
    * @throws NullPointerException if <code>player</code> is <code>null</code>.
    */
-  public PlayerSupport(final Player player, final boolean isSaved, final String comment)
-  {
-    if (player == null)
-    {
+  public PlayerSupport(final Player player, final boolean isSaved, final String comment) {
+    if (player == null) {
       throw new NullPointerException("no player");
     }
 
@@ -150,8 +145,7 @@ public class PlayerSupport implements Cloneable
    *
    * @return a player description. Shall not be <code>null</code>.
    */
-  public Player getPlayer()
-  {
+  public Player getPlayer() {
     return _player;
   }
 
@@ -160,8 +154,7 @@ public class PlayerSupport implements Cloneable
    *
    * @return the associated boolean.
    */
-  public boolean isSaved()
-  {
+  public boolean isSaved() {
     return _isSaved;
   }
 
@@ -170,8 +163,7 @@ public class PlayerSupport implements Cloneable
    *
    * @return a comment. May be <code>null</code>.
    */
-  public String getComment()
-  {
+  public String getComment() {
     return _comment;
   }
 
@@ -184,8 +176,7 @@ public class PlayerSupport implements Cloneable
    * @since 1.0.0
    */
   @Override
-  public Object clone() throws CloneNotSupportedException
-  {
+  public Object clone() throws CloneNotSupportedException {
     return super.clone(); // Should not throw CloneNotSupportedException.
   }
 }

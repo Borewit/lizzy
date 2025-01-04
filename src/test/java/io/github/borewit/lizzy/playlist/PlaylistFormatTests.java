@@ -5,21 +5,16 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PlaylistFormatTests
-{
+public class PlaylistFormatTests {
   @Test
   @DisplayName("All playlist-provider ID's should be enumerated")
-  public void ensureAllProviderIdsAreRepresented()
-  {
+  public void ensureAllProviderIdsAreRepresented() {
     SpecificPlaylistFactory.getInstance().getProviders().stream()
       .map(SpecificPlaylistProvider::getId)
       .forEach(id -> {
-        try
-        {
+        try {
           PlaylistFormat.valueOf(id);
-        }
-        catch (IllegalArgumentException exception)
-        {
+        } catch (IllegalArgumentException exception) {
           fail(String.format("playlist-provider-id \"%s\" not enumerated", id));
         }
       });

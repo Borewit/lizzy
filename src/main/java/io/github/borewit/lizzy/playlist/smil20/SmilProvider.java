@@ -44,8 +44,7 @@ import java.io.InputStream;
  * @author Borewit
  * @author Christophe Delory
  */
-public class SmilProvider extends JaxbPlaylistProvider<Smil>
-{
+public class SmilProvider extends JaxbPlaylistProvider<Smil> {
   public static final String smilNamespace = "http://www.w3.org/2001/SMIL20/Language";
 
   /**
@@ -64,45 +63,36 @@ public class SmilProvider extends JaxbPlaylistProvider<Smil>
         "Synchronized Multimedia Integration Language (SMIL)"),
     };
 
-  public SmilProvider()
-  {
+  public SmilProvider() {
     super(Smil.class);
   }
 
   @Override
-  public String getId()
-  {
+  public String getId() {
     return "smil";
   }
 
   @Override
-  public ContentType[] getContentTypes()
-  {
+  public ContentType[] getContentTypes() {
     return FILETYPES.clone();
   }
 
   @Override
-  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException
-  {
-    try
-    {
+  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException {
+    try {
       final JAXBElement<Smil> smil = this.unmarshal(inputStream);
       String rootElementName = smil.getName().getLocalPart();
 
       return rootElementName != null && rootElementName.equalsIgnoreCase("smil") ?
         new SmilAdapter(this, smil.getValue()) : null;
-    }
-    catch (JAXBException |
-           XMLStreamException exception)
-
-    {
+    } catch (JAXBException |
+             XMLStreamException exception) {
       throw new IOException(exception);
     }
   }
 
   @Override
-  public SpecificPlaylist toSpecificPlaylist(final Playlist playlist)
-  {
+  public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) {
     final Smil smil = new Smil();
     final SmilContainerBody body = new SmilContainerBody();
     smil.setBody(body);
@@ -122,22 +112,15 @@ public class SmilProvider extends JaxbPlaylistProvider<Smil>
    * @throws NullPointerException if <code>timingElement</code> is <code>null</code>.
    * @throws NullPointerException if <code>component</code> is <code>null</code>.
    */
-  private void addToPlaylist(final SmilTimeContainer timingElement, final AbstractPlaylistComponent component)
-  {
-    if (component instanceof AbstractTimeContainer)
-    {
+  private void addToPlaylist(final SmilTimeContainer timingElement, final AbstractPlaylistComponent component) {
+    if (component instanceof AbstractTimeContainer) {
       AbstractTimeContainer timeContainer = (AbstractTimeContainer) component;
       SmilTimeContainer smilTimeContainer;
-      if (component instanceof Sequence)
-      {
+      if (component instanceof Sequence) {
         smilTimeContainer = new SmilSequence();
-      }
-      else if (component instanceof Parallel)
-      {
+      } else if (component instanceof Parallel) {
         smilTimeContainer = new SmilParallel();
-      }
-      else
-      {
+      } else {
         throw new RuntimeException("Unexpected AbstractTimeContainer instance");
       }
       smilTimeContainer.setRepeatCount(timeContainer.getRepeatCount());
@@ -145,14 +128,11 @@ public class SmilProvider extends JaxbPlaylistProvider<Smil>
 
       // Recursion
       timeContainer.getComponents().forEach(c -> addToPlaylist(smilTimeContainer, c));
-    }
-    else if (component instanceof Media)
-    {
+    } else if (component instanceof Media) {
       final Media media = (Media) component;
       final SmilReference ref = new SmilReference();
 
-      if (media.getSource() != null)
-      {
+      if (media.getSource() != null) {
         ref.setSrc(media.getSource().toString());
         ref.setType(media.getSource().getType()); // May be null.
       }
@@ -160,9 +140,7 @@ public class SmilProvider extends JaxbPlaylistProvider<Smil>
       ref.setDur(media.getDuration());
       ref.setRepeatCount(media.getRepeatCount());
       timingElement.getAudioOrImgOrRef().add(ref);
-    }
-    else
-    {
+    } else {
       throw new RuntimeException("Unexpected component instance type");
     }
   }
@@ -171,8 +149,7 @@ public class SmilProvider extends JaxbPlaylistProvider<Smil>
    * Overrides XMLStreamReader in such a way that we can parse both qualified and unqualified SMIL
    */
   @Override
-  protected XMLStreamReader getXmlStreamReader(final InputStream in, final String encoding) throws XMLStreamException
-  {
+  protected XMLStreamReader getXmlStreamReader(final InputStream in, final String encoding) throws XMLStreamException {
     // Normalize XML tags and attributes to uppercase
     return new NormalizeNamespace(super.getXmlStreamReader(in, encoding));
   }
@@ -180,16 +157,13 @@ public class SmilProvider extends JaxbPlaylistProvider<Smil>
   /**
    * Use SMIL namespace if there is no namespace defined
    */
-  private static class NormalizeNamespace extends StreamReaderDelegate
-  {
-    NormalizeNamespace(XMLStreamReader xsr)
-    {
+  private static class NormalizeNamespace extends StreamReaderDelegate {
+    NormalizeNamespace(XMLStreamReader xsr) {
       super(xsr);
     }
 
     @Override
-    public String getNamespaceURI()
-    {
+    public String getNamespaceURI() {
       final String nsUri = super.getNamespaceURI();
       return nsUri == null ? smilNamespace : nsUri;
     }

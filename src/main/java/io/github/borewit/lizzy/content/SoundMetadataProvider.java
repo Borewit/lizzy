@@ -43,17 +43,14 @@ import java.net.URL;
  * @version $Revision: 90 $
  * @since 1.0.0
  */
-public class SoundMetadataProvider implements ContentMetadataProvider
-{
+public class SoundMetadataProvider implements ContentMetadataProvider {
   private final Logger logger = LogManager.getLogger(SoundMetadataProvider.class);
 
   @Override
-  public void fillMetadata(final Content content) throws Exception
-  {
+  public void fillMetadata(final Content content) throws Exception {
     final URL url = content.getURL(); // Throws NullPointerException if content is null. May throw SecurityException, IllegalArgumentException, MalformedURLException.
 
-    try
-    {
+    try {
       final AudioFileFormat audioFileFormat = AudioSystem.getAudioFileFormat(url); // May throw UnsupportedAudioFileException, IOException.
 
       content.setWidth(0);
@@ -61,19 +58,14 @@ public class SoundMetadataProvider implements ContentMetadataProvider
 
       final AudioFormat audioFormat = audioFileFormat.getFormat();
 
-      if ((audioFileFormat.getFrameLength() == AudioSystem.NOT_SPECIFIED) || (audioFormat.getSampleRate() == (float) AudioSystem.NOT_SPECIFIED))
-      {
+      if ((audioFileFormat.getFrameLength() == AudioSystem.NOT_SPECIFIED) || (audioFormat.getSampleRate() == (float) AudioSystem.NOT_SPECIFIED)) {
         logger.debug("Unknown audio duration");
-      }
-      else
-      {
+      } else {
         content.setDuration((long) (((float) audioFileFormat.getFrameLength() * 1000.0f) / audioFormat.getSampleRate()));
       }
 
       return;
-    }
-    catch (UnsupportedAudioFileException e)
-    {
+    } catch (UnsupportedAudioFileException e) {
       // Try the next format.
       logger.debug(e.toString());
     }
@@ -85,12 +77,9 @@ public class SoundMetadataProvider implements ContentMetadataProvider
 
     final long duration = midiFormat.getMicrosecondLength();
 
-    if (duration == MidiFileFormat.UNKNOWN_LENGTH)
-    {
+    if (duration == MidiFileFormat.UNKNOWN_LENGTH) {
       logger.debug("Unknown MIDI duration");
-    }
-    else
-    {
+    } else {
       content.setDuration((duration + 999L) / 1000L);
     }
   }

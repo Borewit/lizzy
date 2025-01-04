@@ -42,8 +42,7 @@ import java.util.List;
  * @author Christophe Delory
  * @version $Revision: 90 $
  */
-public class PlistProvider implements SpecificPlaylistProvider
-{
+public class PlistProvider implements SpecificPlaylistProvider {
   /**
    * A list of compatible content types.
    */
@@ -59,35 +58,28 @@ public class PlistProvider implements SpecificPlaylistProvider
     };
 
   @Override
-  public String getId()
-  {
+  public String getId() {
     return "plist";
   }
 
   @Override
-  public ContentType[] getContentTypes()
-  {
+  public ContentType[] getContentTypes() {
     return FILETYPES.clone();
   }
 
   @Override
-  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException
-  {
+  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException {
     NSDictionary plist;
-    try
-    {
+    try {
       plist = (NSDictionary) PropertyListParser.parse(inputStream);
-    }
-    catch (Exception e)
-    {
+    } catch (Exception e) {
       throw new IOException(e);
     }
     return new PlistPlaylist(this, plist);
   }
 
   @Override
-  public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws IOException
-  {
+  public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws IOException {
     final NSDictionary rootDict = new NSDictionary();
     final NSDictionary tracks = new NSDictionary();
     rootDict.put("Tracks", tracks);
@@ -116,49 +108,37 @@ public class PlistProvider implements SpecificPlaylistProvider
   /**
    * Adds the specified generic playlist component, and all its childs if any, to the input track list and playlist.
    *
-   * @param tracks    the list of tracks. Shall not be <code>null</code>.
-   * @param playlistItems  the playlist. Shall not be <code>null</code>.
-   * @param component the generic playlist component to handle. Shall not be <code>null</code>.
+   * @param tracks        the list of tracks. Shall not be <code>null</code>.
+   * @param playlistItems the playlist. Shall not be <code>null</code>.
+   * @param component     the generic playlist component to handle. Shall not be <code>null</code>.
    */
   @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
-  private void addToPlaylist(final NSDictionary tracks, List<NSDictionary> playlistItems, final AbstractPlaylistComponent component)
-  {
-    if (component instanceof Sequence)
-    {
+  private void addToPlaylist(final NSDictionary tracks, List<NSDictionary> playlistItems, final AbstractPlaylistComponent component) {
+    if (component instanceof Sequence) {
       final Sequence sequence = (Sequence) component;
 
-      if (sequence.getRepeatCount() < 0)
-      {
+      if (sequence.getRepeatCount() < 0) {
         throw new IllegalArgumentException("A PLIST playlist cannot handle a sequence repeated indefinitely");
       }
 
-      for (int iter = 0; iter < sequence.getRepeatCount(); iter++)
-      {
+      for (int iter = 0; iter < sequence.getRepeatCount(); iter++) {
         sequence.getComponents().forEach(c -> addToPlaylist(tracks, playlistItems, c));
       }
-    }
-    else if (component instanceof Parallel)
-    {
+    } else if (component instanceof Parallel) {
       throw new IllegalArgumentException("A PLIST playlist cannot play different media at the same time");
-    }
-    else if (component instanceof Media)
-    {
+    } else if (component instanceof Media) {
       final Media media = (Media) component;
 
-      if (media.getDuration() != null)
-      {
+      if (media.getDuration() != null) {
         throw new IllegalArgumentException("A PLIST playlist cannot handle a timed media");
       }
 
-      if (media.getRepeatCount() < 0)
-      {
+      if (media.getRepeatCount() < 0) {
         throw new IllegalArgumentException("A PLIST playlist cannot handle a media repeated indefinitely");
       }
 
-      if (media.getSource() != null)
-      {
-        for (int iter = 0; iter < media.getRepeatCount(); iter++)
-        {
+      if (media.getSource() != null) {
+        for (int iter = 0; iter < media.getRepeatCount(); iter++) {
           // Adds a playlist entry.
           final NSDictionary entry = new NSDictionary();
           entry.put("Track ID", new NSNumber(System.identityHashCode(media.getSource())));

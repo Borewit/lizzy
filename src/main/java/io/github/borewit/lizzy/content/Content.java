@@ -34,8 +34,7 @@ import java.net.*;
  * @author Christophe Delory
  * @version $Revision: 92 $
  */
-public class Content
-{
+public class Content {
   /**
    * The content URL, as a string.
    */
@@ -97,8 +96,7 @@ public class Content
    * @param url an URL as a string. Shall not be <code>null</code>.
    * @throws NullPointerException if <code>url</code> is <code>null</code>.
    */
-  public Content(final String url)
-  {
+  public Content(final String url) {
     this.setURL(url);
   }
 
@@ -108,8 +106,7 @@ public class Content
    * @param uri an URI. Shall not be <code>null</code>.
    * @throws NullPointerException if <code>uri</code> is <code>null</code>.
    */
-  public Content(final URI uri)
-  {
+  public Content(final URI uri) {
     this.setURI(uri);
   }
 
@@ -119,8 +116,7 @@ public class Content
    * @param url an URL. Shall not be <code>null</code>.
    * @throws NullPointerException if <code>url</code> is <code>null</code>.
    */
-  public Content(final URL url)
-  {
+  public Content(final URL url) {
     this.setURL(url);
   }
 
@@ -138,32 +134,22 @@ public class Content
    * @see #getURL
    * @see #toString
    */
-  public URI getURI() throws URISyntaxException
-  {
-    synchronized (this)
-    {
-      if (_uri == null)
-      {
+  public URI getURI() throws URISyntaxException {
+    synchronized (this) {
+      if (_uri == null) {
         URI uri = null;
 
-        if (_url == null)
-        {
-          try
-          {
+        if (_url == null) {
+          try {
             uri = new URI(_urlString); // May throw URISyntaxException.
-          }
-          catch (URISyntaxException e)
-          {
+          } catch (URISyntaxException e) {
             uri = null;
           }
 
-          if ((uri == null) || !uri.isAbsolute())
-          {
+          if ((uri == null) || !uri.isAbsolute()) {
             uri = new File(_urlString).toURI(); // May throw SecurityException. Shall not throw NullPointerException because of _urlString.
           }
-        }
-        else
-        {
+        } else {
           uri = _url.toURI(); // May throw URISyntaxException.
         }
 
@@ -195,18 +181,12 @@ public class Content
    * @see #getURI
    * @see #toString
    */
-  public URL getURL() throws MalformedURLException
-  {
-    synchronized (this)
-    {
-      if (_url == null)
-      {
-        try
-        {
+  public URL getURL() throws MalformedURLException {
+    synchronized (this) {
+      if (_url == null) {
+        try {
           _url = new URL(_urlString); // May throw MalformedURLException.
-        }
-        catch (MalformedURLException e)
-        {
+        } catch (MalformedURLException e) {
           _uri = new File(_urlString).toURI().normalize(); // May throw SecurityException.
           _url = _uri.toURL(); // May throw IllegalArgumentException, MalformedURLException.
         }
@@ -222,8 +202,7 @@ public class Content
    * @param url an URL as a string. Shall not be <code>null</code>.
    * @throws NullPointerException if <code>url</code> is <code>null</code>.
    */
-  public void setURL(final String url)
-  {
+  public void setURL(final String url) {
     _urlString = url.trim(); // Throws NullPointerException if url is null.
   }
 
@@ -233,8 +212,7 @@ public class Content
    * @return a content encoding, or <code>null</code> if unknown.
    * @see #setEncoding
    */
-  public String getEncoding()
-  {
+  public String getEncoding() {
     return _encoding;
   }
 
@@ -244,8 +222,7 @@ public class Content
    * @param encoding a content encoding. May be <code>null</code>.
    * @see #getEncoding
    */
-  public void setEncoding(final String encoding)
-  {
+  public void setEncoding(final String encoding) {
     _encoding = encoding;
   }
 
@@ -255,8 +232,7 @@ public class Content
    * @return a content length, or <code>-1L</code> if unknown.
    * @see #setLength
    */
-  public long getLength()
-  {
+  public long getLength() {
     return _length;
   }
 
@@ -266,8 +242,7 @@ public class Content
    * @param length a content length. May be negative.
    * @see #getLength
    */
-  public void setLength(final long length)
-  {
+  public void setLength(final long length) {
     _length = length;
   }
 
@@ -277,8 +252,7 @@ public class Content
    * @return a content type, or <code>null</code> if unknown.
    * @see #setType
    */
-  public String getType()
-  {
+  public String getType() {
     return _type;
   }
 
@@ -288,8 +262,7 @@ public class Content
    * @param type a content type. May be <code>null</code>.
    * @see #getType
    */
-  public void setType(final String type)
-  {
+  public void setType(final String type) {
     _type = type;
   }
 
@@ -300,8 +273,7 @@ public class Content
    * @return a date, or <code>0L</code> if unknown.
    * @see #setLastModified
    */
-  public long getLastModified()
-  {
+  public long getLastModified() {
     return _lastModified;
   }
 
@@ -311,8 +283,7 @@ public class Content
    * @param lastModified a date. May be negative or null.
    * @see #getLastModified
    */
-  public void setLastModified(final long lastModified)
-  {
+  public void setLastModified(final long lastModified) {
     _lastModified = lastModified;
   }
 
@@ -322,8 +293,7 @@ public class Content
    * @return a duration value. May be negative if unknown.
    * @see #setDuration
    */
-  public long getDuration()
-  {
+  public long getDuration() {
     return _duration;
   }
 
@@ -333,8 +303,7 @@ public class Content
    * @param duration a duration value. May be negative if unknown.
    * @see #getDuration
    */
-  public void setDuration(final long duration)
-  {
+  public void setDuration(final long duration) {
     _duration = duration;
   }
 
@@ -345,8 +314,7 @@ public class Content
    * @see #setWidth
    * @since 1.0.0
    */
-  public int getWidth()
-  {
+  public int getWidth() {
     return _width;
   }
 
@@ -357,8 +325,7 @@ public class Content
    * @see #getWidth
    * @since 1.0.0
    */
-  public void setWidth(final int width)
-  {
+  public void setWidth(final int width) {
     _width = width;
   }
 
@@ -369,8 +336,7 @@ public class Content
    * @see #setHeight
    * @since 1.0.0
    */
-  public int getHeight()
-  {
+  public int getHeight() {
     return _height;
   }
 
@@ -381,8 +347,7 @@ public class Content
    * @see #getHeight
    * @since 1.0.0
    */
-  public void setHeight(final int height)
-  {
+  public void setHeight(final int height) {
     _height = height;
   }
 
@@ -393,10 +358,8 @@ public class Content
    * @return <code>true</code> if the content has been successfully accessed through its URL, <code>false</code> otherwise.
    * @see #connect
    */
-  public boolean isValid()
-  {
-    synchronized (this)
-    {
+  public boolean isValid() {
+    synchronized (this) {
       return _connected != null && _connected.booleanValue();
     }
   }
@@ -410,21 +373,17 @@ public class Content
    * @throws IOException              if any I/O error occurs.
    * @see #getURL
    */
-  public void connect() throws IOException
-  {
+  public void connect() throws IOException {
     boolean connect = false;
 
-    synchronized (this)
-    {
-      if (_connected == null)
-      {
+    synchronized (this) {
+      if (_connected == null) {
         _connected = Boolean.FALSE;
         connect = true;
       }
     }
 
-    if (connect)
-    {
+    if (connect) {
       final URL url = getURL(); // May throw MalformedURLException, IllegalArgumentException, SecurityException.
 
       // The connection object is created by invoking the openConnection method on a URL.
@@ -454,28 +413,23 @@ public class Content
       final long lastModified = conn.getLastModified(); // 0L or more.
 
       // Override the metadata only if pertinent.
-      if (encoding != null)
-      {
+      if (encoding != null) {
         _encoding = encoding;
       }
 
-      if (length >= 0L)
-      {
+      if (length >= 0L) {
         _length = length;
       }
 
-      if ((type != null) && !"content/unknown".equals(type))
-      {
+      if ((type != null) && !"content/unknown".equals(type)) {
         _type = type;
       }
 
-      if (lastModified > 0L)
-      {
+      if (lastModified > 0L) {
         _lastModified = lastModified;
       }
 
-      synchronized (this)
-      {
+      synchronized (this) {
         _connected = Boolean.TRUE;
       }
     }
@@ -491,8 +445,7 @@ public class Content
    * @see #toString
    */
   @Override
-  public boolean equals(final Object obj)
-  {
+  public boolean equals(final Object obj) {
     return obj != null && _urlString.equals(obj.toString());
   }
 
@@ -504,8 +457,7 @@ public class Content
    * @since 1.0.0
    */
   @Override
-  public int hashCode()
-  {
+  public int hashCode() {
     return _urlString.hashCode();
   }
 
@@ -517,8 +469,7 @@ public class Content
    * @see #getURI
    */
   @Override
-  public String toString()
-  {
+  public String toString() {
     return _urlString;
   }
 }

@@ -1,7 +1,6 @@
 package io.github.borewit.lizzy.playlist;
 
-public enum PlaylistFormat
-{
+public enum PlaylistFormat {
   asx,
   atom,
   b4s,
