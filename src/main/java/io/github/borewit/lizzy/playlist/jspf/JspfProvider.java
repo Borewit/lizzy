@@ -51,7 +51,7 @@ public class JspfProvider implements SpecificPlaylistProvider {
           {
             new PlayerSupport(PlayerSupport.Player.VLC_MEDIA_PLAYER, true, null),
           },
-        "XML Shareable Playlist Format (XSPF)"),
+        "JSON XSPF "),
     };
 
   @Override
