@@ -31,8 +31,7 @@ package io.github.borewit.lizzy.playlist.mpcpl;
  * @version $Revision: 92 $
  * @since 0.3.0
  */
-public class Resource
-{
+public class Resource {
   /**
    * The file name of the resource.
    */
@@ -54,8 +53,7 @@ public class Resource
    * @return the resource file name. May be <code>null</code> if not yet initialized.
    * @see #setFilename
    */
-  public String getFilename()
-  {
+  public String getFilename() {
     return _filename;
   }
 
@@ -66,8 +64,7 @@ public class Resource
    * @throws NullPointerException if <code>filename</code> is <code>null</code>.
    * @see #getFilename
    */
-  public void setFilename(final String filename)
-  {
+  public void setFilename(final String filename) {
     _filename = filename.trim(); // Throws NullPointerException if filename is null.
   }
 
@@ -78,8 +75,7 @@ public class Resource
    * @return the resource type. Shall not be <code>null</code>.
    * @see #setType
    */
-  public String getType()
-  {
+  public String getType() {
     return _type;
   }
 
@@ -90,8 +86,7 @@ public class Resource
    * @throws NullPointerException if <code>type</code> is <code>null</code>.
    * @see #getType
    */
-  public void setType(final String type)
-  {
+  public void setType(final String type) {
     _type = type.trim(); // Throws NullPointerException if type is null.
   }
 
@@ -102,8 +97,7 @@ public class Resource
    * @return a subtitle file name. May be <code>null</code>.
    * @see #setSubtitle
    */
-  public String getSubtitle()
-  {
+  public String getSubtitle() {
     return _subtitle;
   }
 
@@ -113,8 +107,7 @@ public class Resource
    * @param subtitle a subtitle file name. May be <code>null</code>.
    * @see #getSubtitle
    */
-  public void setSubtitle(final String subtitle)
-  {
+  public void setSubtitle(final String subtitle) {
     _subtitle = subtitle;
   }
 }

@@ -30,8 +30,7 @@ package io.github.borewit.lizzy.lang;
  * @author Christophe Delory
  * @version $Revision: 92 $
  */
-public final class StringUtils
-{
+public final class StringUtils {
   /**
    * Returns a string representation of the integer argument as an integer in base 10.
    * The result is padded if needed with '0' characters up to the specified number of digits.
@@ -41,12 +40,10 @@ public final class StringUtils
    * @return the string representation of the integer value represented by the argument in decimal (base 10).
    * @see Integer#toString(int)
    */
-  public static String toString(final int i, final int nbDigits)
-  {
+  public static String toString(final int i, final int nbDigits) {
     final StringBuilder sb = new StringBuilder(Integer.toString(i));
 
-    while (sb.length() < nbDigits)
-    {
+    while (sb.length() < nbDigits) {
       sb.insert(0, '0'); // Should not throw IndexOutOfBoundsException.
     }
 
@@ -62,12 +59,10 @@ public final class StringUtils
    * @return the string representation of the long value represented by the argument in decimal (base 10).
    * @see Long#toString(long)
    */
-  public static String toString(final long i, final int nbDigits)
-  {
+  public static String toString(final long i, final int nbDigits) {
     final StringBuilder sb = new StringBuilder(Long.toString(i));
 
-    while (sb.length() < nbDigits)
-    {
+    while (sb.length() < nbDigits) {
       sb.insert(0, '0'); // Should not throw IndexOutOfBoundsException.
     }
 
@@ -86,16 +81,13 @@ public final class StringUtils
    * @param str a string. May be <code>null</code>.
    * @see String#trim
    */
-  public static String normalize(final String str)
-  {
+  public static String normalize(final String str) {
     String ret = null;
 
-    if (str != null)
-    {
+    if (str != null) {
       final String s = str.trim();
 
-      if (!s.isEmpty())
-      {
+      if (!s.isEmpty()) {
         ret = s;
       }
     }
@@ -106,7 +98,6 @@ public final class StringUtils
   /**
    * The default no-arg constructor shall not be accessible.
    */
-  private StringUtils()
-  {
+  private StringUtils() {
   }
 }

@@ -32,11 +32,9 @@ import java.io.IOException;
  * @author Christophe Delory
  * @version $Revision: 90 $
  */
-public class Sequence extends AbstractTimeContainer
-{
+public class Sequence extends AbstractTimeContainer {
   @Override
-  public void acceptDown(final PlaylistVisitor visitor) throws IOException
-  {
+  public void acceptDown(final PlaylistVisitor visitor) throws IOException {
     visitor.beginVisitSequence(this); // Throws NullPointerException if visitor is null. May throw Exception.
 
     super.acceptDown(visitor); // May throw Exception.
@@ -45,8 +43,7 @@ public class Sequence extends AbstractTimeContainer
   }
 
   @Override
-  public void acceptUp(final PlaylistVisitor visitor) throws IOException
-  {
+  public void acceptUp(final PlaylistVisitor visitor) throws IOException {
     visitor.beginVisitSequence(this); // Throws NullPointerException if visitor is null. May throw Exception.
 
     super.acceptUp(visitor); // May throw Exception.

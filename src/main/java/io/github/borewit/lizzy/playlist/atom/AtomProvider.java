@@ -48,8 +48,7 @@ import java.util.GregorianCalendar;
  *
  * @author Christophe Delory
  */
-public class AtomProvider extends JaxbPlaylistProvider<FeedType>
-{
+public class AtomProvider extends JaxbPlaylistProvider<FeedType> {
   /**
    * A list of compatible content types.
    */
@@ -63,44 +62,36 @@ public class AtomProvider extends JaxbPlaylistProvider<FeedType>
         "Atom Document"),
     };
 
-  public AtomProvider()
-  {
+  public AtomProvider() {
     super(FeedType.class);
   }
 
   @Override
-  public String getId()
-  {
+  public String getId() {
     return "atom";
   }
 
   @Override
-  public ContentType[] getContentTypes()
-  {
+  public ContentType[] getContentTypes() {
     return FILETYPES.clone();
   }
 
   @Override
-  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException
-  {
-    try
-    {
+  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException {
+    try {
       final JAXBElement<FeedType> feed = this.unmarshal(inputStream);
       String rootElementName = feed.getName().getLocalPart();
 
       return rootElementName != null && rootElementName.equalsIgnoreCase("Feed") ?
         new AtomPlaylist(this, feed.getValue()) : null;
-    }
-    catch (JAXBException | XMLStreamException exception)
-    {
+    } catch (JAXBException | XMLStreamException exception) {
       throw new IOException(exception);
     }
   }
 
 
   @Override
-  public SpecificPlaylist toSpecificPlaylist(final Playlist playlist)
-  {
+  public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) {
     final FeedType feed = new FeedType();
 
     feed.setTitle(toAtomText("Lizzy v" + Version.CURRENT + " Atom playlist"));
@@ -110,8 +101,7 @@ public class AtomProvider extends JaxbPlaylistProvider<FeedType>
     final StringBuilder sb = new StringBuilder();
     sb.append("urn:uuid:");
     final String tmpId = Integer.toHexString(System.identityHashCode(feed));
-    for (int i = tmpId.length(); i < 8; i++)
-    {
+    for (int i = tmpId.length(); i < 8; i++) {
       sb.append('0');
     }
     sb.append(tmpId);
@@ -131,29 +121,23 @@ public class AtomProvider extends JaxbPlaylistProvider<FeedType>
     return new AtomPlaylist(this, feed);
   }
 
-  private static AtomTextConstruct toAtomText(String title)
-  {
+  private static AtomTextConstruct toAtomText(String title) {
     AtomTextConstruct atomTextConstruct = new AtomTextConstruct();
     atomTextConstruct.setValue(title);
     return atomTextConstruct;
   }
 
-  private static AtomDateConstruct toAtomDate(long time)
-  {
+  private static AtomDateConstruct toAtomDate(long time) {
     return toAtomDate(new Date(time));
   }
 
-  private static AtomDateConstruct toAtomDate(Date date)
-  {
+  private static AtomDateConstruct toAtomDate(Date date) {
     AtomDateConstruct atomDateConstruct = new AtomDateConstruct();
     GregorianCalendar c = new GregorianCalendar();
     c.setTime(date);
-    try
-    {
+    try {
       atomDateConstruct.setValue(DatatypeFactory.newInstance().newXMLGregorianCalendar(c));
-    }
-    catch (DatatypeConfigurationException e)
-    {
+    } catch (DatatypeConfigurationException e) {
       throw new RuntimeException(e);
     }
     return new AtomDateConstruct();
@@ -169,54 +153,39 @@ public class AtomProvider extends JaxbPlaylistProvider<FeedType>
    * @throws Exception            if this service provider is unable to represent the input playlist.
    */
   @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
-  private void addToPlaylist(final FeedType feed, final AbstractPlaylistComponent component)
-  {
-    if (component instanceof Sequence)
-    {
+  private void addToPlaylist(final FeedType feed, final AbstractPlaylistComponent component) {
+    if (component instanceof Sequence) {
       final Sequence sequence = (Sequence) component;
 
-      if (sequence.getRepeatCount() < 0)
-      {
+      if (sequence.getRepeatCount() < 0) {
         throw new IllegalArgumentException("An Atom playlist cannot handle a sequence repeated indefinitely");
       }
 
-      for (int iter = 0; iter < sequence.getRepeatCount(); iter++)
-      {
+      for (int iter = 0; iter < sequence.getRepeatCount(); iter++) {
         sequence.getComponents().forEach(c -> addToPlaylist(feed, c));
       }
-    }
-    else if (component instanceof Parallel)
-    {
+    } else if (component instanceof Parallel) {
       throw new IllegalArgumentException("An Atom playlist doesn't support concurrent media");
-    }
-    else if (component instanceof Media)
-    {
+    } else if (component instanceof Media) {
       final Media media = (Media) component;
       final Date now = new Date();
 
-      if (media.getDuration() != null)
-      {
+      if (media.getDuration() != null) {
         throw new IllegalArgumentException("An Atom playlist cannot handle a timed media");
       }
 
-      if (media.getRepeatCount() < 0)
-      {
+      if (media.getRepeatCount() < 0) {
         throw new IllegalArgumentException("An Atom playlist cannot handle a media repeated indefinitely");
       }
 
-      if (media.getSource() != null)
-      {
-        for (int iter = 0; iter < media.getRepeatCount(); iter++)
-        {
+      if (media.getSource() != null) {
+        for (int iter = 0; iter < media.getRepeatCount(); iter++) {
           final EntryType entry = new EntryType();
           final Link link = new Link();
           final URI uri; // May throw SecurityException, URISyntaxException.
-          try
-          {
+          try {
             uri = media.getSource().getURI();
-          }
-          catch (URISyntaxException e)
-          {
+          } catch (URISyntaxException e) {
             throw new RuntimeException(e);
           }
           link.setHref(uri.toString());
@@ -232,12 +201,9 @@ public class AtomProvider extends JaxbPlaylistProvider<FeedType>
 
           final AtomTextConstruct title = new AtomTextConstruct();
 
-          if (uri.getPath() == null)
-          {
+          if (uri.getPath() == null) {
             title.setValue(media.getSource().toString());
-          }
-          else
-          {
+          } else {
             final File path = new File(uri.getPath());
             title.setValue(path.getName());
           }
@@ -246,12 +212,9 @@ public class AtomProvider extends JaxbPlaylistProvider<FeedType>
 
           AtomDateConstruct atomDate = toAtomDate(now);
 
-          if (media.getSource().getLastModified() > 0L)
-          {
+          if (media.getSource().getLastModified() > 0L) {
             entry.setUpdated(toAtomDate(media.getSource().getLastModified()));
-          }
-          else
-          {
+          } else {
             entry.setUpdated(atomDate);
           }
 
@@ -261,8 +224,7 @@ public class AtomProvider extends JaxbPlaylistProvider<FeedType>
           final StringBuilder sb = new StringBuilder();
           sb.append("urn:uuid:");
           final String tmpId = Integer.toHexString(System.identityHashCode(entry));
-          for (int i = tmpId.length(); i < 8; i++)
-          {
+          for (int i = tmpId.length(); i < 8; i++) {
             sb.append('0');
           }
           sb.append(tmpId);

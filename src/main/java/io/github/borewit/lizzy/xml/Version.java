@@ -31,8 +31,7 @@ import java.io.Serializable;
  *
  * @author Christophe Delory
  */
-public class Version implements Cloneable, Serializable
-{
+public class Version implements Cloneable, Serializable {
   /**
    * The serialization runtime associates with each serializable class a version number, called a serialVersionUID,
    * which is used during deserialization to verify that the sender and receiver of a serialized object have loaded classes for that object
@@ -56,39 +55,32 @@ public class Version implements Cloneable, Serializable
    * @throws NumberFormatException     if the version string contains a non-parsable integer.
    * @see #toString
    */
-  public static Version valueOf(final String name)
-  {
+  public static Version valueOf(final String name) {
     final int k = name.indexOf('.'); // May throw NullPointerException.
 
-    if (k < 0)
-    {
+    if (k < 0) {
       throw new IllegalArgumentException("The format of a version string is <version.revision.step>");
     }
 
-    if (k == 0)
-    {
+    if (k == 0) {
       throw new IllegalArgumentException("No version part in version string '" + name + '\'');
     }
 
-    if ((k + 1) >= name.length())
-    {
+    if ((k + 1) >= name.length()) {
       throw new IllegalArgumentException("No revision/step part in version string '" + name + '\'');
     }
 
     final int l = name.indexOf('.', k + 1);
 
-    if (l < 0)
-    {
+    if (l < 0) {
       throw new IllegalArgumentException("The format of a version string is <version.revision.step>");
     }
 
-    if (l == (k + 1))
-    {
+    if (l == (k + 1)) {
       throw new IllegalArgumentException("No revision part in version string '" + name + '\'');
     }
 
-    if ((l + 1) >= name.length())
-    {
+    if ((l + 1) >= name.length()) {
       throw new IllegalArgumentException("No step part in version string '" + name + '\'');
     }
 
@@ -122,8 +114,7 @@ public class Version implements Cloneable, Serializable
    * Builds a default version information.
    * All fields are set to '0'.
    */
-  private Version()
-  {
+  private Version() {
     _version = 0;
     _revision = 0;
     _step = 0;
@@ -137,8 +128,7 @@ public class Version implements Cloneable, Serializable
    * @param step     the step number.
    * @throws IndexOutOfBoundsException if one of the numbers is strictly negative.
    */
-  public Version(final int version, final int revision, final int step)
-  {
+  public Version(final int version, final int revision, final int step) {
     setVersion(version); // May throw IndexOutOfBoundsException.
     setRevision(revision); // May throw IndexOutOfBoundsException.
     setStep(step); // May throw IndexOutOfBoundsException.
@@ -151,10 +141,8 @@ public class Version implements Cloneable, Serializable
    * @throws IndexOutOfBoundsException if the number is strictly negative.
    * @see #getVersion
    */
-  private void setVersion(final int version)
-  {
-    if (version < 0)
-    {
+  private void setVersion(final int version) {
+    if (version < 0) {
       throw new IndexOutOfBoundsException("Version number is negative");
     }
 
@@ -166,8 +154,7 @@ public class Version implements Cloneable, Serializable
    *
    * @return a version number.
    */
-  public int getVersion()
-  {
+  public int getVersion() {
     return _version;
   }
 
@@ -178,10 +165,8 @@ public class Version implements Cloneable, Serializable
    * @throws IndexOutOfBoundsException if the number is strictly negative.
    * @see #getRevision
    */
-  private void setRevision(final int revision)
-  {
-    if (revision < 0)
-    {
+  private void setRevision(final int revision) {
+    if (revision < 0) {
       throw new IndexOutOfBoundsException("Revision number is negative");
     }
 
@@ -193,8 +178,7 @@ public class Version implements Cloneable, Serializable
    *
    * @return a revision number.
    */
-  public int getRevision()
-  {
+  public int getRevision() {
     return _revision;
   }
 
@@ -205,10 +189,8 @@ public class Version implements Cloneable, Serializable
    * @throws IndexOutOfBoundsException if the number is strictly negative.
    * @see #getStep
    */
-  private void setStep(final int step)
-  {
-    if (step < 0)
-    {
+  private void setStep(final int step) {
+    if (step < 0) {
       throw new IndexOutOfBoundsException("Step number is negative");
     }
 
@@ -220,13 +202,11 @@ public class Version implements Cloneable, Serializable
    *
    * @return a step number.
    */
-  public int getStep()
-  {
+  public int getStep() {
     return _step;
   }
 
-  public int compareTo(final Object o)
-  {
+  public int compareTo(final Object o) {
     return hashCode() - ((Version) o).hashCode(); // May throw NullPointerException, ClassCastException.
   }
 
@@ -238,12 +218,10 @@ public class Version implements Cloneable, Serializable
    * @return <code>true</code> if this object is the same as the <code>obj</code> argument; <code>false</code> otherwise.
    */
   @Override
-  public boolean equals(final Object obj)
-  {
+  public boolean equals(final Object obj) {
     boolean ret = false;
 
-    if ((obj != null) && (obj instanceof Version))
-    {
+    if ((obj != null) && (obj instanceof Version)) {
       ret = (hashCode() == obj.hashCode());
     }
 
@@ -251,8 +229,7 @@ public class Version implements Cloneable, Serializable
   }
 
   @Override
-  public int hashCode()
-  {
+  public int hashCode() {
     return ((_version & 0x000003ff) << 20) | ((_revision & 0x000003ff) << 10) | (_step & 0x000003ff);
   }
 
@@ -264,8 +241,7 @@ public class Version implements Cloneable, Serializable
    * @see Object#clone
    */
   @Override
-  public Object clone() throws CloneNotSupportedException
-  {
+  public Object clone() throws CloneNotSupportedException {
     return super.clone(); // Should not throw CloneNotSupportedException.
   }
 
@@ -276,8 +252,7 @@ public class Version implements Cloneable, Serializable
    * @return a string representing this version information.
    */
   @Override
-  public String toString()
-  {
+  public String toString() {
     final StringBuilder sb = new StringBuilder();
 
     sb.append(_version);

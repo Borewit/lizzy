@@ -38,8 +38,7 @@ import java.util.List;
  * @version $Revision: 92 $
  * @since 0.2.0
  */
-public class ContentTypesFileFilter extends FileFilter
-{
+public class ContentTypesFileFilter extends FileFilter {
   /**
    * A list of content types.
    */
@@ -68,8 +67,7 @@ public class ContentTypesFileFilter extends FileFilter
    * @throws NullPointerException if <code>title</code> is <code>null</code>.
    * @see #getDescription
    */
-  public ContentTypesFileFilter(final String title, final boolean includeExtensionsInDescription)
-  {
+  public ContentTypesFileFilter(final String title, final boolean includeExtensionsInDescription) {
     super();
 
     _title = title.trim(); // Throws NullPointerException if title is null.
@@ -83,8 +81,7 @@ public class ContentTypesFileFilter extends FileFilter
    * @throws NullPointerException if <code>contentType</code> is <code>null</code>.
    * @see #getContentTypes
    */
-  public void addContentType(final ContentType contentType)
-  {
+  public void addContentType(final ContentType contentType) {
     _types.add(contentType); // Throws NullPointerException if contentType is null.
   }
 
@@ -94,8 +91,7 @@ public class ContentTypesFileFilter extends FileFilter
    * @return a list of content types. May be empty but not <code>null</code>.
    * @see #addContentType
    */
-  public List<ContentType> getContentTypes()
-  {
+  public List<ContentType> getContentTypes() {
     return _types;
   }
 
@@ -108,24 +104,17 @@ public class ContentTypesFileFilter extends FileFilter
    * @see FileFilter#getDescription
    */
   @Override
-  public String getDescription()
-  {
+  public String getDescription() {
     final StringBuilder sb = new StringBuilder(_title);
 
-    if (_includeExtensionsInDescription)
-    {
+    if (_includeExtensionsInDescription) {
       boolean first = true;
 
-      for (ContentType type : _types)
-      {
-        for (String ext : type.getExtensions())
-        {
-          if (first)
-          {
+      for (ContentType type : _types) {
+        for (String ext : type.getExtensions()) {
+          if (first) {
             sb.append(" (");
-          }
-          else
-          {
+          } else {
             sb.append(", ");
           }
 
@@ -134,8 +123,7 @@ public class ContentTypesFileFilter extends FileFilter
         }
       }
 
-      if (!first)
-      {
+      if (!first) {
         sb.append(')');
       }
     }
@@ -153,12 +141,10 @@ public class ContentTypesFileFilter extends FileFilter
    * @throws NullPointerException if <code>f</code> is <code>null</code>.
    */
   @Override
-  public boolean accept(final File f)
-  {
+  public boolean accept(final File f) {
     boolean ret = false;
 
-    for (ContentType type : _types)
-    {
+    for (ContentType type : _types) {
       ret = ret || type.accept(f); // Throws NullPointerException if f is null.
     }
 
@@ -172,8 +158,7 @@ public class ContentTypesFileFilter extends FileFilter
    * @see #setProvider
    * @since 0.3.0
    */
-  public SpecificPlaylistProvider getProvider()
-  {
+  public SpecificPlaylistProvider getProvider() {
     return _provider;
   }
 
@@ -184,8 +169,7 @@ public class ContentTypesFileFilter extends FileFilter
    * @see #getProvider
    * @since 0.3.0
    */
-  public void setProvider(final SpecificPlaylistProvider provider)
-  {
+  public void setProvider(final SpecificPlaylistProvider provider) {
     _provider = provider;
   }
 }

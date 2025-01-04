@@ -34,8 +34,7 @@ import java.io.IOException;
  * @author Christophe Delory
  * @version $Revision: 92 $
  */
-public class Media extends AbstractPlaylistComponent
-{
+public class Media extends AbstractPlaylistComponent {
   /**
    * The media source.
    */
@@ -46,12 +45,10 @@ public class Media extends AbstractPlaylistComponent
    */
   private Long _duration = null;
 
-  public Media()
-  {
+  public Media() {
   }
 
-  public Media(Content source)
-  {
+  public Media(Content source) {
     this._source = source;
   }
 
@@ -61,8 +58,7 @@ public class Media extends AbstractPlaylistComponent
    * @return a media source. May be <code>null</code> if not yet initialized.
    * @see #setSource
    */
-  public Content getSource()
-  {
+  public Content getSource() {
     return _source;
   }
 
@@ -73,10 +69,8 @@ public class Media extends AbstractPlaylistComponent
    * @throws NullPointerException if <code>source</code> is null</code>.
    * @see #getSource
    */
-  public void setSource(final Content source)
-  {
-    if (source == null)
-    {
+  public void setSource(final Content source) {
+    if (source == null) {
       throw new NullPointerException("No media source");
     }
 
@@ -91,8 +85,7 @@ public class Media extends AbstractPlaylistComponent
    * @return a duration value. May be <code>null</code>.
    * @see #setDuration
    */
-  public Long getDuration()
-  {
+  public Long getDuration() {
     return _duration;
   }
 
@@ -105,10 +98,8 @@ public class Media extends AbstractPlaylistComponent
    * @see #getDuration
    * @see #setDuration
    */
-  public void setDuration(final Long millis)
-  {
-    if ((millis != null) && (millis.longValue() <= 0L))
-    {
+  public void setDuration(final Long millis) {
+    if ((millis != null) && (millis.longValue() <= 0L)) {
       throw new IllegalArgumentException("Negative or null duration " + millis);
     }
 
@@ -124,10 +115,8 @@ public class Media extends AbstractPlaylistComponent
    * @see #getDuration
    * @see #setDuration
    */
-  public void setDuration(final long millis)
-  {
-    if (millis <= 0L)
-    {
+  public void setDuration(final long millis) {
+    if (millis <= 0L) {
       throw new IllegalArgumentException("Negative or null duration " + millis);
     }
 
@@ -135,16 +124,14 @@ public class Media extends AbstractPlaylistComponent
   }
 
   @Override
-  public void acceptDown(final PlaylistVisitor visitor) throws IOException
-  {
+  public void acceptDown(final PlaylistVisitor visitor) throws IOException {
     visitor.beginVisitMedia(this); // Throws NullPointerException if visitor is null. May throw Exception.
 
     visitor.endVisitMedia(this); // May throw Exception.
   }
 
   @Override
-  public void acceptUp(final PlaylistVisitor visitor) throws IOException
-  {
+  public void acceptUp(final PlaylistVisitor visitor) throws IOException {
     visitor.beginVisitMedia(this); // Throws NullPointerException if visitor is null. May throw Exception.
 
     super.acceptUp(visitor); // May throw Exception.

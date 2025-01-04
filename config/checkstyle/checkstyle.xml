@@ -13,11 +13,10 @@
     <property name="max" value="4000"/>
   </module>
 
-  <!--	<module name="LineLength">
-      <property name="max" value="180"/>
-    </module>-->
-
-  <module name="FileTabCharacter"/>
+	<!-- Enforce the use of tabs -->
+	<module name="FileTabCharacter">
+		<property name="eachLine" value="true"/> <!-- Check every line -->
+	</module>
 
   <!-- Ignore module-info.java -->
   <module name="BeforeExecutionExclusionFileFilter">
@@ -79,11 +78,9 @@
       <property name="tokens" value="LITERAL_TRY"/>
     </module>
     <module name="LeftCurly">
-      <property name="option" value="nl"/>
       <property name="tokens" value="CLASS_DEF,INTERFACE_DEF"/>
     </module>
     <module name="RightCurly">
-      <property name="option" value="alone_or_singleline"/>
       <property name="tokens" value="LITERAL_IF, METHOD_DEF"/>
     </module>
 

@@ -38,8 +38,7 @@ import org.apache.logging.log4j.Logger;
  * @author Christophe Delory
  * @version $Revision: 90 $
  */
-public class FetchContentMetadata extends BasePlaylistVisitor
-{
+public class FetchContentMetadata extends BasePlaylistVisitor {
   /**
    * The logger.
    */
@@ -56,24 +55,17 @@ public class FetchContentMetadata extends BasePlaylistVisitor
    *
    * @param connect the corresponding boolean.
    */
-  public void setConnect(final boolean connect)
-  {
+  public void setConnect(final boolean connect) {
     _connect = connect;
   }
 
   @Override
-  public void beginVisitMedia(final Media target)
-  {
-    if (target.getSource() != null)
-    {
-      if (_connect)
-      {
-        try
-        {
+  public void beginVisitMedia(final Media target) {
+    if (target.getSource() != null) {
+      if (_connect) {
+        try {
           target.getSource().connect(); // May throw IOException, SecurityException, IllegalArgumentException.
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
           logger.warn("Cannot access media content " + target.getSource(), e);
         }
 
@@ -81,17 +73,13 @@ public class FetchContentMetadata extends BasePlaylistVisitor
       }
 
       // Override the type, if we can find a valid one.
-      try
-      {
+      try {
         final ContentType contentType = ContentTypeProvider.getInstance().getContentType(target.getSource().getURI()); // May throw SecurityException, URISyntaxException.
 
-        if (contentType != null)
-        {
+        if (contentType != null) {
           target.getSource().setType(contentType.getMimeTypes()[0]);
         }
-      }
-      catch (Exception e)
-      {
+      } catch (Exception e) {
         logger.warn("Cannot build URI for media content " + target.getSource(), e);
       }
     }

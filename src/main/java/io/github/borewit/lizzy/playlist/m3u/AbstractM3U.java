@@ -41,8 +41,7 @@ import java.util.List;
  * @author Christophe Delory
  * @version $Revision: 92 $
  */
-abstract class AbstractM3U implements SpecificPlaylist
-{
+abstract class AbstractM3U implements SpecificPlaylist {
   /**
    * The provider of this specific playlist.
    */
@@ -58,41 +57,32 @@ abstract class AbstractM3U implements SpecificPlaylist
    */
   private boolean _extensionM3U = false;
 
-  public void setProvider(final SpecificPlaylistProvider provider)
-  {
+  public void setProvider(final SpecificPlaylistProvider provider) {
     _provider = provider;
   }
 
   @Override
-  public SpecificPlaylistProvider getProvider()
-  {
+  public SpecificPlaylistProvider getProvider() {
     return _provider;
   }
 
-  protected void writeTo(final OutputStream out, final Charset encoding) throws IOException
-  {
+  protected void writeTo(final OutputStream out, final Charset encoding) throws IOException {
     final BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, encoding)); // Throws NullPointerException if out is null. May throw UnsupportedEncodingException.
 
-    if (_extensionM3U)
-    {
+    if (_extensionM3U) {
       writer.write("#EXTM3U"); // May throw IOException.
       writer.newLine(); // May throw IOException.
     }
 
-    for (Resource resource : _resources)
-    {
-      if (_extensionM3U)
-      {
+    for (Resource resource : _resources) {
+      if (_extensionM3U) {
         writer.write("#EXTINF:"); // May throw IOException.
         writer.write(Long.toString(resource.getLength())); // May throw IOException.
         writer.write(","); // May throw IOException.
 
-        if (resource.getName() == null)
-        {
+        if (resource.getName() == null) {
           writer.write(resource.getLocation()); // May throw NullPointerException, IOException.
-        }
-        else
-        {
+        } else {
           writer.write(resource.getName()); // May throw IOException.
         }
 
@@ -107,14 +97,11 @@ abstract class AbstractM3U implements SpecificPlaylist
   }
 
   @Override
-  public Playlist toPlaylist()
-  {
+  public Playlist toPlaylist() {
     final Playlist ret = new Playlist();
 
-    for (Resource resource : _resources)
-    {
-      if (resource.getLocation() != null)
-      {
+    for (Resource resource : _resources) {
+      if (resource.getLocation() != null) {
         final Media media = new Media(); // NOPMD Avoid instantiating new objects inside loops
         final Content content = new Content(resource.getLocation()); // NOPMD Avoid instantiating new objects inside loops
         media.setSource(content);
@@ -134,8 +121,7 @@ abstract class AbstractM3U implements SpecificPlaylist
    * @param extensionM3U <code>true</code> if the marshalled playlist must be an Extension M3U, <code>false</code> otherwise.
    * @see #isExtensionM3U
    */
-  public void setExtensionM3U(final boolean extensionM3U)
-  {
+  public void setExtensionM3U(final boolean extensionM3U) {
     _extensionM3U = extensionM3U;
   }
 
@@ -146,8 +132,7 @@ abstract class AbstractM3U implements SpecificPlaylist
    * @return <code>true</code> if the marshalled playlist must be an Extension M3U, <code>false</code> otherwise.
    * @see #setExtensionM3U
    */
-  public boolean isExtensionM3U()
-  {
+  public boolean isExtensionM3U() {
     return _extensionM3U;
   }
 
@@ -156,8 +141,7 @@ abstract class AbstractM3U implements SpecificPlaylist
    *
    * @return a list of child resources. May be empty but not <code>null</code>.
    */
-  public List<Resource> getResources()
-  {
+  public List<Resource> getResources() {
     return _resources;
   }
 }

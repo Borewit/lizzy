@@ -42,8 +42,7 @@ import java.util.List;
  * @version $Revision: 91 $
  * @since 0.2.0
  */
-public class PLAProvider implements SpecificPlaylistProvider
-{
+public class PLAProvider implements SpecificPlaylistProvider {
   private final Logger logger = LogManager.getLogger(PLAProvider.class);
 
   /**
@@ -60,20 +59,17 @@ public class PLAProvider implements SpecificPlaylistProvider
     };
 
   @Override
-  public String getId()
-  {
+  public String getId() {
     return "pla";
   }
 
   @Override
-  public ContentType[] getContentTypes()
-  {
+  public ContentType[] getContentTypes() {
     return FILETYPES.clone();
   }
 
   @Override
-  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException
-  {
+  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException {
     PLA ret = new PLA();
     ret.setProvider(this);
 
@@ -90,8 +86,7 @@ public class PLAProvider implements SpecificPlaylistProvider
     // Immediately after this there is an ASCII string "iriver UMS PLA", and that's all for the header frame.
     final String magic = new String(array, 4, 14, StandardCharsets.US_ASCII); // Shall not throw UnsupportedEncodingException, IndexOutOfBoundsException.
 
-    if (!"iriver UMS PLA".equals(magic))
-    {
+    if (!"iriver UMS PLA".equals(magic)) {
       throw new IllegalArgumentException("Not a PLA playlist format (bad magic)");
     }
 
@@ -103,8 +98,7 @@ public class PLAProvider implements SpecificPlaylistProvider
       (((int) array[1] & 0x0ff) << 16) |
       (((int) array[0] & 0x0ff) << 24);
 
-    for (int i = 0; i < nbSongs; i++)
-    {
+    for (int i = 0; i < nbSongs; i++) {
       if (inputStream.read(array) != 512) // May throw IOException.
       {
         logger.error("Malformed PLA playlist (file too small)");
@@ -135,8 +129,7 @@ public class PLAProvider implements SpecificPlaylistProvider
   }
 
   @Override
-  public SpecificPlaylist toSpecificPlaylist(final Playlist playlist)
-  {
+  public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) {
     final PLA ret = new PLA();
     ret.setProvider(this);
 
@@ -151,45 +144,33 @@ public class PLAProvider implements SpecificPlaylistProvider
    * @param filenames the resulting list of file names. Shall not be <code>null</code>.
    * @param component the generic playlist component to handle. Shall not be <code>null</code>.
    */
-  private void addToPlaylist(final List<String> filenames, final AbstractPlaylistComponent component)
-  {
-    if (component instanceof Sequence)
-    {
+  private void addToPlaylist(final List<String> filenames, final AbstractPlaylistComponent component) {
+    if (component instanceof Sequence) {
       final Sequence seq = (Sequence) component;
 
-      if (seq.getRepeatCount() < 0)
-      {
+      if (seq.getRepeatCount() < 0) {
         throw new IllegalArgumentException("A PLA playlist cannot handle a sequence repeated indefinitely");
       }
 
-      for (int iter = 0; iter < seq.getRepeatCount(); iter++)
-      {
+      for (int iter = 0; iter < seq.getRepeatCount(); iter++) {
         seq.getComponents().forEach(c -> addToPlaylist(filenames, c));
 
       }
-    }
-    else if (component instanceof Parallel)
-    {
+    } else if (component instanceof Parallel) {
       throw new IllegalArgumentException("A parallel time container is incompatible with a PLA playlist");
-    }
-    else if (component instanceof Media)
-    {
+    } else if (component instanceof Media) {
       final Media media = (Media) component;
 
-      if (media.getDuration() != null)
-      {
+      if (media.getDuration() != null) {
         throw new IllegalArgumentException("A PLA playlist cannot handle a timed media");
       }
 
-      if (media.getRepeatCount() < 0)
-      {
+      if (media.getRepeatCount() < 0) {
         throw new IllegalArgumentException("A PLA playlist cannot handle a media repeated indefinitely");
       }
 
-      if (media.getSource() != null)
-      {
-        for (int iter = 0; iter < media.getRepeatCount(); iter++)
-        {
+      if (media.getSource() != null) {
+        for (int iter = 0; iter < media.getRepeatCount(); iter++) {
           filenames.add(media.getSource().toString()); // Shall not throw UnsupportedOperationException, ClassCastException, NullPointerException, IllegalArgumentException.
         }
       }

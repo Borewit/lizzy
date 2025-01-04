@@ -38,8 +38,7 @@ import java.util.List;
  * @version $Revision: 91 $
  * @since 0.2.0
  */
-public final class ContentTypeInfo
-{
+public final class ContentTypeInfo {
   /**
    * The line separator.
    */
@@ -52,17 +51,14 @@ public final class ContentTypeInfo
    * @return a string representing the specified content type. Shall not be <code>null</code>.
    * @throws NullPointerException if <code>contentType</code> is <code>null</code>.
    */
-  public static String toString(final ContentType contentType)
-  {
+  public static String toString(final ContentType contentType) {
     final StringBuilder sb = new StringBuilder(contentType.getDescription()); // Throws NullPointerException if contentType is null.
     sb.append(LINE_SEPARATOR);
     sb.append("  Typical file name extension(s) [case-insensitive]: ");
     boolean first = true;
 
-    for (String ext : contentType.getExtensions())
-    {
-      if (!first)
-      {
+    for (String ext : contentType.getExtensions()) {
+      if (!first) {
         sb.append(' ');
       }
 
@@ -74,10 +70,8 @@ public final class ContentTypeInfo
     sb.append("  MIME type(s): ");
     first = true;
 
-    for (String mimeType : contentType.getMimeTypes())
-    {
-      if (!first)
-      {
+    for (String mimeType : contentType.getMimeTypes()) {
+      if (!first) {
         sb.append(' ');
       }
 
@@ -89,10 +83,8 @@ public final class ContentTypeInfo
     sb.append("  Supported player(s): ");
     first = true;
 
-    for (PlayerSupport playerSupport : contentType.getPlayerSupports())
-    {
-      if (!first)
-      {
+    for (PlayerSupport playerSupport : contentType.getPlayerSupports()) {
+      if (!first) {
         sb.append(' ');
       }
 
@@ -100,8 +92,7 @@ public final class ContentTypeInfo
       sb.append(PlayerSupport.toString(playerSupport.getPlayer()));
       sb.append(" [R");
 
-      if (playerSupport.isSaved())
-      {
+      if (playerSupport.isSaved()) {
         sb.append('W');
       }
 
@@ -120,8 +111,7 @@ public final class ContentTypeInfo
    * @return an HTML fragment representing the specified content type. Shall not be <code>null</code>.
    * @throws NullPointerException if <code>contentType</code> is <code>null</code>.
    */
-  public static String toHTML(final ContentType contentType)
-  {
+  public static String toHTML(final ContentType contentType) {
     final StringBuilder sb = new StringBuilder("<tr valign=top><td>");
     sb.append(contentType.getDescription()); // Throws NullPointerException if contentType is null.
 
@@ -130,8 +120,7 @@ public final class ContentTypeInfo
 
     for (String ext : contentType.getExtensions()) // Throws NullPointerException if contentType is null.
     {
-      if (!first)
-      {
+      if (!first) {
         sb.append(' ');
       }
 
@@ -142,10 +131,8 @@ public final class ContentTypeInfo
     sb.append("</code></td><td><code>");
     first = true;
 
-    for (String mimeType : contentType.getMimeTypes())
-    {
-      if (!first)
-      {
+    for (String mimeType : contentType.getMimeTypes()) {
+      if (!first) {
         sb.append("<br>");
       }
 
@@ -156,10 +143,8 @@ public final class ContentTypeInfo
     sb.append("</code></td><td>");
     first = true;
 
-    for (PlayerSupport playerSupport : contentType.getPlayerSupports())
-    {
-      if (!first)
-      {
+    for (PlayerSupport playerSupport : contentType.getPlayerSupports()) {
+      if (!first) {
         sb.append("<br>");
       }
 
@@ -167,8 +152,7 @@ public final class ContentTypeInfo
       sb.append(PlayerSupport.toString(playerSupport.getPlayer()));
       sb.append(" [R");
 
-      if (playerSupport.isSaved())
-      {
+      if (playerSupport.isSaved()) {
         sb.append('W');
       }
 
@@ -185,40 +169,30 @@ public final class ContentTypeInfo
    *
    * @param args the input parameters.
    */
-  public static void main(final String[] args)
-  {
+  public static void main(final String[] args) {
     final List<SpecificPlaylistProvider> providers = SpecificPlaylistFactory.getInstance().getProviders();
     final boolean txt = (args.length > 0);
 
     final StringBuilder sb = new StringBuilder();
 
-    if (txt)
-    {
+    if (txt) {
       sb.append("PLAYLIST FORMATS:");
       sb.append(LINE_SEPARATOR);
-    }
-    else
-    {
+    } else {
       sb.append("<html><head><title>Playlist formats</title></head><body><table border=1 cellpadding=4 cellspacing=0><thead><tr valign=top><th>Playlist type</th><th>Typical file name extension(s) [case-insensitive]</th><th>MIME type(s)</th><th>Supported player(s)</th></tr></thead><tbody>");
     }
 
-    for (SpecificPlaylistProvider provider : providers)
-    {
-      for (ContentType type : provider.getContentTypes())
-      {
-        if (txt)
-        {
+    for (SpecificPlaylistProvider provider : providers) {
+      for (ContentType type : provider.getContentTypes()) {
+        if (txt) {
           sb.append(toString(type));
-        }
-        else
-        {
+        } else {
           sb.append(toHTML(type));
         }
       }
     }
 
-    if (!txt)
-    {
+    if (!txt) {
       sb.append("</tbody></table></body></html>");
     }
 
@@ -228,7 +202,6 @@ public final class ContentTypeInfo
   /**
    * The default no-arg constructor shall not be accessible.
    */
-  private ContentTypeInfo()
-  {
+  private ContentTypeInfo() {
   }
 }

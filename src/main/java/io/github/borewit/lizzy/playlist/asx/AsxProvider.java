@@ -46,8 +46,7 @@ import java.nio.charset.StandardCharsets;
  * @author Christophe Delory
  * @version $Revision: 90 $
  */
-public class AsxProvider extends JaxbPlaylistProvider<Asx>
-{
+public class AsxProvider extends JaxbPlaylistProvider<Asx> {
   /**
    * A list of compatible content types.
    */
@@ -91,43 +90,35 @@ public class AsxProvider extends JaxbPlaylistProvider<Asx>
         "Windows Media Audio Redirector (WAX)"),
     };
 
-  public AsxProvider()
-  {
+  public AsxProvider() {
     super(Asx.class);
     super.setTextEncoding(StandardCharsets.US_ASCII); // Tested with Windows media player
   }
 
   @Override
-  public String getId()
-  {
+  public String getId() {
     return "asx";
   }
 
   @Override
-  public ContentType[] getContentTypes()
-  {
+  public ContentType[] getContentTypes() {
     return FILETYPES.clone();
   }
 
   @Override
-  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException
-  {
-    try
-    {
+  public SpecificPlaylist readFrom(final InputStream inputStream) throws IOException {
+    try {
       final JAXBElement<Asx> asx = this.unmarshal(inputStream);
       String rootElementName = asx.getName().getLocalPart();
 
       return rootElementName != null && rootElementName.equalsIgnoreCase("ASX") ?
         new AsxPlaylistAdapter(this, asx.getValue()) : null;
-    }
-    catch (JAXBException | XMLStreamException exception)
-    {
+    } catch (JAXBException | XMLStreamException exception) {
       throw new IOException(exception.getMessage(), exception);
     }
   }
 
-  protected Marshaller makeMarshaller(String encoding) throws JAXBException
-  {
+  protected Marshaller makeMarshaller(String encoding) throws JAXBException {
     Marshaller marshaller = super.makeMarshaller(encoding);
     // First line should be: "<ASX VERSION="3.0">"
     marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
@@ -135,8 +126,7 @@ public class AsxProvider extends JaxbPlaylistProvider<Asx>
   }
 
   @Override
-  public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws IOException
-  {
+  public SpecificPlaylist toSpecificPlaylist(final Playlist playlist) throws IOException {
     final AsxPlaylistAdapter asxPlaylist = new AsxPlaylistAdapter(this);
 
     addToPlaylist(asxPlaylist.getAsx(), playlist.getRootSequence()); // May throw Exception.
@@ -150,79 +140,60 @@ public class AsxProvider extends JaxbPlaylistProvider<Asx>
    * @param asxContainer ASX Container element (ASX or REPEAT element). Shall not be <code>null</code>.
    * @param component    the generic playlist component to handle. Shall not be <code>null</code>.
    */
-  private void addToPlaylist(final ContainerElement asxContainer, final AbstractPlaylistComponent component)
-  {
-    if (component instanceof Sequence)
-    {
+  private void addToPlaylist(final ContainerElement asxContainer, final AbstractPlaylistComponent component) {
+    if (component instanceof Sequence) {
       final Sequence sequence = (Sequence) component;
 
       // EntryElement newContainer = new EntryElement();
 
       // Do we need a repeat element?
-      if (sequence.getRepeatCount() > 1 && asxContainer instanceof Asx)
-      {
+      if (sequence.getRepeatCount() > 1 && asxContainer instanceof Asx) {
         Asx asx = (Asx) asxContainer;
         final REPEAT repeat = new REPEAT();
         repeat.setCOUNT((int) (sequence.getRepeatCount() - 1));
         asx.getREPEAT().add(repeat);
         sequence.getComponents().forEach(child -> addToPlaylist(repeat, child));
-      }
-      else
-      {
+      } else {
         // We cannot handle nested repeats in ASX
         sequence.getComponents().forEach(child -> addToPlaylist(asxContainer, child));
       }
-    }
-    else if (component instanceof Parallel)
-    {
+    } else if (component instanceof Parallel) {
       throw new IllegalArgumentException("A parallel time container is incompatible with an ASX playlist");
-    }
-    else if (component instanceof Media)
-    {
+    } else if (component instanceof Media) {
       final Media media = (Media) component;
 
       if (media.getSource() != null) // Ignore "empty" media.
       {
         // Do we need a repeat element?
-        if (media.getRepeatCount() > 1 && asxContainer instanceof Asx)
-        {
+        if (media.getRepeatCount() > 1 && asxContainer instanceof Asx) {
           Asx asx = (Asx) asxContainer;
           final REPEAT repeat = new REPEAT();
           repeat.setCOUNT((int) (media.getRepeatCount() - 1));
           asx.getREPEAT().add(repeat);
           addToPlaylist(repeat, media);
-        }
-        else
-        {
+        } else {
           boolean isPlaylist = false;
           final String path = media.getSource().toString().toLowerCase();
 
-          for (ContentType type : FILETYPES)
-          {
-            for (String extension : type.getExtensions())
-            {
+          for (ContentType type : FILETYPES) {
+            for (String extension : type.getExtensions()) {
               isPlaylist = isPlaylist || path.endsWith(extension);
             }
           }
 
-          if (isPlaylist)
-          {
-            if (media.getDuration() != null)
-            {
+          if (isPlaylist) {
+            if (media.getDuration() != null) {
               throw new IllegalArgumentException("An ASX playlist referenced in another ASX playlist cannot be timed");
             }
             final RefElement entryRef = new RefElement();
             entryRef.setHREF(media.getSource().toString());
             asxContainer.getENTRYOrENTRYREF().add(entryRef);
-          }
-          else
-          {
+          } else {
             final ENTRY entry = new ENTRY();
             final RefElement reference = new RefElement();
             reference.setHREF(media.getSource().toString());
 
-            if (media.getDuration() != null)
-            {
+            if (media.getDuration() != null) {
               final DurationElement duration = new DurationElement();
               // ToDo
               // duration.setValue(media.getDuration().longValue());
@@ -238,8 +209,7 @@ public class AsxProvider extends JaxbPlaylistProvider<Asx>
   }
 
   @Override
-  protected XMLStreamReader getXmlStreamReader(final InputStream in, final String encoding) throws XMLStreamException
-  {
+  protected XMLStreamReader getXmlStreamReader(final InputStream in, final String encoding) throws XMLStreamException {
     // Normalize XML tags and attributes to uppercase
     return new AsxStreamReaderDelegate(super.getXmlStreamReader(in, encoding));
   }
@@ -247,23 +217,19 @@ public class AsxProvider extends JaxbPlaylistProvider<Asx>
   /**
    * Override the XML reader, having effectively a case-insensitive XML reader
    */
-  private static class AsxStreamReaderDelegate extends StreamReaderDelegate
-  {
+  private static class AsxStreamReaderDelegate extends StreamReaderDelegate {
 
-    AsxStreamReaderDelegate(XMLStreamReader xsr)
-    {
+    AsxStreamReaderDelegate(XMLStreamReader xsr) {
       super(xsr);
     }
 
     @Override
-    public String getAttributeLocalName(int index)
-    {
+    public String getAttributeLocalName(int index) {
       return super.getAttributeLocalName(index).toUpperCase();
     }
 
     @Override
-    public String getLocalName()
-    {
+    public String getLocalName() {
       return super.getLocalName().toUpperCase();
     }
   }

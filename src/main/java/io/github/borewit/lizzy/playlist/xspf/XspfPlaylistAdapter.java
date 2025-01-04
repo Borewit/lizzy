@@ -40,8 +40,7 @@ import java.io.OutputStream;
  * @author Borewit
  * @author Christophe Delory
  */
-public class XspfPlaylistAdapter implements SpecificPlaylist
-{
+public class XspfPlaylistAdapter implements SpecificPlaylist {
 
   /**
    * The provider of this specific playlist.
@@ -50,41 +49,33 @@ public class XspfPlaylistAdapter implements SpecificPlaylist
 
   private final XspfPlaylist xspfPlaylist;
 
-  public XspfPlaylistAdapter(JaxbPlaylistProvider provider, XspfPlaylist xspfPlaylist)
-  {
+  public XspfPlaylistAdapter(JaxbPlaylistProvider provider, XspfPlaylist xspfPlaylist) {
     this.provider = provider;
     this.xspfPlaylist = xspfPlaylist;
   }
 
   @Override
-  public JaxbPlaylistProvider getProvider()
-  {
+  public JaxbPlaylistProvider getProvider() {
     return provider;
   }
 
   @Override
-  public void writeTo(final OutputStream out) throws IOException
-  {
+  public void writeTo(final OutputStream out) throws IOException {
     this.provider.writeTo(new ObjectFactory().createPlaylist(xspfPlaylist), out);
   }
 
   @Override
-  public Playlist toPlaylist()
-  {
+  public Playlist toPlaylist() {
     final Playlist ret = new Playlist();
 
-    if (xspfPlaylist.getTrackList() != null)
-    {
-      for (XspfTrack track : xspfPlaylist.getTrackList().getTrack())
-      {
-        for (String location : track.getLocation())
-        {
+    if (xspfPlaylist.getTrackList() != null) {
+      for (XspfTrack track : xspfPlaylist.getTrackList().getTrack()) {
+        for (String location : track.getLocation()) {
           final Media media = new Media(); // NOPMD Avoid instantiating new objects inside loops
           final Content content = new Content(location); // NOPMD Avoid instantiating new objects inside loops
           media.setSource(content);
 
-          if (track.getDuration() != null)
-          {
+          if (track.getDuration() != null) {
             content.setDuration(track.getDuration().longValue());
           }
 

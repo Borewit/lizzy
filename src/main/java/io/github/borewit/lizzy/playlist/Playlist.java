@@ -35,8 +35,7 @@ import java.io.IOException;
  * @author Christophe Delory
  * @version $Revision: 92 $
  */
-public class Playlist
-{
+public class Playlist {
   /**
    * The instance logger.
    */
@@ -55,8 +54,7 @@ public class Playlist
   /**
    * Builds a new and empty playlist.
    */
-  public Playlist()
-  {
+  public Playlist() {
     _rootSequence = new Sequence();
   }
 
@@ -65,27 +63,22 @@ public class Playlist
    *
    * @return a playlist sequence. Shall not be <code>null</code>.
    */
-  public Sequence getRootSequence()
-  {
+  public Sequence getRootSequence() {
     return _rootSequence;
   }
 
   /**
    * Normalizes this playlist.
    */
-  public void normalize()
-  {
-    try
-    {
+  public void normalize() {
+    try {
       // By-pass the playlist itself.
       _rootSequence.acceptDown(NORMALIZATION);
 
       // Re-process it now, as we may have merged two or more sequences before.
       // So just to detect singleton sequences to be moved one level up...
       _rootSequence.acceptDown(NORMALIZATION);
-    }
-    catch (Exception e)
-    {
+    } catch (Exception e) {
       // Should not occur.
       logger.error("Unexpected error condition", e);
     }
@@ -94,41 +87,34 @@ public class Playlist
   /**
    * The normalization process.
    */
-  private static class Normalization extends BasePlaylistVisitor
-  {
+  private static class Normalization extends BasePlaylistVisitor {
     private final Logger logger = LogManager.getLogger(Normalization.class);
 
     @Override
-    public void endVisitMedia(final Media target)
-    {
+    public void endVisitMedia(final Media target) {
       // Suppress media components with unspecified URI.
-      if (target.getSource() == null)
-      {
+      if (target.getSource() == null) {
         logger.info("Removing media with no source: " + target);
         target.getParent().removeComponent(target);
       }
     }
 
     @Override
-    public void endVisitParallel(final Parallel target)
-    {
+    public void endVisitParallel(final Parallel target) {
       endVisitTimeContainer(target);
     }
 
     @Override
-    public void endVisitSequence(final Sequence target)
-    {
+    public void endVisitSequence(final Sequence target) {
       endVisitTimeContainer(target);
 
       // Special case of the root sequence (thus with no parent) which owns a single sequence:
       // merge the child sequence into the root sequence.
       // Multiply their repeat count if needed.
-      if ((target.getParent() == null) && (target.getComponentsNumber() == 1))
-      {
+      if ((target.getParent() == null) && (target.getComponentsNumber() == 1)) {
         final AbstractPlaylistComponent[] targetComponents = target.getComponentsAsArray();
 
-        if (targetComponents[0] instanceof Sequence)
-        {
+        if (targetComponents[0] instanceof Sequence) {
           final Sequence sequence = (Sequence) targetComponents[0];
 
           logger.info("Merging root sequence " + target + " with its single child sequence " + sequence);
@@ -136,8 +122,7 @@ public class Playlist
           final AbstractPlaylistComponent[] components = sequence.getComponentsAsArray();
           target.removeComponent(sequence);
 
-          for (AbstractPlaylistComponent component : components)
-          {
+          for (AbstractPlaylistComponent component : components) {
             target.addComponent(component);
           }
         }
@@ -155,24 +140,19 @@ public class Playlist
      * @see #endVisitSequence
      * @see #endVisitParallel
      */
-    private void endVisitTimeContainer(final AbstractTimeContainer target)
-    {
+    private void endVisitTimeContainer(final AbstractTimeContainer target) {
       final AbstractTimeContainer targetParent = target.getParent(); // May be null.
 
       // Do not remove or even handle the root sequence.
-      if (targetParent != null)
-      {
+      if (targetParent != null) {
         final int componentsNumber = target.getComponentsNumber();
 
-        if (componentsNumber == 0)
-        {
+        if (componentsNumber == 0) {
           // Suppress empty time containers.
           logger.info("Removing empty time container " + target);
           targetParent.removeComponent(target);
           // Done with this time container, as we just removed it from its parent's list.
-        }
-        else if (componentsNumber == 1)
-        {
+        } else if (componentsNumber == 1) {
           // Suppress a time container with a single media in it (in fact put it one level up), and multiply their repeat count if needed.
           final AbstractPlaylistComponent[] targetComponents = target.getComponentsAsArray();
           logger.info("Replacing time container " + target + " with its single child component " + targetComponents[0]);
@@ -193,37 +173,30 @@ public class Playlist
      * @param target the target sequence. Shall not be <code>null</code>.
      * @throws NullPointerException if <code>target</code> is <code>null</code>.
      */
-    private void mergeConsecutiveIdenticalMedia(final Sequence target)
-    {
+    private void mergeConsecutiveIdenticalMedia(final Sequence target) {
       final AbstractPlaylistComponent[] targetComponents = target.getComponentsAsArray(); // Throws NullPointerException if target is null.
 
-      for (int i = 0; i < (targetComponents.length - 1); i++)
-      {
-        if (targetComponents[i] instanceof Media)
-        {
+      for (int i = 0; i < (targetComponents.length - 1); i++) {
+        if (targetComponents[i] instanceof Media) {
           final Media media1 = (Media) targetComponents[i];
           int upTo = i;
 
-          for (int j = (i + 1); j < targetComponents.length; j++)
-          {
+          for (int j = (i + 1); j < targetComponents.length; j++) {
             // Not a media: stop here.
-            if (!(targetComponents[j] instanceof Media))
-            {
+            if (!(targetComponents[j] instanceof Media)) {
               break;
             }
 
             final Media media2 = (Media) targetComponents[j];
 
             // Not the same source, or no source at all: stop here.
-            if ((media2.getSource() == null) || !media2.getSource().equals(media1.getSource()))
-            {
+            if ((media2.getSource() == null) || !media2.getSource().equals(media1.getSource())) {
               break;
             }
 
             // Not the same duration: stop here.
             if (((media2.getDuration() == null) && (media1.getDuration() != null)) ||
-              ((media2.getDuration() != null) && !media2.getDuration().equals(media1.getDuration())))
-            {
+              ((media2.getDuration() != null) && !media2.getDuration().equals(media1.getDuration()))) {
               break;
             }
 
@@ -231,15 +204,13 @@ public class Playlist
             upTo = j;
           }
 
-          if (upTo > i)
-          {
+          if (upTo > i) {
             final Sequence newSequence = new Sequence(); // NOPMD Avoid instantiating new objects inside loops
             newSequence.setRepeatCount((float) (1 + upTo - i));
             logger.info("Merging " + newSequence.getRepeatCount() + " identical media in a new sequence");
             target.addComponent(i, newSequence); // Shall not throw IndexOutOfBoundsException.
 
-            for (int j = i; j <= upTo; j++)
-            {
+            for (int j = i; j <= upTo; j++) {
               target.removeComponent(i + 1); // Shall not throw IndexOutOfBoundsException.
               newSequence.addComponent(targetComponents[j]);
             }
@@ -258,20 +229,16 @@ public class Playlist
      * @throws NullPointerException if <code>target</code> is <code>null</code>.
      * @FIXME We should handle the case where 2 sequences, in sequence, don't have the same repeat count, but use the same components in the same order. Harder.
      */
-    private void mergeConsecutiveSequences(final Sequence target)
-    {
+    private void mergeConsecutiveSequences(final Sequence target) {
       final AbstractPlaylistComponent[] targetComponents = target.getComponentsAsArray();
 
       // Iterate from last to second.
-      for (int i = (targetComponents.length - 1); i > 0; i--)
-      {
-        if ((targetComponents[i - 1] instanceof Sequence) && (targetComponents[i] instanceof Sequence))
-        {
+      for (int i = (targetComponents.length - 1); i > 0; i--) {
+        if ((targetComponents[i - 1] instanceof Sequence) && (targetComponents[i] instanceof Sequence)) {
           final Sequence seq1 = (Sequence) targetComponents[i - 1];
           final Sequence seq2 = (Sequence) targetComponents[i];
 
-          if (seq1.getRepeatCount() == seq2.getRepeatCount())
-          {
+          if (seq1.getRepeatCount() == seq2.getRepeatCount()) {
             // Append the components of the last (second) sequence to the first one.
             logger.info("Merging sequence " + seq2 + " in sequence " + seq1);
 
@@ -292,8 +259,7 @@ public class Playlist
    * @throws NullPointerException if <code>visitor</code> is <code>null</code>.
    * @throws Exception            if any error occurs during the visit.
    */
-  public void acceptDown(final PlaylistVisitor visitor) throws IOException
-  {
+  public void acceptDown(final PlaylistVisitor visitor) throws IOException {
     visitor.beginVisitPlaylist(this); // Throws NullPointerException if visitor is null. May throw Exception.
 
     _rootSequence.acceptDown(visitor); // May throw Exception.
@@ -308,8 +274,7 @@ public class Playlist
    * @throws NullPointerException if <code>visitor</code> is <code>null</code>.
    * @throws Exception            if any error occurs during the visit.
    */
-  public void acceptUp(final PlaylistVisitor visitor) throws IOException
-  {
+  public void acceptUp(final PlaylistVisitor visitor) throws IOException {
     visitor.beginVisitPlaylist(this); // Throws NullPointerException if visitor is null. May throw Exception.
 
     visitor.endVisitPlaylist(this); // May throw Exception.

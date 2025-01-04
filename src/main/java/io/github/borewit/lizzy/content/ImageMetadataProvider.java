@@ -36,11 +36,9 @@ import java.net.URL;
  * @version $Revision: 90 $
  * @since 1.0.0
  */
-public class ImageMetadataProvider implements ContentMetadataProvider
-{
+public class ImageMetadataProvider implements ContentMetadataProvider {
   @Override
-  public void fillMetadata(final Content content) throws Exception
-  {
+  public void fillMetadata(final Content content) throws Exception {
     final URL url = content.getURL(); // Throws NullPointerException if content is null. May throw SecurityException, IllegalArgumentException, MalformedURLException.
 
     final BufferedImage image = ImageIO.read(url); // Shall not throw IllegalArgumentException. May throw IOException.

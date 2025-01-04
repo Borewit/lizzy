@@ -32,8 +32,7 @@ import java.io.IOException;
  * @author Christophe Delory
  * @version $Revision: 92 $
  */
-public abstract class AbstractPlaylistComponent
-{
+public abstract class AbstractPlaylistComponent {
   /**
    * The number of iterations of this playlist component.
    */
@@ -50,8 +49,7 @@ public abstract class AbstractPlaylistComponent
    * @param parent a container. May be <code>null</code>.
    * @see #getParent
    */
-  void setParent(final AbstractTimeContainer parent)
-  {
+  void setParent(final AbstractTimeContainer parent) {
     _parent = parent;
   }
 
@@ -60,8 +58,7 @@ public abstract class AbstractPlaylistComponent
    *
    * @return the parent container. May be <code>null</code> if this component hasn't been added to a playlist yet.
    */
-  public AbstractTimeContainer getParent()
-  {
+  public AbstractTimeContainer getParent() {
     return _parent;
   }
 
@@ -74,8 +71,7 @@ public abstract class AbstractPlaylistComponent
    * @return the element's repeat count.
    * @see #setRepeatCount
    */
-  public float getRepeatCount()
-  {
+  public float getRepeatCount() {
     return _repeatCount;
   }
 
@@ -85,8 +81,7 @@ public abstract class AbstractPlaylistComponent
    * @param repeatCount a repeat count.
    * @see #getRepeatCount
    */
-  public void setRepeatCount(final Float repeatCount)
-  {
+  public void setRepeatCount(final Float repeatCount) {
     this._repeatCount = repeatCount == null ? 1.0f : repeatCount;
   }
 
@@ -106,10 +101,8 @@ public abstract class AbstractPlaylistComponent
    * @throws NullPointerException if <code>visitor</code> is <code>null</code>.
    * @throws IOException          if any error occurs during the visit.
    */
-  public void acceptUp(PlaylistVisitor visitor) throws IOException
-  {
-    if (_parent != null)
-    {
+  public void acceptUp(PlaylistVisitor visitor) throws IOException {
+    if (_parent != null) {
       _parent.acceptUp(visitor); // May throw Exception. Throws NullPointerException if visitor is null.
     }
   }

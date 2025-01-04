@@ -44,16 +44,13 @@ import static io.github.borewit.lizzy.playlist.AbstractPlaylistProvider.wrapInBo
  * @author Christophe Delory
  * @version $Revision: 91 $
  */
-abstract class AbstractM3UProvider implements SpecificPlaylistProvider
-{
+abstract class AbstractM3UProvider implements SpecificPlaylistProvider {
 
-  protected SpecificPlaylist readPlaylist(final AbstractM3U m3uPlaylist, final InputStream inputStream, Charset encoding) throws IOException
-  {
+  protected SpecificPlaylist readPlaylist(final AbstractM3U m3uPlaylist, final InputStream inputStream, Charset encoding) throws IOException {
 
     BOMInputStream bomInputStream = wrapInBomStream(inputStream);
 
-    if (bomInputStream.hasBOM())
-    {
+    if (bomInputStream.hasBOM()) {
       ByteOrderMark bom = bomInputStream.getBOM();
       encoding = Charset.forName(bom.getCharsetName());
     }
@@ -69,20 +66,15 @@ abstract class AbstractM3UProvider implements SpecificPlaylistProvider
     {
       line = line.trim();
 
-      if (line.length() > 0)
-      {
+      if (line.length() > 0) {
         final char firstChar = line.charAt(0); // Shall not throw IndexOutOfBoundsException.
 
         // Exclude what looks like an XML file, or a Windows .ini file.
         // Files or URLs "usually" don't begin with such characters.
-        if ((firstChar == '<') || (firstChar == '['))
-        {
+        if ((firstChar == '<') || (firstChar == '[')) {
           throw new IllegalArgumentException("Doesn't seem to be a M3U playlist (and related ones)");
-        }
-        else if (firstChar == '#')
-        {
-          if (line.toUpperCase(Locale.ENGLISH).startsWith("#EXTINF"))
-          {
+        } else if (firstChar == '#') {
+          if (line.toUpperCase(Locale.ENGLISH).startsWith("#EXTINF")) {
             final int indA = line.indexOf(',', 0);
 
             if (indA >= 0) // NOPMD Deeply nested if then statement
@@ -100,15 +92,12 @@ abstract class AbstractM3UProvider implements SpecificPlaylistProvider
           // Otherwise ignore the comment.
           // In particular VLC directives "EXTVLCOPT:<param>=<value>" are ignored.
           // The same applies to #EXTART for album artist and #EXTALB for album title.
-        }
-        else
-        {
+        } else {
           final Resource resource = new Resource(); // NOPMD Avoid instantiating new objects inside loops
           resource.setLocation(line);
           resource.setName(songName); // songName may be null.
 
-          if (songLength != null)
-          {
+          if (songLength != null) {
             resource.setLength(Long.parseLong(songLength)); // May throw NumberFormatException.
           }
 
@@ -130,49 +119,36 @@ abstract class AbstractM3UProvider implements SpecificPlaylistProvider
    * @param resources the resulting list of resources. Shall not be <code>null</code>.
    * @param component the generic playlist component to handle. Shall not be <code>null</code>.
    */
-  protected void addToPlaylist(final List<Resource> resources, final AbstractPlaylistComponent component)
-  {
-    if (component instanceof Sequence)
-    {
+  protected void addToPlaylist(final List<Resource> resources, final AbstractPlaylistComponent component) {
+    if (component instanceof Sequence) {
       final Sequence seq = (Sequence) component;
 
-      if (seq.getRepeatCount() < 0)
-      {
+      if (seq.getRepeatCount() < 0) {
         throw new IllegalArgumentException("A M3U playlist cannot handle a sequence repeated indefinitely");
       }
 
-      for (int iter = 0; iter < seq.getRepeatCount(); iter++)
-      {
+      for (int iter = 0; iter < seq.getRepeatCount(); iter++) {
         seq.getComponents().forEach(c -> addToPlaylist(resources, c));
       }
-    }
-    else if (component instanceof Parallel)
-    {
+    } else if (component instanceof Parallel) {
       throw new IllegalArgumentException("A parallel time container is incompatible with a M3U playlist");
-    }
-    else if (component instanceof Media)
-    {
+    } else if (component instanceof Media) {
       final Media media = (Media) component;
 
-      if (media.getDuration() != null)
-      {
+      if (media.getDuration() != null) {
         throw new IllegalArgumentException("A M3U playlist cannot handle a timed media");
       }
 
-      if (media.getRepeatCount() < 0)
-      {
+      if (media.getRepeatCount() < 0) {
         throw new IllegalArgumentException("A M3U playlist cannot handle a media repeated indefinitely");
       }
 
-      if (media.getSource() != null)
-      {
-        for (int iter = 0; iter < media.getRepeatCount(); iter++)
-        {
+      if (media.getSource() != null) {
+        for (int iter = 0; iter < media.getRepeatCount(); iter++) {
           final Resource resource = new Resource(); // NOPMD Avoid instantiating new objects inside loops
           resource.setLocation(media.getSource().toString());
 
-          if (media.getSource().getDuration() >= 0L)
-          {
+          if (media.getSource().getDuration() >= 0L) {
             resource.setLength((media.getSource().getDuration() + 999L) / 1000L);
           }
 

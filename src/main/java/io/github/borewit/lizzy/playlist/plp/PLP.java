@@ -42,8 +42,7 @@ import java.util.List;
  * @version $Revision: 92 $
  * @since 0.2.0
  */
-public class PLP implements SpecificPlaylist
-{
+public class PLP implements SpecificPlaylist {
   /**
    * The provider of this specific playlist.
    */
@@ -59,20 +58,17 @@ public class PLP implements SpecificPlaylist
    */
   private String _diskSpecifier = "HARP";
 
-  public void setProvider(final SpecificPlaylistProvider provider)
-  {
+  public void setProvider(final SpecificPlaylistProvider provider) {
     _provider = provider;
   }
 
   @Override
-  public SpecificPlaylistProvider getProvider()
-  {
+  public SpecificPlaylistProvider getProvider() {
     return _provider;
   }
 
   @Override
-  public void writeTo(final OutputStream out) throws IOException
-  {
+  public void writeTo(final OutputStream out) throws IOException {
     final BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, PLPProvider.TextEncoding)); // Throws NullPointerException if out is null. May throw UnsupportedEncodingException.
 
     writer.write("PLP PLAYLIST"); // May throw IOException.
@@ -84,8 +80,7 @@ public class PLP implements SpecificPlaylist
     writer.write('\r'); // May throw IOException.
     writer.write('\n'); // May throw IOException.
 
-    for (String filename : _filenames)
-    {
+    for (String filename : _filenames) {
       writer.write(_diskSpecifier); // May throw IOException.
       writer.write(", "); // May throw IOException.
       writer.write(filename); // May throw IOException.
@@ -97,12 +92,10 @@ public class PLP implements SpecificPlaylist
   }
 
   @Override
-  public Playlist toPlaylist()
-  {
+  public Playlist toPlaylist() {
     final Playlist ret = new Playlist();
 
-    for (String filename : _filenames)
-    {
+    for (String filename : _filenames) {
       final Media media = new Media(); // NOPMD Avoid instantiating new objects inside loops
       final Content content = new Content(filename); // NOPMD Avoid instantiating new objects inside loops
       media.setSource(content);
@@ -120,8 +113,7 @@ public class PLP implements SpecificPlaylist
    *
    * @return a list of file names. May be empty but not <code>null</code>.
    */
-  public List<String> getFilenames()
-  {
+  public List<String> getFilenames() {
     return _filenames;
   }
 
@@ -132,8 +124,7 @@ public class PLP implements SpecificPlaylist
    * @return a disk specifier. Must not be <code>null</code>.
    * @see #setDiskSpecifier
    */
-  public String getDiskSpecifier()
-  {
+  public String getDiskSpecifier() {
     return _diskSpecifier;
   }
 
@@ -144,8 +135,7 @@ public class PLP implements SpecificPlaylist
    * @throws NullPointerException if <code>diskSpecifier</code> is <code>null</code>.
    * @see #getDiskSpecifier
    */
-  public void setDiskSpecifier(final String diskSpecifier)
-  {
+  public void setDiskSpecifier(final String diskSpecifier) {
     _diskSpecifier = diskSpecifier.trim(); // Throws NullPointerException if disk is null.
   }
 }

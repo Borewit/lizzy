@@ -41,8 +41,7 @@ import java.util.Date;
  * @author Borewit
  * @author Christophe Delory
  */
-public class PlistPlaylist implements SpecificPlaylist
-{
+public class PlistPlaylist implements SpecificPlaylist {
   /**
    * The provider of this specific playlist.
    */
@@ -54,52 +53,44 @@ public class PlistPlaylist implements SpecificPlaylist
   private final NSDictionary plist;
 
 
-  public PlistPlaylist(final PlistProvider provider, final NSDictionary plist)
-  {
+  public PlistPlaylist(final PlistProvider provider, final NSDictionary plist) {
     this.provider = provider;
     this.plist = plist;
   }
 
   @Override
-  public PlistProvider getProvider()
-  {
+  public PlistProvider getProvider() {
     return provider;
   }
 
   @Override
-  public void writeTo(final OutputStream out) throws IOException
-  {
+  public void writeTo(final OutputStream out) throws IOException {
     XMLPropertyListWriter.write(plist, out);
     out.flush(); // May throw IOException.
   }
 
   @Override
-  public Playlist toPlaylist()
-  {
+  public Playlist toPlaylist() {
     final Playlist ret = new Playlist();
 
     NSDictionary tracks = null;
 
     final NSObject tracksObject = plist.objectForKey("Tracks");
 
-    if (tracksObject instanceof NSDictionary)
-    {
+    if (tracksObject instanceof NSDictionary) {
       tracks = (NSDictionary) tracksObject;
     }
 
     NSArray playlists = null;
     final NSObject playlistsObject = plist.objectForKey("Playlists");
 
-    if (playlistsObject instanceof NSArray)
-    {
+    if (playlistsObject instanceof NSArray) {
       playlists = (NSArray) playlistsObject;
     }
 
-    if ((tracks != null) && (playlists != null))
-    {
+    if ((tracks != null) && (playlists != null)) {
       // Iterate through the playlists.
-      for (NSObject playlistObject : playlists.getArray())
-      {
+      for (NSObject playlistObject : playlists.getArray()) {
         if (!(playlistObject instanceof NSDictionary)) continue; // NOPMD Deeply nested if then statement
 
         final NSDictionary playlist = (NSDictionary) playlistObject;
@@ -109,19 +100,15 @@ public class PlistPlaylist implements SpecificPlaylist
 
         final NSArray playlistItemsArray = (NSArray) playlistItemsArrayObject;
         final Sequence sequence;
-        if (playlists.getArray().length > 1)
-        {
+        if (playlists.getArray().length > 1) {
           // If there are multiple playlists, assigned them to a dedicated sequence.
           sequence = new Sequence();
           ret.getRootSequence().addComponent(sequence);
-        }
-        else
-        {
+        } else {
           sequence = ret.getRootSequence();
         }
 
-        for (NSObject playlistItemsDictObject : playlistItemsArray.getArray())
-        {
+        for (NSObject playlistItemsDictObject : playlistItemsArray.getArray()) {
           if (!(playlistItemsDictObject instanceof NSDictionary)) continue;
 
           final NSObject trackIdObject = ((NSDictionary) playlistItemsDictObject).objectForKey("Track ID");
@@ -153,14 +140,11 @@ public class PlistPlaylist implements SpecificPlaylist
           // Try to retrieve the duration.
           final NSObject totalTimeObject = track.objectForKey("Total Time");
 
-          if (totalTimeObject instanceof NSNumber)
-          {
-            try
-            {
+          if (totalTimeObject instanceof NSNumber) {
+            try {
               final long totalTime = ((NSNumber) totalTimeObject).longValue();
               content.setDuration(totalTime);
-            }
-            catch (NumberFormatException ignore) // NOPMD Avoid empty catch blocks
+            } catch (NumberFormatException ignore) // NOPMD Avoid empty catch blocks
             {
               // Ignore it.
             }
@@ -168,18 +152,14 @@ public class PlistPlaylist implements SpecificPlaylist
             // Try to retrieve the length.
             final NSObject sizeObject = track.objectForKey("Size");
 
-            if (sizeObject instanceof NSNumber)
-            {
-              try
-              {
+            if (sizeObject instanceof NSNumber) {
+              try {
                 final long size = ((NSNumber) sizeObject).longValue();
 
-                if (size >= 0)
-                {
+                if (size >= 0) {
                   content.setLength(size);
                 }
-              }
-              catch (NumberFormatException e) // NOPMD Avoid empty catch blocks
+              } catch (NumberFormatException e) // NOPMD Avoid empty catch blocks
               {
                 // Ignore it.
               }
@@ -188,11 +168,9 @@ public class PlistPlaylist implements SpecificPlaylist
             // Try to retrieve the last modified date.
             final NSObject dateModifiedObject = track.objectForKey("Date Modified");
 
-            if (dateModifiedObject instanceof NSDate)
-            {
+            if (dateModifiedObject instanceof NSDate) {
               final Date dateModified = ((NSDate) dateModifiedObject).getDate();
-              if (dateModified != null)
-              {
+              if (dateModified != null) {
                 content.setLastModified(dateModified.getTime());
               }
             }
@@ -212,8 +190,7 @@ public class PlistPlaylist implements SpecificPlaylist
    *
    * @return a plist element. Shall not be <code>null</code>.
    */
-  public NSDictionary getPlist()
-  {
+  public NSDictionary getPlist() {
     return plist;
   }
 }

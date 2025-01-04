@@ -41,8 +41,7 @@ import java.util.ServiceLoader;
  * @version $Revision: 92 $
  * @since 1.0.0
  */
-public final class ContentMetadataCenter
-{
+public final class ContentMetadataCenter {
   /**
    * The singleton instance.
    */
@@ -53,12 +52,9 @@ public final class ContentMetadataCenter
    *
    * @return an instance of this class. Shall not be <code>null</code>.
    */
-  public static ContentMetadataCenter getInstance()
-  {
-    synchronized (ContentMetadataCenter.class)
-    {
-      if (_instance == null)
-      {
+  public static ContentMetadataCenter getInstance() {
+    synchronized (ContentMetadataCenter.class) {
+      if (_instance == null) {
         _instance = new ContentMetadataCenter();
       }
     }
@@ -79,8 +75,7 @@ public final class ContentMetadataCenter
   /**
    * Builds a new content metadata center.
    */
-  private ContentMetadataCenter()
-  {
+  private ContentMetadataCenter() {
     _serviceLoader = ServiceLoader.load(ContentMetadataProvider.class);
   }
 
@@ -88,8 +83,7 @@ public final class ContentMetadataCenter
    * Refreshes the list of providers managed by this center.
    * If new providers are added after the instantiation of this class, you will need to call this method manually.
    */
-  public void reloadProviders()
-  {
+  public void reloadProviders() {
     _serviceLoader.reload();
   }
 
@@ -101,29 +95,21 @@ public final class ContentMetadataCenter
    * @throws NullPointerException if <code>content</code> is <code>null</code>.
    * @see ContentMetadataProvider#fillMetadata
    */
-  public boolean fillMetadata(final Content content)
-  {
+  public boolean fillMetadata(final Content content) {
     boolean ret = false;
 
-    for (ContentMetadataProvider service : _serviceLoader)
-    {
-      try
-      {
+    for (ContentMetadataProvider service : _serviceLoader) {
+      try {
         service.fillMetadata(content); // Throws NullPointerException if content is null. May throw Exception.
 
         // If we reached this point, it's OK.
         ret = true;
         break;
-      }
-      catch (Throwable e)
-      {
+      } catch (Throwable e) {
         // Ignore it.
-        if (logger.isTraceEnabled())
-        {
+        if (logger.isTraceEnabled()) {
           logger.trace("Metadata provider " + service + " cannot handle content <" + content + ">", e);
-        }
-        else if (logger.isDebugEnabled())
-        {
+        } else if (logger.isDebugEnabled()) {
           logger.debug("Metadata provider " + service + " cannot handle content <" + content + ">: " + e);
         }
       }

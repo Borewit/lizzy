@@ -37,8 +37,7 @@ import java.util.Locale;
  * @author Christophe Delory
  * @version $Revision: 92 $
  */
-public class ContentType extends FileFilter implements Cloneable
-{
+public class ContentType extends FileFilter implements Cloneable {
   /**
    * A list of file extensions, for example: <code>.txt</code>.
    */
@@ -75,8 +74,7 @@ public class ContentType extends FileFilter implements Cloneable
    * @throws IllegalArgumentException if <code>mimeTypes</code> has no items (empty array).
    * @see String#toLowerCase(Locale)
    */
-  public ContentType(final String[] extensions, final String[] mimeTypes, final PlayerSupport[] playerSupports, final String description)
-  {
+  public ContentType(final String[] extensions, final String[] mimeTypes, final PlayerSupport[] playerSupports, final String description) {
     super();
 
     if (extensions.length <= 0) // Throws NullPointerException if extensions is null.
@@ -91,15 +89,13 @@ public class ContentType extends FileFilter implements Cloneable
 
     _extensions = new String[extensions.length];
 
-    for (int i = 0; i < extensions.length; i++)
-    {
+    for (int i = 0; i < extensions.length; i++) {
       _extensions[i] = extensions[i].toLowerCase(Locale.ENGLISH); // Throws NullPointerException if extensions[i] is null.
     }
 
     _mimeTypes = new String[mimeTypes.length];
 
-    for (int i = 0; i < mimeTypes.length; i++)
-    {
+    for (int i = 0; i < mimeTypes.length; i++) {
       _mimeTypes[i] = mimeTypes[i].toLowerCase(Locale.ENGLISH); // Throws NullPointerException if mimeTypes[i] is null.
     }
 
@@ -113,8 +109,7 @@ public class ContentType extends FileFilter implements Cloneable
    *
    * @return an array of extensions. Shall not be <code>null</code> nor empty.
    */
-  public String[] getExtensions()
-  {
+  public String[] getExtensions() {
     return _extensions.clone();
   }
 
@@ -123,8 +118,7 @@ public class ContentType extends FileFilter implements Cloneable
    *
    * @return an array of MIME types. Shall not be <code>null</code> nor empty.
    */
-  public String[] getMimeTypes()
-  {
+  public String[] getMimeTypes() {
     return _mimeTypes.clone();
   }
 
@@ -134,8 +128,7 @@ public class ContentType extends FileFilter implements Cloneable
    * @return an array of playlist support information. May be empty but not <code>null</code>.
    * @since 0.2.0
    */
-  public PlayerSupport[] getPlayerSupports()
-  {
+  public PlayerSupport[] getPlayerSupports() {
     return _playerSupports.clone();
   }
 
@@ -147,8 +140,7 @@ public class ContentType extends FileFilter implements Cloneable
    * @see FileFilter#getDescription
    */
   @Override
-  public String getDescription()
-  {
+  public String getDescription() {
     return _description;
   }
 
@@ -158,8 +150,7 @@ public class ContentType extends FileFilter implements Cloneable
    * @param description a content type description. May be <code>null</code>.
    * @see #getDescription
    */
-  public void setDescription(final String description)
-  {
+  public void setDescription(final String description) {
     _description = description;
   }
 
@@ -174,13 +165,11 @@ public class ContentType extends FileFilter implements Cloneable
    * @see String#toLowerCase(Locale)
    * @see String#endsWith
    */
-  public boolean matchExtension(final String pattern)
-  {
+  public boolean matchExtension(final String pattern) {
     final String p = pattern.toLowerCase(Locale.ENGLISH); // Throws NullPointerException if pattern is null.
     boolean ret = false;
 
-    for (String extension : _extensions)
-    {
+    for (String extension : _extensions) {
       ret = ret || p.endsWith(extension);
     }
 
@@ -198,8 +187,7 @@ public class ContentType extends FileFilter implements Cloneable
    * @see #matchExtension
    */
   @Override
-  public boolean accept(final File f)
-  {
+  public boolean accept(final File f) {
     return f.isDirectory() || matchExtension(f.getName()); // Throws NullPointerException if f is null.
   }
 
@@ -212,8 +200,7 @@ public class ContentType extends FileFilter implements Cloneable
    * @since 1.0.0
    */
   @Override
-  public Object clone() throws CloneNotSupportedException
-  {
+  public Object clone() throws CloneNotSupportedException {
     return super.clone(); // Should not throw CloneNotSupportedException.
   }
 }

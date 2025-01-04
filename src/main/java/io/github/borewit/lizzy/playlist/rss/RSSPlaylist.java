@@ -42,8 +42,7 @@ import java.io.OutputStream;
  * @author Borewit
  * @author Christophe Delory
  */
-public class RSSPlaylist extends PlaylistWithTextEncoding
-{
+public class RSSPlaylist extends PlaylistWithTextEncoding {
   /**
    * The provider of this specific playlist.
    */
@@ -54,58 +53,46 @@ public class RSSPlaylist extends PlaylistWithTextEncoding
    */
   private final Rss rss;
 
-  public RSSPlaylist(final RSSProvider provider, Rss rss)
-  {
+  public RSSPlaylist(final RSSProvider provider, Rss rss) {
     super(provider);
     this.provider = provider;
     this.rss = rss;
   }
 
   @Override
-  public RSSProvider getProvider()
-  {
+  public RSSProvider getProvider() {
     return provider;
   }
 
   @Override
-  public void writeTo(final OutputStream out) throws IOException
-  {
+  public void writeTo(final OutputStream out) throws IOException {
     this.provider.writeTo(new ObjectFactory().createRss(this.rss), out);
   }
 
   @Override
-  public Playlist toPlaylist()
-  {
+  public Playlist toPlaylist() {
     final Playlist ret = new Playlist();
 
-    for (Item item : rss.getChannel().getItem())
-    {
+    for (Item item : rss.getChannel().getItem()) {
       final Enclosure enclosure = item.getEnclosure();
 
-      if ((enclosure == null) || (enclosure.getUrl() == null))
-      {
-        for (Group mediaGroup : item.getGroup())
-        {
+      if ((enclosure == null) || (enclosure.getUrl() == null)) {
+        for (Group mediaGroup : item.getGroup()) {
           boolean foundOne = false;
 
           // First search for the default one.
-          for (MediaContent mediaContent : mediaGroup.getContent())
-          {
+          for (MediaContent mediaContent : mediaGroup.getContent()) {
             // Put only the first valid one in this case.
-            if (mediaContent.isIsDefault() && addMediaContent(mediaContent, ret.getRootSequence()))
-            {
+            if (mediaContent.isIsDefault() && addMediaContent(mediaContent, ret.getRootSequence())) {
               foundOne = true;
               break;
             }
           }
 
-          if (!foundOne)
-          {
-            for (MediaContent mediaContent : mediaGroup.getContent())
-            {
+          if (!foundOne) {
+            for (MediaContent mediaContent : mediaGroup.getContent()) {
               // Put only the first valid one.
-              if (addMediaContent(mediaContent, ret.getRootSequence()))
-              {
+              if (addMediaContent(mediaContent, ret.getRootSequence())) {
                 foundOne = true;
                 break;
               }
@@ -113,13 +100,10 @@ public class RSSPlaylist extends PlaylistWithTextEncoding
           }
         }
 
-        for (MediaContent mediaContent : item.getContent())
-        {
+        for (MediaContent mediaContent : item.getContent()) {
           addMediaContent(mediaContent, ret.getRootSequence());
         }
-      }
-      else
-      {
+      } else {
         final Media media = new Media(); // NOPMD Avoid instantiating new objects inside loops
         final Content content = new Content(enclosure.getUrl()); // NOPMD Avoid instantiating new objects inside loops
         content.setLength(enclosure.getLength());
@@ -144,8 +128,7 @@ public class RSSPlaylist extends PlaylistWithTextEncoding
    * @throws NullPointerException if <code>mediaContent</code> is <code>null</code>.
    * @throws NullPointerException if <code>sequence</code> is <code>null</code>.
    */
-  private boolean addMediaContent(final MediaContent mediaContent, final Sequence sequence)
-  {
+  private boolean addMediaContent(final MediaContent mediaContent, final Sequence sequence) {
     boolean ret = false;
 
     if (mediaContent.getUrl() != null) // NOPMD Avoid if (x != y) ..; else ..;
@@ -154,23 +137,19 @@ public class RSSPlaylist extends PlaylistWithTextEncoding
       final Content content = new Content(mediaContent.getUrl());
       content.setType(mediaContent.getType()); // May be null.
 
-      if (mediaContent.getFileSize() != null)
-      {
+      if (mediaContent.getFileSize() != null) {
         content.setLength(mediaContent.getFileSize());
       }
 
-      if (mediaContent.getDuration() != null)
-      {
+      if (mediaContent.getDuration() != null) {
         content.setDuration(mediaContent.getDuration() * 1000L);
       }
 
-      if (mediaContent.getWidth() != null)
-      {
+      if (mediaContent.getWidth() != null) {
         content.setWidth(mediaContent.getWidth()); // Even if negative.
       }
 
-      if (mediaContent.getHeight() != null)
-      {
+      if (mediaContent.getHeight() != null) {
         content.setHeight(mediaContent.getHeight()); // Even if negative.
       }
 
@@ -178,20 +157,16 @@ public class RSSPlaylist extends PlaylistWithTextEncoding
       sequence.addComponent(media);
 
       ret = true;
-    }
-    else if ((mediaContent.getPlayer() != null) && (mediaContent.getPlayer().getUrl() != null))
-    {
+    } else if ((mediaContent.getPlayer() != null) && (mediaContent.getPlayer().getUrl() != null)) {
       final Media media = new Media();
       final Content content = new Content(mediaContent.getPlayer().getUrl());
       content.setType(mediaContent.getType()); // May be null.
 
-      if (mediaContent.getFileSize() != null)
-      {
+      if (mediaContent.getFileSize() != null) {
         content.setLength(mediaContent.getFileSize());
       }
 
-      if (mediaContent.getDuration() != null)
-      {
+      if (mediaContent.getDuration() != null) {
         content.setDuration(mediaContent.getDuration() * 1000L);
       }
 

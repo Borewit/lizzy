@@ -36,8 +36,7 @@ import java.io.InputStream;
  * @author Christophe Delory
  * @version $Revision: 92 $
  */
-public interface SpecificPlaylistProvider
-{
+public interface SpecificPlaylistProvider {
   /**
    * Returns a unique string identifying the type of specific playlists handled by this provider.
    *

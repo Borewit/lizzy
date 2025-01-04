@@ -37,8 +37,7 @@ import java.io.OutputStream;
  * @author Borewit
  * @author Christophe Delory
  */
-public class SmilAdapter implements SpecificPlaylist
-{
+public class SmilAdapter implements SpecificPlaylist {
   /**
    * The provider of this specific playlist.
    */
@@ -46,33 +45,28 @@ public class SmilAdapter implements SpecificPlaylist
 
   private final Smil smil;
 
-  public SmilAdapter(final SmilProvider provider, Smil smil)
-  {
+  public SmilAdapter(final SmilProvider provider, Smil smil) {
     this.provider = provider;
     this.smil = smil;
   }
 
   @Override
-  public SmilProvider getProvider()
-  {
+  public SmilProvider getProvider() {
     return provider;
   }
 
   @Override
-  public void writeTo(final OutputStream out) throws IOException
-  {
+  public void writeTo(final OutputStream out) throws IOException {
     this.provider.writeTo(this.smil, out);
   }
 
   @Override
-  public Playlist toPlaylist()
-  {
+  public Playlist toPlaylist() {
     final Playlist ret = new Playlist();
 
     SmilContainerBody body = this.smil.getBody();
 
-    if (body != null)
-    {
+    if (body != null) {
       body.getSeqOrParOrExl()
         .forEach(timingElement -> {
           addToContainer(timingElement, ret.getRootSequence());
@@ -92,8 +86,7 @@ public class SmilAdapter implements SpecificPlaylist
    * @throws NullPointerException if <code>smilElement</code> is <code>null</code>.
    * @throws NullPointerException if <code>currentContainer</code> is <code>null</code>.
    */
-  private void addToContainer(final SmilTimeContainer timeContainer, final AbstractTimeContainer currentContainer)
-  {
+  private void addToContainer(final SmilTimeContainer timeContainer, final AbstractTimeContainer currentContainer) {
     timeContainer.getAudioOrImgOrRef().stream()
       .map(SmilReference::getSrc)
       .map(Content::new)
@@ -101,20 +94,14 @@ public class SmilAdapter implements SpecificPlaylist
       .forEach(currentContainer::addComponent);
 
     AbstractTimeContainer abstractTimeContainer;
-    if (timeContainer instanceof SmilSequence)
-    {
+    if (timeContainer instanceof SmilSequence) {
       abstractTimeContainer = new Sequence();
-    }
-    else if (timeContainer instanceof SmilParallel)
-    {
+    } else if (timeContainer instanceof SmilParallel) {
       abstractTimeContainer = new Parallel();
-    }
-    else if (timeContainer instanceof SmilMutuallyExclusive)
-    {
+    } else if (timeContainer instanceof SmilMutuallyExclusive) {
       // TODO What can we do with an ExclusiveTimingElement? More complicated than at first sight...
       return;
-    }
-    else return;
+    } else return;
 
     abstractTimeContainer.setRepeatCount(timeContainer.getRepeatCount());
     currentContainer.addComponent(abstractTimeContainer);

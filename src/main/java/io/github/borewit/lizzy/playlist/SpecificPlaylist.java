@@ -33,8 +33,7 @@ import java.io.OutputStream;
  * @author Christophe Delory
  * @version $Revision: 92 $
  */
-public interface SpecificPlaylist
-{
+public interface SpecificPlaylist {
   /**
    * Returns the provider of this specific playlist.
    *
@@ -46,9 +45,9 @@ public interface SpecificPlaylist
    * Writes this specific playlist to the specified output stream, using default encoding
    * When done, the stream may be flushed, but not closed.
    *
-   * @param out      an output stream. Shall not be <code>null</code>.
+   * @param out an output stream. Shall not be <code>null</code>.
    * @throws NullPointerException if <code>out</code> is <code>null</code>.
-   * @throws IOException            if any error occurs during the marshalling process.
+   * @throws IOException          if any error occurs during the marshalling process.
    * @see SpecificPlaylistFactory#readFrom
    * @see SpecificPlaylistProvider#readFrom
    */

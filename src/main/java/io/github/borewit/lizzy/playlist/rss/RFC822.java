@@ -13,8 +13,7 @@ import java.util.Locale;
  * @author Christophe Delory
  * @version $Revision: 91 $
  */
-public final class RFC822
-{
+public final class RFC822 {
   /**
    * RFC822 date and time format, full version.
    */
@@ -49,8 +48,7 @@ public final class RFC822
    * @return a RFC822 date and time string.
    * @throws NullPointerException if <code>date</code> is <code>null</code>.
    */
-  public static String toString(final Date date)
-  {
+  public static String toString(final Date date) {
     return fullRfc822DatetimeFormat.get().format(date); // Throws NullPointerException if date is null.
   }
 
@@ -61,8 +59,7 @@ public final class RFC822
    * @return a date. Is <code>null</code> if the <code>dateString</code> does not represent a valid RFC822 date and time string.
    * @throws NullPointerException if <code>dateString</code> is <code>null</code>.
    */
-  public static Date valueOf(final String dateString)
-  {
+  public static Date valueOf(final String dateString) {
     DateFormat[] formatsToTry = {
       fullRfc822DatetimeFormat.get(),
       fullRfc822DatetimeFormat2.get(),
@@ -70,16 +67,12 @@ public final class RFC822
       compactRfc822DatetimeFormat2.get()
     };
 
-    for (DateFormat dateFormat : formatsToTry)
-    {
-      try
-      {
+    for (DateFormat dateFormat : formatsToTry) {
+      try {
         Date ret = dateFormat.parse(dateString); // May throw ParseException. Throws NullPointerException if dateString is null.
         if (ret != null)
           return ret;
-      }
-      catch (ParseException ignore)
-      {
+      } catch (ParseException ignore) {
         // Try next format
       }
     }
@@ -89,7 +82,6 @@ public final class RFC822
   /**
    * The no-arg constructor shall not be accessible.
    */
-  private RFC822()
-  {
+  private RFC822() {
   }
 }

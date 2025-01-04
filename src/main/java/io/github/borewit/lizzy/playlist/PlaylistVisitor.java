@@ -38,8 +38,7 @@ package io.github.borewit.lizzy.playlist;
  * @see Media#acceptDown
  * @see Media#acceptUp
  */
-public interface PlaylistVisitor
-{
+public interface PlaylistVisitor {
   /**
    * Starts the visit of the specified playlist.
    *

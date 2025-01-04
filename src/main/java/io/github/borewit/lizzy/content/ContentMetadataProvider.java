@@ -32,8 +32,7 @@ package io.github.borewit.lizzy.content;
  * @see ContentMetadataCenter
  * @since 1.0.0
  */
-public interface ContentMetadataProvider
-{
+public interface ContentMetadataProvider {
   /**
    * Fills if possible the metadata of the specified content.
    *

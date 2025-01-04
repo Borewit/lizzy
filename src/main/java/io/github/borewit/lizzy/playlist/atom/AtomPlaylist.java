@@ -43,8 +43,7 @@ import java.io.OutputStream;
  * @author Borewit
  * @author Christophe Delory
  */
-public class AtomPlaylist extends PlaylistWithTextEncoding
-{
+public class AtomPlaylist extends PlaylistWithTextEncoding {
   /**
    * The Atom playlist provider
    */
@@ -55,42 +54,34 @@ public class AtomPlaylist extends PlaylistWithTextEncoding
    */
   private final FeedType feed;
 
-  public AtomPlaylist(final AtomProvider provider, FeedType feed)
-  {
+  public AtomPlaylist(final AtomProvider provider, FeedType feed) {
     super(provider);
     this.provider = provider;
     this.feed = feed;
   }
 
   @Override
-  public AtomProvider getProvider()
-  {
+  public AtomProvider getProvider() {
     return provider;
   }
 
   @Override
-  public void writeTo(final OutputStream out) throws IOException
-  {
+  public void writeTo(final OutputStream out) throws IOException {
     this.provider.writeTo(new ObjectFactory().createFeed(this.feed), out);
   }
 
   @Override
-  public Playlist toPlaylist()
-  {
+  public Playlist toPlaylist() {
     final Playlist ret = new Playlist();
 
-    for (EntryType entry : feed.getEntry())
-    {
-      for (Link link : entry.getLink())
-      {
-        if ((link.getHref() != null) && "enclosure".equals(link.getRel()))
-        {
+    for (EntryType entry : feed.getEntry()) {
+      for (Link link : entry.getLink()) {
+        if ((link.getHref() != null) && "enclosure".equals(link.getRel())) {
           final Media media = new Media(); // NOPMD Avoid instantiating new objects inside loops
           final Content content = new Content(link.getHref()); // NOPMD Avoid instantiating new objects inside loops
           content.setType(link.getType());
 
-          if (link.getLength() != null)
-          {
+          if (link.getLength() != null) {
             content.setLength(link.getLength().longValue());
           }
 
