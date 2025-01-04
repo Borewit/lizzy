@@ -1,0 +1,21 @@
+{
+    "title": "My Playlist",
+    "creator": "John Doe",
+    "annotation": "A sample playlist",
+    "info": "http://example.com/info",
+    "location": "http://example.com/playlist",
+    "tracks": [
+    {
+        "title": "Track 1",
+        "creator": "Artist 1",
+        "location": "http://example.com/track1",
+        "annotation": "Track 1 annotation"
+    },
+    {
+        "title": "Track 2",
+        "creator": "Artist 2",
+        "location": "http://example.com/track2",
+        "annotation": "Track 2 annotation"
+    }
+    ]
+}

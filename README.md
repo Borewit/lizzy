@@ -13,7 +13,6 @@ Two versatile command-line tools are also available at [Lizzy Transcode](https:/
 
 Lizzy has been forked from [sourceforge.net/projects/lizzy](https://sourceforge.net/projects/lizzy/)
 
-
 ## Features
 
 * Automatic detection of the type of input playlist</li>
@@ -26,23 +25,24 @@ Lizzy has been forked from [sourceforge.net/projects/lizzy](https://sourceforge.
 
 ## Supported Playlist Formats
 
-| Extension                | Playlist type                                                                                                                                                            | 
-|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `.asx`,`.wmx`, `.wax`    | [Advanced Stream Redirector (ASX)](https://en.wikipedia.org/wiki/Advanced_Stream_Redirector)                                                                             |
-| `.atom`                  | [Atom Document](https://en.wikipedia.org/wiki/Atom_(web_standard)), [RFC4287](https://www.ietf.org/rfc/rfc4287.txt)                                                      |
-| `.b4s`                   | Winamp playlist versions 3 and later                                                                                                                                     |
-| `.m3u`, `.m3u8`, `.m4u`  | [Winamp M3U](https://en.wikipedia.org/wiki/M3U)                                                                                                                          |
-| `.mpcpl`                 | [Media Player Classic](https://en.wikipedia.org/wiki/Media_Player_Classic) Playlist                                                                                      |
-| `.pla`                   | iRiver iQuickList File                                                                                                                                                   |
-| `.plist`, `.xml`         | [Property list](https://en.wikipedia.org/wiki/Property_list), [iTunes Library File](https://www.xml.com/pub/a/2004/11/03/itunes.html)                                    |
-| `.plp`                   | Sansa Playlist File                                                                                                                                                      |
-| `.pls`                   | [Winamp PLSv2 Playlist](https://en.wikipedia.org/wiki/PLS_(file_format))                                                                                                 |
-| `.ram`                   | [Real Audio Metadata (RAM)](https://en.wikipedia.org/wiki/RealAudio#File_extensions)                                                                                     |
-| `.rmp`                   | [Real Metadata Package (RMP)](https://extension.informer.com/rmp/)                                                                                                       |
-| `.rss`                   | [RSS Document](https://en.wikipedia.org/wiki/RSS)                                                                                                                        |
-| `.smil`                  | [Synchronized Multimedia Integration Language (SMIL)](https://en.wikipedia.org/wiki/Synchronized_Multimedia_Integration_Language), [W3C](https://www.w3.org/AudioVideo/) |                                           |
-| `.wpl`                   | [Windows Media Player Playlist (WPL)](https://en.wikipedia.org/wiki/Windows_Media_Player_Playlist)                                                                       |
-| `.xspf`                  | [XML Shareable Playlist Format (XSPF)](https://xspf.org/)                                                                                                                |
+| Extension               | Playlist type                                                                                                                                                            |
+|-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `.asx`,`.wmx`, `.wax`   | [Advanced Stream Redirector (ASX)](https://en.wikipedia.org/wiki/Advanced_Stream_Redirector)                                                                             |
+| `.atom`                 | [Atom Document](https://en.wikipedia.org/wiki/Atom_(web_standard)), [RFC4287](https://www.ietf.org/rfc/rfc4287.txt)                                                      |
+| `.b4s`                  | Winamp playlist versions 3 and later                                                                                                                                     |
+| `.jspf`                 | [JSPF is JSON XSPF](https://www.xspf.org/jspf)                                                                                                                           |
+| `.m3u`, `.m3u8`, `.m4u` | [Winamp M3U](https://en.wikipedia.org/wiki/M3U)                                                                                                                          |
+| `.mpcpl`                | [Media Player Classic](https://en.wikipedia.org/wiki/Media_Player_Classic) Playlist                                                                                      |
+| `.pla`                  | iRiver iQuickList File                                                                                                                                                   |
+| `.plist`, `.xml`        | [Property list](https://en.wikipedia.org/wiki/Property_list), [iTunes Library File](https://www.xml.com/pub/a/2004/11/03/itunes.html)                                    |
+| `.plp`                  | Sansa Playlist File                                                                                                                                                      |
+| `.pls`                  | [Winamp PLSv2 Playlist](https://en.wikipedia.org/wiki/PLS_(file_format))                                                                                                 |
+| `.ram`                  | [Real Audio Metadata (RAM)](https://en.wikipedia.org/wiki/RealAudio#File_extensions)                                                                                     |
+| `.rmp`                  | [Real Metadata Package (RMP)](https://extension.informer.com/rmp/)                                                                                                       |
+| `.rss`                  | [RSS Document](https://en.wikipedia.org/wiki/RSS)                                                                                                                        |
+| `.smil`                 | [Synchronized Multimedia Integration Language (SMIL)](https://en.wikipedia.org/wiki/Synchronized_Multimedia_Integration_Language), [W3C](https://www.w3.org/AudioVideo/) |                                           |
+| `.wpl`                  | [Windows Media Player Playlist (WPL)](https://en.wikipedia.org/wiki/Windows_Media_Player_Playlist)                                                                       |
+| `.xspf`                 | [XML Shareable Playlist Format (XSPF)](https://xspf.org/)                                                                                                                |
 
 ## License
 
@@ -56,8 +56,9 @@ Check the [GitHub releases](https://github.com/Borewit/lizzy/releases) page.
 
 ## Getting started
 
-Example application, using Lizzy, to read a playlist provided via command line argument, and print the playlist media 
+Example application, using Lizzy, to read a playlist provided via command line argument, and print the playlist media
 (track) sources:
+
 ```java
 package io.github.borewit.lizzy.example;
 
@@ -69,30 +70,26 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class ReadPlaylistExample
-{
-   public static void main(String[] args) throws IOException
-   {
-      Path playlistPath = Paths.get(System.getProperty("user.dir"), "samples", "asx", "test01.asx");
-      SpecificPlaylist specificPlaylist = SpecificPlaylistFactory.getInstance().readFrom(playlistPath);
-      if (specificPlaylist == null)
-      {
-         System.exit(-1);
+public class ReadPlaylistExample {
+  public static void main(String[] args) throws IOException {
+    Path playlistPath = Paths.get(System.getProperty("user.dir"), "samples", "asx", "test01.asx");
+    SpecificPlaylist specificPlaylist = SpecificPlaylistFactory.getInstance().readFrom(playlistPath);
+    if (specificPlaylist == null) {
+      System.exit(-1);
+    }
+    specificPlaylist.toPlaylist().getRootSequence().getComponents().forEach(component -> {
+      if (component instanceof Media) {
+        Media media = (Media) component;
+        System.out.printf("Media with content-source=%s\n", media.getSource().toString());
       }
-      specificPlaylist.toPlaylist().getRootSequence().getComponents().forEach(component -> {
-         if (component instanceof Media)
-         {
-            Media media = (Media) component;
-            System.out.printf("Media with content-source=%s\n", media.getSource().toString());
-         }
-      });
-   }
+    });
+  }
 }
 
 ```
 
-
 ## Documentation
+
 [JavaDoc of released versions](https://javadoc.io/doc/io.github.borewit/lizzy)
 
 ## Build

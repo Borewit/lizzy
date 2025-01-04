@@ -16,5 +16,6 @@ io.github.borewit.lizzy.playlist.pls.PLSProvider
 io.github.borewit.lizzy.playlist.mpcpl.MPCPLProvider
 io.github.borewit.lizzy.playlist.plp.PLPProvider
 io.github.borewit.lizzy.playlist.m3u.M3U8Provider
+io.github.borewit.lizzy.playlist.jspf.JspfProvider
 # Shall be last, at the M3U format can match almost everything.
 io.github.borewit.lizzy.playlist.m3u.M3UProvider
