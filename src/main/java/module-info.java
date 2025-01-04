@@ -28,6 +28,7 @@ module io.github.borewit.lizzy {
   exports io.github.borewit.lizzy.content;
   exports io.github.borewit.lizzy.content.type;
 
+  opens io.github.borewit.lizzy.playlist.jspf.json;
   opens io.github.borewit.lizzy.playlist.xml.asx;
   opens io.github.borewit.lizzy.playlist.xml.atom;
   opens io.github.borewit.lizzy.playlist.xml.b4s;
@@ -37,7 +38,6 @@ module io.github.borewit.lizzy {
   opens io.github.borewit.lizzy.playlist.xml.xspf;
   opens io.github.borewit.lizzy.playlist.smil20.xml;
   opens io.github.borewit.lizzy.playlist.xml.rss20.media;
-  exports io.github.borewit.lizzy.playlist.jspf.json;
 
   provides io.github.borewit.lizzy.playlist.SpecificPlaylistProvider with
     io.github.borewit.lizzy.playlist.pla.PLAProvider,
