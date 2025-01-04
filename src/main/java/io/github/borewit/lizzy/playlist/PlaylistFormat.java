@@ -4,6 +4,7 @@ public enum PlaylistFormat {
   asx,
   atom,
   b4s,
+  jspf,
   m3u,
   m3u8,
   mpcpl,

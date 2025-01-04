@@ -46,10 +46,16 @@ dependencies {
     // https://mvnrepository.com/artifact/commons-io/commons-io
     implementation 'commons-io:commons-io:2.16.1'
 
+    implementation 'commons-io:commons-io:2.16.1'
 
-    // Used to load MIME-types from JSON
+    // Testing: Used to load MIME-types from JSON
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.18.2'
+
+    // Runtime: Used for JSPF playlists (de)serializiation
+    // Testing: Used to load MIME-types from JSON
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
-    testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.17.1'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.1'
 }
 
 // Convert legacy dependency to named Java module

@@ -6,12 +6,14 @@ module io.github.borewit.lizzy {
   requires org.apache.commons.io;
   requires jakarta.xml.bind;
   requires dd.plist;
+  requires com.fasterxml.jackson.annotation;
+  requires com.fasterxml.jackson.databind;
 
-  exports io.github.borewit.lizzy;
   exports io.github.borewit.lizzy.playlist;
   exports io.github.borewit.lizzy.playlist.asx;
   exports io.github.borewit.lizzy.playlist.atom;
   exports io.github.borewit.lizzy.playlist.b4s;
+  exports io.github.borewit.lizzy.playlist.jspf;
   exports io.github.borewit.lizzy.playlist.m3u;
   exports io.github.borewit.lizzy.playlist.mpcpl;
   exports io.github.borewit.lizzy.playlist.pla;
@@ -35,6 +37,7 @@ module io.github.borewit.lizzy {
   opens io.github.borewit.lizzy.playlist.xml.xspf;
   opens io.github.borewit.lizzy.playlist.smil20.xml;
   opens io.github.borewit.lizzy.playlist.xml.rss20.media;
+  exports io.github.borewit.lizzy.playlist.jspf.json;
 
   provides io.github.borewit.lizzy.playlist.SpecificPlaylistProvider with
     io.github.borewit.lizzy.playlist.pla.PLAProvider,
@@ -51,7 +54,8 @@ module io.github.borewit.lizzy {
     io.github.borewit.lizzy.playlist.mpcpl.MPCPLProvider,
     io.github.borewit.lizzy.playlist.plp.PLPProvider,
     io.github.borewit.lizzy.playlist.m3u.M3UProvider,
-    io.github.borewit.lizzy.playlist.m3u.M3U8Provider;
+    io.github.borewit.lizzy.playlist.m3u.M3U8Provider,
+    io.github.borewit.lizzy.playlist.jspf.JspfProvider;
 
   uses io.github.borewit.lizzy.playlist.SpecificPlaylistProvider;
 
