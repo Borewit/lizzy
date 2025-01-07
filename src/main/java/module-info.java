@@ -5,6 +5,7 @@ module io.github.borewit.lizzy {
   requires jakarta.activation;
   requires org.apache.commons.io;
   requires jakarta.xml.bind;
+  requires org.glassfish.jaxb.runtime; // Add the JAXB RI implementation module
   requires dd.plist;
   requires com.fasterxml.jackson.annotation;
   requires com.fasterxml.jackson.databind;

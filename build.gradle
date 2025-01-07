@@ -30,7 +30,7 @@ dependencies {
 
     // JAXB API only
     implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.0'
-    // JAXB RI, Jakarta XML Binding
+    // JAXB RI, Jakarta XML Binding (do not change to runtimeOnly, breaks transitive dependency)
     implementation 'org.glassfish.jaxb:jaxb-runtime:4.0.5'
 
     // JUnit Jupiter using Gradle's native JUnit Platform
