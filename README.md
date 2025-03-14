@@ -78,8 +78,7 @@ public class ReadPlaylistExample {
       System.exit(-1);
     }
     specificPlaylist.toPlaylist().getRootSequence().getComponents().forEach(component -> {
-      if (component instanceof Media) {
-        Media media = (Media) component;
+      if (component instanceof Media media) {
         System.out.printf("Media with content-source=%s\n", media.getSource().toString());
       }
     });
