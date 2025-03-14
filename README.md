@@ -1,5 +1,5 @@
 [![CI](https://github.com/Borewit/lizzy/actions/workflows/ci.yml/badge.svg)](https://github.com/Borewit/lizzy/actions/workflows/ci.yml)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.borewit/lizzy/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.borewit/lizzy)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.borewit/lizzy)](https://central.sonatype.com/artifact/io.github.borewit/lizzy)
 [![javadoc](https://javadoc.io/badge2/io.github.borewit/lizzy/javadoc.svg)](https://javadoc.io/doc/io.github.borewit/lizzy)
 
 # Lizzy
