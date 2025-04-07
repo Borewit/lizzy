@@ -3,7 +3,7 @@ plugins {
     id 'maven-publish'
     id 'signing'
     id 'checkstyle'
-    id 'org.gradlex.extra-java-module-info' version '1.9'
+    id 'org.gradlex.extra-java-module-info' version '1.12'
 }
 
 apply plugin: 'maven-publish'
