@@ -48,7 +48,7 @@ dependencies {
 
     // Testing: Used to load MIME-types from JSON
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations
-    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.18.2'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.19.0'
 
     // Runtime: Used for JSPF playlists (de)serializiation
     // Testing: Used to load MIME-types from JSON
