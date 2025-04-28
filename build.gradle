@@ -53,7 +53,7 @@ dependencies {
     // Runtime: Used for JSPF playlists (de)serializiation
     // Testing: Used to load MIME-types from JSON
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.19.0'
 }
 
 // Convert legacy dependency to named Java module
