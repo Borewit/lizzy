@@ -1,92 +1,87 @@
 plugins {
-    id 'java-library'
-    id 'maven-publish'
-    id 'signing'
-    id 'checkstyle'
-    id 'org.gradlex.extra-java-module-info' version '1.13'
+  id 'java-library'
+  id 'maven-publish'
+  id 'signing'
+  id 'checkstyle'
+  id 'org.gradlex.extra-java-module-info' version '1.13'
 }
 
-apply plugin: 'maven-publish'
-
 repositories {
-    // Access the Central Repository with Gradle via HTTPS
-    // Ref: https://central.sonatype.org/consume/consume-gradle/
-    maven {
-        url = uri('https://repo.maven.apache.org/maven2/')
-    }
+  maven {
+    url = uri('https://repo.maven.apache.org/maven2/')
+  }
 }
 
 // JAXB configuration holds classpath for running the JAXB XJC compiler
 configurations {
-    jaxb
+  jaxb
 }
 
 dependencies {
-    jaxb "org.glassfish.jaxb:jaxb-xjc:4.0.5"
-    jaxb "org.glassfish.jaxb:jaxb-runtime:4.0.5"
+  jaxb "org.glassfish.jaxb:jaxb-xjc:4.0.5"
+  jaxb "org.glassfish.jaxb:jaxb-runtime:4.0.5"
 
-    // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
-    implementation 'org.apache.logging.log4j:log4j-core:2.23.1'
+  // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
+  implementation 'org.apache.logging.log4j:log4j-core:2.23.1'
 
-    // JAXB API only
-    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.0'
-    // JAXB RI, Jakarta XML Binding (do not change to runtimeOnly)
-    implementation 'org.glassfish.jaxb:jaxb-runtime:4.0.5'
+  // JAXB API only
+  implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.0'
+  // JAXB RI, Jakarta XML Binding (do not change to runtimeOnly)
+  implementation 'org.glassfish.jaxb:jaxb-runtime:4.0.5'
 
-    // JUnit Jupiter using Gradle's native JUnit Platform
-    testImplementation platform('org.junit:junit-bom:5.13.4')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-    testImplementation 'org.junit.jupiter:junit-jupiter-params'
-    testRuntimeOnly 'org.junit.platform:junit-platform-reporting'
+  // JUnit Jupiter using Gradle's native JUnit Platform
+  testImplementation platform('org.junit:junit-bom:5.13.4')
+  testImplementation 'org.junit.jupiter:junit-jupiter'
+  testImplementation 'org.junit.jupiter:junit-jupiter-params'
+  testRuntimeOnly 'org.junit.platform:junit-platform-reporting'
 
-    // PLIST implementation
-    implementation 'com.googlecode.plist:dd-plist:1.28'
+  // PLIST implementation
+  implementation 'com.googlecode.plist:dd-plist:1.28'
 
-    // Required to read InputStream with BOM-field
-    // https://mvnrepository.com/artifact/commons-io/commons-io
-    implementation 'commons-io:commons-io:2.20.0'
+  // Required to read InputStream with BOM-field
+  // https://mvnrepository.com/artifact/commons-io/commons-io
+  implementation 'commons-io:commons-io:2.20.0'
 
-    // Testing: Used to load MIME-types from JSON
-    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations
-    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.19.2'
+  // Testing: Used to load MIME-types from JSON
+  // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations
+  implementation 'com.fasterxml.jackson.core:jackson-annotations:2.19.0'
 
-    // Runtime: Used for JSPF playlists (de)serializiation
-    // Testing: Used to load MIME-types from JSON
-    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.19.2'
+  // Runtime: Used for JSPF playlists (de)serializiation
+  // Testing: Used to load MIME-types from JSON
+  // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+  implementation 'com.fasterxml.jackson.core:jackson-databind:2.19.0'
 }
 
 // Convert legacy dependency to named Java module
 extraJavaModuleInfo {
-    module('com.googlecode.plist:dd-plist', 'dd.plist') {
-        exports('com.dd.plist')
-        requires('java.xml')
-    }
+  module('com.googlecode.plist:dd-plist', 'dd.plist') {
+    exports('com.dd.plist')
+    requires('java.xml')
+  }
 }
 
 task javadocJar(type: Jar) {
-    from javadoc
-    archiveClassifier.set('javadoc')
+  from javadoc
+  archiveClassifier.set('javadoc')
 }
 
 task sourcesJar(type: Jar) {
-    archiveClassifier.set('sources')
-    from sourceSets.main.allSource
-    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+  archiveClassifier.set('sources')
+  from sourceSets.main.allSource
+  duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
 java {
-    withSourcesJar()
-    withJavadocJar()
+  withSourcesJar()
+  withJavadocJar()
 }
 
 def generated_dir = "build/generated/sources/xjc/java"
 sourceSets {
-    main {
-        java.srcDirs += generated_dir
-    }
+  main {
+    java.srcDirs += generated_dir
+  }
 }
-
 
 group = 'io.github.borewit'
 version = '4.1.2'
@@ -94,144 +89,108 @@ description = 'Lizzy'
 java.sourceCompatibility = JavaVersion.VERSION_1_9
 
 publishing {
-    publications {
+  publications {
+    mavenJava(MavenPublication) {
+      from(components.java)
+      artifactId = 'lizzy'
 
-        mavenJava(MavenPublication) {
-            from(components.java)
-            pom {
-                name = 'Lizzy'
-                description = 'Multimedia playlist parser, supporting a wide range of playlist file formats.'
-                url = 'https://github.com/Borewit/lizzy'
-                licenses {
-                    license {
-                        name = 'MIT'
-                        url = 'https://github.com/Borewit/lizzy/blob/main/LICENSE.txt'
-                    }
-                }
-                developers {
-                    developer {
-                        id = 'Borewit'
-                        name = 'Borewit'
-                        timezone = 'Europe/Amsterdam'
-                        url = 'https://github.com/Borewit'
-                    }
-                }
-                contributors {
-                    contributor {
-                        name = 'Borewit'
-                        timezone = 'Europe/Amsterdam'
-                        url = 'https://github.com/Borewit'
-                    }
-                    contributor {
-                        name = 'Christophe Delory'
-                    }
-                }
-                scm {
-                    connection = 'scm:git:https://github.com/Borewit/lizzy.git'
-                    url = 'https://github.com/Borewit/lizzy'
-                }
-            }
+      pom {
+        name = 'Lizzy'
+        description = 'Multimedia playlist parser, supporting a wide range of playlist file formats.'
+        url = 'https://github.com/Borewit/lizzy'
+        packaging = 'jar'
+        licenses {
+          license {
+            name = 'MIT'
+            url = 'https://github.com/Borewit/lizzy/blob/main/LICENSE.txt'
+          }
         }
+        developers {
+          developer {
+            id = 'Borewit'
+            name = 'Borewit'
+            timezone = 'Europe/Amsterdam'
+            url = 'https://github.com/Borewit'
+          }
+        }
+        contributors {
+          contributor {
+            name = 'Borewit'
+            timezone = 'Europe/Amsterdam'
+            url = 'https://github.com/Borewit'
+          }
+        }
+        scm {
+          connection = 'scm:git:https://github.com/Borewit/lizzy.git'
+          url = 'https://github.com/Borewit/lizzy'
+        }
+      }
     }
-    repositories {
-        maven {
-            name = "OSSRH"
-            def releasesRepoUrl = 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
-            def snapshotsRepoUrl = 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
-            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+  }
+  repositories {
+    maven {
+      name = "OSSRH"
+      def releasesRepoUrl = 'https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/'
+      def snapshotsRepoUrl = 'https://central.sonatype.com/repository/maven-snapshots/'
+      url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
 
-            credentials {
-                username = ossrhUsername
-                password = ossrhPassword
-            }
-        }
+      credentials {
+        username = findProperty('ossrhUsername') ?: ""
+        password = findProperty('ossrhPassword') ?: ""
+      }
     }
+  }
 }
 
 task checkStyle(type: DefaultTask, dependsOn: [checkstyleMain, checkstyleTest]) {
-    group = 'verification'
+  group = 'verification'
 }
 
 signing {
-    useGpgCmd()
-    sign publishing.publications.mavenJava
+  useGpgCmd()
+  sign publishing.publications.mavenJava
 }
 
 tasks.withType(Test).configureEach {
-    useJUnitPlatform()
+  useJUnitPlatform()
 }
 
 javadoc {
-    options.addBooleanOption("Xdoclint:none", true)
-    options.addStringOption("Xmaxwarns", "1")
+  options.addBooleanOption("Xdoclint:none", true)
+  options.addStringOption("Xmaxwarns", "1")
 }
 
 task checkJavaSources(type: SourceTask) {
-    source 'src/main/java'
+  source 'src/main/java'
 }
 
-// Prevent generated Java sources are checked
+// Prevent generated Java sources from being checkstyled
 tasks.checkstyleMain.source = fileTree(dir: 'src/main/java').include('**/*.java')
 
-
-// Cookie cutter function for defining multiple XJC tasks
+// JAXB XJC generation tasks
 def addXjcTask(taskName, schema, binding, dest) {
+  file(dest).mkdirs()
 
-    // If you haven't already, create the generated output dir before running XJC or it will fail
-    file(dest).mkdirs()
-
-    // The main XJC task, calls XJCFacade which is the entry point of the XJC JAR
-    tasks.create(name: taskName, type: JavaExec) {
-        group = 'xjc'
-        classpath configurations.jaxb
-        mainClass = 'com.sun.tools.xjc.XJCFacade'
-
-        // To explore available args, download the XJC JAR and run java -jar jaxb-xjc.jar --help
-        // or see https://docs.oracle.com/javase/8/docs/technotes/tools/unix/xjc.html
-        args "-extension", schema, "-b", binding, "-d", dest, "-no-header"
-
-        tasks.findByName('build').mustRunAfter 'clean'
-    }
+  tasks.create(name: taskName, type: JavaExec) {
+    group = 'xjc'
+    classpath configurations.jaxb
+    mainClass = 'com.sun.tools.xjc.XJCFacade'
+    args "-extension", schema, "-b", binding, "-d", dest, "-no-header"
+    tasks.findByName('build').mustRunAfter 'clean'
+  }
 }
 
-addXjcTask("xjc-asx",
-    "src/main/schema/asx/asx-3.0.xsd",
-    "src/main/schema/asx/binding.xjb",
-    "$generated_dir")
+addXjcTask("xjc-asx", "src/main/schema/asx/asx-3.0.xsd", "src/main/schema/asx/binding.xjb", "$generated_dir")
+addXjcTask("xjc-atom", "src/main/schema/atom/atom.xsd", "src/main/schema/atom/binding.xjb", "$generated_dir")
+addXjcTask("xjc-b4s", "src/main/schema/b4s/b4s.xsd", "src/main/schema/b4s/binding.xjb", "$generated_dir")
+addXjcTask("xjc-rmp", "src/main/schema/rmp/rmp.xsd", "src/main/schema/rmp/binding.xjb", "$generated_dir")
+addXjcTask("xjc-rss", "src/main/schema/rss/rss-2.0.xsd", "src/main/schema/rss/binding.xjb", "$generated_dir")
+addXjcTask("xjc-smil", "src/main/schema/smil20/smil20.xsd", "src/main/schema/smil20/binding.xjb", "$generated_dir")
+addXjcTask("xjc-xspf", "src/main/schema/xspf/xspf-1_0.2.xsd", "src/main/schema/xspf/binding.xjb", "$generated_dir")
 
-addXjcTask("xjc-atom",
-    "src/main/schema/atom/atom.xsd",
-    "src/main/schema/atom/binding.xjb",
-    "$generated_dir")
-
-addXjcTask("xjc-b4s",
-    "src/main/schema/b4s/b4s.xsd",
-    "src/main/schema/b4s/binding.xjb",
-    "$generated_dir")
-
-addXjcTask("xjc-rmp",
-    "src/main/schema/rmp/rmp.xsd",
-    "src/main/schema/rmp/binding.xjb",
-    "$generated_dir")
-
-addXjcTask("xjc-rss",
-    "src/main/schema/rss/rss-2.0.xsd",
-    "src/main/schema/rss/binding.xjb",
-    "$generated_dir")
-
-addXjcTask("xjc-smil",
-    "src/main/schema/smil20/smil20.xsd",
-    "src/main/schema/smil20/binding.xjb",
-    "$generated_dir")
-
-addXjcTask("xjc-xspf",
-    "src/main/schema/xspf/xspf-1_0.2.xsd",
-    "src/main/schema/xspf/binding.xjb",
-    "$generated_dir")
-
-task xjc(type: GradleBuild) {
-    group = 'xjc'
-    tasks = ['xjc-asx', 'xjc-atom', 'xjc-b4s', 'xjc-b4s', 'xjc-rmp', 'xjc-rss', 'xjc-smil', 'xjc-xspf']
+task xjc {
+  group = 'xjc'
+  dependsOn 'xjc-asx', 'xjc-atom', 'xjc-b4s', 'xjc-rmp', 'xjc-rss', 'xjc-smil', 'xjc-xspf'
 }
 
 tasks.compileJava.dependsOn(tasks.xjc)
