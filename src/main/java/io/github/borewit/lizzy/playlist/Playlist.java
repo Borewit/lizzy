@@ -176,11 +176,12 @@ public class Playlist {
     private void mergeConsecutiveIdenticalMedia(final Sequence target) {
       final AbstractPlaylistComponent[] targetComponents = target.getComponentsAsArray(); // Throws NullPointerException if target is null.
 
+      int totalRepeats = 0; // total repeats in sequence after the first occurrence      
       for (int i = 0; i < (targetComponents.length - 1); i++) {
         if (targetComponents[i] instanceof Media) {
           final Media media1 = (Media) targetComponents[i];
           int upTo = i;
-
+          
           for (int j = (i + 1); j < targetComponents.length; j++) {
             // Not a media: stop here.
             if (!(targetComponents[j] instanceof Media)) {
@@ -206,15 +207,19 @@ public class Playlist {
 
           if (upTo > i) {
             final Sequence newSequence = new Sequence(); // NOPMD Avoid instantiating new objects inside loops
-            newSequence.setRepeatCount((float) (1 + upTo - i));
-            logger.info("Merging " + newSequence.getRepeatCount() + " identical media in a new sequence");
-            target.addComponent(i, newSequence); // Shall not throw IndexOutOfBoundsException.
+            int repeatCount = 1 + upTo - i;
+            newSequence.setRepeatCount((float) repeatCount);
+            logger.info("Merging " + repeatCount + " identical media in a new sequence");
+            target.addComponent(i - totalRepeats, newSequence); // Shall not throw IndexOutOfBoundsException.
 
             for (int j = i; j <= upTo; j++) {
-              target.removeComponent(i + 1); // Shall not throw IndexOutOfBoundsException.
+              target.removeComponent(i - totalRepeats + 1); // Shall not throw IndexOutOfBoundsException.
               newSequence.addComponent(targetComponents[j]);
             }
 
+            // Update total repeats
+            totalRepeats += repeatCount - 1;
+            
             // Skip the merged media.
             i = upTo;
           }
