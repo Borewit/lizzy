@@ -176,12 +176,12 @@ public class Playlist {
     private void mergeConsecutiveIdenticalMedia(final Sequence target) {
       final AbstractPlaylistComponent[] targetComponents = target.getComponentsAsArray(); // Throws NullPointerException if target is null.
 
-      int totalRepeats = 0; // total repeats in sequence after the first occurrence      
+      int totalRepeats = 0; // total repeats in sequence after the first occurrence
       for (int i = 0; i < (targetComponents.length - 1); i++) {
         if (targetComponents[i] instanceof Media) {
           final Media media1 = (Media) targetComponents[i];
           int upTo = i;
-          
+
           for (int j = (i + 1); j < targetComponents.length; j++) {
             // Not a media: stop here.
             if (!(targetComponents[j] instanceof Media)) {
@@ -219,7 +219,7 @@ public class Playlist {
 
             // Update total repeats
             totalRepeats += repeatCount - 1;
-            
+
             // Skip the merged media.
             i = upTo;
           }
