@@ -18,8 +18,8 @@ configurations {
 }
 
 dependencies {
-  jaxb "org.glassfish.jaxb:jaxb-xjc:4.0.5"
-  jaxb "org.glassfish.jaxb:jaxb-runtime:4.0.5"
+  jaxb "org.glassfish.jaxb:jaxb-xjc:4.0.6"
+  jaxb "org.glassfish.jaxb:jaxb-runtime:4.0.6"
 
   // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
   implementation 'org.apache.logging.log4j:log4j-core:2.23.1'
@@ -27,7 +27,7 @@ dependencies {
   // JAXB API only
   implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.0'
   // JAXB RI, Jakarta XML Binding (do not change to runtimeOnly)
-  implementation 'org.glassfish.jaxb:jaxb-runtime:4.0.5'
+  implementation 'org.glassfish.jaxb:jaxb-runtime:4.0.6'
 
   // JUnit Jupiter using Gradle's native JUnit Platform
   testImplementation platform('org.junit:junit-bom:5.13.4')
